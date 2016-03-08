@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "users": {
+      "$user_id": {
+        ".write": "$user_id === auth.uid"
+      }
+    },
+    "google-users": {
+      ".read": true,
+      ".indexOn": ["email"],
+      "$google-user": {
+        ".read": true,
+        ".write": true,
+        ".validate": "newData.hasChildren(['email'])"
+      }
+    },
+    "facebook-users": {
+      ".read": true,
+      ".indexOn": ["email"],
+      "$facebook-user": {
+        ".read": true,
+        ".write": true,
+        ".validate": "newData.hasChildren(['email'])"
+      }
+    }
+  }
+}

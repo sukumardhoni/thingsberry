@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="ft_left ft_triangle"></div>
+  <div class="ft_right ft_triangle"></div>
+  <div class="row">
+    <div class="col-md-4 col-xs-12 text-center">
+      <a ui-sref="home" class="navbar-brand footer_img"><img src="modules/core/client/img/brand/Thingsberry.png" class="logo footer_elements"><u style="left: -999999px;position: absolute;">thingsberry logo</u></a>
+    </div>
+
+    <div class="col-md-8 col-xs-12 text-center">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="footer_elements">
+          <a ui-sref="companies.add" class="footer_names">ADD YOUR PRODUCT <span style="padding-left:25px" class="hidden-xs">|</span></a>
+        </li>
+        <li class="footer_elements">
+          <a ui-sref="aboutus" class="footer_names">ABOUT US <span style="padding-left:25px" class="hidden-xs">|</span></a>
+        </li>
+        <li class="footer_elements">
+          <a ui-sref="contactus" class="footer_names">CONTACT US <span style="padding-left:25px" class="hidden-xs" ng-hide="authentication.user">|</span></a>
+        </li>
+        <li ng-hide="authentication.user" class="footer_elements">
+          <a ui-sref="authentication.signin" class="footer_names">LOG IN</a>
+        </li>
+
+        <li class="row footer_elements footer_social_row">
+          <i class="fa fa-facebook col-md-4 socialIcons"></i>
+          <i class="fa fa-twitter col-md-4 socialIcons"></i>
+          <i class="fa fa-google-plus col-md-4 socialIcons"></i>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,163 @@
+.text_on_add_company {
+  font-size: 20px;
+  font-family: "OpenSans";
+  color: rgb(51, 51, 51);
+  line-height: 1.25;
+  text-align: center;
+  z-index: 308;
+}
+
+.form_inline_styles {
+  margin-right: 65px !important;
+  margin-left: 25px !important;
+}
+
+.company_name_field {
+  width: 75% !important;
+}
+
+.address_fields {
+  width: 135% !important;
+}
+
+.zipCode {
+  background: #fff url('../../../../modules/core/client/img/buttons/pin icon.png') no-repeat;
+  background-size: 15px;
+  background-position: right 10px center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #aaa;
+}
+
+.form_inline_styles> select {
+  margin-left: 0px;
+  margin-right: 25px;
+}
+
+.codeNum {
+  width: 50% !important;
+  height: 46px;
+  padding: 12px 20px !important;
+  margin-left: -35px;
+  margin-right: 60px;
+}
+
+.telephone_number {
+  width: 150% !important;
+  height: 46px;
+  padding: 12px 20px !important;
+  margin-left: -90px;
+  margin-right: 45px;
+}
+
+.briefCase_Cog {
+  position: absolute;
+  margin-left: -42%;
+  margin-top: 3%;
+  z-index: 5;
+  font-size: 24px;
+}
+
+.description {
+  width: 585px;
+  margin-left: -40px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.select_on_search_results {
+  width: 258px;
+  height: 38px;
+  border-width: 1px;
+  border-color: rgb(218, 218, 218);
+  border-style: solid;
+  background-color: rgb(255, 255, 255);
+  font-size: 18px;
+  padding: 0px 15px;
+  background: #fff url('../../../../modules/core/client/img/buttons/arrow.png') no-repeat;
+  background-size: 15px;
+  background-position: right 10px center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.Back_to_search {
+  font-size: 18px;
+  font-family: "OpenSans";
+  color: rgb(2, 168, 243);
+  line-height: 1.333;
+  z-index: 203;
+}
+
+.business_sector_select {
+  border: 1px solid rgb(212, 211, 211);
+  background-color: rgb(255, 255, 255);
+  width: 270px;
+  height: 50px;
+  z-index: 153;
+  font-size: 20px;
+  font-family: "OpenSans";
+  color: rgb(51, 51, 51);
+  line-height: 1.2;
+  text-align: center;
+  background: #fff url('../../../../modules/core/client/img/buttons/arrow.png') no-repeat;
+  background-size: 15px;
+  background-position: right 10px center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.business_sector_select > .caret {
+  display: none !important;
+}
+
+.business_sector_selected_vals {
+  font-size: 18px;
+  font-family: "OpenSans";
+  color: rgb(51, 51, 51);
+  line-height: 4.286;
+  text-align: center;
+  border-radius: 5px;
+  background-color: rgb(244, 244, 244);
+  height: 40px;
+}
+
+.fa-times {
+  font-size: 16px;
+  color: rgb(157, 157, 157);
+  line-height: 3.75;
+  text-align: center;
+  z-index: 162;
+}
+
+.operational_regions {
+  font-size: 20px;
+  font-family: "OpenSans";
+  color: rgb(51, 51, 51) !important;
+  text-align: center;
+  z-index: 50;
+}
+
+.heading_Text {
+  font-size: 18px;
+  font-family: "OpenSans";
+  color: rgb(2, 168, 243);
+  line-height: 1;
+  text-align: center;
+  z-index: 58;
+}
+
+.add_form_category > select {
+  background: #fff url('../../../../modules/core/client/img/buttons/arrow.png') no-repeat;
+  background-size: 15px;
+  background-position: right 10px center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: 20px;
+  font-family: "OpenSans";
+  color: rgb(51, 51, 51);
+  text-align: center;
+  text-indent: 25px;
+  width: 345px;
+  height: 45px;
+}

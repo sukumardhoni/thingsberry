@@ -1,0 +1,28 @@
+{
+  "name": "thingsberry.com",
+  "description": "Fullstack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+  "homepage": "http://meanjs.org/",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.3",
+    "angular-animate": "~1.3",
+    "angular-bootstrap": "~1.0",
+    "angular-file-upload": "1.1.5",
+    "angular-messages": "~1.3.17",
+    "angular-mocks": "~1.3",
+    "angular-resource": "~1.3",
+    "angular-ui-router": "~0.2",
+    "angular-ui-utils": "bower",
+    "bootstrap": "~3",
+    "owasp-password-strength-test": "~1.3.0",
+    "font-awesome": "^4.5.0",
+    "firebase": "^2.4.1",
+    "angularfire": "^1.1.3",
+    "angular-utils-ui-breadcrumbs": "^0.2.2",
+    "angularjs-dropdown-multiselect": "^1.5.2",
+    "angular-filter": "^0.5.8"
+  },
+  "resolutions": {
+    "angular": "~1.3"
+  }
+}

@@ -1,0 +1,107 @@
+.divider {
+  text-align: center;
+}
+
+.divider hr {
+  margin-top: 8px !important;
+  margin-left: auto;
+  margin-right: auto;
+  width: 36%;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.message {
+  width: 581px;
+  height: 150px;
+  margin-left: -45px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+input[type=email],
+input[type=text],
+input[type=number],
+input[type=password],
+.signup-input-text {
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.btn-custom-style {
+  color: #fff;
+  border-radius: 5px;
+  background-color: rgb(2, 168, 243) !important;
+  font-size: 16px;
+  font-family: "OpenSans";
+  width: 150px;
+  height: 50px;
+}
+
+.fb-btn-style {
+  color: #fff;
+  border-radius: 0px;
+  background-color: rgb(59, 89, 152);
+  font-size: 18px;
+  width: 235px;
+  height: 50px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+}
+
+.g-btn-style:hover,
+.fb-btn-style:hover,
+.g-btn-style:focus,
+.fb-btn-style:focus {
+  color: #d2d2d2;
+}
+
+.g-btn-style {
+  color: #fff;
+  border-radius: 0px;
+  background-color: rgb(211, 72, 54);
+  font-size: 18px;
+  width: 235px;
+  height: 50px;
+}
+
+.invisible_checkbox > input[type="checkbox"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  font-weight: normal;
+  text-align: left;
+}
+
+input[type="checkbox"] + label:before {
+  border: 1px solid #b3b3b3;
+  content: "\00a0";
+  display: inline-block;
+  font: 16px/1em sans-serif;
+  height: 16px;
+  margin: 0 .25em 0 0;
+  padding: 0;
+  vertical-align: top;
+  width: 16px;
+}
+
+input[type="checkbox"]:checked + label:before {
+  background: rgb(2, 168, 243);
+  border: 1px solid rgb(2, 168, 243);
+  color: white;
+  content: "\2713";
+  text-align: center;
+}
+
+.authentication {
+  padding-left: 120px;
+}

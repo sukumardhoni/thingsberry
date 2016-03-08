@@ -1,0 +1,219 @@
+<section ng-controller="HomeController">
+  <div class="home-page-bg  hidden-xs hidden-sm">
+    <div class="left triangle"></div>
+    <div class="right triangle"></div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="content-on-img hidden-xs hidden-sm">
+    <div class="row  text-center">
+      <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-3 col-xs-12">
+        <p class="lead text_over_bg" style="padding:10px">
+          Find all the key companies worldwide, in the Internet of Things (IoT) Machine to Machine (M2M), near-field communications (NFC), and connected device sectors....
+        </p>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row text-center">
+      <div class="box"></div>
+      <div class="container search-details-form">
+        <form role="form" class="form-inline" style="padding-left: 5px;">
+          <div class="form-group default-search">
+            <select>
+              <option>Category</option>
+              <option>HOME</option>
+              <option>HEALTH CARE</option>
+              <option>AUTOMOBILE</option>
+              <option>AGRICULTURE</option>
+              <option>UTILITIES</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="Company" id="exampleInputEmail2" class="custom-homepage-input">
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="Product" id="exampleInputPassword2" class="custom-homepage-input">
+          </div>
+          <button class="btn btn-custom-search" type="submit">SEARCH</button>
+          <br>
+          <br>
+          <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div ng-show="Advanced_Search_Fields">
+            <div class="form-group Advanced_Search_Fields">
+              <select class="country_select">
+                <option>Country</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+              </select>
+              <select class="state_select">
+                <option>State</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+              </select>
+              <input type="text" placeholder="Zip Code" id="exampleInputPassword2" class="zipcode_select">
+              <!--<select class="zipcode_select">
+                <option>Zip Code</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+              </select>-->
+            </div>
+            <br>
+            <br>
+            <div class="form-group Advanced_Search_Fields">
+              <select class="business_select">
+                <option>Business</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+                <option>LOREM IPSUM</option>
+              </select>
+            </div>
+            <div class="check-box-landingpage invisible_checkbox" style="float:right">
+              <input type="checkbox" ng-model="userForm.rememberme" id="rememberme">
+              <label for="rememberme"> Lorem ipsum dolor sit amet</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-10 col-lg-offset-1">
+        <h2>Popular Categories</h2>
+        <hr class="small">
+        <br>
+        <br>
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x">
+                                <i class="fa fa-home fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>
+                                    <span class="Cat-name">HOME</span>
+                                </h4>
+              <span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>
+
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x">
+                                <i class="fa fa-car fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>
+                                    <span class="Cat-name">AUTOMOBILE</span>
+                                </h4>
+              <span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>
+
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x">
+                                <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>
+                                    <span class="Cat-name">HEALTH CARE</span>
+                                </h4>
+              <span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>
+
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x">
+                                <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>
+                                    <span class="Cat-name">UTILITIES</span>
+                                </h4>
+              <span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>
+
+            </div>
+          </div>
+        </div>
+        <!-- /.row (nested) -->
+      </div>
+      <!-- /.col-lg-10 -->
+    </div>
+    <br>
+    <br>
+    <div class="row text-center">
+      <div class="col-lg-10 col-lg-offset-1 text-center">
+        <h2>For Company Owners</h2>
+        <hr class="small">
+        <br>
+        <div class="row">
+          <div class="col-md-offset-1 col-md-10 col-sm-6 text-center">
+            <p class="forCompanyOwnersText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6 col-sm-6">
+            <div class="text-center img-outer">
+              <span class="img-label"><i class="fa fa-star star_on_img-label"></i></span>
+              <p class="company_name">SONY</p>
+              <div class="sony_logo"></div>
+              <p class="text-on-img">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+            </div>
+            <div class="icons-on-img-footer">
+              <div class="row">
+                <i class="fa fa-info-circle col-md-4"></i>
+                <i class="fa fa-star col-md-4" style="padding-left:50px"></i>
+                <i class="fa fa-globe col-md-4" style="padding-left:70px"></i>
+              </div>
+            </div>
+            <div class="text-center form-group">
+              <button type="submit" class="btn btn-add-company">ADD YOUR PRODUCT</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</section>
