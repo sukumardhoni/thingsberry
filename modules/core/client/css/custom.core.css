@@ -83,7 +83,7 @@ navbar-inverse .navbar-nav > .open > a,
   height: 750px;
   min-height: auto;
   text-align: center;
-  background-image: url(../img/homepage.jpg);
+  background-image: url(../../../../modules/core/client/img/homepage.jpg);
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -99,7 +99,7 @@ navbar-inverse .navbar-nav > .open > a,
   height: 430px;
   min-height: auto;
   text-align: center;
-  background-image: url(../img/about_us.jpg);
+  background-image: url(../../../../modules/core/client/img/about_us.jpg);
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
