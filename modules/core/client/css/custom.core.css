@@ -173,10 +173,10 @@ navbar-inverse .navbar-nav > .open > a,
   background-color: rgb(51, 51, 51);
   opacity: 0.588;
   position: absolute;
-  left: 210px;
+  left: 13%;
   top: 180px;
-  width: 1104px;
-  height: 458px;
+  width: 72%;
+  height: 80%;
   z-index: -1;
 }
 
