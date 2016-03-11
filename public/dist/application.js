@@ -21,6 +21,7 @@ var ApplicationConfiguration = (function () {
     registerModule: registerModule
   };
 })();
+
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -723,6 +724,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 (function () {
   'use strict';
 
@@ -1323,6 +1325,7 @@ angular.module('core')
     }
   };
 })
+
 'use strict';
 
 // Create the Socket.io wrapper service

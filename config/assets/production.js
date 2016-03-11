@@ -10,6 +10,7 @@ module.exports = {
         'public/lib/toastr/toastr.min.css',
       ],
       js: [
+        'public/lib/jquery/dist/jquery.min.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',
         'public/lib/angular-animate/angular-animate.min.js',
