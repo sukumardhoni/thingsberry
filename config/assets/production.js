@@ -7,6 +7,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
         'public/lib/font-awesome/css/font-awesome.min.css',
+        'public/lib/toastr/toastr.min.css',
       ],
       js: [
         'public/lib/angular/angular.min.js',
@@ -23,6 +24,9 @@ module.exports = {
         'public/lib/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js',
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular-filter/dist/angular-filter.min.js',
+        'public/lib/angular-base64-upload/dist/angular-base64-upload.min.js',
+        'public/assets/js/freelancer.js',
+        'public/lib/toastr/toastr.js',
         //'public/lib/angular-utils-ui-breadcrumbs/uiBreadcrumbs.js'
       ]
     },

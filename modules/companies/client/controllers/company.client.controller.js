@@ -5,9 +5,9 @@
     .module('companies')
     .controller('CompanyController', CompanyController);
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory'];
 
-  function CompanyController($scope, $state, company, Authentication) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory) {
     var vm = this;
 
     vm.company = company;
@@ -81,22 +81,37 @@
       } else {
 
         vm.company.ProCat = $scope.selectedCategory;
-        vm.company.businessSector = $scope.businessSectorSelectedArray;
-        vm.company.serviceOffered = $scope.serviceOfferedSelectedArray;
-        vm.company.serviceOffered = $scope.serviceOfferedSelectedArray;
+        vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
+        vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
 
 
-        //vm.company.$save(successCallback, errorCallback);
+        function genBusinessArray(businessArray) {
+          //console.log('genBusinessArray length : ' + businessArray.length);
+          //console.log('genBusinessArray length : ' + JSON.stringify(businessArray));
+          var businessSecArr = [];
+          for (var i = 0; i < businessArray.length; i++) {
+            businessSecArr.push(businessArray[i].id)
+          }
+          if (businessArray.length === businessSecArr.length) {
+            //console.log('returning the array generated : ' + JSON.stringify(businessSecArr));
+            return businessSecArr;
+          }
+        }
 
 
-        console.log('Company details from the form : ' + JSON.stringify(vm.company));
+        vm.company.$save(successCallback, errorCallback);
+
+
+        //console.log('Company details from the form : ' + JSON.stringify(vm.company));
 
 
       }
 
       function successCallback(res) {
         console.log('Company details from the server after successfully saved : ' + JSON.stringify(res));
+
+        NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
         /*$state.go('company.view', {
           companyId: res._id
         });*/
@@ -104,6 +119,7 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        NotificationFactory.error('Failed to save Product details...', res.data.message);
       }
     }
 
@@ -245,7 +261,32 @@
 
 
 
+    $scope.previewImg = function (val) {
+      $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
+      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
+    };
 
+
+
+    $scope.uploadProImg = function () {
+      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
+
+      var ref = new Firebase("https://thingsberry.firebaseio.com/productImages");
+      var proImgRef = ref.child(vm.company.Proname);
+
+      proImgRef.set({
+        filetype: $scope.productImg.filetype,
+        base64: $scope.productImg.base64
+      }, function (error, proImgData) {
+        if (error) {
+          console.log("IMage could not be saved." + error);
+        } else {
+          console.log("IMage saved successfully.");
+        }
+      });
+
+
+    };
 
 
   }

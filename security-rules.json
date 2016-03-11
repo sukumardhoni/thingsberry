@@ -22,6 +22,10 @@
         ".write": true,
         ".validate": "newData.hasChildren(['email'])"
       }
+    },
+    "productImages": {
+      ".read": true,
+      ".write": true
     }
   }
 }

@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
-  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'firebase', 'angularjs-dropdown-multiselect', 'angular.filter'];
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'firebase', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -21,7 +21,6 @@ var ApplicationConfiguration = (function () {
     registerModule: registerModule
   };
 })();
-
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -438,9 +437,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .module('companies')
     .controller('CompanyController', CompanyController);
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory'];
 
-  function CompanyController($scope, $state, company, Authentication) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory) {
     var vm = this;
 
     vm.company = company;
@@ -514,22 +513,37 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       } else {
 
         vm.company.ProCat = $scope.selectedCategory;
-        vm.company.businessSector = $scope.businessSectorSelectedArray;
-        vm.company.serviceOffered = $scope.serviceOfferedSelectedArray;
-        vm.company.serviceOffered = $scope.serviceOfferedSelectedArray;
+        vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
+        vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
 
 
-        //vm.company.$save(successCallback, errorCallback);
+        function genBusinessArray(businessArray) {
+          //console.log('genBusinessArray length : ' + businessArray.length);
+          //console.log('genBusinessArray length : ' + JSON.stringify(businessArray));
+          var businessSecArr = [];
+          for (var i = 0; i < businessArray.length; i++) {
+            businessSecArr.push(businessArray[i].id)
+          }
+          if (businessArray.length === businessSecArr.length) {
+            //console.log('returning the array generated : ' + JSON.stringify(businessSecArr));
+            return businessSecArr;
+          }
+        }
 
 
-        console.log('Company details from the form : ' + JSON.stringify(vm.company));
+        vm.company.$save(successCallback, errorCallback);
+
+
+        //console.log('Company details from the form : ' + JSON.stringify(vm.company));
 
 
       }
 
       function successCallback(res) {
         console.log('Company details from the server after successfully saved : ' + JSON.stringify(res));
+
+        NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
         /*$state.go('company.view', {
           companyId: res._id
         });*/
@@ -537,6 +551,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        NotificationFactory.error('Failed to save Product details...', res.data.message);
       }
     }
 
@@ -678,12 +693,36 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
+    $scope.previewImg = function (val) {
+      $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
+      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
+    };
 
+
+
+    $scope.uploadProImg = function () {
+      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
+
+      var ref = new Firebase("https://thingsberry.firebaseio.com/productImages");
+      var proImgRef = ref.child(vm.company.Proname);
+
+      proImgRef.set({
+        filetype: $scope.productImg.filetype,
+        base64: $scope.productImg.base64
+      }, function (error, proImgData) {
+        if (error) {
+          console.log("IMage could not be saved." + error);
+        } else {
+          console.log("IMage saved successfully.");
+        }
+      });
+
+
+    };
 
 
   }
 })();
-
 (function () {
   'use strict';
 
@@ -1254,6 +1293,36 @@ angular.module('core').service('Menus', [
   }
 ]);
 
+'use strict';
+
+//Notification service
+angular.module('core')
+
+.factory('NotificationFactory', function () {
+  toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "onclick": null,
+    "showDuration": "400",
+    "hideDuration": "1000",
+    "timeOut": "7000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+  return {
+    success: function (msg, title) {
+      toastr.success(msg, title);
+    },
+    error: function (msg, title) {
+      toastr.error(msg, title);
+    }
+  };
+})
 'use strict';
 
 // Create the Socket.io wrapper service
