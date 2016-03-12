@@ -359,7 +359,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         controller: 'CompanyListController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Company List',
+          pageTitle: 'Products List',
           displayName: 'Searched Products'
         }
       })
@@ -373,7 +373,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Company Create'
+          pageTitle: 'Create Product'
         }
       })
       .state('companies.add', {
@@ -430,7 +430,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
-
 (function () {
   'use strict';
 

@@ -23,7 +23,7 @@
         controller: 'CompanyListController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Company List',
+          pageTitle: 'Products List',
           displayName: 'Searched Products'
         }
       })
@@ -37,7 +37,7 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Company Create'
+          pageTitle: 'Create Product'
         }
       })
       .state('companies.add', {

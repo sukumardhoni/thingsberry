@@ -1,6 +1,6 @@
 {
   "name": "thingsberry.com",
-  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+  "description": "A comprehensive listing of All Internet Of Things.",
   "version": "0.4.2",
   "meanjs-version": "0.4.2",
   "private": false,

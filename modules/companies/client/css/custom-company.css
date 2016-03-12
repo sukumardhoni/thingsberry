@@ -165,7 +165,7 @@
 .floating-label-form-group {
   position: relative;
   margin-bottom: 0;
-  color: #18bc9c;
+  color: rgb(2, 168, 243);
 }
 
 .floating-label-form-group input,
@@ -202,7 +202,7 @@
 }
 
 .floating-label-form-group-with-focus label {
-  color: #18bc9c;
+  color: rgb(2, 168, 243);
 }
 
 form .row:first-child .floating-label-form-group {
