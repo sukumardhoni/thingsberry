@@ -430,6 +430,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
+
 (function () {
   'use strict';
 

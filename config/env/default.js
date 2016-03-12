@@ -4,7 +4,7 @@ module.exports = {
   app: {
     title: 'thingsberry.com',
     description: 'A comprehensive listing of All Internet Of Things',
-    keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
+    keywords: 'All Internet Of Things, iot, internet, things',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   port: process.env.PORT || 3000,
@@ -41,7 +41,7 @@ module.exports = {
     },
     xssProtection: true
   },
-  logo: 'modules/core/client/img/brand/Thingsberry_logo.png',
+  logo: 'modules/core/client/img/brand/Thingsberry_logo1.png',
   favicon: 'modules/core/client/img/brand/favicon.ico',
   uploads: {
     profileUpload: {

@@ -1,6 +1,6 @@
 {
   "name": "thingsberry.com",
-  "description": "Fullstack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+  "description": "A comprehensive listing of All Internet Of Things.",
   "homepage": "http://meanjs.org/",
   "license": "MIT",
   "dependencies": {
