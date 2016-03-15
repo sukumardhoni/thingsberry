@@ -5,9 +5,9 @@
     .module('companies')
     .controller('CompanyController', CompanyController);
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout) {
     var vm = this;
 
     vm.company = company;
@@ -52,9 +52,11 @@
 
       function successCallback(res) {
 
-        $state.go('company.view', {
-          companyId: res._id
-        });
+        $timeout(function () {
+          $state.go('company.view', {
+            companyId: res._id
+          });
+        }, 7000);
       }
 
       function errorCallback(res) {
@@ -100,6 +102,12 @@
         }
 
 
+        vm.company.logo = {
+          filetype: $scope.productImg.filetype,
+          base64: $scope.productImg.base64
+        };
+
+
         vm.company.$save(successCallback, errorCallback);
 
 
@@ -110,7 +118,7 @@
 
       function successCallback(res) {
         console.log('Company details from the server after successfully saved : ' + JSON.stringify(res));
-
+        $state.go('companies.list');
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
         /*$state.go('company.view', {
           companyId: res._id

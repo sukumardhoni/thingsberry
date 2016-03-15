@@ -8,6 +8,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Firebase = require("firebase"),
   nodemailer = require('nodemailer'),
   async = require('async'),
   crypto = require('crypto');
@@ -97,6 +98,28 @@ exports.forgot = function (req, res, next) {
     }
   });
 };
+
+
+
+exports.forgotPwdFirebase = function (req, res, next) {
+  var ref = new Firebase("https://thingsberry.firebaseio.com");
+  ref.resetPassword({
+    email: req.body.email
+  }, function (error) {
+    if (error === null) {
+      console.log("Password reset email sent successfully");
+      res.send({
+        message: 'An email has been sent to the provided email with further instructions.'
+      });
+    } else {
+      console.log("Error sending password reset email:", error);
+    }
+  });
+};
+
+
+
+
 
 /**
  * Reset password GET from email token

@@ -1,14 +1,17 @@
 <div class="text-center img-outer">
   <span class="img-label"><i class="fa fa-star star_on_img-label"></i></span>
-  <p class="company_name">SONY</p>
-  <div class="sony_logo"></div>
-  <p class="text-on-img">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+  <p class="company_name">{{details.Proname}}</p>
+  <!-- <div class="sony_logo" ng-style="{'background-image':'url({{proImgUrl}})'}"></div>-->
+  <img alt="productImg" ng-src="{{proImgUrl()}}" class="photo" width="30%" style="padding-top: 55px" />
+  <!--<img alt="productImg" ng-src="{{getProImgUrl(details.Proname)}}" class="photo" width="15%" />-->
+  <p class="text-on-img">{{ details.description | limitTo: 150 }}{{details.description.length > 150 ? '...' : ''}}</p>
 </div>
 <div class="icons-on-img-footer">
   <div class="row">
     <i class="fa fa-info-circle col-md-4"></i>
     <i class="fa fa-star col-md-4" style="padding-right:75px"></i>
-    <i class="fa fa-globe col-md-4" style="padding-right:110px"></i>
+    <a ng-href="http://www.{{details.webAddress}}" target="_blank"><i class="fa fa-globe col-md-4" style="padding-right:110px"></i></a>
+
   </div>
 </div>
 <br>

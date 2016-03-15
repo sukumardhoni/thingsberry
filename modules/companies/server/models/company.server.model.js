@@ -83,9 +83,8 @@ var CompanySchema = new Schema({
     trim: true
   },
   logo: {
-    type: String,
-    default: '',
-    trim: true
+    filetype: String,
+    base64: String
   },
   description: {
     type: String,

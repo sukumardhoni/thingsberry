@@ -21,7 +21,7 @@
     <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
   </li>
 </ul>-->
-    <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
+    <ul class="nav navbar-nav navbar-right">
       <li ui-sref-active="active">
         <a ui-sref="home" class="header-title-names">HOME</a>
       </li>
@@ -37,16 +37,15 @@
       <li ui-sref-active="active">
         <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-hide="authentication.user">
         <a ui-sref="authentication.signin" class="header-title-names"><img src="modules/core/client/img/user icon.png" class="user-icon">&nbsp;LOG IN</a>
       </li>
-      <li class="divider-vertical"></li>
-      <li ui-sref-active="active">
+      <li class="divider-vertical" ng-hide="authentication.user"></li>
+      <li ui-sref-active="active" ng-hide="authentication.user">
         <a ui-sref="authentication.signup" class="header-title-names">SIGN UP</a>
       </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
-      <li class="dropdown" uib-dropdown>
+
+      <li class="dropdown" uib-dropdown ng-show="authentication.user" style="    margin-top: 15px;">
         <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
           <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
@@ -61,6 +60,9 @@
           </li>
         </ul>
       </li>
+
+
     </ul>
+
   </nav>
 </div>

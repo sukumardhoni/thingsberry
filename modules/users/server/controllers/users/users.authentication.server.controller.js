@@ -72,6 +72,48 @@ exports.signin = function (req, res, next) {
   })(req, res, next);
 };
 
+
+
+
+
+exports.signupFirebase = function (req, res, next) {
+
+  var ref = new Firebase("https://thingsberry.firebaseio.com");
+
+  ref.createUser({
+    email: req.body.email,
+    password: req.body.password
+  }, function (error, userData) {
+    if (error) {
+      console.log("Error creating user:", error);
+    } else {
+      console.log("Successfully created user account with uid:", userData.uid);
+      console.log("Successfully created user account details : " + JSON.stringify(userData));
+      res.json(userData);
+    }
+  });
+
+
+};
+
+
+exports.signinFirebase = function (req, res, next) {
+  var ref = new Firebase("https://thingsberry.firebaseio.com");
+  ref.authWithPassword({
+    email: req.body.email,
+    password: req.body.password
+  }, function (error, authData) {
+    if (error) {
+      console.log("Login Failed!", error);
+    } else {
+      console.log("Authenticated successfully with payload:", authData);
+      console.log("Authenticated Successfully  user account details : " + JSON.stringify(authData));
+      res.json(authData);
+    }
+  });
+
+};
+
 /**
  * Signout
  */

@@ -438,9 +438,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .module('companies')
     .controller('CompanyController', CompanyController);
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout) {
     var vm = this;
 
     vm.company = company;
@@ -485,9 +485,11 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       function successCallback(res) {
 
-        $state.go('company.view', {
-          companyId: res._id
-        });
+        $timeout(function () {
+          $state.go('company.view', {
+            companyId: res._id
+          });
+        }, 7000);
       }
 
       function errorCallback(res) {
@@ -533,6 +535,12 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
 
 
+        vm.company.logo = {
+          filetype: $scope.productImg.filetype,
+          base64: $scope.productImg.base64
+        };
+
+
         vm.company.$save(successCallback, errorCallback);
 
 
@@ -543,7 +551,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       function successCallback(res) {
         console.log('Company details from the server after successfully saved : ' + JSON.stringify(res));
-
+        $state.go('companies.list');
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
         /*$state.go('company.view', {
           companyId: res._id
@@ -724,7 +732,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 (function () {
   'use strict';
 
@@ -732,16 +739,22 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService'];
+  CompanyListController.$inject = ['CompanyService', '$scope'];
 
-  function CompanyListController(CompanyService) {
+  function CompanyListController(CompanyService, $scope) {
     var vm = this;
 
-    vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
-    //vm.companys = CompanyService.query();
+    //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
+    CompanyService.query(function (res) {
+      //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
+      vm.companys = res;
+    });
+
+    $scope.getProImgUrl = function () {
+      console.log('getProImgUrl is called')
+    };
   }
 })();
-
 'use strict';
 
 
@@ -749,13 +762,19 @@ angular.module('companies')
   .directive('productThumbnail', function () {
     return {
       restrict: 'E',
+      scope: {
+        details: '='
+      },
       templateUrl: 'modules/companies/client/views/directive-partials/product-thumbnail.client.view.html',
       link: function (scope, elem, attrs) {
+
+        scope.proImgUrl = function () {
+          return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+        }
 
       }
     };
   });
-
 (function () {
   'use strict';
 
@@ -1325,7 +1344,6 @@ angular.module('core')
     }
   };
 })
-
 'use strict';
 
 // Create the Socket.io wrapper service
@@ -1520,7 +1538,7 @@ angular.module('users').config(['$stateProvider',
         }
       })
       .state('password.reset.form', {
-        url: '/:token',
+        url: '/passwordReset',
         templateUrl: 'modules/users/client/views/password/reset-password.client.view.html',
         data: {
           pageTitle: 'Password reset form'
@@ -1528,7 +1546,6 @@ angular.module('users').config(['$stateProvider',
       });
   }
 ]);
-
 'use strict';
 
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',

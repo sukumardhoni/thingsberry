@@ -92,6 +92,7 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      console.log('Server side List of products : ' + JSON.stringify(companies));
       res.json(companies);
     }
   });

@@ -5,7 +5,6 @@
     <hr class="small">
   </div>
   <br>
-
   <div class="row">
     <span class="col-md-2 Back_to_search"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to search</span><span class="col-md-8"><center><select class="select_on_search_results">
               <option>Sort by</option>
@@ -24,7 +23,7 @@
       <div ng-repeat="val in vm.companys">
         <div class="clearfix" ng-if="$index % 2 == 0"></div>
         <div class="col-md-6 col-xs-12">
-          <product-thumbnail></product-thumbnail>
+          <product-thumbnail details=val></product-thumbnail>
         </div>
       </div>
     </div>

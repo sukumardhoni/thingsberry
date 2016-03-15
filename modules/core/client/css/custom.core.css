@@ -408,7 +408,7 @@ hr.small {
   -webkit-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
   -ms-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
   position: absolute;
-  left: 50px;
+  left: 120px;
   top: 20px;
   z-index: 36;
 }
@@ -457,7 +457,7 @@ hr.small {
   text-align: left;
   position: absolute;
   left: 40px;
-  top: 165px;
+  top: 196px;
   width: 475px;
   height: 62px;
   z-index: 34;
