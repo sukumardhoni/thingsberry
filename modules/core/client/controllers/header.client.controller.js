@@ -15,6 +15,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     // Toggle the menu items
     $scope.isCollapsed = false;
     $scope.toggleCollapsibleMenu = function () {
+      console.log('id="tb-navbar-collapse" is called : ' + $scope.isCollapsed);
       $scope.isCollapsed = !$scope.isCollapsed;
     };
 

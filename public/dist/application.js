@@ -755,6 +755,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
   }
 })();
+
 'use strict';
 
 
@@ -775,6 +776,7 @@ angular.module('companies')
       }
     };
   });
+
 (function () {
   'use strict';
 
@@ -962,6 +964,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     // Toggle the menu items
     $scope.isCollapsed = false;
     $scope.toggleCollapsibleMenu = function () {
+      console.log('id="tb-navbar-collapse" is called : ' + $scope.isCollapsed);
       $scope.isCollapsed = !$scope.isCollapsed;
     };
 
@@ -985,7 +988,6 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication',
@@ -1344,6 +1346,7 @@ angular.module('core')
     }
   };
 })
+
 'use strict';
 
 // Create the Socket.io wrapper service
@@ -1546,6 +1549,7 @@ angular.module('users').config(['$stateProvider',
       });
   }
 ]);
+
 'use strict';
 
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',

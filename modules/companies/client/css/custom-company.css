@@ -7,6 +7,16 @@
   z-index: 308;
 }
 
+.code,
+.tel {
+  display: inline-block;
+  padding: 0px !important;
+}
+
+.add_new_fields {
+  height: 50px;
+}
+
 .form_inline_styles {
   margin-right: 65px !important;
   margin-left: 25px !important;
@@ -58,13 +68,6 @@
   font-size: 24px;
 }
 
-.description {
-  width: 585px;
-  margin-left: -40px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-}
-
 .select_on_search_results {
   width: 258px;
   height: 38px;
@@ -91,8 +94,9 @@
 
 .business_sector_select {
   border: 1px solid rgb(212, 211, 211);
+  border-radius: 5px;
   background-color: rgb(255, 255, 255);
-  width: 270px;
+  width: 480px;
   height: 50px;
   z-index: 153;
   font-size: 20px;
@@ -115,7 +119,6 @@
   font-size: 18px;
   font-family: "OpenSans";
   color: rgb(51, 51, 51);
-  line-height: 4.286;
   text-align: center;
   border-radius: 5px;
   background-color: rgb(244, 244, 244);
@@ -171,8 +174,6 @@
 .floating-label-form-group input,
 .floating-label-form-group textarea {
   z-index: 1;
-  padding-right: 0;
-  padding-left: 0;
   box-shadow: none!important;
   resize: none;
   color: rgb(51, 51, 51) !important;
@@ -203,10 +204,6 @@
 
 .floating-label-form-group-with-focus label {
   color: rgb(2, 168, 243);
-}
-
-form .row:first-child .floating-label-form-group {
-  border-top: 1px solid #eee;
 }
 
 .file-upload {

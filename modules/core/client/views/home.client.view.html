@@ -1,5 +1,5 @@
 <section ng-controller="HomeController">
-  <div class="home-page-bg  hidden-xs hidden-sm">
+  <div class="home-page-bg">
     <div class="left triangle"></div>
     <div class="right triangle"></div>
   </div>
@@ -7,9 +7,9 @@
   <br>
   <br>
   <br>
-  <div class="content-on-img hidden-xs hidden-sm">
+  <div class="content-on-img ">
     <div class="row  text-center">
-      <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-3 col-xs-12">
+      <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-3 col-xs-12">
         <p class="lead text_over_bg" style="padding:10px">
           Find all the key companies worldwide, in the Internet of Things (IoT) Machine to Machine (M2M), near-field communications (NFC), and connected device sectors....
         </p>
@@ -18,11 +18,11 @@
     <br>
     <br>
     <br>
-    <div class="row text-center">
+    <div class="row text-center ">
       <div class="box"></div>
       <div class="container search-details-form">
         <form role="form" class="form-inline" style="padding-left: 5px;">
-          <div class="form-group default-search">
+          <!--<div class="form-group default-search">
             <select>
               <option>Category</option>
               <option>HOME</option>
@@ -38,14 +38,46 @@
           <div class="form-group">
             <input type="text" placeholder="Product" id="exampleInputPassword2" class="custom-homepage-input">
           </div>
-          <button class="btn btn-custom-search" type="submit">SEARCH</button>
-          <br>
-          <br>
-          <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
-          <br>
-          <br>
-          <br>
-          <br>
+          <button class="btn btn-custom-search" type="submit">SEARCH</button>-->
+
+          <!--<input type="text" list="category" class="form-control" name="category" placeholder="Category">
+          <datalist id="category">
+            <option value="Internet Explorer">
+              <option value="Firefox">
+                <option value="Chrome">
+                  <option value="Opera">
+                    <option value="Safari">
+          </datalist>-->
+          <div class="form-group default-search">
+            <select class="form-control">
+              <option>Category</option>
+              <option>HOME</option>
+              <option>HEALTH CARE</option>
+              <option>AUTOMOBILE</option>
+              <option>AGRICULTURE</option>
+              <option>UTILITIES</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control custom-homepage-input" id="company" placeholder="Company">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control custom-homepage-input" id="product" placeholder="Product">
+          </div>
+          <div class="btn-group ">
+            <button type="button" class="btn btn-custom-search">Search</button>
+          </div>
+
+
+
+
+          <!--<br>
+<br>
+<p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
+<br>
+<br>
+<br>
+<br>-->
           <div ng-show="Advanced_Search_Fields">
             <div class="form-group Advanced_Search_Fields">
               <select class="country_select">
