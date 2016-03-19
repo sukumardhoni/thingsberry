@@ -1,4 +1,4 @@
-<div class="container" ng-controller="HeaderController">
+<!--<div class="container" ng-controller="HeaderController">
   <nav class="navbar" role="navigation">
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#tb-navbar-collapse" ng-click="toggleCollapsibleMenu()">
@@ -12,7 +12,7 @@
       </a>
     </div>
     <div class="collapse navbar-collapse" id="tb-navbar-collapse" uib-collapse="!isCollapsed">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right text-center">
         <li ui-sref-active="active">
           <a ui-sref="home" class="header-title-names">HOME</a>
         </li>
@@ -24,6 +24,9 @@
           <a ui-sref="aboutus" class="header-title-names">ABOUT US</a>
         </li>
         <li ui-sref-active="active">
+          <a ui-sref="companies.list" class="header-title-names">List</a>
+        </li>
+        <li ui-sref-active="active">
           <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
         </li>
         <li ui-sref-active="active" ng-hide="authentication.user">
@@ -33,7 +36,7 @@
         <li ui-sref-active="active" ng-hide="authentication.user">
           <a ui-sref="authentication.signup" class="header-title-names">SIGN UP</a>
         </li>
-        <li class="dropdown" uib-dropdown ng-show="authentication.user" style="    margin-top: 15px;">
+        <li class="dropdown" uib-dropdown ng-show="authentication.user" style="margin-top:15px;">
           <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
             <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
             <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
@@ -52,4 +55,64 @@
     </div>
 
   </nav>
-</div>
+</div>-->
+
+<nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderController">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse" ng-click="toggleCollapsibleMenu()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a ui-sref="home" class="navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo">
+        <u style="left: -999999px;position: absolute;">thingsberry.com A list of all internet of things</u>
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbarCollapse" uib-collapse="!isCollapsed">
+      <ul class="nav navbar-nav navbar-right text-center" id="tb_top_menu">
+        <li ui-sref-active="active">
+          <a ui-sref="home" class="header-title-names">HOME</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="companies.add" class="header-title-names">ADD NEW</a>
+        </li>
+
+        <li ui-sref-active="active">
+          <a ui-sref="aboutus" class="header-title-names">ABOUT US</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="companies.list" class="header-title-names">List</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
+        </li>
+        <li ui-sref-active="active" ng-hide="authentication.user">
+          <a ui-sref="authentication.signin" class="header-title-names"><img src="modules/core/client/img/user icon.png" class="user-icon">&nbsp;LOG IN</a>
+        </li>
+        <li class="divider-vertical" ng-hide="authentication.user"></li>
+        <li ui-sref-active="active" ng-hide="authentication.user">
+          <a ui-sref="authentication.signup" class="header-title-names">SIGN UP</a>
+        </li>
+        <li class="dropdown" uib-dropdown ng-show="authentication.user" style="margin-top:15px;">
+          <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
+            <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
+            <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
+              <a ui-sref="{{item.state}}" ng-bind="item.title"></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a ng-click="signoutFirebase()">Signout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

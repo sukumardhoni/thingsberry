@@ -6,56 +6,25 @@ section {
   padding-right: 30px;
 }
 
-@media (min-width: 768px) {
-  .container {
-    width: 95%;
-    padding-right: 0;
-    padding-left: 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .navbar-fixed-top .navbar-collapse,
-  .navbar-static-top .navbar-collapse,
-  .navbar-fixed-bottom .navbar-collapse {
-    padding-right: 30px;
-  }
-}
-
-@media (min-width: 768px) {
-  .header-title-names {
-    top: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar-collapse {
-    background-color: #D9EDF7;
-  }
-  .navbar-inverse .navbar-collapse,
-  .navbar-inverse .navbar-form {
-    border: 1px solid #efe;
-  }
-}
-
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #fff;
 }
 
 .navbar-toggle.collapsed,
 .navbar-toggle.collapsed:hover {
-  border-color: #337AB7;
-  background-color: #4ac4ff !important;
+  border-color: #029ce3;
+  background-color: #029ce3 !important;
 }
 
 .navbar-toggle {
-  border-color: #337AB7;
-  background-color: #4ac4ff;
+  background-color: #029ce3;
+  border-color: #029ce3 !important;
 }
 
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #337AB7;
+  background-color: #029ce3;
+  border-color: #029ce3;
 }
 
 .navbar-collapse.in {
@@ -71,13 +40,24 @@ section {
   background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
 }
 
+
+/*.navbar-inverse {
+  background-color: #029ce3 !important;
+  border-color: #029ce3 !important;
+  background-image: -webkit-linear-gradient(top, #029ce3 0%, #02a8f3 100%) !important;
+  background-image: -o-linear-gradient(top, #029ce3 0%, #02a8f3 100%) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#029ce3), to(#02a8f3)) !important;
+  background-image: linear-gradient(to bottom, #029ce3 0%, #02a8f3 100%) !important;
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff029ce3', endColorstr='#ff02a8f3', GradientType=0) !important;
+}*/
+
 .navbar {
   #min-height: 60px !important;
   z-index: 99999;
 }
 
 .header-title-names {
-  top: 20px;
+  #top: 20px;
   font-size: 12px !important;
   #font-family: "OpenSans"!important;
 }
@@ -115,7 +95,7 @@ navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #fff;
   border-radius: 5px;
-  background-color: rgb(2, 168, 243) !important;
+  background-color: rgb(244, 244, 244) !important;
   font-family: "OpenSans";
 }
 
@@ -131,6 +111,10 @@ navbar-inverse .navbar-nav > .open > a,
   bottom: 0;
 }
 
+#tb-navbar-collapse {
+  padding-top: 20px;
+}
+
 .right {
   right: 0;
   border-left: 35px solid transparent;
@@ -139,6 +123,10 @@ navbar-inverse .navbar-nav > .open > a,
 .left {
   left: 0;
   border-right: 35px solid transparent;
+}
+
+#tb_top_menu {
+  padding-top: 15px;
 }
 
 .home-page-bg {
@@ -187,6 +175,20 @@ navbar-inverse .navbar-nav > .open > a,
   z-index: -1;
 }
 
+.about_us_grey_bg1 {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  min-height: auto;
+  text-align: center;
+  background-color: rgb(244, 244, 244);
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
 .content_on_grey_bg {
   top: 155%;
   position: absolute;
@@ -233,14 +235,7 @@ navbar-inverse .navbar-nav > .open > a,
 
 .box {
   border-radius: 5px;
-  background-color: rgb(51, 51, 51);
-  opacity: 0.588;
-  position: absolute;
-  left: 13%;
-  top: 180px;
-  width: 72%;
-  height: 80%;
-  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.53);
 }
 
 .search-details-form {
@@ -262,7 +257,6 @@ navbar-inverse .navbar-nav > .open > a,
   font-size: 20px;
   height: 55px;
   font-family: "OpenSans";
-  color: rgb(51, 51, 51);
 }
 
 .custom-homepage-input {
@@ -330,9 +324,6 @@ input {
   color: rgb(255, 255, 255);
   text-decoration: underline;
   line-height: 3;
-  text-align: center;
-  position: absolute;
-  left: 300px;
   z-index: 153;
 }
 
@@ -359,12 +350,8 @@ input {
   font-size: 20px;
   margin-top: 25px;
   font-family: "OpenSans";
-  color: rgb(51, 51, 51);
-  text-align: center;
-  text-indent: 25px;
-  width: 300px;
+  text-indent: 5px;
   height: 55px;
-  margin-left: -13px;
 }
 
 .Advanced_Search_Fields > .state_select {
@@ -376,12 +363,8 @@ input {
   font-size: 20px;
   margin-top: 25px;
   font-family: "OpenSans";
-  color: rgb(51, 51, 51);
-  text-align: center;
-  text-indent: 25px;
-  width: 300px;
+  text-indent: 5px;
   height: 55px;
-  margin-left: 45px;
 }
 
 .Advanced_Search_Fields > .zipcode_select {
@@ -393,11 +376,8 @@ input {
   font-size: 20px;
   margin-top: 25px;
   font-family: "OpenSans";
-  color: rgb(51, 51, 51);
-  text-indent: 25px;
-  width: 300px;
+  text-indent: 5px;
   height: 55px;
-  margin-left: 47px;
 }
 
 .Advanced_Search_Fields > .business_select {
@@ -409,17 +389,12 @@ input {
   font-size: 20px;
   margin-top: 25px;
   font-family: "OpenSans";
-  color: rgb(51, 51, 51);
-  text-align: center;
-  text-indent: 25px;
-  width: 450px;
+  text-indent: 5px;
   height: 55px;
 }
 
 .check-box-landingpage {
-  float: right;
   margin-top: 45px;
-  margin-right: 320px;
 }
 
 .check-box-landingpage > label {
@@ -486,8 +461,6 @@ hr.small {
   border-color: rgb(255, 245, 104);
   border-style: solid;
   background-color: rgb(255, 255, 255);
-  width: 500px;
-  height: 300px;
   z-index: 22;
 }
 
@@ -500,8 +473,6 @@ hr.small {
   -moz-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
   -webkit-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
   -ms-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
-  position: absolute;
-  left: 120px;
   top: 20px;
   z-index: 36;
 }
@@ -513,9 +484,8 @@ hr.small {
   border-left: 0px solid transparent;
   border-right: 100px solid rgb(255, 245, 104);
   position: absolute;
+  left: 77%;
   z-index: 50;
-  left: 414px;
-  top: 1px;
 }
 
 .star_on_img-label {
@@ -532,27 +502,11 @@ hr.small {
   z-index: 24;
 }
 
-.sony_logo {
-  background-image: url("../../../../modules/core/client/img/brand/sony logo.png");
-  position: absolute;
-  left: 171px;
-  top: 36px;
-  width: 171px;
-  height: 98px;
-  z-index: 35;
-}
-
 .text-on-img {
   font-size: 18px;
   font-family: "OpenSans";
   color: rgb(51, 51, 51);
   line-height: 1.2;
-  text-align: left;
-  position: absolute;
-  left: 40px;
-  top: 196px;
-  width: 475px;
-  height: 62px;
   z-index: 34;
 }
 
