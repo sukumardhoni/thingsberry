@@ -57,10 +57,11 @@ section {
 }
 
 .header-title-names {
-  #top: 20px;
-  font-size: 12px !important;
-  #font-family: "OpenSans"!important;
+  font-size: 15px!important;
+  font-stretch: ultra-expanded;
+  text-transform: uppercase;
 }
+
 
 .header-title-names:hover {
   color: rgb(2, 168, 243) !important;
