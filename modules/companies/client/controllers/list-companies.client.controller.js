@@ -15,9 +15,5 @@
       //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
       vm.companys = res;
     });
-
-    $scope.getProImgUrl = function () {
-      console.log('getProImgUrl is called')
-    };
   }
 })();

@@ -19,11 +19,17 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       })
       .state('aboutus', {
         url: '/aboutus',
-        templateUrl: 'modules/core/client/views/about-us.client.view.html'
+        templateUrl: 'modules/core/client/views/about-us.client.view.html',
+        data: {
+          pageTitle: 'About ThingsBerry'
+        }
       })
       .state('contactus', {
         url: '/contactus',
-        templateUrl: 'modules/core/client/views/contact-us.client.view.html'
+        templateUrl: 'modules/core/client/views/contact-us.client.view.html',
+        data: {
+          pageTitle: 'Contact ThingsBerry'
+        }
       })
       .state('addyourcompany', {
         url: '/addyourcompany',

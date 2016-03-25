@@ -91,8 +91,15 @@ angular.module('users').config(['$stateProvider',
           pageTitle: 'Password reset success'
         }
       })
+      /*.state('password.reset.form', {
+  url: '/passwordReset',
+  templateUrl: 'modules/users/client/views/password/reset-password.client.view.html',
+  data: {
+    pageTitle: 'Password reset form'
+  }
+})*/
       .state('password.reset.form', {
-        url: '/passwordReset',
+        url: '/:token',
         templateUrl: 'modules/users/client/views/password/reset-password.client.view.html',
         data: {
           pageTitle: 'Password reset form'

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus',
-  function ($scope, $state, Authentication, Menus) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http',
+  function ($scope, $state, Authentication, Menus, $http) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
@@ -36,6 +36,19 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
           $scope.authentication.user = '';
         }
       });
+    };
+
+    $scope.signout = function () {
+      console.log('signout is called');
+      //$http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
+      $http.post('/api/auth/jwtSignout').success(function (response) {
+        //console.log('Signout callback : ' + JSON.stringify(response));
+        $scope.authentication.user = '';
+        //delete $localStorage.token;
+        //delete $localStorage.user;
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+      });
+
     };
   }
 ]);

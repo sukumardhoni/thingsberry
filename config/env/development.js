@@ -66,12 +66,16 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'MAILER_FROM',
+    from: process.env.MAILER_FROM || 'ThingsBerry Support <support@thingsberry.com>',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
+      host: 'thingsberry.com',
+      port: 26,
+      tls: {
+        rejectUnauthorized: false
+      },
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
-        pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
+        user: process.env.MAILER_EMAIL_ID || 'support@thingsberry.com',
+        pass: process.env.MAILER_PASSWORD || 'gtm1234'
       }
     }
   },

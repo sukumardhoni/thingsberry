@@ -386,7 +386,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         },
         data: {
           //roles: ['user', 'admin'],
-          pageTitle: 'Company Create'
+          pageTitle: 'Add Product'
         }
       })
       .state('companies.edit', {
@@ -430,7 +430,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
-
 (function () {
   'use strict';
 
@@ -438,9 +437,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .module('companies')
     .controller('CompanyController', CompanyController);
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare) {
     var vm = this;
 
     vm.company = company;
@@ -502,7 +501,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
 
-      console.log('Add company method is called' + isValid);
+      //console.log('Add company method is called' + isValid);
 
 
       if (!isValid) {
@@ -512,58 +511,58 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        vm.company.$update(successCallback, errorCallback);
+        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        vm.company.$update(successUpdateCallback, errorUpdateCallback);
       } else {
 
         vm.company.ProCat = $scope.selectedCategory;
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
-
-
         function genBusinessArray(businessArray) {
-          //console.log('genBusinessArray length : ' + businessArray.length);
-          //console.log('genBusinessArray length : ' + JSON.stringify(businessArray));
           var businessSecArr = [];
           for (var i = 0; i < businessArray.length; i++) {
             businessSecArr.push(businessArray[i].id)
           }
           if (businessArray.length === businessSecArr.length) {
-            //console.log('returning the array generated : ' + JSON.stringify(businessSecArr));
             return businessSecArr;
           }
-        }
-
+        };
 
         vm.company.logo = {
           filetype: $scope.productImg.filetype,
           base64: $scope.productImg.base64
         };
-
-
         vm.company.$save(successCallback, errorCallback);
-
-
-        //console.log('Company details from the form : ' + JSON.stringify(vm.company));
-
-
       }
+
+      function successUpdateCallback(res) {
+        $state.go('companies.list');
+        NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
+      };
+
+      function errorUpdateCallback(res) {
+        vm.error = res.data.message;
+        NotificationFactory.error('Failed to Update Product details...', res.data.message);
+      };
 
       function successCallback(res) {
-        console.log('Company details from the server after successfully saved : ' + JSON.stringify(res));
         $state.go('companies.list');
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
-        /*$state.go('company.view', {
-          companyId: res._id
-        });*/
-      }
+      };
 
       function errorCallback(res) {
         vm.error = res.data.message;
         NotificationFactory.error('Failed to save Product details...', res.data.message);
-      }
-    }
+      };
+    };
 
+    $scope.$on('data_shared', function () {
+      var proDetails = dataShare.getData();
+      $scope.previewImg(proDetails.logo);
+      $scope.productImg = proDetails.logo;
+      vm.company = proDetails;
+    });
 
     $scope.businessSectorSelectedArray = [];
 
@@ -622,7 +621,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
     $scope.removebusinessSectorSelectedVal = function (indexVal) {
       $scope.businessSectorSelectedArray.splice(indexVal, 1);
-      console.log('Business sector vals : ' + JSON.stringify($scope.businessSectorSelectedArray));
+      //console.log('Business sector vals : ' + JSON.stringify($scope.businessSectorSelectedArray));
     };
 
 
@@ -684,7 +683,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
     $scope.removeserviceOfferedSelectedVal = function (indexVal) {
       $scope.serviceOfferedSelectedArray.splice(indexVal, 1);
-      console.log('serviceOfferedSelectedArray sector vals : ' + JSON.stringify($scope.serviceOfferedSelectedArray));
+      //console.log('serviceOfferedSelectedArray sector vals : ' + JSON.stringify($scope.serviceOfferedSelectedArray));
     };
 
 
@@ -697,14 +696,14 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
     $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES'];
     $scope.SelectedCat = function (val) {
-      console.log('SelectedCat cal is : ' + val);
+      //console.log('SelectedCat cal is : ' + val);
     }
 
 
 
     $scope.previewImg = function (val) {
       $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
-      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
+      //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
 
 
@@ -732,7 +731,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 (function () {
   'use strict';
 
@@ -750,42 +748,44 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
       vm.companys = res;
     });
-
-    $scope.getProImgUrl = function () {
-      console.log('getProImgUrl is called')
-    };
   }
 })();
-
 'use strict';
 
 
 angular.module('companies')
-  .directive('productThumbnail', function () {
+  .directive('productDisplay', ["dataShare", "$state", function (dataShare, $state) {
     return {
       restrict: 'E',
       scope: {
         details: '='
       },
-      templateUrl: 'modules/companies/client/views/directive-partials/product-thumbnail.client.view.html',
+      templateUrl: 'modules/companies/client/views/directive-partials/product-display.client.view.html',
       link: function (scope, elem, attrs) {
 
         scope.proImgUrl = function () {
           return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
-        }
+        };
+
+        scope.editProduct = function (Pro) {
+          //console.log('Edit Product details on Direc. : ' + JSON.stringify(Pro));
+          dataShare.setData(Pro);
+          $state.go('companies.add');
+        };
 
       }
     };
-  });
-
+  }]);
 (function () {
   'use strict';
 
+  dataShare.$inject = ["$rootScope", "$timeout"];
   angular
     .module('companies.services')
-    .factory('CompanyService', CompanyService);
+    .factory('CompanyService', CompanyService)
+    .factory('dataShare', dataShare);
 
-  CompanyService.$inject = ['$resource'];
+  CompanyService.$inject = ['$resource', '$rootScope', '$timeout'];
 
   function CompanyService($resource) {
     return $resource('api/companies/:companyId', {
@@ -795,9 +795,25 @@ angular.module('companies')
         method: 'PUT'
       }
     });
-  }
-})();
+  };
 
+  function dataShare($rootScope, $timeout) {
+    var service = {};
+    service.data = false;
+    service.setData = function (data) {
+      this.data = data;
+      $timeout(function () {
+        $rootScope.$broadcast('data_shared');
+      }, 100);
+    };
+    service.getData = function () {
+      return this.data;
+    };
+    return service;
+  };
+
+
+})();
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -895,11 +911,17 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       })
       .state('aboutus', {
         url: '/aboutus',
-        templateUrl: 'modules/core/client/views/about-us.client.view.html'
+        templateUrl: 'modules/core/client/views/about-us.client.view.html',
+        data: {
+          pageTitle: 'About ThingsBerry'
+        }
       })
       .state('contactus', {
         url: '/contactus',
-        templateUrl: 'modules/core/client/views/contact-us.client.view.html'
+        templateUrl: 'modules/core/client/views/contact-us.client.view.html',
+        data: {
+          pageTitle: 'Contact ThingsBerry'
+        }
       })
       .state('addyourcompany', {
         url: '/addyourcompany',
@@ -931,7 +953,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       });
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('ContactUsController', ['$scope', 'Authentication',
@@ -950,8 +971,8 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus',
-  function ($scope, $state, Authentication, Menus) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http',
+  function ($scope, $state, Authentication, Menus, $http) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
@@ -987,9 +1008,21 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
         }
       });
     };
+
+    $scope.signout = function () {
+      console.log('signout is called');
+      //$http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
+      $http.post('/api/auth/jwtSignout').success(function (response) {
+        //console.log('Signout callback : ' + JSON.stringify(response));
+        $scope.authentication.user = '';
+        //delete $localStorage.token;
+        //delete $localStorage.user;
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+      });
+
+    };
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication',
@@ -1542,8 +1575,15 @@ angular.module('users').config(['$stateProvider',
           pageTitle: 'Password reset success'
         }
       })
+      /*.state('password.reset.form', {
+  url: '/passwordReset',
+  templateUrl: 'modules/users/client/views/password/reset-password.client.view.html',
+  data: {
+    pageTitle: 'Password reset form'
+  }
+})*/
       .state('password.reset.form', {
-        url: '/passwordReset',
+        url: '/:token',
         templateUrl: 'modules/users/client/views/password/reset-password.client.view.html',
         data: {
           pageTitle: 'Password reset form'
@@ -1551,7 +1591,6 @@ angular.module('users').config(['$stateProvider',
       });
   }
 ]);
-
 'use strict';
 
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
@@ -1640,6 +1679,20 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $location.path('/');
     }
 
+
+
+    $scope.pwdCompare = function () {
+      console.log('Credentials checking pwd ');
+      if ($scope.credentials.password1 === $scope.credentials.password2) {
+        console.log('Pwd Matched');
+        $scope.error = null;
+        $scope.credentials.password = $scope.credentials.password1;
+      } else {
+        console.log('Pwd doesnt Matched');
+        $scope.error = "Password Doesn't match";
+      }
+    }
+
     $scope.signup = function (isValid) {
       $scope.error = null;
 
@@ -1649,12 +1702,27 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
-        // If successful we assign the response to the global user model
-        $scope.authentication.user = response;
+      $http.post('/api/auth/jwtSignup', $scope.credentials).success(function (response) {
 
-        // And redirect to the previous or home page
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
+        if (response.type === false) {
+          $scope.error = response.data;
+          //$scope.isDisabled = false;
+          //$scope.buttonTextSignUp = 'Sign Up';
+          console.log('Error Msg : ' + JSON.stringify(response.data));
+
+        } else {
+          $scope.error = null;
+          //$scope.populateUserLocally(res);
+          // If successful we assign the response to the global user model
+          $scope.authentication.user = response;
+
+          // And redirect to the previous or home page
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
+        }
+
+
+
+
       }).error(function (response) {
         $scope.error = response.message;
       });
@@ -1669,7 +1737,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
+      $http.post('/api/auth/jwtSignin', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
 
@@ -1785,7 +1853,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
@@ -1808,7 +1875,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
         return false;
       }
 
-      $http.post('/api/auth/forgot', $scope.credentials).success(function (response) {
+      $http.post('/api/auth/jwtForgot', $scope.credentials).success(function (response) {
         // Show user success message and clear form
         $scope.credentials = null;
         $scope.success = response.message;
@@ -1845,7 +1912,6 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
     };
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('ChangePasswordController', ['$scope', '$http', 'Authentication', 'PasswordValidator',
@@ -1863,7 +1929,7 @@ angular.module('users').controller('ChangePasswordController', ['$scope', '$http
         return false;
       }
 
-      $http.post('/api/users/password', $scope.passwordDetails).success(function (response) {
+      $http.post('/api/auth/jwtChangePassword', $scope.passwordDetails).success(function (response) {
         // If successful show success message and clear form
         $scope.$broadcast('show-errors-reset', 'passwordForm');
         $scope.success = true;
@@ -1874,7 +1940,6 @@ angular.module('users').controller('ChangePasswordController', ['$scope', '$http
     };
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$timeout', '$window', 'Authentication', 'FileUploader',

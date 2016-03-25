@@ -197,9 +197,11 @@
       <h5>&nbsp;&nbsp;<small>(jpg,png,gif)</small></h5>
       <br ng-show="productImg">
       <button class="file-upload btn-custom-style" ng-hide="productImg">
-        <input type="file" name="productPic" accept="image/x-png, image/gif, image/jpeg" ng-model="productImg" base-sixty-four-input required ng-change="previewImg(productImg)" class="file-input">Choose File</button>
+        <input type="file" name="productPic" accept="image/x-png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input required ng-change="previewImg(productImg)" class="file-input">Choose File</button>
+
       <span ng-show="productImg"><img alt="productImg" ng-src="{{imgUrl}}" class="photo" width="15%" /><i class="fa fa-times" ng-click="productImg = ''" style="position: absolute;margin-top:-50px;font-size: 25px;"></i></span>
       <br ng-show="productImg">
+      <p ng-show="vm.form.companyForm.productPic.$error.maxsize && productImg">Files must not exceed 1000 KB</p>
       <button ng-show="productImg" class="btn btn-custom-style" ng-click="uploadProImg()" ng-disabled="vm.form.companyForm.productPic.$invalid || vm.form.companyForm.productName.$invalid">UPLOAD IMAGE</button>
       <br>
       <small ng-hide="productImg">No file selected</small>
@@ -210,7 +212,7 @@
     <div class="row">
       <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
         <label>Category</label>
-        <select class="form-control add_new_fields" ng-model="selectedCategory" ng-init="selectedCategory = categoriesList[0]" ng-selected="selectedCategory" ng-options="cats for cats in categoriesList" ng-change="SelectedCat(selectedCategory)" required>
+        <select class="form-control add_new_fields" ng-model="vm.company.ProCat" ng-init="vm.company.ProCat = categoriesList[0]" ng-selected="vm.company.ProCat" ng-options="cats for cats in categoriesList" ng-change="SelectedCat(vm.company.ProCat)" required>
         </select>
       </div>
     </div>
@@ -337,7 +339,7 @@
     </div>
     <br>
     <div class="text-center form-group">
-      <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid">SUBMIT</button>
+      <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid">{{vm.company._id ? 'UPDATE' : 'SUBMIT'}}</button>
     </div>
     <div ng-show="vm.error" class="text-danger">
       <strong ng-bind="vm.error"></strong>

@@ -20,7 +20,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
         return false;
       }
 
-      $http.post('/api/auth/forgot', $scope.credentials).success(function (response) {
+      $http.post('/api/auth/jwtForgot', $scope.credentials).success(function (response) {
         // Show user success message and clear form
         $scope.credentials = null;
         $scope.success = response.message;

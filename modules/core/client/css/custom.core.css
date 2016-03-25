@@ -62,7 +62,6 @@ section {
   text-transform: uppercase;
 }
 
-
 .header-title-names:hover {
   color: rgb(2, 168, 243) !important;
 }
@@ -124,6 +123,10 @@ navbar-inverse .navbar-nav > .open > a,
 .left {
   left: 0;
   border-right: 35px solid transparent;
+}
+
+.home-search .well {
+  background: rgba(0, 0, 0, 0.53) !important;
 }
 
 #tb_top_menu {
@@ -395,7 +398,7 @@ input {
 }
 
 .check-box-landingpage {
-  margin-top: 45px;
+  margin-top: 5px;
 }
 
 .check-box-landingpage > label {
@@ -478,14 +481,27 @@ hr.small {
   z-index: 36;
 }
 
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: #029ce3 !important;
+}
+
+.navbar-inverse .navbar-nav > .open > a {
+  color: #029ce3;
+  background-color: rgb(255, 255, 255) !important;
+  border-color: rgb(255, 255, 255) !important;
+  background-image: -webkit-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
+  background-image: -o-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
+  background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
+}
+
 .img-label {
-  width: 0;
+  width: 50%;
   height: 0;
   border-bottom: 100px solid transparent;
   border-left: 0px solid transparent;
   border-right: 100px solid rgb(255, 245, 104);
   position: absolute;
-  left: 77%;
   z-index: 50;
 }
 
@@ -593,4 +609,43 @@ footer {
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav > li > a {
   text-shadow: none !important;
+}
+
+
+/* Sticky footer styles
+      -------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+
+/* Wrapper for page content to push down footer */
+
+#wrap {
+  min-height: 80%;
+  height: auto !important;
+  height: 100%;
+  margin: 50px auto 0px;
+}
+
+
+/* Set the fixed height of the footer here */
+
+#footer {
+  height: 60px;
+}
+
+
+/* Lastly, apply responsive CSS fixes as necessary */
+
+@media (max-width: 767px) {
+  #footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

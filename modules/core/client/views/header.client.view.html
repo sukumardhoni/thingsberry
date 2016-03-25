@@ -91,13 +91,13 @@
           <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
         </li>
         <li ui-sref-active="active" ng-hide="authentication.user">
-          <a ui-sref="authentication.signin" class="header-title-names"><img src="modules/core/client/img/user icon.png" class="user-icon">&nbsp;LOG IN</a>
+          <a ui-sref="authentication.signin" class="header-title-names"><img src="modules/core/client/img/user icon.png" class="user-icon hidden-xs">&nbsp;LOG IN</a>
         </li>
         <li class="divider-vertical" ng-hide="authentication.user"></li>
         <li ui-sref-active="active" ng-hide="authentication.user">
           <a ui-sref="authentication.signup" class="header-title-names">SIGN UP</a>
         </li>
-        <li class="dropdown" uib-dropdown ng-show="authentication.user" style="margin-top:15px;">
+        <li class="dropdown" uib-dropdown ng-show="authentication.user">
           <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
             <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
             <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
@@ -108,7 +108,7 @@
             </li>
             <li class="divider"></li>
             <li>
-              <a ng-click="signoutFirebase()">Signout</a>
+              <a ng-click="signout()">Signout</a>
             </li>
           </ul>
         </li>

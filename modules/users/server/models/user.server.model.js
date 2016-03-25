@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   crypto = require('crypto'),
+  bcrypt = require('bcrypt-nodejs'),
   validator = require('validator'),
   generatePassword = require('generate-password'),
   owasp = require('owasp-password-strength-test');
@@ -21,8 +22,20 @@ var validateLocalStrategyProperty = function (property) {
  * A Validation function for local strategy email
  */
 var validateLocalStrategyEmail = function (email) {
-  return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email, { require_tld: false }));
+  return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email, {
+    require_tld: false
+  }));
 };
+
+
+
+/**
+ * A Validation function for local strategy password
+ */
+var validateLocalStrategyPassword = function (password) {
+  return (this.provider !== 'local' || (password && password.length > 4));
+};
+
 
 /**
  * User Schema
@@ -61,7 +74,8 @@ var UserSchema = new Schema({
   },
   password: {
     type: String,
-    default: ''
+    default: '',
+    validate: [validateLocalStrategyPassword, 'Password should be aleast 5 characters long']
   },
   salt: {
     type: String
@@ -97,25 +111,31 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
+  },
+  token: {
+    type: String
   }
 });
 
 /**
  * Hook a pre save method to hash the password
  */
-UserSchema.pre('save', function (next) {
+
+/*UserSchema.pre('save', function (next) {
   if (this.password && this.isModified('password')) {
     this.salt = crypto.randomBytes(16).toString('base64');
     this.password = this.hashPassword(this.password);
   }
 
   next();
-});
+});*/
 
 /**
  * Hook a pre validate method to test the local password
  */
-UserSchema.pre('validate', function (next) {
+
+
+/*UserSchema.pre('validate', function (next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
     var result = owasp.test(this.password);
     if (result.errors.length) {
@@ -125,7 +145,36 @@ UserSchema.pre('validate', function (next) {
   }
 
   next();
+});*/
+
+
+// Execute before each user.save() call
+UserSchema.pre('save', function (callback) {
+  var user = this;
+  // Break out if the password hasn't changed
+  if (!user.isModified('password')) return callback();
+  // Password changed so we need to hash it
+  bcrypt.genSalt(5, function (err, salt) {
+    if (err) return callback(err);
+    bcrypt.hash(user.password, salt, null, function (err, hash) {
+      if (err) return callback(err);
+      user.password = hash;
+      callback();
+    });
+  });
 });
+
+
+UserSchema.methods.verifyPassword = function (password, cb) {
+  console.log('verifyPassword in user model is called : ' + password);
+  bcrypt.compare(password, this.password, function (err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
+
+
+
 
 /**
  * Create instance method for hashing a password
@@ -142,7 +191,15 @@ UserSchema.methods.hashPassword = function (password) {
  * Create instance method for authenticating user
  */
 UserSchema.methods.authenticate = function (password) {
-  return this.password === this.hashPassword(password);
+  //return this.password === this.hashPassword(password);
+
+  this.verifyPassword(password, function (err, isMatch) {
+    var result = isMatch;
+    console.log('Authentication in user model is :' + result);
+    return isMatch;
+  })
+
+
 };
 
 /**
@@ -168,10 +225,10 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
 };
 
 /**
-* Generates a random passphrase that passes the owasp test
-* Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
-* NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
-*/
+ * Generates a random passphrase that passes the owasp test
+ * Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
+ * NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
+ */
 UserSchema.statics.generateRandomPassphrase = function () {
   return new Promise(function (resolve, reject) {
     var password = '';

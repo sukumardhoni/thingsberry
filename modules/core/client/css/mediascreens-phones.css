@@ -98,7 +98,6 @@
 }
 
 @media (max-width: 768px) {
-
   .navbar-collapse {
     background-color: rgb(2, 168, 243);
     color: white;
@@ -112,23 +111,15 @@
     color: rgb(255, 255, 255) !important;
     border-top: 1px solid white;
   }
-
   .navbar-inverse .navbar-nav > .open > a,
   .navbar-inverse .navbar-nav > .active > a {
     background: #eee !important;
     color: grey !important;
   }
-
-
-
-
   /*.navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover {
   color: rgb(51, 51, 51) !important;
 }*/
-
-
-
   .header-title-names:hover {
     color: #ccc !important;
   }
@@ -158,5 +149,9 @@
   .navbar-inverse .navbar-collapse,
   .navbar-inverse .navbar-form {
     border-color: #337ab7;
+  }
+  .content-on-img {
+    top: 0px;
+    position: relative;
   }
 }

@@ -10,17 +10,27 @@ module.exports = function (app) {
   var users = require('../controllers/users.server.controller');
 
   // Setting up the users password api
-  //app.route('/api/auth/forgot').post(users.forgot);
-  app.route('/api/auth/forgot').post(users.forgotPwdFirebase);
+  app.route('/api/auth/forgot').post(users.forgot);
+  //app.route('/api/auth/forgot').post(users.forgotPwdFirebase);
   app.route('/api/auth/reset/:token').get(users.validateResetToken);
   app.route('/api/auth/reset/:token').post(users.reset);
 
   // Setting up the users authentication api
-  //app.route('/api/auth/signup').post(users.signup);
-  app.route('/api/auth/signup').post(users.signupFirebase);
-  //app.route('/api/auth/signin').post(users.signin);
-  app.route('/api/auth/signin').post(users.signinFirebase);
+  app.route('/api/auth/signup').post(users.signup);
+  //app.route('/api/auth/signup').post(users.signupFirebase);
+  app.route('/api/auth/signin').post(users.signin);
+  //app.route('/api/auth/signin').post(users.signinFirebase);
   app.route('/api/auth/signout').get(users.signout);
+
+
+  // JWT Auth Routes
+  app.route('/api/auth/jwtSignup').post(users.jwtSignup);
+  app.route('/api/auth/jwtSignin').post(users.jwtSignin);
+  app.route('/api/auth/jwtSignout').post(users.jwtSignout);
+
+  app.route('/api/auth/jwtForgot').post(users.jwtForgot);
+  app.route('/api/auth/jwtChangePassword').post(users.jwtChangePassword);
+
 
   // Setting the facebook oauth routes
   app.route('/api/auth/facebook').get(users.oauthCall('facebook', {

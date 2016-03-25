@@ -5,9 +5,9 @@
     .module('companies')
     .controller('CompanyController', CompanyController);
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare) {
     var vm = this;
 
     vm.company = company;
@@ -69,7 +69,7 @@
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
 
-      console.log('Add company method is called' + isValid);
+      //console.log('Add company method is called' + isValid);
 
 
       if (!isValid) {
@@ -79,58 +79,58 @@
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        vm.company.$update(successCallback, errorCallback);
+        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        vm.company.$update(successUpdateCallback, errorUpdateCallback);
       } else {
 
         vm.company.ProCat = $scope.selectedCategory;
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
-
-
         function genBusinessArray(businessArray) {
-          //console.log('genBusinessArray length : ' + businessArray.length);
-          //console.log('genBusinessArray length : ' + JSON.stringify(businessArray));
           var businessSecArr = [];
           for (var i = 0; i < businessArray.length; i++) {
             businessSecArr.push(businessArray[i].id)
           }
           if (businessArray.length === businessSecArr.length) {
-            //console.log('returning the array generated : ' + JSON.stringify(businessSecArr));
             return businessSecArr;
           }
-        }
-
+        };
 
         vm.company.logo = {
           filetype: $scope.productImg.filetype,
           base64: $scope.productImg.base64
         };
-
-
         vm.company.$save(successCallback, errorCallback);
-
-
-        //console.log('Company details from the form : ' + JSON.stringify(vm.company));
-
-
       }
+
+      function successUpdateCallback(res) {
+        $state.go('companies.list');
+        NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
+      };
+
+      function errorUpdateCallback(res) {
+        vm.error = res.data.message;
+        NotificationFactory.error('Failed to Update Product details...', res.data.message);
+      };
 
       function successCallback(res) {
-        console.log('Company details from the server after successfully saved : ' + JSON.stringify(res));
         $state.go('companies.list');
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
-        /*$state.go('company.view', {
-          companyId: res._id
-        });*/
-      }
+      };
 
       function errorCallback(res) {
         vm.error = res.data.message;
         NotificationFactory.error('Failed to save Product details...', res.data.message);
-      }
-    }
+      };
+    };
 
+    $scope.$on('data_shared', function () {
+      var proDetails = dataShare.getData();
+      $scope.previewImg(proDetails.logo);
+      $scope.productImg = proDetails.logo;
+      vm.company = proDetails;
+    });
 
     $scope.businessSectorSelectedArray = [];
 
@@ -189,7 +189,7 @@
 
     $scope.removebusinessSectorSelectedVal = function (indexVal) {
       $scope.businessSectorSelectedArray.splice(indexVal, 1);
-      console.log('Business sector vals : ' + JSON.stringify($scope.businessSectorSelectedArray));
+      //console.log('Business sector vals : ' + JSON.stringify($scope.businessSectorSelectedArray));
     };
 
 
@@ -251,7 +251,7 @@
 
     $scope.removeserviceOfferedSelectedVal = function (indexVal) {
       $scope.serviceOfferedSelectedArray.splice(indexVal, 1);
-      console.log('serviceOfferedSelectedArray sector vals : ' + JSON.stringify($scope.serviceOfferedSelectedArray));
+      //console.log('serviceOfferedSelectedArray sector vals : ' + JSON.stringify($scope.serviceOfferedSelectedArray));
     };
 
 
@@ -264,14 +264,14 @@
 
     $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES'];
     $scope.SelectedCat = function (val) {
-      console.log('SelectedCat cal is : ' + val);
+      //console.log('SelectedCat cal is : ' + val);
     }
 
 
 
     $scope.previewImg = function (val) {
       $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
-      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
+      //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
 
 

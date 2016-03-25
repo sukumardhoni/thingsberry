@@ -7,13 +7,296 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  User = mongoose.model('User');
+  jwt = require('jwt-simple'),
+  User = mongoose.model('User'),
+  config = require('../../../../../config/config'),
+  agenda = require('../../../../../schedules/job-schedule')(config.db),
+  nodemailer = require('nodemailer'),
+  smtpTransport = require('nodemailer-smtp-transport'),
+  transporter = nodemailer.createTransport(smtpTransport(config.mailer.options));
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
   '/authentication/signin',
   '/authentication/signup'
 ];
+
+
+
+
+/* JWT Signup */
+
+exports.jwtSignup = function (req, res, next) {
+  var deviceInfo = req.headers.device;
+
+  User.findOne({
+    email: req.body.email
+  }, function (err, user) {
+    if (err) {
+      res.json({
+        type: false,
+        data: 'Error occured: ' + err
+      });
+    } else {
+      if (user) {
+        if (user.token === '') {
+          var secret = 'www';
+          var payload = {
+            email: req.body.email
+          };
+          var token = jwt.encode(payload, secret);
+          user.token = token;
+          user.save(function (err) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              req.login(user, function (err) {
+                if (err) {
+                  console.log('Error while Login user : ' + err);
+                  res.status(400).send(err);
+                } else {
+                  res.json({
+                    type: false,
+                    data: 'User already exists :' + user.email,
+                    user: user
+                  });
+                }
+              });
+            }
+          });
+        } else {
+          res.json({
+            type: false,
+            data: 'User already exists!',
+            user: user
+          });
+        }
+      } else {
+        //delete req.body.roles;
+        var userModel = new User(req.body);
+        userModel.provider = req.body.provider || 'local';
+        userModel.displayName = userModel.firstName + ' ' + userModel.lastName;
+        userModel.username = userModel.firstName + userModel.lastName;
+        var secret = 'www';
+        var payload = {
+          email: req.body.email
+        };
+        var jwtToken = jwt.encode(payload, secret);
+        userModel.token = jwtToken;
+        userModel.save(function (err) {
+          if (err) {
+            //console.log('Error while saving user 111111: ' + err.errors.email.message);
+            console.log('Error while saving user 111: ' + err);
+            var errData;
+            if (err.code === 11000) {
+              errData = 'User already exists with email : ' + userModel.email
+            } else {
+              //errData = err.errors.email.message;
+              errData = err.errors.password.message;
+            }
+            /*
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });*/
+            res.json({
+              type: false,
+              data: errData,
+              user: user
+            });
+          } else {
+            req.login(userModel, function (err) {
+              if (err) {
+                console.log('Error while saving user 2222222: ' + err);
+                res.status(400).send(err);
+              } else {
+                //send a welcome mail notification using agenda
+                agenda.now('New_User_Welcome', {
+                  email: userModel.email,
+                  displayName: userModel.displayName
+                });
+                //send a User_Info_To_ThingsBerry_Team mail notification using agenda
+                agenda.now('User_Info_To_ThingsBerry_Team', {
+                  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider + '\n Came from :' + deviceInfo + '\n'
+                });
+                res.jsonp(userModel);
+              }
+            });
+          }
+        });
+      }
+    }
+  });
+
+
+};
+
+
+
+
+/* JWT Signin */
+
+exports.jwtSignin = function (req, res, next) {
+
+  var deviceInfo = req.headers.device;
+  User.findOne({
+    email: req.body.email
+  }, function (err, user) {
+    if (err) {
+      console.log('error :' + err);
+      res.json({
+        type: false,
+        data: 'Error occured: ' + err
+      });
+    } else {
+      if (user) {
+        var password = req.body.password;
+        // Make sure the password is correct
+        user.verifyPassword(password, function (err, isMatch) {
+          if (isMatch) {
+            // Success
+            var secret = 'www';
+            var payload = {
+              email: req.body.email
+            };
+            var token = jwt.encode(payload, secret);
+            user.token = token;
+            user.password = req.body.password;
+            user.save(function (err) {
+              if (err) {
+                console.log('Error occured on singin function is : ' + err);
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+              } else {
+                req.login(user, function (err) {
+                  if (err) {
+                    res.status(400).send(err);
+                  } else {
+
+                    //user is successfully logged in send a notification to the job to count user signins
+                    agenda.now('User_Signedin', {
+                      data: user.email
+                    });
+                    //user is successfully logged in save action into user usage details collection
+                    agenda.now('User_Usage_Details', {
+                      email: user.email,
+                      device: deviceInfo,
+                      action: 'Log In user : ' + user.displayName,
+                    });
+                    res.jsonp(user);
+                    console.log('@@@@@@ Found user in signin  func.  @@@@@@@' + JSON.stringify(user));
+                  }
+                });
+              }
+            });
+          } else {
+            res.json({
+              type: false,
+              data: 'Incorrect password'
+            });
+          }
+        });
+      } else {
+        res.json({
+          type: false,
+          data: 'Incorrect user/password'
+        });
+      }
+    }
+  });
+};
+
+
+
+exports.checkUserByToken = function (req, res) {
+  var bearerToken;
+  var bearerHeader = req.headers.authorization;
+  if (typeof bearerHeader !== 'undefined') {
+    var bearer = bearerHeader.split(' ');
+    if (bearer[1] === 'undefined') {
+      res.sendStatus(401);
+    } else {
+      bearerToken = bearer[1];
+      User.findOne({
+        token: bearerToken
+      }, function (err, user) {
+        if (err) {
+          res.json({
+            type: false,
+            data: 'Error occured: ' + err
+          });
+        } else if (user === null) {
+          res.json({
+            type: false,
+            data: 'Empty User Occured '
+          });
+        } else {
+          req.user = user;
+          res.jsonp(user);
+        }
+      });
+    }
+  } else {
+    res.sendStatus(401);
+  }
+};
+
+
+
+
+exports.jwtSignout = function (req, res, next) {
+  /*  req.logout();
+    res.redirect('/');*/
+  var bearerToken;
+  var bearerHeader = req.headers.authorization;
+  if (typeof bearerHeader !== 'undefined') {
+    var bearer = bearerHeader.split(' ');
+    if (bearer[1] === 'undefined') {
+      res.sendStatus(401);
+      //req.logout();
+      //res.redirect('/');
+      console.log('Error while sign out in rest ');
+    } else {
+      bearerToken = bearer[1];
+      User.findOne({
+        token: bearerToken
+      }, function (err, user) {
+        if (err) {
+          res.json({
+            type: false,
+            data: 'Error occured: ' + err
+          });
+        } else if (user === null) {
+          res.json({
+            type: false,
+            data: 'Empty User Occured '
+          });
+        } else {
+          user.token = '';
+          user.save(function (err) {
+            if (err) {
+              //console.log('Error occured on singout function is : ' + err);
+              res.status(400).send(err);
+            } else {
+              req.logout();
+              res.status(200).send({
+                type: true,
+                data: 'User is susccessfully logged out'
+              });
+            }
+          });
+        }
+      });
+    }
+  } else {
+    //res.sendStatus(401);
+    req.logout();
+    res.redirect('/');
+  }
+};
+
 
 /**
  * Signup
@@ -73,10 +356,7 @@ exports.signin = function (req, res, next) {
 };
 
 
-
-
-
-exports.signupFirebase = function (req, res, next) {
+/*exports.signupFirebase = function (req, res, next) {
 
   var ref = new Firebase("https://thingsberry.firebaseio.com");
 
@@ -112,7 +392,7 @@ exports.signinFirebase = function (req, res, next) {
     }
   });
 
-};
+};*/
 
 /**
  * Signout

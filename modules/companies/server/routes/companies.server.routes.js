@@ -13,7 +13,7 @@ module.exports = function (app) {
     .post(companies.create);
 
   // Single company routes
-  app.route('/api/companies/:companyId').all(companiesPolicy.isAllowed)
+  app.route('/api/companies/:companyId')/*.all(companiesPolicy.isAllowed)*/
     .get(companies.read)
     .put(companies.update)
     .delete(companies.delete);

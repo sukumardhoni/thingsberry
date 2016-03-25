@@ -50,7 +50,7 @@
         },
         data: {
           //roles: ['user', 'admin'],
-          pageTitle: 'Company Create'
+          pageTitle: 'Add Product'
         }
       })
       .state('companies.edit', {

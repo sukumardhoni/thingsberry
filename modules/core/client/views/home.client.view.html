@@ -1,5 +1,5 @@
 <section ng-controller="HomeController">
-  <div class="home-page-bg">
+  <div class="home-page-bg hidden-xs">
     <div class="left triangle"></div>
     <div class="right triangle"></div>
   </div>
@@ -7,105 +7,221 @@
   <br>
   <br>
   <br>
-  <div class="content-on-img ">
+  <div class="content-on-img">
     <div class="row  text-center">
-      <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-3 col-xs-12">
+      <div class="col-sm-10 col-sm-offset-1 col-xs-12">
         <p class="lead text_over_bg" style="padding:10px">
           Find all the key companies worldwide, in the Internet of Things (IoT) Machine to Machine (M2M), near-field communications (NFC), and connected device sectors....
         </p>
       </div>
     </div>
-    <br>
-    <br>
-    <br>
     <div class="row">
-      <div class="col-md-offset-2 col-md-8 box">
-        <br>
-        <br>
-        <br>
-        <div class="row">
-          <div class="col-md-offset-1 col-md-11 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
+      <div class="col-xs-offset-1 col-xs-10 home-search">
+        <div class="well">
+          <form class="form-horizontal" role="form">
             <div class="row">
-              <div class="default-search form-group col-md-3 col-sm-3 col-xs-12">
-                <select class="form-control" name="services_offer" id="services_offer">
-                  <option value="kg">Category</option>
-                  <option value="gm">list1</option>
-                  <option value="pound">list1</option>
-                  <option value="MetricTon">list1</option>
-                  <option value="litre">list1</option>
-                  <option value="ounce">list1</option>
-                </select>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12" style="opacity: 1;">
+                    <select class="form-control" style="opacity: 0.9 !important;">
+                      <option>Category</option>
+                      <option>One</option>
+                      <option>Two</option>
+                      <option>Three</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-md-3 col-sm-3 col-xs-12 code">
-                <input type="text" class="form-control custom-homepage-input" id="company" placeholder="Company">
+
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <input type="text" class="form-control" id="inputEmail" placeholder="Company">
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-md-3 col-sm-3 col-xs-12 tel">
-                <input type="text" id="company" placeholder="Product" class="form-control custom-homepage-input">
+
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <input type="text" class="form-control" id="inputEmail" placeholder="Product">
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                <button type="button" name="search" class="btn btn-custom-search">Search</button>
+
+              <div class="col-lg-3 col-md-4 col-sm-6 hidden-xs">
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <input type="button" class="form-control" id="searchBtn" value="Search" style="background-color:rgb(2, 168, 243)">
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
-            <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
-          </div>
-        </div>
-
-        <div class="row" ng-show="Advanced_Search_Fields">
-          <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
             <div class="row">
-              <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
-                <select class="country_select form-control" name="services_offer" id="services_offer">
-                  <option value="kg">Country</option>
-                  <option value="gm">list1</option>
-                  <option value="pound">list1</option>
-                  <option value="MetricTon">list1</option>
-                  <option value="litre">list1</option>
-                  <option value="ounce">list1</option>
-                </select>
-              </div>
-              <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
-                <select class="state_select form-control" name="services_offer" id="services_offer">
-                  <option value="kg">State</option>
-                  <option value="gm">list1</option>
-                  <option value="pound">list1</option>
-                  <option value="MetricTon">list1</option>
-                  <option value="litre">list1</option>
-                  <option value="ounce">list1</option>
-                </select>
-              </div>
-              <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
-                <input type="text" id="telephone" placeholder="Zip code" class="zipcode_select form-control">
+              <div class="col-xs-offset-1 col-xs-10 ">
+                <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
               </div>
             </div>
-            <div class="row">
-              <div class="form-group Advanced_Search_Fields col-md-6 col-sm-6 col-xs-12 ">
-                <select class="business_select form-control" name="services_offer" id="services_offer">
-                  <option value="kg">Business</option>
-                  <option value="gm">list1</option>
-                  <option value="pound">list1</option>
-                  <option value="MetricTon">list1</option>
-                  <option value="litre">list1</option>
-                  <option value="ounce">list1</option>
-                </select>
+
+            <div class="row" ng-show="Advanced_Search_Fields">
+              <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12" style="opacity: 1;">
+                    <select class="form-control" name="services_offer" id="services_offer">
+                      <option value="kg">Country</option>
+                      <option value="gm">list1</option>
+                      <option value="pound">list1</option>
+                      <option value="MetricTon">list1</option>
+                      <option value="litre">list1</option>
+                      <option value="ounce">list1</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="check-box-landingpage">
-                <label class="col-md-5 col-sm-5 col-xs-12 col-xs-offset-1 checkbox-inline">
+              <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12" style="opacity: 1;">
+                    <select class="form-control" name="services_offer" id="services_offer">
+                      <option value="kg">State</option>
+                      <option value="gm">list1</option>
+                      <option value="pound">list1</option>
+                      <option value="MetricTon">list1</option>
+                      <option value="litre">list1</option>
+                      <option value="ounce">list1</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12" style="opacity: 1;">
+                    <input type="text" id="telephone" placeholder="Zip code" class="zipcode_select form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12" style="opacity: 1;">
+                    <select class="form-control" name="services_offer" id="services_offer">
+                      <option value="kg">Business</option>
+                      <option value="gm">list1</option>
+                      <option value="pound">list1</option>
+                      <option value="MetricTon">list1</option>
+                      <option value="litre">list1</option>
+                      <option value="ounce">list1</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="check-box-landingpage form-group col-md-6 col-sm-6 col-xs-12 ">
+                <label class="checkbox-inline">
                   <input type="checkbox" value="">Lorem ipsum dolor sit amet
                 </label>
               </div>
             </div>
-          </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <div class="form-group row visible-xs">
+                <div class="col-xs-12">
+                  <input type="button" class="form-control btn-primary" id="searchBtn" value="Search">
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-        <br>
-        <br>
-        <br>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <!--<div class="row">
+  <div class="col-md-offset-2 col-md-8 box">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-offset-1 col-md-11 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
+        <div class="row">
+          <div class="default-search form-group col-md-3 col-sm-3 col-xs-12">
+            <select class="form-control" name="services_offer" id="services_offer">
+              <option value="kg">Category</option>
+              <option value="gm">list1</option>
+              <option value="pound">list1</option>
+              <option value="MetricTon">list1</option>
+              <option value="litre">list1</option>
+              <option value="ounce">list1</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3 col-sm-3 col-xs-12 code">
+            <input type="text" class="form-control custom-homepage-input" id="company" placeholder="Company">
+          </div>
+          <div class="form-group col-md-3 col-sm-3 col-xs-12 tel">
+            <input type="text" id="company" placeholder="Product" class="form-control custom-homepage-input">
+          </div>
+          <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <button type="button" name="search" class="btn btn-custom-search">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
+        <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
+      </div>
+    </div>
+
+    <div class="row" ng-show="Advanced_Search_Fields">
+      <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
+        <div class="row">
+          <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
+            <select class="country_select form-control" name="services_offer" id="services_offer">
+              <option value="kg">Country</option>
+              <option value="gm">list1</option>
+              <option value="pound">list1</option>
+              <option value="MetricTon">list1</option>
+              <option value="litre">list1</option>
+              <option value="ounce">list1</option>
+            </select>
+          </div>
+          <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
+            <select class="state_select form-control" name="services_offer" id="services_offer">
+              <option value="kg">State</option>
+              <option value="gm">list1</option>
+              <option value="pound">list1</option>
+              <option value="MetricTon">list1</option>
+              <option value="litre">list1</option>
+              <option value="ounce">list1</option>
+            </select>
+          </div>
+          <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
+            <input type="text" id="telephone" placeholder="Zip code" class="zipcode_select form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group Advanced_Search_Fields col-md-6 col-sm-6 col-xs-12 ">
+            <select class="business_select form-control" name="services_offer" id="services_offer">
+              <option value="kg">Business</option>
+              <option value="gm">list1</option>
+              <option value="pound">list1</option>
+              <option value="MetricTon">list1</option>
+              <option value="litre">list1</option>
+              <option value="ounce">list1</option>
+            </select>
+          </div>
+          <div class="check-box-landingpage">
+            <label class="col-md-5 col-sm-5 col-xs-12 col-xs-offset-1 checkbox-inline">
+              <input type="checkbox" value="">Lorem ipsum dolor sit amet
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>-->
   </div>
   <div class="container">
     <div class="row text-center">

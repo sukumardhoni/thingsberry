@@ -4,6 +4,7 @@
  * Module dependencies
  */
 var path = require('path'),
+    _ = require('lodash'),
   mongoose = require('mongoose'),
   Company = mongoose.model('Company'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
@@ -51,8 +52,10 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var company = req.company;
 
-  company.title = req.body.title;
-  company.content = req.body.content;
+  console.log('Company details are : ' + JSON.stringify(req.body.Proname));
+  company = _.extend(company, req.body);
+  /*company.title = req.body.title;
+  company.content = req.body.content;*/
 
   company.save(function (err) {
     if (err) {
@@ -92,7 +95,7 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log('Server side List of products : ' + JSON.stringify(companies));
+      //console.log('Server side List of products : ' + JSON.stringify(companies));
       res.json(companies);
     }
   });
