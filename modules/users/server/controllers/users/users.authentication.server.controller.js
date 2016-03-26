@@ -139,6 +139,8 @@ exports.jwtSignup = function (req, res, next) {
 
 exports.jwtSignin = function (req, res, next) {
 
+  console.log('jwtSignin func. is called : ' + JSON.stringify(req.body));
+
   var deviceInfo = req.headers.device;
   User.findOne({
     email: req.body.email
@@ -154,6 +156,9 @@ exports.jwtSignin = function (req, res, next) {
         var password = req.body.password;
         // Make sure the password is correct
         user.verifyPassword(password, function (err, isMatch) {
+
+          console.log('Password is matched or not : ' + isMatch);
+
           if (isMatch) {
             // Success
             var secret = 'www';
@@ -170,23 +175,30 @@ exports.jwtSignin = function (req, res, next) {
                   message: errorHandler.getErrorMessage(err)
                 });
               } else {
+
+                console.log('User saved');
+
                 req.login(user, function (err) {
                   if (err) {
+
+                    console.log('Error while login in signin func : ' + err);
+
                     res.status(400).send(err);
                   } else {
 
-                    //user is successfully logged in send a notification to the job to count user signins
-                    agenda.now('User_Signedin', {
-                      data: user.email
-                    });
-                    //user is successfully logged in save action into user usage details collection
-                    agenda.now('User_Usage_Details', {
-                      email: user.email,
-                      device: deviceInfo,
-                      action: 'Log In user : ' + user.displayName,
-                    });
-                    res.jsonp(user);
+                    /*//user is successfully logged in send a notification to the job to count user signins
+agenda.now('User_Signedin', {
+  data: user.email
+});
+//user is successfully logged in save action into user usage details collection
+agenda.now('User_Usage_Details', {
+  email: user.email,
+  device: deviceInfo,
+  action: 'Log In user : ' + user.displayName,
+});*/
                     console.log('@@@@@@ Found user in signin  func.  @@@@@@@' + JSON.stringify(user));
+                    res.jsonp(user);
+
                   }
                 });
               }

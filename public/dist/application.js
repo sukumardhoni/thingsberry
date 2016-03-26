@@ -430,6 +430,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
+
 (function () {
   'use strict';
 
@@ -733,6 +734,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 (function () {
   'use strict';
 
@@ -755,14 +757,37 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
     $scope.getSearchedProductsList = function () {
 
+      $scope.spinnerLoading = true;
+
+
+      $scope.searchOrder = {};
+
+      $scope.searchOrder.Lists = [
+        {
+          'name': 'Sort by',
+          'value': ''
+        },
+        {
+          'name': 'Latest',
+          'value': '-created'
+        },
+        {
+          'name': 'Ratings',
+          'value': 'created'
+        }
+  ];
+      $scope.searchOrder.List = $scope.searchOrder.Lists[0].value;
+
+
       SearchProducts.query({
         ProCategory: $stateParams.ProCat,
         ProCompany: $stateParams.ProCom,
         ProName: $stateParams.ProName
       }, function (res) {
-        console.log('Successfully fetched the Searched details');
-        console.log('Searched details length : ' + res.length);
+        //console.log('Successfully fetched the Searched details');
+        //console.log('Searched details length : ' + res.length);
         vm.companys = res;
+        $scope.spinnerLoading = false;
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
       });
@@ -893,25 +918,25 @@ angular.module('core.admin.routes').config(['$stateProvider',
       roles: ['user']
     });
 
-    Menus.addSubMenuItem('account', 'settings', {
+   /* Menus.addSubMenuItem('account', 'settings', {
       title: 'Edit Profile',
       state: 'settings.profile'
-    });
+    });*/
 
     /*Menus.addSubMenuItem('account', 'settings', {
   title: 'Edit Profile Picture',
   state: 'settings.picture'
 });*/
 
-    Menus.addSubMenuItem('account', 'settings', {
-      title: 'Change Password',
-      state: 'settings.password'
-    });
+    /*Menus.addSubMenuItem('account', 'settings', {
+  title: 'Change Password',
+  state: 'settings.password'
+});*/
 
-    Menus.addSubMenuItem('account', 'settings', {
-      title: 'Manage Social Accounts',
-      state: 'settings.accounts'
-    });
+   /* Menus.addSubMenuItem('account', 'settings', {
+   title: 'Manage Social Accounts',
+   state: 'settings.accounts'
+ });*/
 
   }
 
@@ -1095,6 +1120,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
+
 (function () {
   'use strict';
 
@@ -1461,6 +1487,7 @@ angular.module('core')
     }
   });
 }])
+
 'use strict';
 
 // Create the Socket.io wrapper service
@@ -1764,11 +1791,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     $scope.pwdCompare = function () {
       console.log('Credentials checking pwd ');
       if ($scope.credentials.password1 === $scope.credentials.password2) {
-        console.log('Pwd Matched');
+        //console.log('Pwd Matched');
         $scope.error = null;
         $scope.credentials.password = $scope.credentials.password1;
       } else {
-        console.log('Pwd doesnt Matched');
+        //console.log('Pwd doesnt Matched');
         $scope.error = "Password Doesn't match";
       }
     }
@@ -1821,6 +1848,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
 
+        //console.log('Logged in user details : ' + JSON.stringify(response));
+
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function (response) {
@@ -1840,100 +1869,99 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
 
 
-    $scope.signinWithFb = function () {
-      console.log('Sign in vth FB is called');
+    /*$scope.signinWithFb = function () {
+  console.log('Sign in vth FB is called');
 
-      var ref = new Firebase("https://thingsberry.firebaseio.com");
-      // prefer pop-ups, so we don't navigate away from the page
-      ref.authWithOAuthPopup("facebook", function (error, authData) {
-        if (error) {
-          console.log("Login Failed!", error);
-        } else {
-          // the access token will allow us to make Open Graph API calls
-          console.log('Successfully created facebook user in firebase');
-          console.log('USer details is :' + JSON.stringify(authData));
-          $scope.populateUserLocally(authData);
-        }
-      }, {
-        remember: "sessionOnly",
-        scope: "email,user_likes" // the permissions requested
-      });
-
-
-    };
-
-    $scope.signinWithG = function () {
-      console.log('Sign in vth Gmail is called');
-
-      var ref = new Firebase("https://thingsberry.firebaseio.com");
-      // prefer pop-ups, so we don't navigate away from the page
-      ref.authWithOAuthPopup("google", function (error, authData) {
-        if (error) {
-          if (error.code === "TRANSPORT_UNAVAILABLE") {
-            //fall-back to browser redirects, and pick up the session
-            // automatically when we come back to the origin page
-            ref.authWithOAuthRedirect("google", function (error) { /* ... */ });
-          }
-        } else if (authData) {
-
-          console.log('Successfully created google user in firebase');
-          console.log('USer details is :' + JSON.stringify(authData));
-          $scope.populateUserLocally(authData);
-          // user authenticated with Firebase
-        }
-      }, {
-        remember: "sessionOnly",
-        scope: "email"
-      });
+  var ref = new Firebase("https://thingsberry.firebaseio.com");
+  // prefer pop-ups, so we don't navigate away from the page
+  ref.authWithOAuthPopup("facebook", function (error, authData) {
+    if (error) {
+      console.log("Login Failed!", error);
+    } else {
+      // the access token will allow us to make Open Graph API calls
+      console.log('Successfully created facebook user in firebase');
+      console.log('USer details is :' + JSON.stringify(authData));
+      $scope.populateUserLocally(authData);
+    }
+  }, {
+    remember: "sessionOnly",
+    scope: "email,user_likes" // the permissions requested
+  });
 
 
-    };
+};
 
+$scope.signinWithG = function () {
+  console.log('Sign in vth Gmail is called');
 
-
-    $scope.populateUserLocally = function (respUser) {
-
-      var ref = new Firebase("https://thingsberry.firebaseio.com");
-      var profileRef = ref.child(respUser.provider + '-users');
-      var userProfile = {};
-      var localUser = {};
-      if (respUser.provider === 'facebook') {
-        var fbPro = localUser = respUser.facebook;
-        userProfile = {
-          "displayName": fbPro.displayName,
-          "email": fbPro.email,
-          "first_name": fbPro.cachedUserProfile.first_name,
-          "last_name": fbPro.cachedUserProfile.last_name,
-          "gender": fbPro.cachedUserProfile.gender
-        }
-      } else if (respUser.provider === 'google') {
-        var gPro = localUser = respUser.google;
-        userProfile = {
-          "displayName": gPro.displayName,
-          "email": gPro.email,
-          "given_name": gPro.cachedUserProfile.given_name,
-          "family_name": gPro.cachedUserProfile.family_name,
-          "gender": gPro.cachedUserProfile.gender
-        }
+  var ref = new Firebase("https://thingsberry.firebaseio.com");
+  // prefer pop-ups, so we don't navigate away from the page
+  ref.authWithOAuthPopup("google", function (error, authData) {
+    if (error) {
+      if (error.code === "TRANSPORT_UNAVAILABLE") {
+        //fall-back to browser redirects, and pick up the session
+        // automatically when we come back to the origin page
+        ref.authWithOAuthRedirect("google", function (error) {});
       }
-      console.log('Succefully local usr is created : ' + JSON.stringify(userProfile));
-      profileRef.push(userProfile, function (error) {
-        if (error) {
-          console.log("userData could not be saved." + error);
-        } else {
-          console.log("userData saved successfully.");
-        }
-      });
-      $scope.authentication.user = localUser;
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
-    };
+    } else if (authData) {
+
+      console.log('Successfully created google user in firebase');
+      console.log('USer details is :' + JSON.stringify(authData));
+      $scope.populateUserLocally(authData);
+      // user authenticated with Firebase
+    }
+  }, {
+    remember: "sessionOnly",
+    scope: "email"
+  });
+
+
+};
+
+
+
+$scope.populateUserLocally = function (respUser) {
+
+  var ref = new Firebase("https://thingsberry.firebaseio.com");
+  var profileRef = ref.child(respUser.provider + '-users');
+  var userProfile = {};
+  var localUser = {};
+  if (respUser.provider === 'facebook') {
+    var fbPro = localUser = respUser.facebook;
+    userProfile = {
+      "displayName": fbPro.displayName,
+      "email": fbPro.email,
+      "first_name": fbPro.cachedUserProfile.first_name,
+      "last_name": fbPro.cachedUserProfile.last_name,
+      "gender": fbPro.cachedUserProfile.gender
+    }
+  } else if (respUser.provider === 'google') {
+    var gPro = localUser = respUser.google;
+    userProfile = {
+      "displayName": gPro.displayName,
+      "email": gPro.email,
+      "given_name": gPro.cachedUserProfile.given_name,
+      "family_name": gPro.cachedUserProfile.family_name,
+      "gender": gPro.cachedUserProfile.gender
+    }
+  }
+  console.log('Succefully local usr is created : ' + JSON.stringify(userProfile));
+  profileRef.push(userProfile, function (error) {
+    if (error) {
+      console.log("userData could not be saved." + error);
+    } else {
+      console.log("userData saved successfully.");
+    }
+  });
+  $scope.authentication.user = localUser;
+  $state.go($state.previous.state.name || 'home', $state.previous.params);
+};*/
 
 
 
 
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
@@ -2101,7 +2129,7 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
 
 angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication',
   function ($scope, $http, $location, Users, Authentication) {
-    $scope.user = Authentication.user;
+    $scope.authentication = Authentication;
 
     // Update a user profile
     $scope.updateUserProfile = function (isValid) {
@@ -2115,18 +2143,19 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
       var user = new Users($scope.user);
 
+
+      //console.log('User details : ' + JSON.stringify($scope.user));
+
       user.$update(function (response) {
         $scope.$broadcast('show-errors-reset', 'userForm');
-
         $scope.success = true;
-        Authentication.user = response;
+        $scope.authentication.user = response;
       }, function (response) {
         $scope.error = response.data.message;
       });
     };
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('SocialAccountsController', ['$scope', '$http', 'Authentication',

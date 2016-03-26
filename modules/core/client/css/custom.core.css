@@ -437,6 +437,15 @@ hr.small {
   z-index: 73;
 }
 
+.Cat-name:hover {
+  cursor: pointer;
+}
+
+.content-on-img-about {
+  top: 90px;
+  position: absolute;
+}
+
 .abtus-service-name {
   font-size: 24px;
   color: rgb(2, 168, 243);

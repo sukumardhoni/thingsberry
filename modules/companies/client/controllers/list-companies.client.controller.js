@@ -20,14 +20,37 @@
 
     $scope.getSearchedProductsList = function () {
 
+      $scope.spinnerLoading = true;
+
+
+      $scope.searchOrder = {};
+
+      $scope.searchOrder.Lists = [
+        {
+          'name': 'Sort by',
+          'value': ''
+        },
+        {
+          'name': 'Latest',
+          'value': '-created'
+        },
+        {
+          'name': 'Ratings',
+          'value': 'created'
+        }
+  ];
+      $scope.searchOrder.List = $scope.searchOrder.Lists[0].value;
+
+
       SearchProducts.query({
         ProCategory: $stateParams.ProCat,
         ProCompany: $stateParams.ProCom,
         ProName: $stateParams.ProName
       }, function (res) {
-        console.log('Successfully fetched the Searched details');
-        console.log('Searched details length : ' + res.length);
+        //console.log('Successfully fetched the Searched details');
+        //console.log('Searched details length : ' + res.length);
         vm.companys = res;
+        $scope.spinnerLoading = false;
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
       });

@@ -19,6 +19,9 @@ exports.update = function (req, res) {
   // Init Variables
   var user = req.user;
 
+  console.log('req.body details : ' + JSON.stringify(req.body));
+
+
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
@@ -30,12 +33,19 @@ exports.update = function (req, res) {
 
     user.save(function (err) {
       if (err) {
+
+
+        console.log('Error while updating the user : ' + err);
+
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
         req.login(user, function (err) {
           if (err) {
+
+            console.log('Error while updated user login : ' + err);
+
             res.status(400).send(err);
           } else {
             res.json(user);
@@ -63,7 +73,7 @@ exports.changeProfilePicture = function (req, res) {
 
   if (user) {
     upload(req, res, function (uploadError) {
-      if(uploadError) {
+      if (uploadError) {
         return res.status(400).send({
           message: 'Error occurred while uploading profile picture'
         });

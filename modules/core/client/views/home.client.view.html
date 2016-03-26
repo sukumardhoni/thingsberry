@@ -126,94 +126,6 @@
     <br>
     <br>
     <br>
-    <!--<div class="row">
-  <div class="col-md-offset-2 col-md-8 box">
-    <br>
-    <br>
-    <br>
-    <div class="row">
-      <div class="col-md-offset-1 col-md-11 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
-        <div class="row">
-          <div class="default-search form-group col-md-3 col-sm-3 col-xs-12">
-            <select class="form-control" name="services_offer" id="services_offer">
-              <option value="kg">Category</option>
-              <option value="gm">list1</option>
-              <option value="pound">list1</option>
-              <option value="MetricTon">list1</option>
-              <option value="litre">list1</option>
-              <option value="ounce">list1</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3 col-sm-3 col-xs-12 code">
-            <input type="text" class="form-control custom-homepage-input" id="company" placeholder="Company">
-          </div>
-          <div class="form-group col-md-3 col-sm-3 col-xs-12 tel">
-            <input type="text" id="company" placeholder="Product" class="form-control custom-homepage-input">
-          </div>
-          <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <button type="button" name="search" class="btn btn-custom-search">Search</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
-        <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
-      </div>
-    </div>
-
-    <div class="row" ng-show="Advanced_Search_Fields">
-      <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 ">
-        <div class="row">
-          <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
-            <select class="country_select form-control" name="services_offer" id="services_offer">
-              <option value="kg">Country</option>
-              <option value="gm">list1</option>
-              <option value="pound">list1</option>
-              <option value="MetricTon">list1</option>
-              <option value="litre">list1</option>
-              <option value="ounce">list1</option>
-            </select>
-          </div>
-          <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
-            <select class="state_select form-control" name="services_offer" id="services_offer">
-              <option value="kg">State</option>
-              <option value="gm">list1</option>
-              <option value="pound">list1</option>
-              <option value="MetricTon">list1</option>
-              <option value="litre">list1</option>
-              <option value="ounce">list1</option>
-            </select>
-          </div>
-          <div class="form-group Advanced_Search_Fields col-md-4 col-sm-4 col-xs-12 ">
-            <input type="text" id="telephone" placeholder="Zip code" class="zipcode_select form-control">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group Advanced_Search_Fields col-md-6 col-sm-6 col-xs-12 ">
-            <select class="business_select form-control" name="services_offer" id="services_offer">
-              <option value="kg">Business</option>
-              <option value="gm">list1</option>
-              <option value="pound">list1</option>
-              <option value="MetricTon">list1</option>
-              <option value="litre">list1</option>
-              <option value="ounce">list1</option>
-            </select>
-          </div>
-          <div class="check-box-landingpage">
-            <label class="col-md-5 col-sm-5 col-xs-12 col-xs-offset-1 checkbox-inline">
-              <input type="checkbox" value="">Lorem ipsum dolor sit amet
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <br>
-  </div>
-</div>-->
   </div>
   <div class="container">
     <div class="row text-center">
@@ -229,7 +141,7 @@
                                 <i class="fa fa-home fa-stack-1x favIcons"></i>
                             </span>
               <h4>
-                                    <span class="Cat-name">HOME</span>
+                                    <span class="Cat-name" ui-sref="companies.list({ProCat: 'HOME'})">HOME</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>
@@ -244,7 +156,7 @@
                                 <i class="fa fa-car fa-stack-1x favIcons"></i>
                             </span>
               <h4>
-                                    <span class="Cat-name">AUTOMOBILE</span>
+                                    <span class="Cat-name"  ui-sref="companies.list({ProCat: 'AUTOMOBILE'})">AUTOMOBILE</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>
@@ -259,7 +171,7 @@
                                 <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
                             </span>
               <h4>
-                                    <span class="Cat-name">HEALTH CARE</span>
+                                    <span class="Cat-name" ui-sref="companies.list({ProCat: 'HEALTH CARE'})">HEALTH CARE</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>
@@ -274,7 +186,7 @@
                                 <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
                             </span>
               <h4>
-                                    <span class="Cat-name">UTILITIES</span>
+                                    <span class="Cat-name" ui-sref="companies.list({ProCat: 'UTILITIES'})">UTILITIES</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>

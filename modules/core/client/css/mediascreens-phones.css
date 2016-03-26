@@ -153,6 +153,11 @@
   .navbar-inverse .navbar-form {
     border-color: #337ab7;
   }
+  .content-on-img-about {
+    top: 70px;
+    position: absolute;
+    padding: 20px;
+  }
   .content-on-img {
     top: 0px;
     position: relative;

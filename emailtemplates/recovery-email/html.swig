@@ -582,7 +582,7 @@
                                         <tr>
                                             <td align="center" valign="top" class="headerContent">
                                             
-                                            	<img src="http://qa.thingsberry.com/modules/core/client/img/brand/logo.png" style="max-width:600px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                                            	<img src="http://qa.thingsberry.com/modules/core/client/img/brand/Thingsberry_em.png" style="max-width:600px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
                                             </td>
                                         </tr>
                                     </table>

@@ -6,14 +6,12 @@
   </div>
   <br>
   <div class="row">
-    <span class="col-md-2 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to search</span><span class="col-md-8" ng-show="vm.companys.length !== 0"><center><select class="select_on_search_results">
-              <option>Sort by</option>
-              <option>Filter</option>
-              <option>Filter</option>
-              <option>Filter</option>
-              <option>Filter</option>
-              <option>Filter</option>
-            </select></center></span>
+    <span class="col-md-2 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to search</span><span class="col-md-8" ng-show="vm.companys.length !== 0">
+    <center>
+     <select  class="select_on_search_results" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+    </select>
+    </center>
+    </span>
   </div>
   <br>
   <br>
@@ -21,7 +19,11 @@
   <div class="text-center">
     <div class="row">
       <div class="col-md-offset-1 col-md-10">
-        <div ng-repeat="val in vm.companys" ng-show="vm.companys.length !== 0">
+
+
+        <div style="margin:15%" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif"></div>
+
+        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
           <div class="clearfix" ng-if="$index % 2 == 0"></div>
           <div class="col-sm-6 col-xs-12">
             <product-display details=val></product-display>
