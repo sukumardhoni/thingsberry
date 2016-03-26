@@ -800,6 +800,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 'use strict';
 
 
@@ -1962,6 +1963,7 @@ $scope.populateUserLocally = function (respUser) {
 
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
@@ -2156,6 +2158,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('SocialAccountsController', ['$scope', '$http', 'Authentication',
