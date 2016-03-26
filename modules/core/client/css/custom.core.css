@@ -57,7 +57,7 @@ section {
 }
 
 .header-title-names {
-  font-size: 15px!important;
+  font-size: 13px!important;
   font-stretch: ultra-expanded;
   text-transform: uppercase;
 }
@@ -99,9 +99,8 @@ navbar-inverse .navbar-nav > .open > a,
   font-family: "OpenSans";
 }
 
-.navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover {
-  color: #fff !important;
+  color: #bfbfbf !important;
 }
 
 .triangle {
@@ -333,12 +332,12 @@ input {
 
 .fa-angle-down {
   text-decoration: none;
-  padding-left: 15px;
+  padding-left: 5px;
 }
 
 .fa-angle-up {
   text-decoration: none;
-  padding-left: 15px;
+  padding-left: 5px;
 }
 
 .Advanced_Search:hover {
@@ -468,17 +467,17 @@ hr.small {
   z-index: 22;
 }
 
-.company_name {
-  font-size: 13.695px;
+.product_title {
+  font-size: 20px;
   font-family: "OpenSans";
   color: rgb(51, 51, 51);
   line-height: 1.2;
   text-align: center;
-  -moz-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
-  -webkit-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
-  -ms-transform: matrix( 1.89688870435346, 0, 0, 1.89848579331629, 0, 0);
-  top: 20px;
-  z-index: 36;
+  padding-top: 10px;
+}
+
+#searchBtn {
+  color: #FFF !important;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
@@ -528,7 +527,6 @@ hr.small {
 }
 
 .icons-on-img-footer {
-  margin-top: -40px;
   font-size: 24px;
   color: rgb(33, 150, 243);
   z-index: 32;
@@ -547,7 +545,6 @@ hr.small {
   background-color: rgb(2, 168, 243) !important;
   color: white;
   margin-top: 70px;
-  margin-left: 40px;
   border-radius: 5px;
   font-size: 16px;
   font-family: "OpenSans";

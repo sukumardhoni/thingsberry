@@ -354,7 +354,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
       })
       .state('companies.list', {
-        url: '',
+        url: '/List_Of_Products/:ProCat?/:ProCom?/:ProName?',
         templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
@@ -515,7 +515,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         vm.company.$update(successUpdateCallback, errorUpdateCallback);
       } else {
 
-        vm.company.ProCat = $scope.selectedCategory;
+        // vm.company.ProCat = $scope.selectedCategory;
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
@@ -533,6 +533,8 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           filetype: $scope.productImg.filetype,
           base64: $scope.productImg.base64
         };
+
+        //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
         vm.company.$save(successCallback, errorCallback);
       }
 
@@ -738,16 +740,39 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope'];
+  CompanyListController.$inject = ['CompanyService', '$scope', '$stateParams', 'SearchProducts'];
 
-  function CompanyListController(CompanyService, $scope) {
+  function CompanyListController(CompanyService, $scope, $stateParams, SearchProducts) {
     var vm = this;
 
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
-    CompanyService.query(function (res) {
-      //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
-      vm.companys = res;
-    });
+    /*CompanyService.query(function (res) {
+  //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
+  vm.companys = res;
+});*/
+
+
+
+    $scope.getSearchedProductsList = function () {
+
+      SearchProducts.query({
+        ProCategory: $stateParams.ProCat,
+        ProCompany: $stateParams.ProCom,
+        ProName: $stateParams.ProName
+      }, function (res) {
+        console.log('Successfully fetched the Searched details');
+        console.log('Searched details length : ' + res.length);
+        vm.companys = res;
+      }, function (err) {
+        console.log('Failed to fetch the product details : ' + err);
+      });
+    };
+
+
+
+
+
+
   }
 })();
 'use strict';
@@ -776,6 +801,7 @@ angular.module('companies')
       }
     };
   }]);
+
 (function () {
   'use strict';
 
@@ -814,6 +840,7 @@ angular.module('companies')
 
 
 })();
+
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -871,10 +898,10 @@ angular.module('core.admin.routes').config(['$stateProvider',
       state: 'settings.profile'
     });
 
-    Menus.addSubMenuItem('account', 'settings', {
-      title: 'Edit Profile Picture',
-      state: 'settings.picture'
-    });
+    /*Menus.addSubMenuItem('account', 'settings', {
+  title: 'Edit Profile Picture',
+  state: 'settings.picture'
+});*/
 
     Menus.addSubMenuItem('account', 'settings', {
       title: 'Change Password',
@@ -953,6 +980,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       });
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('ContactUsController', ['$scope', 'Authentication',
@@ -1023,18 +1051,50 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
+
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication',
-  function ($scope, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
+  function ($scope, Authentication, SearchProducts, $state) {
+
+    var vm = this;
+
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
 
     $scope.Advanced_Search_Fields = false;
+
+    $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES'];
+    $scope.CountriesList = ['Country', 'INDIA', 'US', 'UK', 'CHINA', 'JAPAN', 'AUSTRALIA'];
+    $scope.StatesList = ['State', 'ANDHRA PRADESH', 'NEW JERSY', 'LONDON', 'HONG KONG', 'SYDNEY'];
+    $scope.BusinessList = ['Business', 'SMALL SCALE', 'LARGE SCALE', 'AUTOMOBILES', 'TRADING', 'MARKETING'];
+
+    $scope.getSearchedProducts = function (details) {
+      //console.log('getSearchedProducts form details are : ' + JSON.stringify(details));
+      if (!details.Company)
+        details.Company = 'Company';
+      else if (!details.Product)
+        details.Product = 'Product';
+
+      $state.go('companies.list', {
+        ProCat: details.Category,
+        ProCom: details.Company,
+        ProName: details.Product
+      });
+    };
+
+
+    $scope.homePageProductDetails = {
+      title: 'SONY',
+      logoURL: '../../../../modules/core/client/img/brand/sony logo.png',
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      webAddress: 'http://www.sonos.com/shop/play5'
+
+    };
+
   }
 ]);
-
 (function () {
   'use strict';
 
@@ -1384,6 +1444,25 @@ angular.module('core')
 
 'use strict';
 
+//Search service used for quering Products
+
+angular.module('core')
+
+.factory('SearchProducts', ["$resource", function ($resource) {
+  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName', {
+    ProCategory: '@ProCategory',
+    ProCompany: '@ProCompany',
+    ProName: '@ProName'
+  }, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+}])
+'use strict';
+
 // Create the Socket.io wrapper service
 angular.module('core').service('Socket', ['Authentication', '$state', '$timeout',
   function (Authentication, $state, $timeout) {
@@ -1591,6 +1670,7 @@ angular.module('users').config(['$stateProvider',
       });
   }
 ]);
+
 'use strict';
 
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
@@ -1853,6 +1933,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
@@ -1912,6 +1993,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('ChangePasswordController', ['$scope', '$http', 'Authentication', 'PasswordValidator',
@@ -1940,6 +2022,7 @@ angular.module('users').controller('ChangePasswordController', ['$scope', '$http
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$timeout', '$window', 'Authentication', 'FileUploader',

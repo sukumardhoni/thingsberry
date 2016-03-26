@@ -83,7 +83,7 @@
         vm.company.$update(successUpdateCallback, errorUpdateCallback);
       } else {
 
-        vm.company.ProCat = $scope.selectedCategory;
+        // vm.company.ProCat = $scope.selectedCategory;
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
@@ -101,6 +101,8 @@
           filetype: $scope.productImg.filetype,
           base64: $scope.productImg.base64
         };
+
+        //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
         vm.company.$save(successCallback, errorCallback);
       }
 

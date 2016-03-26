@@ -57,8 +57,10 @@
   </nav>
 </div>-->
 
+
 <nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderController">
   <!-- Brand and toggle get grouped for better mobile display -->
+
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse" ng-click="toggleCollapsibleMenu()">
@@ -84,9 +86,9 @@
         <li ui-sref-active="active">
           <a ui-sref="aboutus" class="header-title-names">ABOUT US</a>
         </li>
-        <li ui-sref-active="active">
-          <a ui-sref="companies.list" class="header-title-names">List</a>
-        </li>
+        <!--<li ui-sref-active="active">
+  <a ui-sref="companies.list" class="header-title-names">List</a>
+</li>-->
         <li ui-sref-active="active">
           <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
         </li>
@@ -106,7 +108,7 @@
             <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
               <a ui-sref="{{item.state}}" ng-bind="item.title"></a>
             </li>
-            <li class="divider"></li>
+            <li class="divider hidden-xs"></li>
             <li>
               <a ng-click="signout()">Signout</a>
             </li>

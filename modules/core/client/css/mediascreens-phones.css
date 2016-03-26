@@ -73,6 +73,9 @@
   .navbar-inverse .navbar-form {
     border-color: #337ab7;
   }
+  .product-square-img {
+    width: 70% !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -153,5 +156,37 @@
   .content-on-img {
     top: 0px;
     position: relative;
+    background-color: #B3D4F7;
+  }
+  .navbar-nav {
+    margin: 2px -15px;
+  }
+  .navbar-header {
+    background-color: rgb(255, 255, 255) !important;
+    border-color: rgb(255, 255, 255) !important;
+    background-image: -webkit-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
+    background-image: -o-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
+    background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
+    padding-bottom: 10px;
+  }
+  .navbar-nav .open .dropdown-menu {
+    background-color: rgb(2, 168, 243);
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #f2f2f2;
+    border-top: 1px solid #fff;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #ccc !important;
+  }
+  .navbar-inverse .navbar-nav > li > a:hover {
+    color: #ccc !important;
+  }
+  .dropdown-menu {
+    padding: 0px;
+  }
+  .product-square-img {
+    width: 35%;
   }
 }

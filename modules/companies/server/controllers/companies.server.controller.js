@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var path = require('path'),
-    _ = require('lodash'),
+  _ = require('lodash'),
   mongoose = require('mongoose'),
   Company = mongoose.model('Company'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
@@ -14,14 +14,14 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var company = new Company(req.body);
+  company.user = req.user
 
-
-  console.log(' Rest side console details : ' + JSON.stringify(req.body));
+  //console.log('Rest side console details : ' + JSON.stringify(req.body.Proname));
 
   company.save(function (err) {
     if (err) {
 
-      console.log('error details on server : ' + err);
+      // console.log('error details on server : ' + err);
 
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -100,6 +100,104 @@ exports.list = function (req, res) {
     }
   });
 };
+
+/**
+ * Searched Products List
+ */
+
+
+exports.searchedProductsList = function (req, res) {
+
+  console.log('searchedProductsList id cslled and details are : ' + JSON.stringify(req.params));
+
+  var findObj = {};
+  if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
+
+    console.log('FIndOBJ print here 1111');
+
+    findObj = {
+      ProCat: req.params.ProCategory
+    }
+    if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
+      console.log('FIndOBJ print here 1222');
+      findObj = {
+        ProCat: req.params.ProCategory,
+        Comname: req.params.ProCompany
+      }
+      if (req.params.ProName && (req.params.ProName !== 'Product')) {
+        console.log('FIndOBJ print here 1333');
+        findObj = {
+          ProCat: req.params.ProCategory,
+          Comname: req.params.ProCompany,
+          Proname: req.params.ProName
+        }
+      }
+    }
+  } else if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
+    console.log('FIndOBJ print here 2111');
+
+    findObj = {
+      Comname: req.params.ProCompany
+    }
+    if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
+      console.log('FIndOBJ print here 2222');
+      findObj = {
+        ProCat: req.params.ProCategory,
+        Comname: req.params.ProCompany
+      }
+      if (req.params.ProName && (req.params.ProName !== 'Product')) {
+        console.log('FIndOBJ print here 2333');
+        findObj = {
+          ProCat: req.params.ProCategory,
+          Comname: req.params.ProCompany,
+          Proname: req.params.ProName
+        }
+      }
+    }
+  } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
+    console.log('FIndOBJ print here 3111');
+    findObj = {
+      Proname: req.params.ProName
+    }
+    if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
+      console.log('FIndOBJ print here 3222');
+      findObj = {
+        ProCat: req.params.ProCategory,
+        Proname: req.params.ProName
+      }
+      if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
+
+        console.log('FIndOBJ print here 3333');
+
+        findObj = {
+          ProCat: req.params.ProCategory,
+          Comname: req.params.ProCompany,
+          Proname: req.params.ProName
+        }
+      }
+    }
+  }
+
+
+
+  console.log('Request FindOBj is : ' + JSON.stringify(findObj));
+
+
+  Company.find(findObj).exec(function (err, companies) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      //console.log('Server side List of products : ' + JSON.stringify(companies));
+      res.json(companies);
+    }
+  })
+
+
+};
+
+
 
 /**
  * Company middleware

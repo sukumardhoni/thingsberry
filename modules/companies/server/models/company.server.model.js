@@ -24,7 +24,7 @@ var CompanySchema = new Schema({
     type: String,
     default: '',
     trim: true,
-    required: 'Product Name cannot be blank'
+    required: 'Product Category cannot be blank'
   },
   Comname: {
     type: String,
@@ -93,7 +93,11 @@ var CompanySchema = new Schema({
   },
   businessSector: [],
   serviceOffered: [],
-  operationalRegions: []
+  operationalRegions: [],
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
 });
 
 mongoose.model('Company', CompanySchema);

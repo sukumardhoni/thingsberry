@@ -8,12 +8,17 @@ var companiesPolicy = require('../policies/companies.server.policy'),
 
 module.exports = function (app) {
   // Companies collection routes
-  app.route('/api/companies')/*.all(companiesPolicy.isAllowed)*/
+  app.route('/api/companies') /*.all(companiesPolicy.isAllowed)*/
     .get(companies.list)
     .post(companies.create);
 
+
+  app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?')
+    .get(companies.searchedProductsList);
+
+
   // Single company routes
-  app.route('/api/companies/:companyId')/*.all(companiesPolicy.isAllowed)*/
+  app.route('/api/companies/:companyId') /*.all(companiesPolicy.isAllowed)*/
     .get(companies.read)
     .put(companies.update)
     .delete(companies.delete);

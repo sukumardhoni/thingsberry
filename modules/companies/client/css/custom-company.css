@@ -92,6 +92,10 @@
   z-index: 203;
 }
 
+.Back_to_search:hover {
+  cursor: pointer;
+}
+
 .business_sector_select {
   border: 1px solid rgb(212, 211, 211);
   border-radius: 5px;
@@ -231,4 +235,28 @@
 
 .img-outer:hover .pencilIcon {
   display: block;
+}
+
+.product-square {
+  background: #fff;
+  margin-bottom: 30px;
+  border: solid 2px rgb(255, 245, 104);
+}
+
+.product-square-logo {
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  height: 200px;
+  line-height: 200px;
+}
+
+.product-square-img {
+  width: 40%;
+}
+
+.product-square-body {
+  padding: 18px;
+  position: relative;
+  text-align: center;
 }
