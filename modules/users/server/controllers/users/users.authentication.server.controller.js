@@ -149,7 +149,7 @@ exports.jwtSignin = function (req, res, next) {
       console.log('error :' + err);
       res.json({
         type: false,
-        data: 'Error occured: ' + err
+        data: err
       });
     } else {
       if (user) {

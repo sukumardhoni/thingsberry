@@ -617,6 +617,10 @@ footer {
   text-shadow: none !important;
 }
 
+.PopCats:hover {
+  cursor: pointer;
+}
+
 
 /* Sticky footer styles
       -------------------------------------------------- */

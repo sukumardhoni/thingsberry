@@ -73,12 +73,23 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
       $http.post('/api/auth/jwtSignin', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
-        $scope.authentication.user = response;
 
-        //console.log('Logged in user details : ' + JSON.stringify(response));
 
-        // And redirect to the previous or home page
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
+        if (response.type === false) {
+          $scope.error = response.data;
+          //$scope.isDisabled = false;
+          //$scope.buttonTextSignUp = 'Sign Up';
+          console.log('Error Msg : ' + JSON.stringify(response.data));
+
+        } else {
+          $scope.error = null;
+          //$scope.populateUserLocally(res);
+          // If successful we assign the response to the global user model
+          $scope.authentication.user = response;
+
+          // And redirect to the previous or home page
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
+        }
       }).error(function (response) {
         $scope.error = response.message;
       });
