@@ -354,7 +354,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
       })
       .state('companies.list', {
-        url: '/List_Of_Products/:ProCat?/:ProCom?/:ProName?',
+        url: '/list/:cat?/:com?/:name?',
         templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
@@ -430,7 +430,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
-
 (function () {
   'use strict';
 
@@ -780,9 +779,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
       SearchProducts.query({
-        ProCategory: $stateParams.ProCat,
-        ProCompany: $stateParams.ProCom,
-        ProName: $stateParams.ProName
+        ProCategory: $stateParams.cat,
+        ProCompany: $stateParams.com,
+        ProName: $stateParams.name
       }, function (res) {
         //console.log('Successfully fetched the Searched details');
         //console.log('Searched details length : ' + res.length);
@@ -800,7 +799,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 'use strict';
 
 
@@ -1077,6 +1075,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
@@ -1103,9 +1102,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         details.Product = 'Product';
 
       $state.go('companies.list', {
-        ProCat: details.Category,
-        ProCom: details.Company,
-        ProName: details.Product
+        cat: details.Category,
+        com: details.Company,
+        name: details.Product
       });
     };
 
@@ -1120,7 +1119,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
-
 (function () {
   'use strict';
 
@@ -1973,6 +1971,7 @@ $scope.populateUserLocally = function (respUser) {
 
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',

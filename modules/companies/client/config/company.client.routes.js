@@ -18,7 +18,7 @@
         }
       })
       .state('companies.list', {
-        url: '/List_Of_Products/:ProCat?/:ProCom?/:ProName?',
+        url: '/list/:cat?/:com?/:name?',
         templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',

@@ -24,9 +24,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         details.Product = 'Product';
 
       $state.go('companies.list', {
-        ProCat: details.Category,
-        ProCom: details.Company,
-        ProName: details.Product
+        cat: details.Category,
+        com: details.Company,
+        name: details.Product
       });
     };
 

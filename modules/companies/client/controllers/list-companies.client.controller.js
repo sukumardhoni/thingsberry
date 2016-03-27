@@ -43,9 +43,9 @@
 
 
       SearchProducts.query({
-        ProCategory: $stateParams.ProCat,
-        ProCompany: $stateParams.ProCom,
-        ProName: $stateParams.ProName
+        ProCategory: $stateParams.cat,
+        ProCompany: $stateParams.com,
+        ProName: $stateParams.name
       }, function (res) {
         //console.log('Successfully fetched the Searched details');
         //console.log('Searched details length : ' + res.length);
