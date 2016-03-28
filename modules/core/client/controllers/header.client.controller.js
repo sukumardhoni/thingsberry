@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http',
-  function ($scope, $state, Authentication, Menus, $http) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
+  function ($scope, $state, Authentication, Menus, $http, $localStorage) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
@@ -25,22 +25,13 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     });
 
 
-    $scope.signoutFirebase = function () {
-      //console.log('signoutFirebase is called');
-      var ref = new Firebase("https://thingsberry.firebaseio.com");
-      ref.unauth(function authHandler(error, authData) {
-        if (error) {
-          console.log("signout Failed!", error);
-        } else {
-          //console.log("signout successfully with payload:", authData);
-          $scope.authentication.user = '';
-        }
-      });
-    };
+
+
+
 
     $scope.signout = function () {
       console.log('signout is called');
-      //$http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
+      $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
       $http.post('/api/auth/jwtSignout').success(function (response) {
         //console.log('Signout callback : ' + JSON.stringify(response));
         $scope.authentication.user = '';

@@ -1,8 +1,11 @@
 'use strict';
 
-angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-  function ($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication', '$localStorage',
+  function ($scope, $http, $location, Users, Authentication, $localStorage) {
     $scope.authentication = Authentication;
+
+    $scope.user = $localStorage.user;
+
 
     // Update a user profile
     $scope.updateUserProfile = function (isValid) {
@@ -15,9 +18,6 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
       }
 
       var user = new Users($scope.user);
-
-
-      //console.log('User details : ' + JSON.stringify($scope.user));
 
       user.$update(function (response) {
         $scope.$broadcast('show-errors-reset', 'userForm');

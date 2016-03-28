@@ -8,7 +8,6 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Firebase = require("firebase"),
   nodemailer = require('nodemailer'),
   config = require('../../../../../config/config'),
   agenda = require('../../../../../schedules/job-schedule')(config.db),
@@ -126,7 +125,7 @@ exports.jwtChangePassword = function (req, res) {
                 message: 'Current password is incorrect'
               });
             }
-          })
+          });
         } else {
           res.status(400).send({
             message: 'User is not found'
@@ -236,31 +235,6 @@ exports.forgot = function (req, res, next) {
   });
 };
 
-
-
-
-
-
-/*exports.forgotPwdFirebase = function (req, res, next) {
-  var ref = new Firebase("https://thingsberry.firebaseio.com");
-  ref.resetPassword({
-    email: req.body.email
-  }, function (error) {
-    if (error === null) {
-      console.log("Password reset email sent successfully");
-      res.send({
-        message: 'An email has been sent to the provided email with further instructions.'
-      });
-    } else {
-      console.log("Error sending password reset email:", error);
-    }
-  });
-};*/
-
-
-
-
-
 /**
  * Reset password GET from email token
  */
@@ -282,84 +256,6 @@ exports.validateResetToken = function (req, res) {
  * Reset password POST from email token
  */
 exports.reset = function (req, res, next) {
-  /*
-    // Init Variables
-    var passwordDetails = req.body;
-
-    async.waterfall([
-
-      function (done) {
-        User.findOne({
-          resetPasswordToken: req.params.token,
-          resetPasswordExpires: {
-            $gt: Date.now()
-          }
-        }, function (err, user) {
-          if (!err && user) {
-            if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
-              user.password = passwordDetails.newPassword;
-              user.resetPasswordToken = undefined;
-              user.resetPasswordExpires = undefined;
-
-              user.save(function (err) {
-                if (err) {
-                  return res.status(400).send({
-                    message: errorHandler.getErrorMessage(err)
-                  });
-                } else {
-                  req.login(user, function (err) {
-                    if (err) {
-                      res.status(400).send(err);
-                    } else {
-                      // Remove sensitive data before return authenticated user
-                      user.password = undefined;
-                      user.salt = undefined;
-
-                      res.json(user);
-
-                      done(err, user);
-                    }
-                  });
-                }
-              });
-            } else {
-              return res.status(400).send({
-                message: 'Passwords do not match'
-              });
-            }
-          } else {
-            return res.status(400).send({
-              message: 'Password reset token is invalid or has expired.'
-            });
-          }
-        });
-      },
-      function (user, done) {
-        res.render('modules/users/server/templates/reset-password-confirm-email', {
-          name: user.displayName,
-          appName: config.app.title
-        }, function (err, emailHTML) {
-          done(err, emailHTML, user);
-        });
-      },
-      // If valid email, send reset email using service
-      function (emailHTML, user, done) {
-        var mailOptions = {
-          to: user.email,
-          from: config.mailer.from,
-          subject: 'Your password has been changed',
-          html: emailHTML
-        };
-
-        smtpTransport.sendMail(mailOptions, function (err) {
-          done(err, 'done');
-        });
-      }
-    ], function (err) {
-      if (err) {
-        return next(err);
-      }
-    });*/
 
   // Init Variables
   var passwordDetails = req.body;

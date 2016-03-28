@@ -86,9 +86,9 @@
         <li ui-sref-active="active">
           <a ui-sref="aboutus" class="header-title-names">ABOUT US</a>
         </li>
-        <!--<li ui-sref-active="active">
-  <a ui-sref="companies.list" class="header-title-names">List</a>
-</li>-->
+        <li ui-sref-active="active">
+          <a ui-sref="companies.list" class="header-title-names">List</a>
+        </li>
         <li ui-sref-active="active">
           <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
         </li>
@@ -105,10 +105,10 @@
             <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li ui-sref-active="active" ng-repeat="item in accountMenu.items" ng-hide="true">
+            <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
               <a ui-sref="{{item.state}}" ng-bind="item.title"></a>
             </li>
-            <li class="divider hidden-xs" ng-hide="true"></li>
+            <li class="divider hidden-xs"></li>
             <li>
               <a ng-click="signout()">Signout</a>
             </li>

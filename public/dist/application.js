@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
-  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'firebase', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64'];
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -21,7 +21,6 @@ var ApplicationConfiguration = (function () {
     registerModule: registerModule
   };
 })();
-
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -391,7 +390,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       })
       .state('companies.edit', {
         url: '/:companyId/edit',
-        templateUrl: 'modules/companies/client/views/form-company.client.view.html',
+        templateUrl: 'modules/companies/client/views/add-company.client.view.html',
         controller: 'CompanyController',
         controllerAs: 'vm',
         resolve: {
@@ -399,7 +398,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Edit Company {{ companyResolve.title }}'
+          pageTitle: 'Edit Company {{ companyResolve.Proname }}'
         }
       })
       .state('companies.view', {
@@ -411,7 +410,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           companyResolve: getCompany
         },
         data: {
-          pageTitle: 'Company {{ companyResolve.title }}'
+          pageTitle: 'Company {{ companyResolve.Proname }}'
         }
       });
   }
@@ -464,6 +463,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
     // Remove existing company
     function remove() {
+
+      console.log('remove func. is triggred');
+
       if (confirm('Are you sure you want to delete?')) {
         vm.company.$remove($state.go('company.list'));
       }
@@ -497,6 +499,15 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       }
     }
 
+    function genBusinessArray(businessArray) {
+      var businessSecArr = [];
+      for (var i = 0; i < businessArray.length; i++) {
+        businessSecArr.push(businessArray[i].id);
+      }
+      if (businessArray.length === businessSecArr.length) {
+        return businessSecArr;
+      }
+    }
 
 
     // addCompanyDetails company
@@ -512,7 +523,8 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        console.log('Update product is called : ' + JSON.stringify(vm.company._id));
         vm.company.$update(successUpdateCallback, errorUpdateCallback);
       } else {
 
@@ -520,15 +532,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
-        function genBusinessArray(businessArray) {
-          var businessSecArr = [];
-          for (var i = 0; i < businessArray.length; i++) {
-            businessSecArr.push(businessArray[i].id)
-          }
-          if (businessArray.length === businessSecArr.length) {
-            return businessSecArr;
-          }
-        };
+
 
         vm.company.logo = {
           filetype: $scope.productImg.filetype,
@@ -542,23 +546,23 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       function successUpdateCallback(res) {
         $state.go('companies.list');
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
-      };
+      }
 
       function errorUpdateCallback(res) {
         vm.error = res.data.message;
         NotificationFactory.error('Failed to Update Product details...', res.data.message);
-      };
+      }
 
       function successCallback(res) {
         $state.go('companies.list');
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
-      };
+      }
 
       function errorCallback(res) {
         vm.error = res.data.message;
         NotificationFactory.error('Failed to save Product details...', res.data.message);
-      };
-    };
+      }
+    }
 
     $scope.$on('data_shared', function () {
       var proDetails = dataShare.getData();
@@ -617,7 +621,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
     $scope.businessSectorTexts = {
       buttonDefaultText: 'Business Sector'
-    }
+    };
 
 
 
@@ -679,7 +683,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
     $scope.serviceOfferedTexts = {
       buttonDefaultText: 'Service Offered'
-    }
+    };
 
 
 
@@ -694,13 +698,13 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
     $scope.selectionOperational = {
       ids: {}
-    }
+    };
 
 
     $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES'];
     $scope.SelectedCat = function (val) {
       //console.log('SelectedCat cal is : ' + val);
-    }
+    };
 
 
 
@@ -711,30 +715,8 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
-    $scope.uploadProImg = function () {
-      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
-
-      var ref = new Firebase("https://thingsberry.firebaseio.com/productImages");
-      var proImgRef = ref.child(vm.company.Proname);
-
-      proImgRef.set({
-        filetype: $scope.productImg.filetype,
-        base64: $scope.productImg.base64
-      }, function (error, proImgData) {
-        if (error) {
-          console.log("IMage could not be saved." + error);
-        } else {
-          console.log("IMage saved successfully.");
-        }
-      });
-
-
-    };
-
-
   }
 })();
-
 (function () {
   'use strict';
 
@@ -754,6 +736,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 });*/
 
 
+
+
+    // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
     $scope.getSearchedProductsList = function () {
 
@@ -800,12 +785,11 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 'use strict';
 
 
 angular.module('companies')
-  .directive('productDisplay', ["dataShare", "$state", function (dataShare, $state) {
+  .directive('productDisplay', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
     return {
       restrict: 'E',
       scope: {
@@ -813,21 +797,18 @@ angular.module('companies')
       },
       templateUrl: 'modules/companies/client/views/directive-partials/product-display.client.view.html',
       link: function (scope, elem, attrs) {
-
+        scope.user = $localStorage.user;
         scope.proImgUrl = function () {
           return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
         };
-
         scope.editProduct = function (Pro) {
           //console.log('Edit Product details on Direc. : ' + JSON.stringify(Pro));
           dataShare.setData(Pro);
           $state.go('companies.add');
         };
-
       }
     };
   }]);
-
 (function () {
   'use strict';
 
@@ -901,8 +882,8 @@ angular.module('core.admin.routes').config(['$stateProvider',
   'use strict';
 
   angular
-  .module('core')
-  .run(MenuConfig);
+    .module('core')
+    .run(MenuConfig);
 
   MenuConfig.$inject = ['Menus'];
 
@@ -919,22 +900,22 @@ angular.module('core.admin.routes').config(['$stateProvider',
       roles: ['user']
     });
 
-   /* Menus.addSubMenuItem('account', 'settings', {
+    Menus.addSubMenuItem('account', 'settings', {
       title: 'Edit Profile',
       state: 'settings.profile'
-    });*/
+    });
 
     /*Menus.addSubMenuItem('account', 'settings', {
   title: 'Edit Profile Picture',
   state: 'settings.picture'
 });*/
 
-    /*Menus.addSubMenuItem('account', 'settings', {
-  title: 'Change Password',
-  state: 'settings.password'
-});*/
+    Menus.addSubMenuItem('account', 'settings', {
+      title: 'Change Password',
+      state: 'settings.password'
+    });
 
-   /* Menus.addSubMenuItem('account', 'settings', {
+    /* Menus.addSubMenuItem('account', 'settings', {
    title: 'Manage Social Accounts',
    state: 'settings.accounts'
  });*/
@@ -942,7 +923,6 @@ angular.module('core.admin.routes').config(['$stateProvider',
   }
 
 })();
-
 'use strict';
 
 // Setting up route
@@ -1025,8 +1005,8 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http',
-  function ($scope, $state, Authentication, Menus, $http) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
+  function ($scope, $state, Authentication, Menus, $http, $localStorage) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
@@ -1050,22 +1030,13 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     });
 
 
-    $scope.signoutFirebase = function () {
-      //console.log('signoutFirebase is called');
-      var ref = new Firebase("https://thingsberry.firebaseio.com");
-      ref.unauth(function authHandler(error, authData) {
-        if (error) {
-          console.log("signout Failed!", error);
-        } else {
-          //console.log("signout successfully with payload:", authData);
-          $scope.authentication.user = '';
-        }
-      });
-    };
+
+
+
 
     $scope.signout = function () {
       console.log('signout is called');
-      //$http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
+      $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
       $http.post('/api/auth/jwtSignout').success(function (response) {
         //console.log('Signout callback : ' + JSON.stringify(response));
         $scope.authentication.user = '';
@@ -1077,7 +1048,6 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
@@ -1774,8 +1744,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
 
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$firebaseArray',
-  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, $firebaseArray) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$localStorage', 'NotificationFactory',
+  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, $localStorage, NotificationFactory) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
@@ -1799,9 +1769,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         //console.log('Pwd doesnt Matched');
         $scope.error = "Password Doesn't match";
       }
-    }
+    };
 
     $scope.signup = function (isValid) {
+
+      $scope.buttonTextSignUp = 'Signing Up...';
+
+
       $scope.error = null;
 
       if (!isValid) {
@@ -1815,17 +1789,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         if (response.type === false) {
           $scope.error = response.data;
           //$scope.isDisabled = false;
-          //$scope.buttonTextSignUp = 'Sign Up';
+          $scope.buttonTextSignUp = 'Sign Up';
           console.log('Error Msg : ' + JSON.stringify(response.data));
 
         } else {
           $scope.error = null;
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
-          $scope.authentication.user = response;
-
-          // And redirect to the previous or home page
-          $state.go($state.previous.state.name || 'home', $state.previous.params);
+          $scope.populateUserLocally(response);
         }
 
 
@@ -1859,15 +1830,29 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           $scope.error = null;
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
-          $scope.authentication.user = response;
-
-          // And redirect to the previous or home page
-          $state.go($state.previous.state.name || 'home', $state.previous.params);
+          $scope.populateUserLocally(response);
         }
       }).error(function (response) {
         $scope.error = response.message;
       });
     };
+
+
+
+    $scope.populateUserLocally = function (respUser) {
+
+      console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
+
+      $scope.authentication.user = respUser;
+      $localStorage.user = respUser;
+      $localStorage.token = respUser.token;
+      NotificationFactory.success('Hi ' + respUser.displayName, 'Authentication Success !');
+      $state.go($state.previous.state.name || 'home', $state.previous.params);
+    };
+
+
+
+
 
     // OAuth provider request
     $scope.callOauthProvider = function (url) {
@@ -1878,103 +1863,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       // Effectively call OAuth authentication route:
       $window.location.href = url;
     };
-
-
-
-    /*$scope.signinWithFb = function () {
-  console.log('Sign in vth FB is called');
-
-  var ref = new Firebase("https://thingsberry.firebaseio.com");
-  // prefer pop-ups, so we don't navigate away from the page
-  ref.authWithOAuthPopup("facebook", function (error, authData) {
-    if (error) {
-      console.log("Login Failed!", error);
-    } else {
-      // the access token will allow us to make Open Graph API calls
-      console.log('Successfully created facebook user in firebase');
-      console.log('USer details is :' + JSON.stringify(authData));
-      $scope.populateUserLocally(authData);
-    }
-  }, {
-    remember: "sessionOnly",
-    scope: "email,user_likes" // the permissions requested
-  });
-
-
-};
-
-$scope.signinWithG = function () {
-  console.log('Sign in vth Gmail is called');
-
-  var ref = new Firebase("https://thingsberry.firebaseio.com");
-  // prefer pop-ups, so we don't navigate away from the page
-  ref.authWithOAuthPopup("google", function (error, authData) {
-    if (error) {
-      if (error.code === "TRANSPORT_UNAVAILABLE") {
-        //fall-back to browser redirects, and pick up the session
-        // automatically when we come back to the origin page
-        ref.authWithOAuthRedirect("google", function (error) {});
-      }
-    } else if (authData) {
-
-      console.log('Successfully created google user in firebase');
-      console.log('USer details is :' + JSON.stringify(authData));
-      $scope.populateUserLocally(authData);
-      // user authenticated with Firebase
-    }
-  }, {
-    remember: "sessionOnly",
-    scope: "email"
-  });
-
-
-};
-
-
-
-$scope.populateUserLocally = function (respUser) {
-
-  var ref = new Firebase("https://thingsberry.firebaseio.com");
-  var profileRef = ref.child(respUser.provider + '-users');
-  var userProfile = {};
-  var localUser = {};
-  if (respUser.provider === 'facebook') {
-    var fbPro = localUser = respUser.facebook;
-    userProfile = {
-      "displayName": fbPro.displayName,
-      "email": fbPro.email,
-      "first_name": fbPro.cachedUserProfile.first_name,
-      "last_name": fbPro.cachedUserProfile.last_name,
-      "gender": fbPro.cachedUserProfile.gender
-    }
-  } else if (respUser.provider === 'google') {
-    var gPro = localUser = respUser.google;
-    userProfile = {
-      "displayName": gPro.displayName,
-      "email": gPro.email,
-      "given_name": gPro.cachedUserProfile.given_name,
-      "family_name": gPro.cachedUserProfile.family_name,
-      "gender": gPro.cachedUserProfile.gender
-    }
-  }
-  console.log('Succefully local usr is created : ' + JSON.stringify(userProfile));
-  profileRef.push(userProfile, function (error) {
-    if (error) {
-      console.log("userData could not be saved." + error);
-    } else {
-      console.log("userData saved successfully.");
-    }
-  });
-  $scope.authentication.user = localUser;
-  $state.go($state.previous.state.name || 'home', $state.previous.params);
-};*/
-
-
-
-
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
@@ -2140,9 +2030,12 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
 
 'use strict';
 
-angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-  function ($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication', '$localStorage',
+  function ($scope, $http, $location, Users, Authentication, $localStorage) {
     $scope.authentication = Authentication;
+
+    $scope.user = $localStorage.user;
+
 
     // Update a user profile
     $scope.updateUserProfile = function (isValid) {
@@ -2156,9 +2049,6 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
       var user = new Users($scope.user);
 
-
-      //console.log('User details : ' + JSON.stringify($scope.user));
-
       user.$update(function (response) {
         $scope.$broadcast('show-errors-reset', 'userForm');
         $scope.success = true;
@@ -2169,7 +2059,6 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     };
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('SocialAccountsController', ['$scope', '$http', 'Authentication',
@@ -2211,12 +2100,12 @@ angular.module('users').controller('SocialAccountsController', ['$scope', '$http
 
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', 'Authentication',
-  function ($scope, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', 'Authentication', '$localStorage',
+  function ($scope, Authentication, $localStorage) {
     $scope.user = Authentication.user;
+    $scope.user = $localStorage.user;
   }
 ]);
-
 'use strict';
 
 angular.module('users')
@@ -2350,7 +2239,7 @@ angular.module('users').factory('Users', ['$resource',
       }
     });
   }
-]);
+])
 
 //TODO this should be Users service
 angular.module('users.admin').factory('Admin', ['$resource',

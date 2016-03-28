@@ -55,7 +55,7 @@
       })
       .state('companies.edit', {
         url: '/:companyId/edit',
-        templateUrl: 'modules/companies/client/views/form-company.client.view.html',
+        templateUrl: 'modules/companies/client/views/add-company.client.view.html',
         controller: 'CompanyController',
         controllerAs: 'vm',
         resolve: {
@@ -63,7 +63,7 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Edit Company {{ companyResolve.title }}'
+          pageTitle: 'Edit Company {{ companyResolve.Proname }}'
         }
       })
       .state('companies.view', {
@@ -75,7 +75,7 @@
           companyResolve: getCompany
         },
         data: {
-          pageTitle: 'Company {{ companyResolve.title }}'
+          pageTitle: 'Company {{ companyResolve.Proname }}'
         }
       });
   }

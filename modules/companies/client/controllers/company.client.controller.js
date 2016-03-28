@@ -31,6 +31,9 @@
 
     // Remove existing company
     function remove() {
+
+      console.log('remove func. is triggred');
+
       if (confirm('Are you sure you want to delete?')) {
         vm.company.$remove($state.go('company.list'));
       }
@@ -64,6 +67,15 @@
       }
     }
 
+    function genBusinessArray(businessArray) {
+      var businessSecArr = [];
+      for (var i = 0; i < businessArray.length; i++) {
+        businessSecArr.push(businessArray[i].id);
+      }
+      if (businessArray.length === businessSecArr.length) {
+        return businessSecArr;
+      }
+    }
 
 
     // addCompanyDetails company
@@ -79,7 +91,8 @@
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        console.log('Update product is called : ' + JSON.stringify(vm.company._id));
         vm.company.$update(successUpdateCallback, errorUpdateCallback);
       } else {
 
@@ -87,15 +100,7 @@
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
-        function genBusinessArray(businessArray) {
-          var businessSecArr = [];
-          for (var i = 0; i < businessArray.length; i++) {
-            businessSecArr.push(businessArray[i].id)
-          }
-          if (businessArray.length === businessSecArr.length) {
-            return businessSecArr;
-          }
-        };
+
 
         vm.company.logo = {
           filetype: $scope.productImg.filetype,
@@ -109,23 +114,23 @@
       function successUpdateCallback(res) {
         $state.go('companies.list');
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
-      };
+      }
 
       function errorUpdateCallback(res) {
         vm.error = res.data.message;
         NotificationFactory.error('Failed to Update Product details...', res.data.message);
-      };
+      }
 
       function successCallback(res) {
         $state.go('companies.list');
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
-      };
+      }
 
       function errorCallback(res) {
         vm.error = res.data.message;
         NotificationFactory.error('Failed to save Product details...', res.data.message);
-      };
-    };
+      }
+    }
 
     $scope.$on('data_shared', function () {
       var proDetails = dataShare.getData();
@@ -184,7 +189,7 @@
     };
     $scope.businessSectorTexts = {
       buttonDefaultText: 'Business Sector'
-    }
+    };
 
 
 
@@ -246,7 +251,7 @@
     };
     $scope.serviceOfferedTexts = {
       buttonDefaultText: 'Service Offered'
-    }
+    };
 
 
 
@@ -261,13 +266,13 @@
 
     $scope.selectionOperational = {
       ids: {}
-    }
+    };
 
 
     $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES'];
     $scope.SelectedCat = function (val) {
       //console.log('SelectedCat cal is : ' + val);
-    }
+    };
 
 
 
@@ -276,27 +281,6 @@
       //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
 
-
-
-    $scope.uploadProImg = function () {
-      //console.log('Base 64 img details : ' + JSON.stringify($scope.productImg));
-
-      var ref = new Firebase("https://thingsberry.firebaseio.com/productImages");
-      var proImgRef = ref.child(vm.company.Proname);
-
-      proImgRef.set({
-        filetype: $scope.productImg.filetype,
-        base64: $scope.productImg.base64
-      }, function (error, proImgData) {
-        if (error) {
-          console.log("IMage could not be saved." + error);
-        } else {
-          console.log("IMage saved successfully.");
-        }
-      });
-
-
-    };
 
 
   }

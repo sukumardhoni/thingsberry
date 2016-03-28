@@ -194,4 +194,7 @@
   .product-square-img {
     width: 35%;
   }
+  .content-on-img {
+    padding: 30px 0px;
+  }
 }

@@ -225,8 +225,11 @@ navbar-inverse .navbar-nav > .open > a,
 }
 
 .content-on-img {
-  top: 90px;
-  position: absolute;
+  position: relative;
+  padding: 100px 0px;
+  background-image: url(../../../../modules/core/client/img/homepage_tb_bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .text_over_bg {
@@ -541,11 +544,11 @@ hr.small {
   z-index: 32;
 }
 
-.btn:hover {
+.btn-custom-style:hover {
   color: #d2d2d2;
 }
 
-.btn:focus {
+.btn-custom-style:focus {
   color: #fff;
   background-color: rgb(5, 91, 130) !important;
 }

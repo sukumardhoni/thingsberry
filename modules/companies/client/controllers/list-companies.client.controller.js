@@ -18,6 +18,9 @@
 
 
 
+
+    // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
+
     $scope.getSearchedProductsList = function () {
 
       $scope.spinnerLoading = true;

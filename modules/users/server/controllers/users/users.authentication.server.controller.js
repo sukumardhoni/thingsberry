@@ -27,8 +27,11 @@ var noReturnUrls = [
 /* JWT Signup */
 
 exports.jwtSignup = function (req, res, next) {
-  var deviceInfo = req.headers.device;
-
+  var secret = 'www';
+  var payload = {
+    email: req.body.email
+  };
+  var token = '';
   User.findOne({
     email: req.body.email
   }, function (err, user) {
@@ -40,11 +43,7 @@ exports.jwtSignup = function (req, res, next) {
     } else {
       if (user) {
         if (user.token === '') {
-          var secret = 'www';
-          var payload = {
-            email: req.body.email
-          };
-          var token = jwt.encode(payload, secret);
+          token = jwt.encode(payload, secret);
           user.token = token;
           user.save(function (err) {
             if (err) {
@@ -79,10 +78,6 @@ exports.jwtSignup = function (req, res, next) {
         userModel.provider = req.body.provider || 'local';
         userModel.displayName = userModel.firstName + ' ' + userModel.lastName;
         userModel.username = userModel.firstName + userModel.lastName;
-        var secret = 'www';
-        var payload = {
-          email: req.body.email
-        };
         var jwtToken = jwt.encode(payload, secret);
         userModel.token = jwtToken;
         userModel.save(function (err) {
@@ -91,7 +86,7 @@ exports.jwtSignup = function (req, res, next) {
             console.log('Error while saving user 111: ' + err);
             var errData;
             if (err.code === 11000) {
-              errData = 'User already exists with email : ' + userModel.email
+              errData = 'User already exists with email : ' + userModel.email;
             } else {
               //errData = err.errors.email.message;
               errData = err.errors.password.message;
@@ -117,9 +112,9 @@ exports.jwtSignup = function (req, res, next) {
                   displayName: userModel.displayName
                 });
                 //send a User_Info_To_ThingsBerry_Team mail notification using agenda
-                agenda.now('User_Info_To_ThingsBerry_Team', {
-                  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider + '\n Came from :' + deviceInfo + '\n'
-                });
+                /*agenda.now('User_Info_To_ThingsBerry_Team', {
+  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider
+});*/
                 res.jsonp(userModel);
               }
             });
@@ -128,20 +123,12 @@ exports.jwtSignup = function (req, res, next) {
       }
     }
   });
-
-
 };
-
-
-
 
 /* JWT Signin */
 
 exports.jwtSignin = function (req, res, next) {
-
   console.log('jwtSignin func. is called : ' + JSON.stringify(req.body));
-
-  var deviceInfo = req.headers.device;
   User.findOne({
     email: req.body.email
   }, function (err, user) {
@@ -156,9 +143,7 @@ exports.jwtSignin = function (req, res, next) {
         var password = req.body.password;
         // Make sure the password is correct
         user.verifyPassword(password, function (err, isMatch) {
-
           console.log('Password is matched or not : ' + isMatch);
-
           if (isMatch) {
             // Success
             var secret = 'www';
@@ -175,30 +160,14 @@ exports.jwtSignin = function (req, res, next) {
                   message: errorHandler.getErrorMessage(err)
                 });
               } else {
-
                 console.log('User saved');
-
                 req.login(user, function (err) {
                   if (err) {
-
                     console.log('Error while login in signin func : ' + err);
-
                     res.status(400).send(err);
                   } else {
-
-                    /*//user is successfully logged in send a notification to the job to count user signins
-agenda.now('User_Signedin', {
-  data: user.email
-});
-//user is successfully logged in save action into user usage details collection
-agenda.now('User_Usage_Details', {
-  email: user.email,
-  device: deviceInfo,
-  action: 'Log In user : ' + user.displayName,
-});*/
                     console.log('@@@@@@ Found user in signin  func.  @@@@@@@' + JSON.stringify(user));
                     res.jsonp(user);
-
                   }
                 });
               }
@@ -264,6 +233,7 @@ exports.jwtSignout = function (req, res, next) {
   var bearerToken;
   var bearerHeader = req.headers.authorization;
   if (typeof bearerHeader !== 'undefined') {
+    console.log('bearerHeader is received : ' + bearerHeader);
     var bearer = bearerHeader.split(' ');
     if (bearer[1] === 'undefined') {
       res.sendStatus(401);
@@ -272,6 +242,7 @@ exports.jwtSignout = function (req, res, next) {
       console.log('Error while sign out in rest ');
     } else {
       bearerToken = bearer[1];
+      console.log('bearerToken is received : ' + bearerToken);
       User.findOne({
         token: bearerToken
       }, function (err, user) {
@@ -289,9 +260,10 @@ exports.jwtSignout = function (req, res, next) {
           user.token = '';
           user.save(function (err) {
             if (err) {
-              //console.log('Error occured on singout function is : ' + err);
+              console.log('Error occured on singout function is : ' + err);
               res.status(400).send(err);
             } else {
+              console.log('Success singout ');
               req.logout();
               res.status(200).send({
                 type: true,
@@ -366,45 +338,6 @@ exports.signin = function (req, res, next) {
     }
   })(req, res, next);
 };
-
-
-/*exports.signupFirebase = function (req, res, next) {
-
-  var ref = new Firebase("https://thingsberry.firebaseio.com");
-
-  ref.createUser({
-    email: req.body.email,
-    password: req.body.password
-  }, function (error, userData) {
-    if (error) {
-      console.log("Error creating user:", error);
-    } else {
-      console.log("Successfully created user account with uid:", userData.uid);
-      console.log("Successfully created user account details : " + JSON.stringify(userData));
-      res.json(userData);
-    }
-  });
-
-
-};
-
-
-exports.signinFirebase = function (req, res, next) {
-  var ref = new Firebase("https://thingsberry.firebaseio.com");
-  ref.authWithPassword({
-    email: req.body.email,
-    password: req.body.password
-  }, function (error, authData) {
-    if (error) {
-      console.log("Login Failed!", error);
-    } else {
-      console.log("Authenticated successfully with payload:", authData);
-      console.log("Authenticated Successfully  user account details : " + JSON.stringify(authData));
-      res.json(authData);
-    }
-  });
-
-};*/
 
 /**
  * Signout

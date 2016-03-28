@@ -168,6 +168,7 @@
     <br>
     <div class="text-center form-group">
       <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid">{{vm.company._id ? 'UPDATE' : 'SUBMIT'}}</button>
+      <!--<button type="button" class="btn btn-danger" ng-show="vm.company._id" style="border-radius: 5px;width: 150px;height:50px;font-size: 16px;font-family:'OpenSans';" ng-click="remove()">DELETE</button>-->
     </div>
     <div ng-show="vm.error" class="text-danger">
       <strong ng-bind="vm.error"></strong>

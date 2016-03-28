@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var company = new Company(req.body);
-  company.user = req.user
+  company.user = req.user;
 
   //console.log('Rest side console details : ' + JSON.stringify(req.body.Proname));
 
@@ -117,20 +117,20 @@ exports.searchedProductsList = function (req, res) {
 
     findObj = {
       ProCat: req.params.ProCategory
-    }
+    };
     if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
       console.log('FIndOBJ print here 1222');
       findObj = {
         ProCat: req.params.ProCategory,
         Comname: req.params.ProCompany
-      }
+      };
       if (req.params.ProName && (req.params.ProName !== 'Product')) {
         console.log('FIndOBJ print here 1333');
         findObj = {
           ProCat: req.params.ProCategory,
           Comname: req.params.ProCompany,
           Proname: req.params.ProName
-        }
+        };
       }
     }
   } else if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
@@ -138,33 +138,33 @@ exports.searchedProductsList = function (req, res) {
 
     findObj = {
       Comname: req.params.ProCompany
-    }
+    };
     if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
       console.log('FIndOBJ print here 2222');
       findObj = {
         ProCat: req.params.ProCategory,
         Comname: req.params.ProCompany
-      }
+      };
       if (req.params.ProName && (req.params.ProName !== 'Product')) {
         console.log('FIndOBJ print here 2333');
         findObj = {
           ProCat: req.params.ProCategory,
           Comname: req.params.ProCompany,
           Proname: req.params.ProName
-        }
+        };
       }
     }
   } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
     console.log('FIndOBJ print here 3111');
     findObj = {
       Proname: req.params.ProName
-    }
+    };
     if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
       console.log('FIndOBJ print here 3222');
       findObj = {
         ProCat: req.params.ProCategory,
         Proname: req.params.ProName
-      }
+      };
       if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
 
         console.log('FIndOBJ print here 3333');
@@ -173,7 +173,7 @@ exports.searchedProductsList = function (req, res) {
           ProCat: req.params.ProCategory,
           Comname: req.params.ProCompany,
           Proname: req.params.ProName
-        }
+        };
       }
     }
   }
@@ -192,7 +192,7 @@ exports.searchedProductsList = function (req, res) {
       //console.log('Server side List of products : ' + JSON.stringify(companies));
       res.json(companies);
     }
-  })
+  });
 
 
 };

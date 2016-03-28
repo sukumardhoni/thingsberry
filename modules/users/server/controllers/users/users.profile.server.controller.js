@@ -15,15 +15,18 @@ var _ = require('lodash'),
 /**
  * Update user details
  */
+
 exports.update = function (req, res) {
   // Init Variables
   var user = req.user;
-
-  console.log('req.body details : ' + JSON.stringify(req.body));
-
+  var message = null;
 
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
+
+  //console.log('Req.body details on Profile Update : ' + JSON.stringify(req.body));
+  console.log('Req.body.password on Profile Update : ' + JSON.stringify(req.body.password));
+
 
   if (user) {
     // Merge existing user
@@ -33,19 +36,12 @@ exports.update = function (req, res) {
 
     user.save(function (err) {
       if (err) {
-
-
-        console.log('Error while updating the user : ' + err);
-
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
         req.login(user, function (err) {
           if (err) {
-
-            console.log('Error while updated user login : ' + err);
-
             res.status(400).send(err);
           } else {
             res.json(user);
@@ -59,6 +55,9 @@ exports.update = function (req, res) {
     });
   }
 };
+
+
+
 
 /**
  * Update profile picture

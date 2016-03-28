@@ -226,14 +226,14 @@
 .pencilIcon {
   display: none;
   font-size: 20px;
-  top: 20px;
+  padding: 10px;
 }
 
 .pencilIcon:hover {
   cursor: pointer;
 }
 
-.img-outer:hover .pencilIcon {
+.product-square:hover .pencilIcon {
   display: block;
 }
 
