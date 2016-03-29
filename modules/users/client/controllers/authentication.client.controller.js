@@ -97,7 +97,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.populateUserLocally = function (respUser) {
 
-      console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
+      //console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
 
       $scope.authentication.user = respUser;
       $localStorage.user = respUser;

@@ -30,7 +30,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 
     $scope.signout = function () {
-      console.log('signout is called');
+      //console.log('signout is called');
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
       $http.post('/api/auth/jwtSignout').success(function (response) {
         //console.log('Signout callback : ' + JSON.stringify(response));

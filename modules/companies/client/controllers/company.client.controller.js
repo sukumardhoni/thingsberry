@@ -152,6 +152,15 @@
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
 
+
+      // console.log('$scope.authentication.user details : ' + JSON.stringify(vm.authentication.user));
+
+      // If user is signed in then redirect back home
+      /*if ($scope.authentication.user) {
+        $location.path('/');
+      }*/
+
+
       //console.log('Add company method is called' + isValid);
 
 
@@ -196,8 +205,6 @@
 
         //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
         vm.company.$save(successCallback, errorCallback);
-
-        //CompanyService.AddProduct.create(vm.company, successCallback, errorCallback);
 
 
       }

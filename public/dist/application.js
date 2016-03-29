@@ -430,6 +430,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
+
 (function () {
   'use strict';
 
@@ -584,6 +585,15 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
 
+
+      // console.log('$scope.authentication.user details : ' + JSON.stringify(vm.authentication.user));
+
+      // If user is signed in then redirect back home
+      /*if ($scope.authentication.user) {
+        $location.path('/');
+      }*/
+
+
       //console.log('Add company method is called' + isValid);
 
 
@@ -628,8 +638,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
         //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
         vm.company.$save(successCallback, errorCallback);
-
-        //CompanyService.AddProduct.create(vm.company, successCallback, errorCallback);
 
 
       }
@@ -973,6 +981,7 @@ angular.module('companies')
 
 
 })();
+
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -1138,6 +1147,7 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     }
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
@@ -1170,7 +1180,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 
     $scope.signout = function () {
-      console.log('signout is called');
+      //console.log('signout is called');
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
       $http.post('/api/auth/jwtSignout').success(function (response) {
         //console.log('Signout callback : ' + JSON.stringify(response));
@@ -1183,7 +1193,6 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
@@ -1268,6 +1277,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
   }
 })();
+
 'use strict';
 
 /**
@@ -1357,6 +1367,7 @@ angular.module('core')
     });
 	}
 ])
+
 'use strict';
 
 angular.module('core').factory('authInterceptor', ['$q', '$injector', 'Authentication',
@@ -1990,7 +2001,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.populateUserLocally = function (respUser) {
 
-      console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
+      //console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
 
       $scope.authentication.user = respUser;
       $localStorage.user = respUser;
@@ -2014,7 +2025,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
   }
 ]);
-
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
