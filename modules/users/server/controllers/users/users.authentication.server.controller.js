@@ -10,16 +10,30 @@ var path = require('path'),
   jwt = require('jwt-simple'),
   User = mongoose.model('User'),
   config = require('../../../../../config/config'),
-  agenda = require('../../../../../schedules/job-schedule')(config.db),
-  nodemailer = require('nodemailer'),
-  smtpTransport = require('nodemailer-smtp-transport'),
-  transporter = nodemailer.createTransport(smtpTransport(config.mailer.options));
+  agenda = require('../../../../../schedules/job-schedule')(config.db);
+/*nodemailer = require('nodemailer'),
+smtpTransport = require('nodemailer-smtp-transport'),
+transporter = nodemailer.createTransport(smtpTransport(config.mailer.options))*/
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
   '/authentication/signin',
   '/authentication/signup'
 ];
+
+
+
+/**
+ * ContactUs admin
+ */
+exports.contactUs = function (req, res) {
+  var details = req.body;
+  //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
+  /*agenda.now('User_ContactUS_Info_To_ThingsBerry_Team', {
+  ContactedDetails: '\n First Name : ' + details.firstName + '\n , Last Name : ' + details.lastName + '\n , Email : ' + details.email + '\n , Subject : ' + details.subject + '\n , Message: ' + details.message + '.'
+});*/
+  res.json(details);
+};
 
 
 
@@ -112,9 +126,9 @@ exports.jwtSignup = function (req, res, next) {
                   displayName: userModel.displayName
                 });
                 //send a User_Info_To_ThingsBerry_Team mail notification using agenda
-                /*agenda.now('User_Info_To_ThingsBerry_Team', {
-  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider
-});*/
+                agenda.now('User_Info_To_ThingsBerry_Team', {
+                  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider
+                });
                 res.jsonp(userModel);
               }
             });

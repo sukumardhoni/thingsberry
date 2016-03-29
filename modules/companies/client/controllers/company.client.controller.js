@@ -3,11 +3,26 @@
 
   angular
     .module('companies')
-    .controller('CompanyController', CompanyController);
+    .controller('CompanyController', CompanyController)
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare) {
+  .controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', 'productFromModal', function ($scope, $uibModalInstance, productFromModal) {
+    $scope.product = productFromModal;
+    $scope.ok = function (product) {
+      //console.log('Taskkkkkkkkkkkkkkkkkkkkkkk ...:' + product.Proname);
+      $uibModalInstance.close(product);
+    };
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+}]);
+
+
+
+
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log'];
+
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log) {
     var vm = this;
 
     vm.company = company;
@@ -22,8 +37,64 @@
 
 
 
+    $scope.removeProduct = function () {
 
-    //vm.company.
+
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
+        controller: 'ModalInstanceCtrl',
+        backdrop: 'static',
+        resolve: {
+          productFromModal: function () {
+            return vm.company;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (product) {
+        if (product) {
+          //console.log('remove func. on if condition : ');
+          CompanyServiceUpdate.DeleteProduct.remove({
+            companyId: product._id
+          }, function (res) {
+            //console.log('Res details on remove success cb : ' + JSON.stringify(res));
+            $state.go('companies.list');
+            NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+          }, function (err) {
+            //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+            NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+          })
+        } else {
+          //console.log('remove func. on else condition : ');
+
+          //$scope.task.$remove(function () {});
+        }
+      }, function () {
+        //$log.info('Modal Task Delete dismissed at: ' + new Date());
+      });
+
+
+
+
+
+
+
+      //console.log('removeProduct fun is triggred');
+      /* if (confirm('Are you sure you want to delete?')) {
+   CompanyServiceUpdate.DeleteProduct.remove({
+     companyId: vm.company._id
+   }, function (res) {
+     //console.log('Res details on remove success cb : ' + JSON.stringify(res));
+     $state.go('companies.list');
+     NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+   }, function (err) {
+     //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+     NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+   });
+ }*/
+    };
 
 
 
@@ -91,9 +162,25 @@
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
-        console.log('Update product is called : ' + JSON.stringify(vm.company._id));
-        vm.company.$update(successUpdateCallback, errorUpdateCallback);
+        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
+        //vm.company.$update(successUpdateCallback, errorUpdateCallback);
+        vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
+        vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
+
+
+
+        vm.company.logo = {
+          filetype: $scope.productImg.filetype,
+          base64: $scope.productImg.base64
+        };
+
+        CompanyServiceUpdate.UpdateProduct.update({
+          companyId: vm.company._id
+        }, vm.company, successUpdateCallback, errorUpdateCallback);
+
+
+
       } else {
 
         // vm.company.ProCat = $scope.selectedCategory;
@@ -109,6 +196,10 @@
 
         //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
         vm.company.$save(successCallback, errorCallback);
+
+        //CompanyService.AddProduct.create(vm.company, successCallback, errorCallback);
+
+
       }
 
       function successUpdateCallback(res) {

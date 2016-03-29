@@ -20,10 +20,25 @@ exports.sendUserInfoToThingsBerryTeam = function (agenda) {
   agenda.define('User_Info_To_ThingsBerry_Team', function (job, done) {
     //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
     var mailData = {};
-    mailData.templateName = 'emailtemplates/email-to-thingsberry';
+    mailData.templateName = 'emailtemplates/new-user-email-to-thingsberry';
     mailData.to = 'support@thingsberry.com';
     mailData.subject = 'New User To ThingsBerry';
     mailData.userData = job.attrs.data.userData;
+    mailData.appEnv = config.app.title;
+    //console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
+
+exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
+  agenda.define('User_ContactUS_Info_To_ThingsBerry_Team', function (job, done) {
+    //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/contact-us-email-to-thingsberry';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = 'ContactUs Info To ThingsBerry';
+    mailData.contactedDetails = job.attrs.data.ContactedDetails;
     mailData.appEnv = config.app.title;
     //console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);

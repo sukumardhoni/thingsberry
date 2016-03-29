@@ -21,6 +21,7 @@ var ApplicationConfiguration = (function () {
     registerModule: registerModule
   };
 })();
+
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -429,17 +430,31 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
-
 (function () {
   'use strict';
 
   angular
     .module('companies')
-    .controller('CompanyController', CompanyController);
+    .controller('CompanyController', CompanyController)
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare) {
+  .controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', 'productFromModal', function ($scope, $uibModalInstance, productFromModal) {
+    $scope.product = productFromModal;
+    $scope.ok = function (product) {
+      //console.log('Taskkkkkkkkkkkkkkkkkkkkkkk ...:' + product.Proname);
+      $uibModalInstance.close(product);
+    };
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+}]);
+
+
+
+
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log'];
+
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log) {
     var vm = this;
 
     vm.company = company;
@@ -454,8 +469,64 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
+    $scope.removeProduct = function () {
 
-    //vm.company.
+
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
+        controller: 'ModalInstanceCtrl',
+        backdrop: 'static',
+        resolve: {
+          productFromModal: function () {
+            return vm.company;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (product) {
+        if (product) {
+          //console.log('remove func. on if condition : ');
+          CompanyServiceUpdate.DeleteProduct.remove({
+            companyId: product._id
+          }, function (res) {
+            //console.log('Res details on remove success cb : ' + JSON.stringify(res));
+            $state.go('companies.list');
+            NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+          }, function (err) {
+            //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+            NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+          })
+        } else {
+          //console.log('remove func. on else condition : ');
+
+          //$scope.task.$remove(function () {});
+        }
+      }, function () {
+        //$log.info('Modal Task Delete dismissed at: ' + new Date());
+      });
+
+
+
+
+
+
+
+      //console.log('removeProduct fun is triggred');
+      /* if (confirm('Are you sure you want to delete?')) {
+   CompanyServiceUpdate.DeleteProduct.remove({
+     companyId: vm.company._id
+   }, function (res) {
+     //console.log('Res details on remove success cb : ' + JSON.stringify(res));
+     $state.go('companies.list');
+     NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+   }, function (err) {
+     //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+     NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+   });
+ }*/
+    };
 
 
 
@@ -523,9 +594,25 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
-        console.log('Update product is called : ' + JSON.stringify(vm.company._id));
-        vm.company.$update(successUpdateCallback, errorUpdateCallback);
+        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
+        //vm.company.$update(successUpdateCallback, errorUpdateCallback);
+        vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
+        vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
+
+
+
+        vm.company.logo = {
+          filetype: $scope.productImg.filetype,
+          base64: $scope.productImg.base64
+        };
+
+        CompanyServiceUpdate.UpdateProduct.update({
+          companyId: vm.company._id
+        }, vm.company, successUpdateCallback, errorUpdateCallback);
+
+
+
       } else {
 
         // vm.company.ProCat = $scope.selectedCategory;
@@ -541,6 +628,10 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
         //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
         vm.company.$save(successCallback, errorCallback);
+
+        //CompanyService.AddProduct.create(vm.company, successCallback, errorCallback);
+
+
       }
 
       function successUpdateCallback(res) {
@@ -785,6 +876,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 'use strict';
 
 
@@ -809,6 +901,7 @@ angular.module('companies')
       }
     };
   }]);
+
 (function () {
   'use strict';
 
@@ -816,19 +909,52 @@ angular.module('companies')
   angular
     .module('companies.services')
     .factory('CompanyService', CompanyService)
-    .factory('dataShare', dataShare);
+    .factory('dataShare', dataShare)
+
+
+
+
+  .factory('CompanyServiceUpdate', ['$resource', function ($resource) {
+    return {
+      UpdateProduct: $resource('api/companies/:companyId', {
+        companyId: '@companyId'
+      }, {
+        update: {
+          method: 'PUT'
+        }
+      }),
+      DeleteProduct: $resource('api/companies/:companyId', {
+        companyId: '@companyId'
+      }, {
+        remove: {
+          method: 'DELETE'
+        }
+      })
+    }
+}]);
+
+
+
 
   CompanyService.$inject = ['$resource', '$rootScope', '$timeout'];
 
   function CompanyService($resource) {
     return $resource('api/companies/:companyId', {
-      companyId: '@_id'
+      companyId: '@companyId'
     }, {
       update: {
         method: 'PUT'
       }
     });
   };
+
+
+
+
+
+
+
+
 
   function dataShare($rootScope, $timeout) {
     var service = {};
@@ -847,7 +973,6 @@ angular.module('companies')
 
 
 })();
-
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -923,6 +1048,7 @@ angular.module('core.admin.routes').config(['$stateProvider',
   }
 
 })();
+
 'use strict';
 
 // Setting up route
@@ -989,20 +1115,29 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 'use strict';
 
-angular.module('core').controller('ContactUsController', ['$scope', 'Authentication',
-  function ($scope, Authentication) {
+angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory',
+  function ($scope, Authentication, ContactUsService, NotificationFactory) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
-
     $scope.contactUs = function () {
-      console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+      ContactUsService.send($scope.contact, successCallback, errorCallback);
+
+      function successCallback(res) {
+        //console.log('Success while sending the Contactus details : ' + res);
+        NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.firstName);
+        $scope.contact = '';
+      }
+
+      function errorCallback(res) {
+        //console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
+        //vm.error = res.data.message;
+        //NotificationFactory.error('Failed to save Product details...', res.data.message);
+      }
     }
-
-
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
@@ -1048,6 +1183,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
@@ -1132,7 +1268,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
   }
 })();
-
 'use strict';
 
 /**
@@ -1208,6 +1343,20 @@ angular.module('core')
     };
   }]);
 
+'use strict';
+
+//Contact Us service
+angular.module('core')
+
+.factory('ContactUsService', ['$resource',
+	function ($resource) {
+    return $resource('api/contactUs', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+	}
+])
 'use strict';
 
 angular.module('core').factory('authInterceptor', ['$q', '$injector', 'Authentication',
@@ -1865,6 +2014,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',
@@ -2059,6 +2209,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('SocialAccountsController', ['$scope', '$http', 'Authentication',
@@ -2106,6 +2257,7 @@ angular.module('users').controller('SettingsController', ['$scope', 'Authenticat
     $scope.user = $localStorage.user;
   }
 ]);
+
 'use strict';
 
 angular.module('users')

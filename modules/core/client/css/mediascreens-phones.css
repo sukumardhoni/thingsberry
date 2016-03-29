@@ -197,4 +197,9 @@
   .content-on-img {
     padding: 30px 0px;
   }
+  .cssSlideUp {
+    transition: 1s linear all;
+    height: 250px;
+    overflow: hidden;
+  }
 }

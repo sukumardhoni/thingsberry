@@ -22,7 +22,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12">
@@ -30,7 +29,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12">
@@ -38,45 +36,33 @@
                   </div>
                 </div>
               </div>
-
               <div class="col-lg-3 col-md-4 col-sm-6 hidden-xs">
                 <div class="form-group">
                   <div class="col-xs-12">
-                    <input type="submit" class="form-control btn-primary" id="searchBtn" value="Search" style="color:white">
+                    <input type="submit" class="form-control btn-search-products" id="searchBtn" value="Search" style="color:white">
                   </div>
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-xs-offset-1 col-xs-10 ">
                 <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
               </div>
             </div>
-
-            <div class="row" ng-show="Advanced_Search_Fields">
+            <div class="row cssSlideUp" ng-hide="!Advanced_Search_Fields">
               <div class="col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
-
-
                     <select class="form-control" ng-model="homeSearchDetails.Country" ng-init="homeSearchDetails.Country = CountriesList[0]" ng-selected="homeSearchDetails.Country" ng-options="Country for Country in CountriesList" required>
                     </select>
-
-
-
-
                   </div>
                 </div>
               </div>
               <div class="col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
-
-
                     <select class="form-control" ng-model="homeSearchDetails.State" ng-init="homeSearchDetails.State = StatesList[0]" ng-selected="homeSearchDetails.State" ng-options="State for State in StatesList" required>
                     </select>
-
                   </div>
                 </div>
               </div>
@@ -90,26 +76,27 @@
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
-
-
-
                     <select class="form-control" ng-model="homeSearchDetails.Business" ng-init="homeSearchDetails.Business = BusinessList[0]" ng-selected="homeSearchDetails.Business" ng-options="Business for Business in BusinessList" required>
                     </select>
-
-
                   </div>
                 </div>
               </div>
-              <div class="check-box-landingpage form-group col-md-6 col-sm-6 col-xs-12 ">
-                <label class="checkbox-inline">
-                  <input type="checkbox" value="" ng-model="homeSearchDetails.rememberMe">Lorem ipsum dolor sit amet
-                </label>
+              <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                  <div class="col-xs-12" style="opacity: 1;">
+                    <div class="check-box-landingpage">
+                      <label class="checkbox-inline">
+                        <input type="checkbox" value="" ng-model="homeSearchDetails.rememberMe">Lorem ipsum dolor sit amet
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
               <div class="form-group row visible-xs">
                 <div class="col-xs-12">
-                  <input type="submit" class="form-control btn-primary" id="searchBtn" value="Search" style="color:white">
+                  <input type="submit" class="form-control btn-search-products" id="searchBtn" value="Search" style="color:white">
                 </div>
               </div>
             </div>
@@ -134,14 +121,12 @@
               <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'HOME'})">
                                 <i class="fa fa-home fa-stack-1x favIcons"></i>
                             </span>
-              <h4>
-                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HOME'})">HOME</span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HOME'})">HOME</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>
               <p>Lorem ipsum</p>
               <p>Lorem ipsum</p></span>
-
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
@@ -149,14 +134,12 @@
               <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'AUTOMOBILE'})">
                                 <i class="fa fa-car fa-stack-1x favIcons"></i>
                             </span>
-              <h4>
-                                    <span class="Cat-name"  ui-sref="companies.list({cat: 'AUTOMOBILE'})">AUTOMOBILE</span>
+              <h4>                                    <span class="Cat-name"  ui-sref="companies.list({cat: 'AUTOMOBILE'})">AUTOMOBILE</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>
               <p>Lorem ipsum</p>
               <p>Lorem ipsum</p></span>
-
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
@@ -164,14 +147,12 @@
               <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'HEALTH CARE'})">
                                 <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
                             </span>
-              <h4>
-                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HEALTH CARE'})">HEALTH CARE</span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HEALTH CARE'})">HEALTH CARE</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>
               <p>Lorem ipsum</p>
               <p>Lorem ipsum</p></span>
-
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
@@ -179,14 +160,12 @@
               <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'UTILITIES'})">
                                 <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
                             </span>
-              <h4>
-                                    <span class="Cat-name" ui-sref="companies.list({cat: 'UTILITIES'})">UTILITIES</span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'UTILITIES'})">UTILITIES</span>
                                 </h4>
               <span class="popular_cats">
               <p>Lorem ipsum dolor</p>
               <p>Lorem ipsum</p>
               <p>Lorem ipsum</p></span>
-
             </div>
           </div>
         </div>
@@ -207,12 +186,10 @@
         <br>
         <div class="row text-center">
           <div class="col-md-4 col-md-offset-4 col-sm-offset-2 col-sm-8 col-xs-10 col-xs-offset-1">
-
             <div class="product-square">
               <div class="product-square-title">
                 <p class="product_title">{{homePageProductDetails.title}}</p>
               </div>
-
               <div class="product-square-logo">
                 <p> <img class="product-square-img" ng-src="{{homePageProductDetails.logoURL}}"> </p>
               </div>
@@ -226,7 +203,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

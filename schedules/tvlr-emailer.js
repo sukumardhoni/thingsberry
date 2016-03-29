@@ -22,6 +22,7 @@ exports.sendMail = function (mailData) {
       displayName: mailData.displayName,
       email: mailData.to,
       userData: mailData.userData,
+      contactedDetails: mailData.contactedDetails,
       resetUrl: mailData.url,
       appEnv: config.app.title
     },

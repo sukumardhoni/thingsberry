@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row text-center">
     <br>
-    <h2>Add Your Product</h2>
+    <h2>{{vm.company._id ? 'Update Your Product' : 'Add Your Product'}}</h2>
     <hr class="small">
     <br>
     <br>
@@ -59,7 +59,10 @@
     <div class="row">
       <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
         <label>Website Address</label>
-        <input type="text" class="form-control add_new_fields" id="website address" placeholder="Website Address (Product URL)" ng-model="vm.company.webAddress" required>
+        <input type="url" class="form-control add_new_fields" id="website address" placeholder="Website Address (Product URL)" ng-model="vm.company.webAddress" required>
+
+        <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not valid URL</span>
+
       </div>
     </div>
     <div class="row">
@@ -168,7 +171,7 @@
     <br>
     <div class="text-center form-group">
       <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid">{{vm.company._id ? 'UPDATE' : 'SUBMIT'}}</button>
-      <!--<button type="button" class="btn btn-danger" ng-show="vm.company._id" style="border-radius: 5px;width: 150px;height:50px;font-size: 16px;font-family:'OpenSans';" ng-click="remove()">DELETE</button>-->
+      <button type="button" class="btn btn-danger" ng-show="vm.company._id" style="border-radius: 5px;width: 150px;height:50px;font-size: 16px;font-family:'OpenSans';" ng-click="removeProduct()">DELETE</button>
     </div>
     <div ng-show="vm.error" class="text-danger">
       <strong ng-bind="vm.error"></strong>

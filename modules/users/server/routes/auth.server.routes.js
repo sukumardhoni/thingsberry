@@ -23,13 +23,19 @@ module.exports = function (app) {
   app.route('/api/auth/signout').get(users.signout);
 
 
-  // JWT Auth Routes
-app.route('/api/auth/jwtSignup').post(users.jwtSignup);
-app.route('/api/auth/jwtSignin').post(users.jwtSignin);
-app.route('/api/auth/jwtSignout').post(users.jwtSignout);
 
-app.route('/api/auth/jwtForgot').post(users.jwtForgot);
-app.route('/api/auth/jwtChangePassword').post(users.jwtChangePassword);
+  // ContactUs routes
+  app.route('/api/contactUs').post(users.contactUs);
+
+
+
+  // JWT Auth Routes
+  app.route('/api/auth/jwtSignup').post(users.jwtSignup);
+  app.route('/api/auth/jwtSignin').post(users.jwtSignin);
+  app.route('/api/auth/jwtSignout').post(users.jwtSignout);
+
+  app.route('/api/auth/jwtForgot').post(users.jwtForgot);
+  app.route('/api/auth/jwtChangePassword').post(users.jwtChangePassword);
 
 
   // Setting the facebook oauth routes

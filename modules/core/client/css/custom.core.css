@@ -53,7 +53,17 @@ section {
 
 .navbar {
   #min-height: 60px !important;
-  z-index: 99999;
+  #z-index: 99999;
+}
+
+.cssSlideUp {
+  transition: 1s linear all;
+  height: 100px;
+  overflow: hidden;
+}
+
+.cssSlideUp.ng-hide {
+  height: 0;
 }
 
 .header-title-names {
@@ -224,9 +234,24 @@ navbar-inverse .navbar-nav > .open > a,
   color: rgb(2, 168, 243);
 }
 
+.btn-search-products {
+  background-color: rgb(2, 168, 243) !important;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: "OpenSans";
+  border-color: rgb(2, 168, 243) !important;
+  z-index: 17;
+}
+
+.btn-search-products:hover {
+  background-color: #029ce3 !important;
+  border-color: rgb(2, 168, 243) !important;
+}
+
 .content-on-img {
   position: relative;
-  padding: 100px 0px;
+  padding: 50px 0px;
   background-image: url(../../../../modules/core/client/img/homepage_tb_bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
