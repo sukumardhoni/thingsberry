@@ -439,10 +439,25 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .controller('CompanyController', CompanyController)
 
 
+
+  .controller('LoginSignUpModalCtrl', ["$scope", "$uibModalInstance", function ($scope, $uibModalInstance) {
+    $scope.LogIn = function () {
+      $scope.LogInSignUpCondition = true;
+      $uibModalInstance.close($scope.LogInSignUpCondition);
+    };
+    $scope.SignUp = function () {
+      $scope.LogInSignUpCondition = false;
+      $uibModalInstance.close($scope.LogInSignUpCondition);
+    };
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }])
+
+
   .controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', 'productFromModal', function ($scope, $uibModalInstance, productFromModal) {
     $scope.product = productFromModal;
     $scope.ok = function (product) {
-      //console.log('Taskkkkkkkkkkkkkkkkkkkkkkk ...:' + product.Proname);
       $uibModalInstance.close(product);
     };
     $scope.cancel = function () {
@@ -462,18 +477,31 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     vm.authentication = Authentication;
     vm.error = null;
     vm.form = {};
-    vm.remove = remove;
-    vm.save = save;
+    //vm.remove = remove;
+    //vm.save = save;
     vm.addCompanyDetails = addCompanyDetails;
 
 
 
+    $scope.userValidation = function () {
+      if (vm.authentication.user) {} else {
+        var modalInstance = $uibModal.open({
+          templateUrl: 'modules/companies/client/views/modals/userNotLoggedIn-modal.html',
+          backdrop: "static",
+          $scope: $scope,
+          controller: 'LoginSignUpModalCtrl'
+        });
+        modalInstance.result.then(function (LogInSignUpCondition) {
+          console.log('$scope.LogInSignUpCondition value : ' + LogInSignUpCondition);
+          if (LogInSignUpCondition) $state.go('authentication.signin');
+          else $state.go('authentication.signup');
+        }, function () {});
+      }
+    }
+
 
 
     $scope.removeProduct = function () {
-
-
-
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
         templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
@@ -501,75 +529,12 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           })
         } else {
           //console.log('remove func. on else condition : ');
-
-          //$scope.task.$remove(function () {});
         }
       }, function () {
         //$log.info('Modal Task Delete dismissed at: ' + new Date());
       });
-
-
-
-
-
-
-
-      //console.log('removeProduct fun is triggred');
-      /* if (confirm('Are you sure you want to delete?')) {
-   CompanyServiceUpdate.DeleteProduct.remove({
-     companyId: vm.company._id
-   }, function (res) {
-     //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-     $state.go('companies.list');
-     NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
-   }, function (err) {
-     //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
-     NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
-   });
- }*/
     };
 
-
-
-
-
-    // Remove existing company
-    function remove() {
-
-      console.log('remove func. is triggred');
-
-      if (confirm('Are you sure you want to delete?')) {
-        vm.company.$remove($state.go('company.list'));
-      }
-    }
-
-    // Save company
-    function save(isValid) {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.companyForm');
-        return false;
-      }
-
-      // TODO: move create/update logic to service
-      if (vm.company._id) {
-        vm.company.$update(successCallback, errorCallback);
-      } else {
-        vm.company.$save(successCallback, errorCallback);
-      }
-
-      function successCallback(res) {
-
-        $timeout(function () {
-          $state.go('company.view', {
-            companyId: res._id
-          });
-        }, 7000);
-      }
-
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
-    }
 
     function genBusinessArray(businessArray) {
       var businessSecArr = [];
@@ -586,81 +551,89 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     function addCompanyDetails(isValid) {
 
 
-      // console.log('$scope.authentication.user details : ' + JSON.stringify(vm.authentication.user));
+      if (vm.authentication.user) {
 
-      // If user is signed in then redirect back home
-      /*if ($scope.authentication.user) {
-        $location.path('/');
-      }*/
+        if (!isValid) {
+          $scope.$broadcast('show-errors-check-validity', 'vm.form.companyForm');
+          return false;
+        }
 
-
-      //console.log('Add company method is called' + isValid);
-
-
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.companyForm');
-        return false;
-      }
-
-      // TODO: move create/update logic to service
-      if (vm.company._id) {
-        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
-        //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
-        //vm.company.$update(successUpdateCallback, errorUpdateCallback);
-        vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
-        vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
+        // TODO: move create/update logic to service
+        if (vm.company._id) {
+          //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+          //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
+          //vm.company.$update(successUpdateCallback, errorUpdateCallback);
+          vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
+          vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
 
 
-        vm.company.logo = {
-          filetype: $scope.productImg.filetype,
-          base64: $scope.productImg.base64
-        };
+          vm.company.logo = {
+            filetype: $scope.productImg.filetype,
+            base64: $scope.productImg.base64
+          };
 
-        CompanyServiceUpdate.UpdateProduct.update({
-          companyId: vm.company._id
-        }, vm.company, successUpdateCallback, errorUpdateCallback);
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: vm.company._id
+          }, vm.company, successUpdateCallback, errorUpdateCallback);
 
 
 
+        } else {
+
+          // vm.company.ProCat = $scope.selectedCategory;
+          vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
+          vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
+
+
+
+          vm.company.logo = {
+            filetype: $scope.productImg.filetype,
+            base64: $scope.productImg.base64
+          };
+
+          //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
+          vm.company.$save(successCallback, errorCallback);
+
+
+        }
+
+        function successUpdateCallback(res) {
+          $state.go('companies.list');
+          NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+
+        function successCallback(res) {
+          $state.go('companies.list');
+          NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
+        }
+
+        function errorCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to save Product details...', res.data.message);
+        }
       } else {
-
-        // vm.company.ProCat = $scope.selectedCategory;
-        vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
-        vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
-
-
-
-        vm.company.logo = {
-          filetype: $scope.productImg.filetype,
-          base64: $scope.productImg.base64
-        };
-
-        //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
-        vm.company.$save(successCallback, errorCallback);
-
-
+        var modalInstance = $uibModal.open({
+          templateUrl: 'modules/companies/client/views/modals/userNotLoggedIn-modal.html',
+          backdrop: "static",
+          $scope: $scope,
+          controller: 'LoginSignUpModalCtrl'
+        });
+        modalInstance.result.then(function (LogInSignUpCondition) {
+          console.log('$scope.LogInSignUpCondition value : ' + LogInSignUpCondition);
+          if (LogInSignUpCondition) $state.go('authentication.signin');
+          else $state.go('authentication.signup');
+        }, function () {});
       }
 
-      function successUpdateCallback(res) {
-        $state.go('companies.list');
-        NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
-      }
 
-      function errorUpdateCallback(res) {
-        vm.error = res.data.message;
-        NotificationFactory.error('Failed to Update Product details...', res.data.message);
-      }
 
-      function successCallback(res) {
-        $state.go('companies.list');
-        NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
-      }
 
-      function errorCallback(res) {
-        vm.error = res.data.message;
-        NotificationFactory.error('Failed to save Product details...', res.data.message);
-      }
     }
 
     $scope.$on('data_shared', function () {
@@ -816,6 +789,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 (function () {
   'use strict';
 
@@ -1193,6 +1167,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
@@ -2025,6 +2000,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'PasswordValidator',

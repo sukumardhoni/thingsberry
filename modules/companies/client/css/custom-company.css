@@ -241,6 +241,7 @@
   background: #fff;
   margin-bottom: 30px;
   border: solid 2px rgb(255, 245, 104);
+  position: relative;
 }
 
 .product-square-logo {
@@ -258,5 +259,23 @@
 .product-square-body {
   padding: 18px;
   position: relative;
+  text-align: center;
+}
+
+.editIon {
+  position: absolute;
+  left: 90%;
+  top: 0%;
+  z-index: 1000;
+}
+
+.inmodal .modal-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #676a6c;
+}
+
+.inmodal .modal-header {
+  padding: 30px 15px;
   text-align: center;
 }

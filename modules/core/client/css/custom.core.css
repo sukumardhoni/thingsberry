@@ -57,7 +57,7 @@ section {
 }
 
 .cssSlideUp {
-  transition: 0.5s linear all;
+  transition: 0.3s linear all;
   height: 100px;
   overflow: hidden;
 }
@@ -232,6 +232,21 @@ navbar-inverse .navbar-nav > .open > a,
 .quoteIcon {
   font-size: 100px;
   color: rgb(2, 168, 243);
+}
+
+.btn-modal-login {
+  background-color: rgb(2, 168, 243) !important;
+  color: white;
+  border-radius: 3px;
+  font-size: 16px;
+  border-color: rgb(2, 168, 243) !important;
+  z-index: 17;
+}
+
+.btn-modal-login:hover {
+  color: #eee;
+  background-color: #029ce3 !important;
+  border-color: rgb(2, 168, 243) !important;
 }
 
 .btn-search-products {
