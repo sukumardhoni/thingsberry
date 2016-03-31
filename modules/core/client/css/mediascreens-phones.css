@@ -1,4 +1,9 @@
 @media screen and (max-width: 480px) {
+  @media screen and (max-width: 300px) {
+    .business_sector_select {
+      width: 220px !important;
+    }
+  }
   .content_on_grey_bg {
     top: 268% !important;
   }
@@ -26,23 +31,6 @@
     #border-top: 2px solid rgb(255, 255, 255);
     color: rgb(255, 255, 255) !important;
   }
-  .code,
-  .tel {
-    display: inline-block;
-    padding: 0px 15px !important;
-  }
-  /*navbar-inverse .navbar-nav > .open > a,
-.navbar-inverse .navbar-nav > .active > a {
-  background-image: -webkit-linear-gradient(top, #e6e6e6 0%, #f2f2f2 100%) !important;
-  background-image: -o-linear-gradient(top, #e6e6e6 0%, #f2f2f2 100%) !important;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#e6e6e6), to(#f2f2f2)) !important;
-  background-image: linear-gradient(to bottom, #e6e6e6 0%, #f2f2f2 100%) !important;
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffe6e6e6', endColorstr='#fff2f2f2', GradientType=0) !important;
-}*/
-  /*.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover {
-  color: rgb(51, 51, 51) !important;
-}*/
   .header-title-names:hover {
     color: #ccc !important;
   }
@@ -76,6 +64,11 @@
   .product-square-img {
     width: 70% !important;
   }
+  .code,
+  .tel {
+    display: inline-block;
+    padding: 0px !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -92,12 +85,6 @@
   .navbar-fixed-bottom .navbar-collapse {
     padding-right: 30px;
   }
-}
-
-@media (min-width: 768px) {
-  /*.header-title-names {
-    top: 20px;
-  }*/
 }
 
 @media (max-width: 768px) {
@@ -174,6 +161,13 @@
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
     background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
     padding-bottom: 10px;
+  }
+  .navbar-inverse .navbar-nav > .active > a:hover {
+    color: #029ce3 !important;
+    background-image: -webkit-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
+    background-image: -o-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
+    background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
   }
   .navbar-nav .open .dropdown-menu {
     background-color: rgb(2, 168, 243);

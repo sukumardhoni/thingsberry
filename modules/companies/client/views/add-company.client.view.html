@@ -1,180 +1,200 @@
-<div class="container" ng-init="userValidation()">
-  <div class="row text-center">
-    <br>
-    <h2>{{vm.company._id ? 'Update Your Product' : 'Add Your Product'}}</h2>
-    <hr class="small">
-    <br>
-    <br>
-    <p class="text_on_add_company">Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-    <br>
-    <br>
+<div class="container">
+
+  <div class="text-center">
+    <div ng-hide="vm.authentication.user">
+      <div class="inmodal">
+        <div class="modal-header">
+          <h4 class="modal-title">User Not LoggedIn</h4>
+        </div>
+        <div class="modal-body">
+          <p><strong>Sign Up / Log In </strong>to add your <strong>Product Details.</strong></p>
+          <p>If you already have an account then
+            <button type="button" class="btn btn-modal-login" ui-sref="authentication.signin"><strong>Log In</strong></button> or
+            <button type="button" class="btn btn-modal-login" ui-sref="authentication.signup"><strong>Sign Up</strong> </button> to create account in ThingsBerry.</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <form name="vm.form.companyForm" ng-submit="vm.addCompanyDetails(vm.form.companyForm.$valid)" novalidate autocomplete="off">
-    <div class="row">
-      <div class="text col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-        <label>Product Name</label>
-        <input type="text" class="form-control add_new_fields" placeholder="Product Name" ng-model="vm.company.Proname" required>
-      </div>
-      <div class="col-md-offset-4 col-md-4 col-xs-offset-1 col-xs-10" ng-messages="vm.form.companyForm.name.$error" role="alert">
-        <p class="help-block error-text" ng-message="required">Product name is required.</p>
-      </div>
-    </div>
-    <div class="text-center">
+
+  <div ng-show="vm.authentication.user">
+    <div class="row text-center">
       <br>
-      <h4 class="heading_Text">Product Image</h4>
-      <h5>&nbsp;&nbsp;<small>(jpg,png,gif)</small></h5>
-      <br ng-show="productImg">
-      <button class="file-upload btn-custom-style" ng-hide="productImg">
-        <input type="file" name="productPic" accept="image/x-png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input required ng-change="previewImg(productImg)" class="file-input">Choose File</button>
-
-      <span ng-show="productImg"><img alt="productImg" ng-src="{{imgUrl}}" class="photo" width="15%" /><i class="fa fa-times" ng-click="productImg = ''" style="position: absolute;margin-top:-50px;font-size: 25px;"></i></span>
-      <br ng-show="productImg">
-      <p ng-show="vm.form.companyForm.productPic.$error.maxsize && productImg">Files must not exceed 1000 KB</p>
-      <button ng-show="productImg" class="btn btn-custom-style" ng-click="uploadProImg()" ng-disabled="vm.form.companyForm.productPic.$invalid || vm.form.companyForm.productName.$invalid">UPLOAD IMAGE</button>
+      <h2>{{vm.company._id ? 'Update Your Product' : 'Add Your Product'}}</h2>
+      <hr class="small">
       <br>
-      <small ng-hide="productImg">No file selected</small>
       <br>
-
+      <p class="text_on_add_company">Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      <br>
+      <br>
     </div>
-
-    <div class="row">
-      <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-        <label>Category</label>
-        <select class="form-control add_new_fields" ng-model="vm.company.ProCat" ng-init="vm.company.ProCat = categoriesList[0]" ng-selected="vm.company.ProCat" ng-options="cats for cats in categoriesList" ng-change="SelectedCat(vm.company.ProCat)" required>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group text-center col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 floating-label-form-group">
-        <label>Description</label>
-        <textarea class="form-control description" rows="6" id="description" placeholder="Description" ng-model="vm.company.description" required></textarea>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-        <label>Company Name</label>
-        <input type="text" class="form-control add_new_fields" id="company name" placeholder="Company Name" ng-model="vm.company.Comname" required>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-        <label>Website Address</label>
-        <input type="url" class="form-control add_new_fields" id="website address" placeholder="Website Address (Product URL)" ng-model="vm.company.webAddress" required>
-
-        <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not valid URL</span>
-
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-        <label>Email</label>
-        <input type="email" class="form-control add_new_fields" id="email" placeholder="Email" ng-model="vm.company.email">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10">
-        <div class="form-group col-md-3 col-xs-5 code floating-label-form-group">
-          <label>Code</label>
-          <input type="number" class="form-control add_new_fields" id="code" placeholder="Code" ng-model="vm.company.mobileCode">
+    <form name="vm.form.companyForm" ng-submit="vm.addCompanyDetails(vm.form.companyForm.$valid)" novalidate autocomplete="off">
+      <div class="row">
+        <div class="text col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Product Name</label>
+          <input type="text" class="form-control add_new_fields" placeholder="Product Name" ng-model="vm.company.Proname" required>
         </div>
-        <div class="form-group col-md-9 col-xs-7 tel floating-label-form-group">
-          <label>Telephone</label>
-          <input type="tel" id="telephone" placeholder="Telephone" class="form-control add_new_fields" ng-model="vm.company.phoneNo">
+        <div class="col-md-offset-4 col-md-4 col-xs-offset-1 col-xs-10" ng-messages="vm.form.companyForm.name.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Product name is required.</p>
         </div>
       </div>
-    </div>
-    <h4 class="text-center heading_Text">Contact Details</h4>
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
-        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
-          <label>Address line 1</label>
-          <input type="text" class="form-control add_new_fields" id="addressline1" placeholder="Address line 1" ng-model="vm.company.address1">
-        </div>
-        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
-          <label>Address line 2</label>
-          <input type="text" class="form-control add_new_fields" id="addressline2" placeholder="Address line 2" ng-model="vm.company.address2">
+      <div class="text-center">
+        <br>
+        <h4 class="heading_Text">Product Image</h4>
+        <h5>&nbsp;&nbsp;<small>(jpg,png,gif)</small></h5>
+        <br ng-show="productImg">
+        <button class="file-upload btn-custom-style" ng-hide="productImg">
+          <input type="file" name="productPic" accept="image/x-png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input required ng-change="previewImg(productImg)" class="file-input">Choose File</button>
 
+        <span ng-show="productImg"><img alt="productImg" ng-src="{{imgUrl}}" class="photo" width="15%" /><i class="fa fa-times" ng-click="productImg = ''" style="position: absolute;margin-top:-50px;font-size: 25px;"></i></span>
+        <br ng-show="productImg">
+        <p ng-show="vm.form.companyForm.productPic.$error.maxsize && productImg">Files must not exceed 1000 KB</p>
+        <button ng-show="productImg" class="btn btn-custom-style" ng-click="uploadProImg()" ng-disabled="vm.form.companyForm.productPic.$invalid || vm.form.companyForm.productName.$invalid">UPLOAD IMAGE</button>
+        <br>
+        <small ng-hide="productImg">No file selected</small>
+        <br>
+
+      </div>
+
+      <div class="row">
+        <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Category</label>
+          <select class="form-control add_new_fields" ng-model="vm.company.ProCat" ng-init="vm.company.ProCat = categoriesList[0]" ng-selected="vm.company.ProCat" ng-options="cats for cats in categoriesList" ng-change="SelectedCat(vm.company.ProCat)" required>
+          </select>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
-        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
-          <label>Address line 3</label>
-          <input type="text" class="form-control add_new_fields" id="addressline3" placeholder="Address line 3" ng-model="vm.company.address3">
+      <div class="row">
+        <div class="form-group text-center col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Description</label>
+          <textarea class="form-control description" rows="6" id="description" placeholder="Description" ng-model="vm.company.description" required></textarea>
         </div>
-        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
-          <label>Address line 4</label>
-          <input type="text" class="form-control add_new_fields" id="addressline4" placeholder="Address line 4" ng-model="vm.company.address4">
+      </div>
+      <div class="row">
+        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Company Name</label>
+          <input type="text" class="form-control add_new_fields" id="company name" placeholder="Company Name" ng-model="vm.company.Comname" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Website Address</label>
+          <input type="url" class="form-control add_new_fields" id="website address" placeholder="Website Address (Product URL)" ng-model="vm.company.webAddress" required>
+
+          <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
+">( Valid urls are like http://www.google.com )</span></span>
 
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
-        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
-          <label>Postal/Zip code</label>
-          <input type="text" class="form-control add_new_fields" id="postalcode" placeholder="Postal / Zip Code" ng-model="vm.company.zipCode">
-        </div>
-        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
-          <label>Country</label>
-          <input type="text" class="form-control add_new_fields" id="country" placeholder="Country" ng-model="vm.company.country">
+      <div class="row">
+        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Email</label>
+          <input type="email" class="form-control add_new_fields" id="email" placeholder="Email" ng-model="vm.company.email">
         </div>
       </div>
-    </div>
-    <h4 class="heading_Text text-center">Choose Business Sectors</h4>
-    <div class="row">
-      <div class="form-group text-center col-md-offset-5 col-md-4 col-sm-offset-4 col-sm-4  col-xs-10">
-        <i class="fa fa-briefcase briefCase_Cog"></i>
-        <div ng-dropdown-multiselect="" options="businessSectorList" selected-model="businessSectorSelectedArray" checkboxes="true" extra-settings="businessSectorSettings" class="business_sector_select" translation-texts="businessSectorTexts"></div>
+      <div class="row">
+        <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10">
+          <div class="form-group col-md-3 col-xs-5 code floating-label-form-group">
+            <label>Code</label>
+            <input type="number" class="form-control add_new_fields" id="code" placeholder="Code" ng-model="vm.company.mobileCode">
+          </div>
+          <div class="form-group col-md-9 col-xs-7 tel floating-label-form-group">
+            <label>Telephone</label>
+            <input type="tel" id="telephone" placeholder="Telephone" class="form-control add_new_fields" ng-model="vm.company.phoneNo">
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
-        <span class="col-sd-4" ng-repeat="val in businessSectorSelectedArray">
+      <h4 class="text-center heading_Text">Contact Details</h4>
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
+          <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+            <label>Address line 1</label>
+            <input type="text" class="form-control add_new_fields" id="addressline1" placeholder="Address line 1" ng-model="vm.company.address1">
+          </div>
+          <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+            <label>Address line 2</label>
+            <input type="text" class="form-control add_new_fields" id="addressline2" placeholder="Address line 2" ng-model="vm.company.address2">
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
+          <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+            <label>Address line 3</label>
+            <input type="text" class="form-control add_new_fields" id="addressline3" placeholder="Address line 3" ng-model="vm.company.address3">
+          </div>
+          <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+            <label>Address line 4</label>
+            <input type="text" class="form-control add_new_fields" id="addressline4" placeholder="Address line 4" ng-model="vm.company.address4">
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
+          <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+            <label>Postal/Zip code</label>
+            <input type="text" class="form-control add_new_fields" id="postalcode" placeholder="Postal / Zip Code" ng-model="vm.company.zipCode">
+          </div>
+          <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+            <label>Country</label>
+            <input type="text" class="form-control add_new_fields" id="country" placeholder="Country" ng-model="vm.company.country">
+          </div>
+        </div>
+      </div>
+      <h4 class="heading_Text text-center">Choose Business Sectors</h4>
+      <div class="row">
+        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4  col-xs-10">
+          <!--<i class="fa fa-briefcase briefCase_Cog"></i>-->
+          <div ng-dropdown-multiselect="" options="businessSectorList" selected-model="businessSectorSelectedArray" checkboxes="true" extra-settings="businessSectorSettings" class="business_sector_select11" translation-texts="businessSectorTexts"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
+          <span class="col-sd-4" ng-repeat="val in businessSectorSelectedArray">
             <span class="business_sector_selected_vals">{{val.id}} &nbsp;<i class="fa fa-times" ng-click="removebusinessSectorSelectedVal($index)"></i></span>
-        </span>
+          </span>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="form-group text-center col-md-offset-5 col-md-4 col-sm-offset-4 col-sm-4 col-xs-10">
-        <i class="fa fa-cog briefCase_Cog"></i>
-        <div ng-dropdown-multiselect="" options="serviceOfferedList" selected-model="serviceOfferedSelectedArray" checkboxes="true" extra-settings="serviceOfferedSettings" class="business_sector_select" translation-texts="serviceOfferedTexts"></div>
+      <div class="row">
+        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4 col-xs-10">
+          <!--<i class="fa fa-cog briefCase_Cog"></i>-->
+          <div ng-dropdown-multiselect="" options="serviceOfferedList" selected-model="serviceOfferedSelectedArray" checkboxes="true" extra-settings="serviceOfferedSettings" class="business_sector_select11" translation-texts="serviceOfferedTexts"></div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
-        <span class="col-sd-4" ng-repeat="val in serviceOfferedSelectedArray">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
+          <span class="col-sd-4" ng-repeat="val in serviceOfferedSelectedArray">
             <span class="business_sector_selected_vals">{{val.id}} &nbsp;<i class="fa fa-times" ng-click="removeserviceOfferedSelectedVal($index)"></i></span>
-        </span>
+          </span>
+        </div>
       </div>
-    </div>
-    <h5 class="heading_Text text-center">Choose Operational Regions</h5>
-    <div class="row">
-      <div class="col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10 col-xs-offset-1 col-xs-10">
-        <div class="row" ng-repeat="regions in operationalRegionsList | groupBy:3">
-          <div ng-repeat="region in regions track by $index">
-            <div class="col-md-4 col-sm-6 col-xs-12 invisible_checkbox">
-              <div class="row">
-                <div class="col-xs-1">
-                  <input type="checkbox" id="region" ng-checked="CheckedOperationalReg(region)" ng-model="selectionOperational.ids[region]">
-                </div>
-                <div class="col-xs-9" style="float:left">
-                  <label for="region" class="operational_regions"> {{region}}</label>
+      <h5 class="heading_Text text-center">Choose Operational Regions</h5>
+      <div class="row">
+        <div class="col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10 col-xs-offset-1 col-xs-10">
+          <div class="row" ng-repeat="regions in operationalRegionsList | groupBy:3">
+            <div ng-repeat="region in regions track by $index">
+              <div class="col-md-4 col-sm-6 col-xs-12 invisible_checkbox">
+                <div class="row">
+                  <div class="col-xs-1">
+                    <input type="checkbox" id="region" ng-checked="CheckedOperationalReg(region)" ng-model="selectionOperational.ids[region]">
+                  </div>
+                  <div class="col-xs-9" style="float:left">
+                    <label for="region" class="operational_regions"> {{region}}</label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <br>
-    <div class="text-center form-group">
-      <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid">{{vm.company._id ? 'UPDATE' : 'SUBMIT'}}</button>
-      <button type="button" class="btn btn-danger" ng-show="vm.company._id" style="border-radius: 5px;width: 150px;height:50px;font-size: 16px;font-family:'OpenSans';" ng-click="removeProduct()">DELETE</button>
-    </div>
-    <div ng-show="vm.error" class="text-danger">
-      <strong ng-bind="vm.error"></strong>
-    </div>
-  </form>
+      <br>
+      <div class="text-center form-group">
+        <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid">{{vm.company._id ? 'UPDATE' : 'SUBMIT'}}</button>
+        <button type="button" class="btn btn-danger" ng-show="vm.company._id" style="border-radius: 5px;width: 150px;height:40px;font-size: 16px;font-family:'OpenSans';" ng-click="removeProduct()">DELETE</button>
+      </div>
+      <div ng-show="vm.error" class="text-danger">
+        <strong ng-bind="vm.error"></strong>
+      </div>
+    </form>
+  </div>
 </div>

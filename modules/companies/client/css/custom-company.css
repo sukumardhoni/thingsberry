@@ -14,7 +14,7 @@
 }
 
 .add_new_fields {
-  height: 50px;
+  height: 40px;
 }
 
 .form_inline_styles {
@@ -278,4 +278,5 @@
 .inmodal .modal-header {
   padding: 30px 15px;
   text-align: center;
+  border-bottom: none;
 }

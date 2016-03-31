@@ -100,17 +100,25 @@ navbar-inverse .navbar-nav > .open > a,
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff029ce3', endColorstr='#ff02a8f3', GradientType=0) !important;
 }
 
+.navbar-inverse .navbar-nav > .active > a:hover {
+  background-image: -webkit-linear-gradient(top, #029ce3 0%, #0279b1 100%) !important;
+  background-image: -o-linear-gradient(top, #029ce3 0%, #0279b1 100%) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#029ce3), to(#0279b1)) !important;
+  background-image: linear-gradient(to bottom, #029ce3 0%, #0279b1 100%) !important;
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff029ce3', endColorstr='#ff0279b1', GradientType=0) !important;
+}
+
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #fff;
   border-radius: 5px;
-  background-color: rgb(244, 244, 244) !important;
+  #background-color: rgb(244, 244, 244) !important;
   font-family: "OpenSans";
 }
 
 .navbar-inverse .navbar-nav > .active > a:hover {
-  color: #bfbfbf !important;
+  color: #fff !important;
 }
 
 .triangle {
