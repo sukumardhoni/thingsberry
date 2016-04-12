@@ -11,12 +11,19 @@
           <li class="footer_elements">
             <a ui-sref="companies.add" class="footer_names">ADD NEW <span style="padding-left:25px" class="hidden-xs">|</span></a>
           </li>
-          <li class="footer_elements">
-            <a ui-sref="aboutus" class="footer_names">ABOUT US <span style="padding-left:25px" class="hidden-xs">|</span></a>
-          </li>
+          <!--<li class="footer_elements">
+  <a ui-sref="aboutus" class="footer_names">ABOUT US <span style="padding-left:25px" class="hidden-xs">|</span></a>
+</li>-->
           <li class="footer_elements">
             <a ui-sref="contactus" class="footer_names">CONTACT US <span style="padding-left:25px" class="hidden-xs" ng-hide="authentication.user">|</span></a>
           </li>
+
+
+          <li class="footer_elements">
+            <a ui-sref="blog" class="footer_names">BLOG<span style="padding-left:25px" class="hidden-xs">|</span></a>
+          </li>
+
+
           <li ng-hide="authentication.user" class="footer_elements">
             <a ui-sref="authentication.signin" class="footer_names">LOG IN</a>
           </li>

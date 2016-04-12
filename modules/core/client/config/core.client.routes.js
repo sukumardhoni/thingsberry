@@ -24,6 +24,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
           pageTitle: 'About ThingsBerry'
         }
       })
+      .state('blog', {
+        url: '/blog',
+        templateUrl: 'modules/core/client/views/blog.client.view.html',
+        data: {
+          pageTitle: 'ThingsBerry Blog'
+        }
+      })
       .state('contactus', {
         url: '/contactus',
         templateUrl: 'modules/core/client/views/contact-us.client.view.html',

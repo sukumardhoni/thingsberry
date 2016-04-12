@@ -771,6 +771,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 (function () {
   'use strict';
 
@@ -1039,6 +1040,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
           pageTitle: 'About ThingsBerry'
         }
       })
+      .state('blog', {
+        url: '/blog',
+        templateUrl: 'modules/core/client/views/blog.client.view.html',
+        data: {
+          pageTitle: 'ThingsBerry Blog'
+        }
+      })
       .state('contactus', {
         url: '/contactus',
         templateUrl: 'modules/core/client/views/contact-us.client.view.html',
@@ -1076,7 +1084,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       });
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory',
