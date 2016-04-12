@@ -43,7 +43,7 @@
         <h5>&nbsp;&nbsp;<small>(jpg,png,gif)</small></h5>
         <br ng-show="productImg">
         <button class="file-upload btn-custom-style" ng-hide="productImg">
-          <input type="file" name="productPic" accept="image/x-png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input required ng-change="previewImg(productImg)" class="file-input">Choose File</button>
+          <input type="file" name="productPic" accept="image/png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input required ng-change="previewImg(productImg)" class="file-input">Choose File</button>
 
         <span ng-show="productImg"><img alt="productImg" ng-src="{{imgUrl}}" class="photo" width="15%" /><i class="fa fa-times" ng-click="productImg = ''" style="position: absolute;margin-top:-50px;font-size: 25px;"></i></span>
         <br ng-show="productImg">
