@@ -35,8 +35,8 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       $http.post('/api/auth/jwtSignout').success(function (response) {
         //console.log('Signout callback : ' + JSON.stringify(response));
         $scope.authentication.user = '';
-        //delete $localStorage.token;
-        //delete $localStorage.user;
+        delete $localStorage.token;
+        delete $localStorage.user;
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       });
 
