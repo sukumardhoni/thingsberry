@@ -253,7 +253,7 @@
 }
 
 .product-square-img {
-  width: 40%;
+  max-height: 200px;
 }
 
 .product-square-body {

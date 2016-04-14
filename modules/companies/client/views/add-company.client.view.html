@@ -189,7 +189,7 @@
       </div>
       <br>
       <div class="text-center form-group">
-        <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid">{{vm.company._id ? 'UPDATE' : 'SUBMIT'}}</button>
+        <button type="submit" class="btn btn-custom-style" ng-disabled="vm.form.companyForm.$invalid || addBtnText =='Submiting...'">{{vm.company._id ? 'UPDATE' : addBtnText}}</button>
         <button type="button" class="btn btn-danger" ng-show="vm.company._id" style="border-radius: 5px;width: 150px;height:40px;font-size: 16px;font-family:'OpenSans';" ng-click="removeProduct()">DELETE</button>
       </div>
       <div ng-show="vm.error" class="text-danger">

@@ -47,7 +47,7 @@
     //vm.save = save;
     vm.addCompanyDetails = addCompanyDetails;
 
-
+    $scope.addBtnText = 'SUBMIT';
 
     /*   $scope.userValidation = function () {
          if (vm.authentication.user) {} else {
@@ -115,6 +115,8 @@
 
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
+
+      $scope.addBtnText = 'Submiting...';
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.companyForm');

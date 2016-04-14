@@ -132,6 +132,12 @@ exports.searchedProductsList = function (req, res) {
           Proname: req.params.ProName
         };
       }
+    } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
+      console.log('FIndOBJ print here 1333');
+      findObj = {
+        ProCat: req.params.ProCategory,
+        Proname: req.params.ProName
+      };
     }
   } else if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
     console.log('FIndOBJ print here 2111');
@@ -139,43 +145,18 @@ exports.searchedProductsList = function (req, res) {
     findObj = {
       Comname: req.params.ProCompany
     };
-    if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
-      console.log('FIndOBJ print here 2222');
+    if (req.params.ProName && (req.params.ProName !== 'Product')) {
+      console.log('FIndOBJ print here 1333');
       findObj = {
-        ProCat: req.params.ProCategory,
-        Comname: req.params.ProCompany
+        Comname: req.params.ProCompany,
+        Proname: req.params.ProName
       };
-      if (req.params.ProName && (req.params.ProName !== 'Product')) {
-        console.log('FIndOBJ print here 2333');
-        findObj = {
-          ProCat: req.params.ProCategory,
-          Comname: req.params.ProCompany,
-          Proname: req.params.ProName
-        };
-      }
     }
   } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
     console.log('FIndOBJ print here 3111');
     findObj = {
       Proname: req.params.ProName
     };
-    if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
-      console.log('FIndOBJ print here 3222');
-      findObj = {
-        ProCat: req.params.ProCategory,
-        Proname: req.params.ProName
-      };
-      if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
-
-        console.log('FIndOBJ print here 3333');
-
-        findObj = {
-          ProCat: req.params.ProCategory,
-          Comname: req.params.ProCompany,
-          Proname: req.params.ProName
-        };
-      }
-    }
   }
 
 

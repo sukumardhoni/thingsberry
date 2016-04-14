@@ -27,8 +27,6 @@
     width: 270px;
   }
   .nav > li > a {
-    #padding: 10px 15px !important;
-    #border-top: 2px solid rgb(255, 255, 255);
     color: rgb(255, 255, 255) !important;
   }
   .header-title-names:hover {
@@ -62,7 +60,7 @@
     border-color: #337ab7;
   }
   .product-square-img {
-    width: 70% !important;
+    max-height: 180px !important;
   }
   .code,
   .tel {
