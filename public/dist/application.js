@@ -757,7 +757,8 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
 
 
-    $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES'];
+    $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES', 'ENTERTAINMENT', 'ACCESORIES',
+'TOYS', 'SPORT', 'ELECTRONICS', 'OFFICE PRODUCTS', 'BABY PRODUCTS', 'MOTORS'];
     $scope.SelectedCat = function (val) {
       //console.log('SelectedCat cal is : ' + val);
     };
@@ -773,7 +774,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 (function () {
   'use strict';
 
@@ -1172,7 +1172,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.Advanced_Search_Fields = false;
 
-    $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES'];
+    $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES', 'ENTERTAINMENT', 'ACCESORIES',
+'TOYS', 'SPORT', 'ELECTRONICS', 'OFFICE PRODUCTS', 'BABY PRODUCTS', 'MOTORS'];
     $scope.CountriesList = ['Country', 'INDIA', 'US', 'UK', 'CHINA', 'JAPAN', 'AUSTRALIA'];
     $scope.StatesList = ['State', 'ANDHRA PRADESH', 'NEW JERSY', 'LONDON', 'HONG KONG', 'SYDNEY'];
     $scope.BusinessList = ['Business', 'SMALL SCALE', 'LARGE SCALE', 'AUTOMOBILES', 'TRADING', 'MARKETING'];
@@ -1202,7 +1203,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
-
 (function () {
   'use strict';
 
