@@ -12,3 +12,13 @@ angular.module('core')
     });
 	}
 ])
+
+.factory('GetListedService', ['$resource',
+	function ($resource) {
+    return $resource('api/getListed', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+	}
+])

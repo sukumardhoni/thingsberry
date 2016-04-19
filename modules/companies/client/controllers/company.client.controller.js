@@ -116,6 +116,9 @@
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
 
+
+      console.log('vm.company.premiumFlag value is : ' + vm.company.premiumFlag);
+
       $scope.addBtnText = 'Submiting...';
 
       if (!isValid) {

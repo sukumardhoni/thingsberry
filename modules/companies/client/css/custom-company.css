@@ -256,6 +256,13 @@
   max-height: 200px;
 }
 
+.isPremium {
+  font-size: 20px;
+  font-family: "OpenSans";
+  color: rgb(51, 51, 51) !important;
+  z-index: 50;
+}
+
 .product-square-body {
   padding: 18px;
   position: relative;

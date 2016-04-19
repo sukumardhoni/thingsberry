@@ -38,6 +38,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
           pageTitle: 'Contact ThingsBerry'
         }
       })
+      .state('getListed', {
+        url: '/getListed',
+        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        data: {
+          pageTitle: 'Get Listed ThingsBerry'
+        }
+      })
       .state('addyourcompany', {
         url: '/addyourcompany',
         templateUrl: 'modules/core/client/views/home.client.view.html'

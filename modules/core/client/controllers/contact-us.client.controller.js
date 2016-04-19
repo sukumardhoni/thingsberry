@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory',
-  function ($scope, Authentication, ContactUsService, NotificationFactory) {
+angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService',
+  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -13,6 +13,24 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
         //console.log('Success while sending the Contactus details : ' + res);
         NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.firstName);
         $scope.contact = '';
+      }
+
+      function errorCallback(res) {
+        //console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
+        //vm.error = res.data.message;
+        //NotificationFactory.error('Failed to save Product details...', res.data.message);
+      }
+    }
+
+
+    $scope.getListedEmail = function () {
+      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+      GetListedService.send($scope.getListed, successCallback, errorCallback);
+
+      function successCallback(res) {
+        //console.log('Success while sending the Contactus details : ' + res);
+        NotificationFactory.success('Thankyou for Contacting ThingsBerry', res.contactName);
+        $scope.getListed = '';
       }
 
       function errorCallback(res) {

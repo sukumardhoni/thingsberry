@@ -58,7 +58,7 @@ section {
 
 .cssSlideUp {
   transition: 0.3s linear all;
-  height: 100px;
+  height: 50px;
   overflow: hidden;
 }
 
@@ -608,7 +608,7 @@ hr.small {
   border-radius: 5px;
   font-size: 16px;
   font-family: "OpenSans";
-  width: 190px;
+  width: 220px;
   height: 50px;
   z-index: 17;
 }

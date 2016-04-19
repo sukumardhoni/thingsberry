@@ -26,6 +26,8 @@ module.exports = function (app) {
 
   // ContactUs routes
   app.route('/api/contactUs').post(users.contactUs);
+  // GetListed routes
+  app.route('/api/getListed').post(users.getListed);
 
 
 

@@ -37,6 +37,15 @@
           <p class="help-block error-text" ng-message="required">Product name is required.</p>
         </div>
       </div>
+      <br>
+      <div class="row">
+        <div class="text">
+          <label class="col-md-offset-4 col-md-3  col-sm-offset-3 col-sm-4 col-xs-offset-1 col-xs-5 isPremium">Is this Premium Product ?
+          </label>
+          <span class="col-md-4 col-sm-4 col-xs-6 isPremium"><input type="radio" ng-model="vm.company.premiumFlag" ng-value=true>Yes
+            <input type="radio" ng-model="vm.company.premiumFlag" ng-value=false>No</span>
+        </div>
+      </div>
       <div class="text-center">
         <br>
         <h4 class="heading_Text">Product Image</h4>

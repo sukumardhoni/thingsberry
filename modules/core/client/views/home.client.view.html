@@ -73,25 +73,25 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6">
-                <div class="form-group">
-                  <div class="col-xs-12" style="opacity: 1;">
-                    <select class="form-control" ng-model="homeSearchDetails.Business" ng-init="homeSearchDetails.Business = BusinessList[0]" ng-selected="homeSearchDetails.Business" ng-options="Business for Business in BusinessList" required>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6">
-                <div class="form-group">
-                  <div class="col-xs-12" style="opacity: 1;">
-                    <div class="check-box-landingpage">
-                      <label class="checkbox-inline">
-                        <input type="checkbox" value="" ng-model="homeSearchDetails.rememberMe">Lorem ipsum dolor sit amet
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!--<div class="col-md-6 col-sm-6">
+  <div class="form-group">
+    <div class="col-xs-12" style="opacity: 1;">
+      <select class="form-control" ng-model="homeSearchDetails.Business" ng-init="homeSearchDetails.Business = BusinessList[0]" ng-selected="homeSearchDetails.Business" ng-options="Business for Business in BusinessList" required>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="col-md-6 col-sm-6">
+  <div class="form-group">
+    <div class="col-xs-12" style="opacity: 1;">
+      <div class="check-box-landingpage">
+        <label class="checkbox-inline">
+          <input type="checkbox" value="" ng-model="homeSearchDetails.rememberMe">Lorem ipsum dolor sit amet
+        </label>
+      </div>
+    </div>
+  </div>
+</div>-->
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
               <div class="form-group row visible-xs">
@@ -175,39 +175,42 @@
     <br>
     <div class="row text-center">
       <div class="col-lg-10 col-lg-offset-1 text-center">
-        <h2>For Company Owners</h2>
+        <h2>For Company & Product Owners</h2>
         <hr class="small">
         <br>
         <div class="row">
           <div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 text-center">
-            <p class="forCompanyOwnersText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+            <p class="forCompanyOwnersText">We can list your product in the premium listing above, please get intouch with our support for more details</p>
           </div>
         </div>
+        <!--<br>
+<div class="row text-center">
+  <div class="col-md-4 col-md-offset-4 col-sm-offset-2 col-sm-8 col-xs-10 col-xs-offset-1">
+    <div class="product-square">
+      <div class="product-square-title">
+        <p class="product_title">{{homePageProductDetails.title}}</p>
+      </div>
+      <div class="product-square-logo">
+        <p> <img class="product-square-img" ng-src="{{homePageProductDetails.logoURL}}"> </p>
+      </div>
+      <div class="product-square-body">
+        <div class="product_desc">{{ homePageProductDetails.description | limitTo: 140 }}{{homePageProductDetails.description.length > 140 ? '...' : ''}}</div>
         <br>
-        <div class="row text-center">
-          <div class="col-md-4 col-md-offset-4 col-sm-offset-2 col-sm-8 col-xs-10 col-xs-offset-1">
-            <div class="product-square">
-              <div class="product-square-title">
-                <p class="product_title">{{homePageProductDetails.title}}</p>
-              </div>
-              <div class="product-square-logo">
-                <p> <img class="product-square-img" ng-src="{{homePageProductDetails.logoURL}}"> </p>
-              </div>
-              <div class="product-square-body">
-                <div class="product_desc">{{ homePageProductDetails.description | limitTo: 140 }}{{homePageProductDetails.description.length > 140 ? '...' : ''}}</div>
-                <br>
-                <div class="row icons-on-img-footer">
-                  <i class="fa fa-info-circle col-md-4 col-xs-4  text-cente"></i>
-                  <i class="fa fa-star col-md-4 col-xs-4 text-center"></i>
-                  <a ng-href="{{homePageProductDetails.webAddress}}" target="_blank"><i class="fa fa-globe col-md-4 col-xs-3 text-center"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row icons-on-img-footer">
+          <i class="fa fa-info-circle col-md-4 col-xs-4  text-cente"></i>
+          <i class="fa fa-star col-md-4 col-xs-4 text-center"></i>
+          <a ng-href="{{homePageProductDetails.webAddress}}" target="_blank"><i class="fa fa-globe col-md-4 col-xs-3 text-center"></i></a>
         </div>
       </div>
-      <div class="text-center form-group">
+    </div>
+  </div>
+</div>-->
+      </div>
+      <!--<div class="text-center form-group">
         <button type="submit" class="btn btn-add-company" ui-sref="companies.add">ADD YOUR PRODUCT</button>
+      </div>-->
+      <div class="text-center form-group">
+        <button type="submit" class="btn btn-add-company" ui-sref="getListed">GET LISTED AS PREMIUM</button>
       </div>
     </div>
   </div>

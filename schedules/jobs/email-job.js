@@ -46,6 +46,22 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
   })
 }
 
+
+exports.sendUserGetListedInfoToThingsBerryAdmin = function (agenda) {
+  agenda.define('User_GetListed_Info_To_ThingsBerry_Admin', function (job, done) {
+    //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/get-listed-email-to-thingsberry';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = 'Get Listed Product Info To ThingsBerry';
+    mailData.getListedDetails = job.attrs.data.GetListedDetails;
+    mailData.appEnv = config.app.title;
+    //console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
+
 exports.sendRecoveryLinkEmail = function (agenda) {
   agenda.define('Recovery_Link_Email', function (job, done) {
     var mailData = {};

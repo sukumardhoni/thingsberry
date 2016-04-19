@@ -91,6 +91,10 @@ var CompanySchema = new Schema({
     default: '',
     trim: true
   },
+  premiumFlag: {
+    type: Boolean,
+    default: false
+  },
   businessSector: [],
   serviceOffered: [],
   operationalRegions: [],

@@ -22,6 +22,7 @@ module.exports = function (agendaDb) {
     emailJob.sendPasswordChangedEmail(agenda);
     emailJob.sendUserInfoToThingsBerryTeam(agenda);
     emailJob.sendUserContactUSInfoToThingsBerryTeam(agenda);
+    emailJob.sendUserGetListedInfoToThingsBerryAdmin(agenda);
     agenda.start();
   });
 

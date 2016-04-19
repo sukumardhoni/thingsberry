@@ -549,6 +549,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
 
+
+      console.log('vm.company.premiumFlag value is : ' + vm.company.premiumFlag);
+
       $scope.addBtnText = 'Submiting...';
 
       if (!isValid) {
@@ -1056,6 +1059,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
           pageTitle: 'Contact ThingsBerry'
         }
       })
+      .state('getListed', {
+        url: '/getListed',
+        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        data: {
+          pageTitle: 'Get Listed ThingsBerry'
+        }
+      })
       .state('addyourcompany', {
         url: '/addyourcompany',
         templateUrl: 'modules/core/client/views/home.client.view.html'
@@ -1086,11 +1096,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       });
   }
 ]);
-
 'use strict';
 
-angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory',
-  function ($scope, Authentication, ContactUsService, NotificationFactory) {
+angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService',
+  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -1110,9 +1119,26 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
         //NotificationFactory.error('Failed to save Product details...', res.data.message);
       }
     }
+
+
+    $scope.getListedEmail = function () {
+      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+      GetListedService.send($scope.getListed, successCallback, errorCallback);
+
+      function successCallback(res) {
+        //console.log('Success while sending the Contactus details : ' + res);
+        NotificationFactory.success('Thankyou for Contacting ThingsBerry', res.contactName);
+        $scope.getListed = '';
+      }
+
+      function errorCallback(res) {
+        //console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
+        //vm.error = res.data.message;
+        //NotificationFactory.error('Failed to save Product details...', res.data.message);
+      }
+    }
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
@@ -1203,6 +1229,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
+
 (function () {
   'use strict';
 
@@ -1334,6 +1361,15 @@ angular.module('core')
 	}
 ])
 
+.factory('GetListedService', ['$resource',
+	function ($resource) {
+    return $resource('api/getListed', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+	}
+])
 'use strict';
 
 angular.module('core').factory('authInterceptor', ['$q', '$injector', 'Authentication',
