@@ -7,7 +7,11 @@ var path = require('path'),
   _ = require('lodash'),
   mongoose = require('mongoose'),
   Company = mongoose.model('Company'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+  Category = mongoose.model('Category'),
+  config = require('../../../../config/config'),
+  agenda = require('../../../../schedules/job-schedule')(config.db),
+  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  _this = this;
 
 /**
  * Create an company
@@ -15,19 +19,45 @@ var path = require('path'),
 exports.create = function (req, res) {
   var company = new Company(req.body);
   company.user = req.user;
-
-  //console.log('Rest side console details : ' + JSON.stringify(req.body.Proname));
+  var ProCatsArray = req.body.ProCat;
+  _this.catsCheck(ProCatsArray);
 
   company.save(function (err) {
     if (err) {
-
       // console.log('error details on server : ' + err);
-
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
       res.json(company);
+    }
+  });
+};
+
+exports.catsCheck = function (cats) {
+  var ProCatsArray = cats;
+  console.log('catsCheck function is called : ' + JSON.stringify(cats));
+  Category.distinct("title").exec(function (err, categories) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      //console.log('list of cats exists : ' + JSON.stringify(categories));
+      for (var i = 0; i < ProCatsArray.length; i++) {
+        if (!('_id' in ProCatsArray[i])) {
+          if (categories.toString().toLowerCase().indexOf(ProCatsArray[i].title.toLowerCase()) == -1) {
+            var cat = new Category(ProCatsArray[i]);
+            cat.save(function (err) {
+              if (err) {
+                console.log('Error while saving the cats');
+              } else {
+                console.log('Suucessfully saved the cats');
+              }
+            })
+          }
+        }
+      }
     }
   });
 };
@@ -56,6 +86,8 @@ exports.update = function (req, res) {
   company = _.extend(company, req.body);
   /*company.title = req.body.title;
   company.content = req.body.content;*/
+  var ProCatsArray = req.body.ProCat;
+  _this.catsCheck(ProCatsArray);
 
   company.save(function (err) {
     if (err) {
@@ -100,6 +132,44 @@ exports.list = function (req, res) {
     }
   });
 };
+
+
+
+
+exports.listOfMovies = function (req, res) {
+
+
+  function listToMatrix(list, elementsPerSubArray) {
+    var matrix = [],
+      i, k;
+
+    for (i = 0, k = -1; i < list.length; i++) {
+      if (i % elementsPerSubArray === 0) {
+        k++;
+        matrix[k] = [];
+      }
+
+      matrix[k].push(list[i]);
+    }
+
+    return matrix;
+  }
+
+  if (req.params.mainType === 'movies') {
+    if (req.params.subType === 'popularValueIs') {
+      var popularVIdsList = ['k-fT-UF1BOg', 'gTLhFllz8OA', 'fqR7JtHv6KI', 'TZUoD3y8j98', 'qgSpqOHP3H8', 'xQVqKoPsF2c', 't197BhimicA', 'HeQDrhd3ddE', 'b8dvhBPrGtw', 'p9xrgKSt82o', 'CVCxbun_4Eo'];
+      var popularVIds = listToMatrix(popularVIdsList, 4);
+      res.json(popularVIds);
+    } else if (req.params.subType === 'latestValueIs') {
+      var latestVIdsList = ['1p7NmlTW5qo', 'FpYIv-_GOVI', 'dWsIGLsybYQ', 'YKjY4hqWY0A', 'IFhuFQ8EuLc', 'R5IUTalZaHA', 'ID9umX7c1os', 'HeQDrhd3ddE', 'ZlaSmtFbvH8', 'Rv3DLPFbQgA', 'EK356hUG64c', 'A_baOtc5nws'];
+      var latestVIds = listToMatrix(latestVIdsList, 4);
+      res.json(latestVIds);
+    }
+  }
+
+};
+
+
 
 /**
  * Searched Products List
@@ -159,12 +229,31 @@ exports.searchedProductsList = function (req, res) {
     };
   }
 
+  var replacedCats, queryStr;
+  if (req.params.ProCategory) {
+    replacedCats = req.params.ProCategory.replace(/\,/g, " ");
+  }
+
+
+  if ((req.params.ProCategory == undefined) && (req.params.ProCompany == undefined) && (req.params.ProName == undefined)) {
+    queryStr = '';
+  } else {
+    queryStr = replacedCats + ' ' + req.params.ProCompany + ' ' + req.params.ProName
+  }
+
+
+
 
 
   console.log('Request FindOBj is : ' + JSON.stringify(findObj));
+  console.log('Request FindOBj is : ' + JSON.stringify(queryStr));
 
 
-  Company.find(findObj).exec(function (err, companies) {
+  Company.find({
+    $text: {
+      $search: queryStr
+    }
+  }).exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

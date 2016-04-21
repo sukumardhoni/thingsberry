@@ -21,7 +21,8 @@
     "angular-filter": "^0.5.8",
     "angular-base64-upload": "^0.1.18",
     "toastr": "^2.1.2",
-    "ngstorage": "^0.3.10"
+    "ngstorage": "^0.3.10",
+    "ng-tags-input": "^3.0.0"
   },
   "resolutions": {
     "angular": "~1.5"

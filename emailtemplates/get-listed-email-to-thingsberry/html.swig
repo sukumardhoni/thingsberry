@@ -595,16 +595,12 @@
                                         <tr>
                                             <td valign="top" class="bodyContent" mc:edit="body_content00">
                                                 Hi ThingsBerry Team, <br/><br/>
-                                                This is the notification mail of User Contacted US for Get Listed Product details just now from thingsberry.com. <br/>
-                                                Get Listed Product details are : <br/>
-                                                {{getListedDetails}}</td>
+                                                This is the notification mail for getting listed in thingsberry.com. 
+                                                <br/><br/>
+                                                {{getListedDetails}}
+                                                </td>
                                         </tr>
                                   	
-<!-- <tr>
-                                            <td valign="top" class="bodyContent" mc:edit="body_content01">
-You can access the movie videos through mobile app or at <a href="http://www.tveeler.com">www.tveeler.com</a> after signing in to your account.
-</td>
-                                        </tr>   -->
 <tr>
                                             <td valign="top" class="bodyContent" mc:edit="body_content03">
 Best regards,<br/>

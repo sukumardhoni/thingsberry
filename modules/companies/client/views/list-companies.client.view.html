@@ -19,10 +19,7 @@
   <div class="text-center">
     <div class="row">
       <div class="col-md-offset-1 col-md-10">
-
-
         <div style="margin:15%" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif"></div>
-
         <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
           <div class="clearfix" ng-if="$index % 2 == 0"></div>
           <div class="col-sm-6 col-xs-12">

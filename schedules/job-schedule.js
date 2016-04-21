@@ -1,6 +1,6 @@
 "use strict"
-var Agenda = require("agenda");
-var emailJob = require('./jobs/email-job.js');
+var Agenda = require("agenda"),
+  emailJob = require('./jobs/email-job.js');
 
 module.exports = function (agendaDb) {
   var agenda = new Agenda({

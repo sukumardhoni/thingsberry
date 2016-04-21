@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
-  function ($scope, Authentication, SearchProducts, $state) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'Movies',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, Movies) {
 
     var vm = this;
 
@@ -18,17 +18,34 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.BusinessList = ['Business', 'SMALL SCALE', 'LARGE SCALE', 'AUTOMOBILES', 'TRADING', 'MARKETING'];
 
     $scope.getSearchedProducts = function (details) {
-      //console.log('getSearchedProducts form details are : ' + JSON.stringify(details));
-      if (!details.Company)
-        details.Company = 'Company';
-      else if (!details.Product)
-        details.Product = 'Product';
+      if (details.Category || details.Company || details.Product) {
+        var catsArray = [];
+        if (details.Category) {
+          if (details.Category.length > 0) {
+            for (var i = 0; i < details.Category.length; i++) {
+              catsArray.push(details.Category[i].title);
+            }
+          } else {
+            catsArray.push(details.Category.title);
+          }
+        }
+        if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
+          $state.go('companies.list', {
+            isSearch: false
+          });
+        } else {
+          $state.go('companies.list', {
+            cat: (catsArray == '') ? 'Category' : catsArray,
+            com: details.Company,
+            name: details.Product
+          });
+        }
+      } else {
+        $state.go('companies.list', {
+          isSearch: false
+        });
+      }
 
-      $state.go('companies.list', {
-        cat: details.Category,
-        com: details.Company,
-        name: details.Product
-      });
     };
 
 
@@ -39,6 +56,30 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       webAddress: 'http://www.sonos.com/shop/play5'
 
     };
+
+    $scope.loadCategories = function () {
+      var catsList = CategoryService.query(),
+        defObj = $q.defer();
+      catsList.$promise.then(function (result) {
+        //$scope.catsList = result;
+        defObj.resolve(result);
+        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+      });
+      return defObj.promise;
+    };
+
+
+    $scope.slides = ['http://lorempixel.com/450/300/sports/1', 'http://lorempixel.com/450/300/sports/2', 'http://lorempixel.com/450/300/sports/3', 'http://lorempixel.com/450/300/sports/4']
+
+
+    /*Movies.query({
+  mainType: 'movies',
+  subType: 'popularValueIs'
+}, function (res) {
+  //console.log('REsponse of Movies.query query is 1111: ' + JSON.stringify(res));
+  $scope.ytSlides = res;
+});*/
+
 
   }
 ]);

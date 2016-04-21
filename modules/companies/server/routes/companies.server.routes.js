@@ -17,6 +17,14 @@ module.exports = function (app) {
     .get(companies.searchedProductsList);
 
 
+  app.route('/api/listOfProducts')
+    .get(companies.list);
+
+
+  app.route('/api/listOfMovies/:mainType/:subType')
+    .get(companies.listOfMovies);
+
+
   // Single company routes
   app.route('/api/companies/:companyId') /*.all(companiesPolicy.isAllowed)*/
     .get(companies.read)

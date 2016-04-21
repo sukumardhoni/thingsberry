@@ -710,3 +710,20 @@ body {
     padding-right: 20px;
   }
 }
+
+tags-input.form-control-tags-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.home_input_tags tags-input .host {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+tags-input .tags {
+  padding-top: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+}

@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
-  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64'];
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -21,7 +21,6 @@ var ApplicationConfiguration = (function () {
     registerModule: registerModule
   };
 })();
-
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -354,7 +353,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
       })
       .state('companies.list', {
-        url: '/list/:cat?/:com?/:name?',
+        url: '/list/:cat?/:com?/:name?/:isSearch',
         templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
@@ -430,7 +429,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
-
 (function () {
   'use strict';
 
@@ -467,9 +465,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
     var vm = this;
 
     vm.company = company;
@@ -499,6 +497,16 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
        }*/
 
 
+    $scope.loadCategories = function () {
+      var catsList = CategoryService.query(),
+        defObj = $q.defer();
+      catsList.$promise.then(function (result) {
+        //$scope.catsList = result;
+        defObj.resolve(result);
+        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+      });
+      return defObj.promise;
+    };
 
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({
@@ -520,7 +528,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
             companyId: product._id
           }, function (res) {
             //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-            $state.go('companies.list');
+            $state.go('companies.list', {
+              isSearch: false
+            });
             NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
           }, function (err) {
             //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
@@ -550,7 +560,8 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     function addCompanyDetails(isValid) {
 
 
-      console.log('vm.company.premiumFlag value is : ' + vm.company.premiumFlag);
+      //console.log('vm.company.categories value is : ' + vm.company.ProCat);
+      console.log('vm.company.categories value is : ' + JSON.stringify(vm.company.ProCat));
 
       $scope.addBtnText = 'Submiting...';
 
@@ -561,18 +572,20 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        console.log('Update product is called : ' + JSON.stringify(vm.company));
         //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
+        if (vm.company.productImageURL) {
 
-
-        vm.company.logo = {
-          filetype: $scope.productImg.filetype,
-          base64: $scope.productImg.base64
-        };
+        } else {
+          vm.company.logo = {
+            filetype: $scope.productImg.filetype,
+            base64: $scope.productImg.base64
+          };
+        }
 
         CompanyServiceUpdate.UpdateProduct.update({
           companyId: vm.company._id
@@ -588,19 +601,26 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
-        vm.company.logo = {
-          filetype: $scope.productImg.filetype,
-          base64: $scope.productImg.base64
-        };
 
-        //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
+        if (vm.company.productImageURL) {
+
+        } else {
+          vm.company.logo = {
+            filetype: $scope.productImg.filetype,
+            base64: $scope.productImg.base64
+          };
+        }
+
+        console.log('Created product is called : ' + JSON.stringify(vm.company));
         vm.company.$save(successCallback, errorCallback);
 
 
       }
 
       function successUpdateCallback(res) {
-        $state.go('companies.list');
+        $state.go('companies.list', {
+          isSearch: false
+        });
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
       }
 
@@ -610,7 +630,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       }
 
       function successCallback(res) {
-        $state.go('companies.list');
+        $state.go('companies.list', {
+          isSearch: false
+        });
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
       }
 
@@ -784,9 +806,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', '$stateParams', 'SearchProducts'];
+  CompanyListController.$inject = ['CompanyService', '$scope', '$stateParams', 'SearchProducts', 'ListOfProducts'];
 
-  function CompanyListController(CompanyService, $scope, $stateParams, SearchProducts) {
+  function CompanyListController(CompanyService, $scope, $stateParams, SearchProducts, ListOfProducts) {
     var vm = this;
 
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
@@ -794,19 +816,11 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
   //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
   vm.companys = res;
 });*/
-
-
-
-
     // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
     $scope.getSearchedProductsList = function () {
-
       $scope.spinnerLoading = true;
-
-
       $scope.searchOrder = {};
-
       $scope.searchOrder.Lists = [
         {
           'name': 'Sort by',
@@ -823,29 +837,28 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
   ];
       $scope.searchOrder.List = $scope.searchOrder.Lists[0].value;
 
-
-      SearchProducts.query({
-        ProCategory: $stateParams.cat,
-        ProCompany: $stateParams.com,
-        ProName: $stateParams.name
-      }, function (res) {
-        //console.log('Successfully fetched the Searched details');
-        //console.log('Searched details length : ' + res.length);
-        vm.companys = res;
-        $scope.spinnerLoading = false;
-      }, function (err) {
-        console.log('Failed to fetch the product details : ' + err);
-      });
+      if ($stateParams.isSearch == 'false') {
+        ListOfProducts.query({}, function (res) {
+          vm.companys = res;
+          $scope.spinnerLoading = false;
+        }, function (err) {
+          console.log('Failed to fetch the product details : ' + err);
+        });
+      } else {
+        SearchProducts.query({
+          ProCategory: $stateParams.cat,
+          ProCompany: $stateParams.com,
+          ProName: $stateParams.name
+        }, function (res) {
+          vm.companys = res;
+          $scope.spinnerLoading = false;
+        }, function (err) {
+          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+        });
+      }
     };
-
-
-
-
-
-
   }
 })();
-
 'use strict';
 
 
@@ -860,7 +873,10 @@ angular.module('companies')
       link: function (scope, elem, attrs) {
         scope.user = $localStorage.user;
         scope.proImgUrl = function () {
-          return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+          if (scope.details.productImageURL)
+            return scope.details.productImageURL
+          else
+            return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
         };
         scope.editProduct = function (Pro) {
           //console.log('Edit Product details on Direc. : ' + JSON.stringify(Pro));
@@ -870,7 +886,6 @@ angular.module('companies')
       }
     };
   }]);
-
 (function () {
   'use strict';
 
@@ -878,6 +893,7 @@ angular.module('companies')
   angular
     .module('companies.services')
     .factory('CompanyService', CompanyService)
+    .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
 
 
@@ -900,8 +916,38 @@ angular.module('companies')
         }
       })
     }
-}]);
+}])
 
+
+
+
+  .factory('Movies', ['$resource',
+  function ($resource) {
+      return $resource('api/listOfMovies/:mainType/:subType', {
+        mainType: '@mainType',
+        subType: '@subType'
+      }, {
+        'query': {
+          method: 'GET',
+          isArray: true
+        }
+      });
+  }
+]);
+
+
+
+
+  CategoryService.$inject = ['$resource'];
+
+  function CategoryService($resource) {
+    return $resource('api/categories', {}, {
+      query: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  };
 
 
 
@@ -942,7 +988,6 @@ angular.module('companies')
 
 
 })();
-
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -1060,7 +1105,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         }
       })
       .state('getListed', {
-        url: '/getListed',
+        url: '/getListed/:isPremium',
         templateUrl: 'modules/core/client/views/getListed.client.view.html',
         data: {
           pageTitle: 'Get Listed ThingsBerry'
@@ -1123,6 +1168,12 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
     $scope.getListedEmail = function () {
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+
+      if ($stateParams.isPremium == 'isPremium')
+        $scope.getListed.isPremium = true;
+
+      $scope.getListed.isPremium = false;
+
       GetListedService.send($scope.getListed, successCallback, errorCallback);
 
       function successCallback(res) {
@@ -1187,8 +1238,8 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state',
-  function ($scope, Authentication, SearchProducts, $state) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'Movies',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, Movies) {
 
     var vm = this;
 
@@ -1205,17 +1256,34 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.BusinessList = ['Business', 'SMALL SCALE', 'LARGE SCALE', 'AUTOMOBILES', 'TRADING', 'MARKETING'];
 
     $scope.getSearchedProducts = function (details) {
-      //console.log('getSearchedProducts form details are : ' + JSON.stringify(details));
-      if (!details.Company)
-        details.Company = 'Company';
-      else if (!details.Product)
-        details.Product = 'Product';
+      if (details.Category || details.Company || details.Product) {
+        var catsArray = [];
+        if (details.Category) {
+          if (details.Category.length > 0) {
+            for (var i = 0; i < details.Category.length; i++) {
+              catsArray.push(details.Category[i].title);
+            }
+          } else {
+            catsArray.push(details.Category.title);
+          }
+        }
+        if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
+          $state.go('companies.list', {
+            isSearch: false
+          });
+        } else {
+          $state.go('companies.list', {
+            cat: (catsArray == '') ? 'Category' : catsArray,
+            com: details.Company,
+            name: details.Product
+          });
+        }
+      } else {
+        $state.go('companies.list', {
+          isSearch: false
+        });
+      }
 
-      $state.go('companies.list', {
-        cat: details.Category,
-        com: details.Company,
-        name: details.Product
-      });
     };
 
 
@@ -1227,9 +1295,32 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     };
 
+    $scope.loadCategories = function () {
+      var catsList = CategoryService.query(),
+        defObj = $q.defer();
+      catsList.$promise.then(function (result) {
+        //$scope.catsList = result;
+        defObj.resolve(result);
+        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+      });
+      return defObj.promise;
+    };
+
+
+    $scope.slides = ['http://lorempixel.com/450/300/sports/1', 'http://lorempixel.com/450/300/sports/2', 'http://lorempixel.com/450/300/sports/3', 'http://lorempixel.com/450/300/sports/4']
+
+
+    /*Movies.query({
+  mainType: 'movies',
+  subType: 'popularValueIs'
+}, function (res) {
+  //console.log('REsponse of Movies.query query is 1111: ' + JSON.stringify(res));
+  $scope.ytSlides = res;
+});*/
+
+
   }
 ]);
-
 (function () {
   'use strict';
 
@@ -1370,6 +1461,7 @@ angular.module('core')
     });
 	}
 ])
+
 'use strict';
 
 angular.module('core').factory('authInterceptor', ['$q', '$injector', 'Authentication',
@@ -1621,6 +1713,17 @@ angular.module('core')
   });
 }])
 
+
+
+.factory('ListOfProducts', ["$resource", function ($resource) {
+  return $resource('api/listOfProducts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+}])
 'use strict';
 
 // Create the Socket.io wrapper service

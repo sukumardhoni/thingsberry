@@ -23,12 +23,12 @@
           <a ui-sref="companies.add" class="header-title-names">ADD NEW</a>
         </li>
 
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-hide="authentication.user.roles.indexOf('admin') > -1">
           <a ui-sref="getListed" class="header-title-names">GET LISTED</a>
         </li>
 
 
-        <!-- <li ui-sref-active="active">
+        <!--<li ui-sref-active="active">
           <a ui-sref="aboutus" class="header-title-names">ABOUT US</a>
         </li>-->
         <!--<li ui-sref-active="active">

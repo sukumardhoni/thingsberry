@@ -12,7 +12,10 @@ angular.module('companies')
       link: function (scope, elem, attrs) {
         scope.user = $localStorage.user;
         scope.proImgUrl = function () {
-          return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+          if (scope.details.productImageURL)
+            return scope.details.productImageURL
+          else
+            return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
         };
         scope.editProduct = function (Pro) {
           //console.log('Edit Product details on Direc. : ' + JSON.stringify(Pro));

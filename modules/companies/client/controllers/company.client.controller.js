@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log) {
+  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
     var vm = this;
 
     vm.company = company;
@@ -66,6 +66,16 @@
        }*/
 
 
+    $scope.loadCategories = function () {
+      var catsList = CategoryService.query(),
+        defObj = $q.defer();
+      catsList.$promise.then(function (result) {
+        //$scope.catsList = result;
+        defObj.resolve(result);
+        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+      });
+      return defObj.promise;
+    };
 
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({
@@ -87,7 +97,9 @@
             companyId: product._id
           }, function (res) {
             //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-            $state.go('companies.list');
+            $state.go('companies.list', {
+              isSearch: false
+            });
             NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
           }, function (err) {
             //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
@@ -117,7 +129,8 @@
     function addCompanyDetails(isValid) {
 
 
-      console.log('vm.company.premiumFlag value is : ' + vm.company.premiumFlag);
+      //console.log('vm.company.categories value is : ' + vm.company.ProCat);
+      console.log('vm.company.categories value is : ' + JSON.stringify(vm.company.ProCat));
 
       $scope.addBtnText = 'Submiting...';
 
@@ -128,18 +141,20 @@
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        //console.log('Update product is called : ' + JSON.stringify(vm.company.Proname));
+        console.log('Update product is called : ' + JSON.stringify(vm.company));
         //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
+        if (vm.company.productImageURL) {
 
-
-        vm.company.logo = {
-          filetype: $scope.productImg.filetype,
-          base64: $scope.productImg.base64
-        };
+        } else {
+          vm.company.logo = {
+            filetype: $scope.productImg.filetype,
+            base64: $scope.productImg.base64
+          };
+        }
 
         CompanyServiceUpdate.UpdateProduct.update({
           companyId: vm.company._id
@@ -155,19 +170,26 @@
 
 
 
-        vm.company.logo = {
-          filetype: $scope.productImg.filetype,
-          base64: $scope.productImg.base64
-        };
 
-        //console.log('Created product is called : ' + JSON.stringify(vm.company.ProCat));
+        if (vm.company.productImageURL) {
+
+        } else {
+          vm.company.logo = {
+            filetype: $scope.productImg.filetype,
+            base64: $scope.productImg.base64
+          };
+        }
+
+        console.log('Created product is called : ' + JSON.stringify(vm.company));
         vm.company.$save(successCallback, errorCallback);
 
 
       }
 
       function successUpdateCallback(res) {
-        $state.go('companies.list');
+        $state.go('companies.list', {
+          isSearch: false
+        });
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
       }
 
@@ -177,7 +199,9 @@
       }
 
       function successCallback(res) {
-        $state.go('companies.list');
+        $state.go('companies.list', {
+          isSearch: false
+        });
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
       }
 

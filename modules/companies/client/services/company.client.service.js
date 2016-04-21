@@ -4,6 +4,7 @@
   angular
     .module('companies.services')
     .factory('CompanyService', CompanyService)
+    .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
 
 
@@ -26,8 +27,38 @@
         }
       })
     }
-}]);
+}])
 
+
+
+
+  .factory('Movies', ['$resource',
+  function ($resource) {
+      return $resource('api/listOfMovies/:mainType/:subType', {
+        mainType: '@mainType',
+        subType: '@subType'
+      }, {
+        'query': {
+          method: 'GET',
+          isArray: true
+        }
+      });
+  }
+]);
+
+
+
+
+  CategoryService.$inject = ['$resource'];
+
+  function CategoryService($resource) {
+    return $resource('api/categories', {}, {
+      query: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  };
 
 
 

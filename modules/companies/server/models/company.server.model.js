@@ -20,12 +20,7 @@ var CompanySchema = new Schema({
     trim: true,
     required: 'Product Name cannot be blank'
   },
-  ProCat: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Product Category cannot be blank'
-  },
+  ProCat: [],
   Comname: {
     type: String,
     default: '',
@@ -63,6 +58,16 @@ var CompanySchema = new Schema({
     trim: true
   },
   webAddress: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  productImageURL: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  companyWebsite: {
     type: String,
     default: '',
     trim: true

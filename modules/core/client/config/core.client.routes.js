@@ -39,7 +39,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         }
       })
       .state('getListed', {
-        url: '/getListed',
+        url: '/getListed/:isPremium',
         templateUrl: 'modules/core/client/views/getListed.client.view.html',
         data: {
           pageTitle: 'Get Listed ThingsBerry'

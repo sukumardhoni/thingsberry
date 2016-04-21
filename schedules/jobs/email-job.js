@@ -3,6 +3,7 @@ var _ = require('lodash'),
   config = require('../../config/config'),
   tvlr_emailer = require('../../schedules/tvlr-emailer.js');
 
+
 exports.sendNewUserWelcomeEmail = function (agenda) {
   agenda.define('New_User_Welcome', function (job, done) {
     var mailData = {};

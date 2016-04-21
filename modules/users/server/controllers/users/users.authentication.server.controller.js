@@ -42,7 +42,7 @@ exports.getListed = function (req, res) {
   var details = req.body;
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
   agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
-    GetListedDetails: '\n Product Name : ' + details.productName + '\n , Product URL : ' + details.productURL + '\n , Description : ' + details.description + '\n , Contact Name : ' + details.contactName + '\n , Email : ' + details.email + '\n , Contact Phone: ' + details.contactPhone + '.'
+    GetListedDetails: '\n Product Name : ' + details.productName + '\n Is Product Premium ? : ' + details.isPremium + '\n , Product URL : ' + details.productURL + '\n , Description : ' + details.description + '\n , Contact Name : ' + details.contactName + '\n , Email : ' + details.email + '\n , Contact Phone: ' + details.contactPhone + '.'
   });
   res.json(details);
 };

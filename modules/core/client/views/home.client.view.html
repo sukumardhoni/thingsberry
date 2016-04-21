@@ -15,10 +15,17 @@
           <form class="form-horizontal" role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
             <div class="row">
               <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="form-group">
+                <!--<div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
                     <select class="form-control" ng-model="homeSearchDetails.Category" ng-init="homeSearchDetails.Category = categoriesList[0]" ng-selected="homeSearchDetails.Category" ng-options="cats for cats in categoriesList" required>
                     </select>
+                  </div>
+                </div>-->
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags" style="opacity: 1;">
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Search Category">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
                   </div>
                 </div>
               </div>
@@ -171,8 +178,58 @@
         </div>
       </div>
     </div>
+
+
+    <!--<br>
+<br>
+
+
+<div class="row text-center">
+  <div class="col-lg-10 col-lg-offset-1">
+    <h2>Popular Products</h2>
+    <hr class="small">
     <br>
     <br>
+
+
+    <uib-carousel no-wrap="noWrapSlides">
+      <uib-slide ng-repeat="slide in ytSlides">
+        <div class="row">
+          <div class="col-md-3" ng-repeat="singleVId in slide">
+            <a href="" class="thumbnail">
+              <span class="play1"></span>
+              <img class="img-responsive" ng-src="https://i1.ytimg.com/vi/{{singleVId}}/mqdefault.jpg" alt="Thumb11"></a>
+          </div>
+        </div>
+      </uib-slide>
+    </uib-carousel>
+
+    <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+      <uib-slide ng-repeat="slide in slides">
+        <img ng-src="{{slide}}" style="margin:auto;">
+      </uib-slide>
+    </uib-carousel>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>-->
+
+
+
+
+    <br>
+    <br>
+    <br>
+
+
+
+
     <div class="row text-center">
       <div class="col-lg-10 col-lg-offset-1 text-center">
         <h2>For Company & Product Owners</h2>
@@ -210,7 +267,7 @@
         <button type="submit" class="btn btn-add-company" ui-sref="companies.add">ADD YOUR PRODUCT</button>
       </div>-->
       <div class="text-center form-group">
-        <button type="submit" class="btn btn-add-company" ui-sref="getListed">GET LISTED AS PREMIUM</button>
+        <button type="submit" class="btn btn-add-company" ui-sref="getListed({isPremium:'isPremium'})">GET LISTED AS PREMIUM</button>
       </div>
     </div>
   </div>

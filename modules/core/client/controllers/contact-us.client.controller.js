@@ -25,6 +25,12 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
     $scope.getListedEmail = function () {
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+
+      if ($stateParams.isPremium == 'isPremium')
+        $scope.getListed.isPremium = true;
+
+      $scope.getListed.isPremium = false;
+
       GetListedService.send($scope.getListed, successCallback, errorCallback);
 
       function successCallback(res) {

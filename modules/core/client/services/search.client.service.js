@@ -17,3 +17,15 @@ angular.module('core')
     }
   });
 })
+
+
+
+.factory('ListOfProducts', function ($resource) {
+  return $resource('api/listOfProducts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+})

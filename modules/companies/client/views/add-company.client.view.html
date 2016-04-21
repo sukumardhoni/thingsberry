@@ -30,8 +30,8 @@
     <form name="vm.form.companyForm" ng-submit="vm.addCompanyDetails(vm.form.companyForm.$valid)" novalidate autocomplete="off">
       <div class="row">
         <div class="text col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-          <label>Product Name</label>
-          <input type="text" class="form-control add_new_fields" placeholder="Product Name" ng-model="vm.company.Proname" required>
+          <label>Product Name&#42;</label>
+          <input type="text" class="form-control add_new_fields" placeholder="Product Name&#42;" ng-model="vm.company.Proname" required>
         </div>
         <div class="col-md-offset-4 col-md-4 col-xs-offset-1 col-xs-10" ng-messages="vm.form.companyForm.name.$error" role="alert">
           <p class="help-block error-text" ng-message="required">Product name is required.</p>
@@ -40,19 +40,19 @@
       <br>
       <div class="row">
         <div class="text">
-          <label class="col-md-offset-4 col-md-3  col-sm-offset-3 col-sm-4 col-xs-offset-1 col-xs-5 isPremium">Is this Premium Product ?
+          <label class="col-md-offset-4 col-md-3  col-sm-offset-3 col-sm-4 col-xs-offset-1 col-xs-5 isPremium">Is this Premium Product ?&#42;
           </label>
           <span class="col-md-4 col-sm-4 col-xs-6 isPremium"><input type="radio" ng-model="vm.company.premiumFlag" ng-value=true>Yes
             <input type="radio" ng-model="vm.company.premiumFlag" ng-value=false>No</span>
         </div>
       </div>
-      <div class="text-center">
+      <div class="row text-center">
         <br>
         <h4 class="heading_Text">Product Image</h4>
         <h5>&nbsp;&nbsp;<small>(jpg,png,gif)</small></h5>
         <br ng-show="productImg">
         <button class="file-upload btn-custom-style" ng-hide="productImg">
-          <input type="file" name="productPic" accept="image/png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input required ng-change="previewImg(productImg)" class="file-input">Choose File</button>
+          <input type="file" name="productPic" accept="image/png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input ng-change="previewImg(productImg)" class="file-input" ng-required="!(productImg || vm.company.productImageURL)">Choose File</button>
 
         <span ng-show="productImg"><img alt="productImg" ng-src="{{imgUrl}}" class="photo" width="15%" /><i class="fa fa-times" ng-click="productImg = ''" style="position: absolute;margin-top:-50px;font-size: 25px;"></i></span>
         <br ng-show="productImg">
@@ -62,32 +62,68 @@
         <small ng-hide="productImg">No file selected</small>
         <br>
 
+
+        <h5>Or</h5>
+        <h4 class="heading_Text">Product Image URL</h4>
+        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Product Image URL&#42;</label>
+          <input type="url" class="form-control add_new_fields" id="Product_Image_URL" placeholder="Product Image URL&#42;" ng-model="vm.company.productImageURL" ng-required="!(productImg || vm.company.productImageURL)">
+          <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
+">( Valid urls are like http://www.google.com )</span></span>
+        </div>
+
+
+
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
           <label>Category</label>
           <select class="form-control add_new_fields" ng-model="vm.company.ProCat" ng-init="vm.company.ProCat = categoriesList[0]" ng-selected="vm.company.ProCat" ng-options="cats for cats in categoriesList" ng-change="SelectedCat(vm.company.ProCat)" required>
           </select>
         </div>
+      </div>-->
+
+
+      <div class="row">
+        <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Category&#42;</label>
+          <tags-input ng-model="vm.company.ProCat" class="form-control-tags-input" display-property="title" placeholder="Add a Category&#42;">
+            <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+          </tags-input>
+        </div>
       </div>
+
+
+
+
+
+
+
       <div class="row">
         <div class="form-group text-center col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 floating-label-form-group">
-          <label>Description</label>
-          <textarea class="form-control description" rows="6" id="description" placeholder="Description" ng-model="vm.company.description" required></textarea>
+          <label>Description&#42;</label>
+          <textarea class="form-control description" rows="6" id="description" placeholder="Description&#42;" ng-model="vm.company.description" required></textarea>
         </div>
       </div>
       <div class="row">
         <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-          <label>Company Name</label>
-          <input type="text" class="form-control add_new_fields" id="company name" placeholder="Company Name" ng-model="vm.company.Comname" required>
+          <label>Company Name&#42;</label>
+          <input type="text" class="form-control add_new_fields" id="company name" placeholder="Company Name&#42;" ng-model="vm.company.Comname" required>
         </div>
       </div>
       <div class="row">
         <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-          <label>Website Address</label>
-          <input type="url" class="form-control add_new_fields" id="website address" placeholder="Website Address (Product URL)" ng-model="vm.company.webAddress" required>
-
+          <label>Company Website&#42;</label>
+          <input type="url" class="form-control add_new_fields" id="Company_Website" placeholder="Company Website&#42;" ng-model="vm.company.companyWebsite" required>
+          <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
+">( Valid urls are like http://www.google.com )</span></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+          <label>Product URL&#42;</label>
+          <input type="url" class="form-control add_new_fields" id="product_URL" placeholder="Product URL&#42;" ng-model="vm.company.webAddress" required>
           <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
 ">( Valid urls are like http://www.google.com )</span></span>
 
@@ -111,6 +147,7 @@
           </div>
         </div>
       </div>
+      <br>
       <h4 class="text-center heading_Text">Contact Details</h4>
       <div class="row">
         <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
@@ -150,33 +187,34 @@
           </div>
         </div>
       </div>
-      <h4 class="heading_Text text-center">Choose Business Sectors</h4>
-      <div class="row">
-        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4  col-xs-10">
-          <!--<i class="fa fa-briefcase briefCase_Cog"></i>-->
-          <div ng-dropdown-multiselect="" options="businessSectorList" selected-model="businessSectorSelectedArray" checkboxes="true" extra-settings="businessSectorSettings" class="business_sector_select11" translation-texts="businessSectorTexts"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
-          <span class="col-sd-4" ng-repeat="val in businessSectorSelectedArray">
+      <!--<h4 class="heading_Text text-center">Choose Business Sectors</h4>
+<div class="row">
+  <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4  col-xs-10">
+    <i class="fa fa-briefcase briefCase_Cog"></i>
+    <div ng-dropdown-multiselect="" options="businessSectorList" selected-model="businessSectorSelectedArray" checkboxes="true" extra-settings="businessSectorSettings" class="business_sector_select11" translation-texts="businessSectorTexts"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
+    <span class="col-sd-4" ng-repeat="val in businessSectorSelectedArray">
             <span class="business_sector_selected_vals">{{val.id}} &nbsp;<i class="fa fa-times" ng-click="removebusinessSectorSelectedVal($index)"></i></span>
-          </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4 col-xs-10">
-          <!--<i class="fa fa-cog briefCase_Cog"></i>-->
-          <div ng-dropdown-multiselect="" options="serviceOfferedList" selected-model="serviceOfferedSelectedArray" checkboxes="true" extra-settings="serviceOfferedSettings" class="business_sector_select11" translation-texts="serviceOfferedTexts"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
-          <span class="col-sd-4" ng-repeat="val in serviceOfferedSelectedArray">
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4 col-xs-10">
+    <i class="fa fa-cog briefCase_Cog"></i>
+    <div ng-dropdown-multiselect="" options="serviceOfferedList" selected-model="serviceOfferedSelectedArray" checkboxes="true" extra-settings="serviceOfferedSettings" class="business_sector_select11" translation-texts="serviceOfferedTexts"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
+    <span class="col-sd-4" ng-repeat="val in serviceOfferedSelectedArray">
             <span class="business_sector_selected_vals">{{val.id}} &nbsp;<i class="fa fa-times" ng-click="removeserviceOfferedSelectedVal($index)"></i></span>
-          </span>
-        </div>
-      </div>
+    </span>
+  </div>
+</div>-->
+      <br>
       <h5 class="heading_Text text-center">Choose Operational Regions</h5>
       <div class="row">
         <div class="col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10 col-xs-offset-1 col-xs-10">

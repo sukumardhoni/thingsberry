@@ -8,15 +8,18 @@
   </div>
 
   <div class="product-square-logo">
-    <p> <img class="product-square-img" ng-src="{{proImgUrl()}}"> </p>
+    <p>
+      <a ng-href="{{details.webAddress}}" target="_blank"> <img class="product-square-img" ng-src="{{proImgUrl()}}"> </a>
+    </p>
   </div>
+
   <div class="product-square-body">
     <div class="product_desc">{{ details.description | limitTo: 140 }}{{details.description.length > 140 ? '...' : ''}}</div>
     <br>
     <div class="row icons-on-img-footer">
       <i class="fa fa-info-circle col-md-4 col-xs-4  text-cente"></i>
       <i class="fa fa-star col-md-4 col-xs-4 text-center"></i>
-      <a ng-href="{{details.webAddress}}" target="_blank"><i class="fa fa-globe col-md-4 col-xs-3 text-center"></i></a>
+      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-4 col-xs-3 text-center"></i></a>
     </div>
   </div>
 </div>
