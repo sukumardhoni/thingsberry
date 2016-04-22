@@ -21,6 +21,7 @@ var ApplicationConfiguration = (function () {
     registerModule: registerModule
   };
 })();
+
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -429,6 +430,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
+
 (function () {
   'use strict';
 
@@ -647,7 +649,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
     $scope.$on('data_shared', function () {
       var proDetails = dataShare.getData();
-      $scope.previewImg(proDetails.logo);
+
+      if (proDetails.logo)
+        $scope.previewImg(proDetails.logo);
       $scope.productImg = proDetails.logo;
       vm.company = proDetails;
     });
@@ -859,6 +863,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
   }
 })();
+
 'use strict';
 
 
@@ -886,6 +891,7 @@ angular.module('companies')
       }
     };
   }]);
+
 (function () {
   'use strict';
 
@@ -988,6 +994,7 @@ angular.module('companies')
 
 
 })();
+
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -1141,6 +1148,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       });
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService',
@@ -1190,6 +1198,7 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     }
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
@@ -1321,6 +1330,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
+
 (function () {
   'use strict';
 
@@ -1724,6 +1734,7 @@ angular.module('core')
     }
   });
 }])
+
 'use strict';
 
 // Create the Socket.io wrapper service

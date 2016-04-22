@@ -216,7 +216,9 @@
 
     $scope.$on('data_shared', function () {
       var proDetails = dataShare.getData();
-      $scope.previewImg(proDetails.logo);
+
+      if (proDetails.logo)
+        $scope.previewImg(proDetails.logo);
       $scope.productImg = proDetails.logo;
       vm.company = proDetails;
     });
