@@ -25,7 +25,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     });
 
 
-
+    //console.log('Signout callback : ' + JSON.stringify($localStorage.user));
 
 
 

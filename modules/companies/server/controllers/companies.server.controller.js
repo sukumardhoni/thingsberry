@@ -136,39 +136,25 @@ exports.list = function (req, res) {
 
 
 
-exports.listOfMovies = function (req, res) {
 
+/**
+ * List of Premium Products
+ */
+exports.premiumProductsList = function (req, res) {
 
-  function listToMatrix(list, elementsPerSubArray) {
-    var matrix = [],
-      i, k;
-
-    for (i = 0, k = -1; i < list.length; i++) {
-      if (i % elementsPerSubArray === 0) {
-        k++;
-        matrix[k] = [];
-      }
-
-      matrix[k].push(list[i]);
+  Company.find({
+    premiumFlag: true
+  }).exec(function (err, companies) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      //console.log('Server side List of products : ' + JSON.stringify(companies));
+      res.json(companies);
     }
-
-    return matrix;
-  }
-
-  if (req.params.mainType === 'movies') {
-    if (req.params.subType === 'popularValueIs') {
-      var popularVIdsList = ['k-fT-UF1BOg', 'gTLhFllz8OA', 'fqR7JtHv6KI', 'TZUoD3y8j98', 'qgSpqOHP3H8', 'xQVqKoPsF2c', 't197BhimicA', 'HeQDrhd3ddE', 'b8dvhBPrGtw', 'p9xrgKSt82o', 'CVCxbun_4Eo'];
-      var popularVIds = listToMatrix(popularVIdsList, 4);
-      res.json(popularVIds);
-    } else if (req.params.subType === 'latestValueIs') {
-      var latestVIdsList = ['1p7NmlTW5qo', 'FpYIv-_GOVI', 'dWsIGLsybYQ', 'YKjY4hqWY0A', 'IFhuFQ8EuLc', 'R5IUTalZaHA', 'ID9umX7c1os', 'HeQDrhd3ddE', 'ZlaSmtFbvH8', 'Rv3DLPFbQgA', 'EK356hUG64c', 'A_baOtc5nws'];
-      var latestVIds = listToMatrix(latestVIdsList, 4);
-      res.json(latestVIds);
-    }
-  }
-
+  });
 };
-
 
 
 /**

@@ -563,7 +563,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
       //console.log('vm.company.categories value is : ' + vm.company.ProCat);
-      console.log('vm.company.categories value is : ' + JSON.stringify(vm.company.ProCat));
+      //console.log('vm.company.categories value is : ' + JSON.stringify(vm.company.ProCat));
 
       $scope.addBtnText = 'Submiting...';
 
@@ -574,7 +574,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        console.log('Update product is called : ' + JSON.stringify(vm.company));
+        //console.log('Update product is called : ' + JSON.stringify(vm.company));
         //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
@@ -793,9 +793,10 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
 
 
-
     $scope.previewImg = function (val) {
-      $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
+
+      if (val)
+        $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
       //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
 
@@ -803,6 +804,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 (function () {
   'use strict';
 
@@ -1226,7 +1228,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     });
 
 
-
+    //console.log('Signout callback : ' + JSON.stringify($localStorage.user));
 
 
 
@@ -1247,8 +1249,8 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'Movies',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, Movies) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts) {
 
     var vm = this;
 
@@ -1310,27 +1312,61 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
-        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        //console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
       return defObj.promise;
     };
 
 
-    $scope.slides = ['http://lorempixel.com/450/300/sports/1', 'http://lorempixel.com/450/300/sports/2', 'http://lorempixel.com/450/300/sports/3', 'http://lorempixel.com/450/300/sports/4']
 
 
-    /*Movies.query({
-  mainType: 'movies',
-  subType: 'popularValueIs'
-}, function (res) {
-  //console.log('REsponse of Movies.query query is 1111: ' + JSON.stringify(res));
-  $scope.ytSlides = res;
-});*/
 
 
+
+
+    PremiumProducts.query({}, function (res) {
+      $scope.premiumProducts = res;
+    }, function (err) {
+      console.log('Failed to fetch the product details : ' + err);
+    });
+
+
+
+
+
+
+
+    /*Carousel Functionality*/
+
+
+    (function () {
+      // setup your carousels as you normally would using JS
+      // or via data attributes according to the documentation
+      // http://getbootstrap.com/javascript/#carousel
+      $('#carouselivo').carousel({
+        interval: 5000
+      });
+
+    }());
+
+    (function () {
+      $('.carousel-showmanymoveone .item').each(function () {
+        var itemToClone = $(this);
+        for (var i = 1; i < 4; i++) {
+          itemToClone = itemToClone.next();
+          // wrap around if at end of item collection
+          if (!itemToClone.length) {
+            itemToClone = $(this).siblings(':first');
+          }
+          // grab item, clone, add marker class, add to collection
+          itemToClone.children(':first-child').clone()
+            .addClass("cloneditem-" + (i))
+            .appendTo($(this));
+        }
+      });
+    }());
   }
 ]);
-
 (function () {
   'use strict';
 
@@ -1686,7 +1722,7 @@ angular.module('core')
     "onclick": null,
     "showDuration": "400",
     "hideDuration": "1000",
-    "timeOut": "7000",
+    "timeOut": "3000",
     "extendedTimeOut": "1000",
     "showEasing": "swing",
     "hideEasing": "linear",
@@ -1727,6 +1763,17 @@ angular.module('core')
 
 .factory('ListOfProducts', ["$resource", function ($resource) {
   return $resource('api/listOfProducts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+}])
+
+
+.factory('PremiumProducts', ["$resource", function ($resource) {
+  return $resource('api/premiumProducts', {}, {
     'query': {
       method: 'GET',
       timeout: 20000,

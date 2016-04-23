@@ -130,7 +130,7 @@
 
 
       //console.log('vm.company.categories value is : ' + vm.company.ProCat);
-      console.log('vm.company.categories value is : ' + JSON.stringify(vm.company.ProCat));
+      //console.log('vm.company.categories value is : ' + JSON.stringify(vm.company.ProCat));
 
       $scope.addBtnText = 'Submiting...';
 
@@ -141,7 +141,7 @@
 
       // TODO: move create/update logic to service
       if (vm.company._id) {
-        console.log('Update product is called : ' + JSON.stringify(vm.company));
+        //console.log('Update product is called : ' + JSON.stringify(vm.company));
         //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
@@ -360,9 +360,10 @@
     };
 
 
-
     $scope.previewImg = function (val) {
-      $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
+
+      if (val)
+        $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
       //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
 

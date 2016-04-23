@@ -1,6 +1,6 @@
 <div class="product-square">
-  <div ng-show="(details.user.toString() === user._id.toString()) || (user.roles.indexOf('admin') > -1)" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProduct(details)"></i></div>
-  <!--<p>User ID : {{user._id | json}}</p>
+  <div ng-show="user.roles.indexOf('admin') > -1" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProduct(details)"></i></div>
+ <!--<p>User ID : {{user._id | json}}</p>
 <p>Pro User ID : {{details.user | json}}</p>
 <p>User Roles : {{user.roles | json}}</p>-->
   <div class="product-square-title">

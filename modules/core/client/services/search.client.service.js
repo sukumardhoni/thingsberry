@@ -29,3 +29,14 @@ angular.module('core')
     }
   });
 })
+
+
+.factory('PremiumProducts', function ($resource) {
+  return $resource('api/premiumProducts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+})

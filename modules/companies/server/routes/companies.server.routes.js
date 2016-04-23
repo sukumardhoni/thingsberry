@@ -21,8 +21,11 @@ module.exports = function (app) {
     .get(companies.list);
 
 
-  app.route('/api/listOfMovies/:mainType/:subType')
-    .get(companies.listOfMovies);
+  app.route('/api/premiumProducts')
+    .get(companies.premiumProductsList);
+
+
+
 
 
   // Single company routes

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'Movies',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, Movies) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts) {
 
     var vm = this;
 
@@ -63,23 +63,58 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
-        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        //console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
       return defObj.promise;
     };
 
 
-    $scope.slides = ['http://lorempixel.com/450/300/sports/1', 'http://lorempixel.com/450/300/sports/2', 'http://lorempixel.com/450/300/sports/3', 'http://lorempixel.com/450/300/sports/4']
 
 
-    /*Movies.query({
-  mainType: 'movies',
-  subType: 'popularValueIs'
-}, function (res) {
-  //console.log('REsponse of Movies.query query is 1111: ' + JSON.stringify(res));
-  $scope.ytSlides = res;
-});*/
 
 
+
+
+    PremiumProducts.query({}, function (res) {
+      $scope.premiumProducts = res;
+    }, function (err) {
+      console.log('Failed to fetch the product details : ' + err);
+    });
+
+
+
+
+
+
+
+    /*Carousel Functionality*/
+
+
+    (function () {
+      // setup your carousels as you normally would using JS
+      // or via data attributes according to the documentation
+      // http://getbootstrap.com/javascript/#carousel
+      $('#carouselivo').carousel({
+        interval: 5000
+      });
+
+    }());
+
+    (function () {
+      $('.carousel-showmanymoveone .item').each(function () {
+        var itemToClone = $(this);
+        for (var i = 1; i < 4; i++) {
+          itemToClone = itemToClone.next();
+          // wrap around if at end of item collection
+          if (!itemToClone.length) {
+            itemToClone = $(this).siblings(':first');
+          }
+          // grab item, clone, add marker class, add to collection
+          itemToClone.children(':first-child').clone()
+            .addClass("cloneditem-" + (i))
+            .appendTo($(this));
+        }
+      });
+    }());
   }
 ]);
