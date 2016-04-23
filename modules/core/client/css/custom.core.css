@@ -731,7 +731,7 @@ tags-input .tags {
 
 /*Carousel */
 
-.carousel-showmanymoveone .cloneditem-1,
+/*.carousel-showmanymoveone .cloneditem-1,
 .carousel-showmanymoveone .cloneditem-2,
 .carousel-showmanymoveone .cloneditem-3 {
   display: none;
@@ -820,4 +820,4 @@ all and (min-width: 992px) and (-webkit-transform-3d) {
     transform: translate3d(0, 0, 0);
     left: 0;
   }
-}
+}*/
