@@ -155,6 +155,9 @@
             base64: $scope.productImg.base64
           };
         }
+        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+        vm.company.operationalRegions = $scope.operationalRegionsList;
+
 
         CompanyServiceUpdate.UpdateProduct.update({
           companyId: vm.company._id
@@ -181,6 +184,11 @@
         }
 
         console.log('Created product is called : ' + JSON.stringify(vm.company));
+        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+
+        //if ($scope.selectionOperational)
+        vm.company.operationalRegions = $scope.operationalRegionsList;
+
         vm.company.$save(successCallback, errorCallback);
 
 
@@ -220,6 +228,15 @@
       if (proDetails.logo)
         $scope.previewImg(proDetails.logo);
       $scope.productImg = proDetails.logo;
+
+
+      //if (proDetails.operationalRegions)
+      //$scope.selectionOperational = proDetails.operationalRegions;
+
+      console.log('proDetails.operationalRegions is : ' + JSON.stringify(proDetails));
+      $scope.operationalRegionsList = proDetails.operationalRegions;
+
+
       vm.company = proDetails;
     });
 
@@ -346,11 +363,32 @@
     };
 
 
-    $scope.operationalRegionsList = ['Africa', 'Asia-Pacific', 'Europe', 'Latin America', 'Middle East', 'North America', 'All Regions'];
+    //$scope.operationalRegionsList = ['Africa', 'Asia-Pacific', 'Europe', 'Latin America', 'Middle East', 'North America', 'All Regions'];
 
-    $scope.selectionOperational = {
-      ids: {}
-    };
+
+
+    $scope.operationalRegionsList = [{
+      name: "Africa",
+      checked: false
+    }, {
+      name: "Asia-Pacific",
+      checked: false
+    }, {
+      name: "Europe",
+      checked: false
+    }, {
+      name: "Latin America",
+      checked: false
+    }, {
+      name: "Middle East",
+      checked: false
+    }, {
+      name: "North America",
+      checked: false
+    }, {
+      name: "All Regions",
+      checked: false
+    }];
 
 
     $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES', 'ENTERTAINMENT', 'ACCESORIES',
@@ -366,6 +404,14 @@
         $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
       //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
+
+
+
+    /*$scope.CheckedOperationalReg = function (region) {
+
+      console.log('CheckedOperationalReg is called : ' + region);
+
+    };*/
 
 
 

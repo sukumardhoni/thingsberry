@@ -588,6 +588,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
             base64: $scope.productImg.base64
           };
         }
+        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+        vm.company.operationalRegions = $scope.operationalRegionsList;
+
 
         CompanyServiceUpdate.UpdateProduct.update({
           companyId: vm.company._id
@@ -614,6 +617,11 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
 
         console.log('Created product is called : ' + JSON.stringify(vm.company));
+        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+
+        //if ($scope.selectionOperational)
+        vm.company.operationalRegions = $scope.operationalRegionsList;
+
         vm.company.$save(successCallback, errorCallback);
 
 
@@ -653,6 +661,15 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       if (proDetails.logo)
         $scope.previewImg(proDetails.logo);
       $scope.productImg = proDetails.logo;
+
+
+      //if (proDetails.operationalRegions)
+      //$scope.selectionOperational = proDetails.operationalRegions;
+
+      console.log('proDetails.operationalRegions is : ' + JSON.stringify(proDetails));
+      $scope.operationalRegionsList = proDetails.operationalRegions;
+
+
       vm.company = proDetails;
     });
 
@@ -779,11 +796,32 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
 
 
-    $scope.operationalRegionsList = ['Africa', 'Asia-Pacific', 'Europe', 'Latin America', 'Middle East', 'North America', 'All Regions'];
+    //$scope.operationalRegionsList = ['Africa', 'Asia-Pacific', 'Europe', 'Latin America', 'Middle East', 'North America', 'All Regions'];
 
-    $scope.selectionOperational = {
-      ids: {}
-    };
+
+
+    $scope.operationalRegionsList = [{
+      name: "Africa",
+      checked: false
+    }, {
+      name: "Asia-Pacific",
+      checked: false
+    }, {
+      name: "Europe",
+      checked: false
+    }, {
+      name: "Latin America",
+      checked: false
+    }, {
+      name: "Middle East",
+      checked: false
+    }, {
+      name: "North America",
+      checked: false
+    }, {
+      name: "All Regions",
+      checked: false
+    }];
 
 
     $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES', 'ENTERTAINMENT', 'ACCESORIES',
@@ -802,9 +840,16 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
+    /*$scope.CheckedOperationalReg = function (region) {
+
+      console.log('CheckedOperationalReg is called : ' + region);
+
+    };*/
+
+
+
   }
 })();
-
 (function () {
   'use strict';
 

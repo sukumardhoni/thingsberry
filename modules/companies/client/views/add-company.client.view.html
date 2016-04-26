@@ -67,8 +67,8 @@
         <h4 class="heading_Text">Product Image URL</h4>
         <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
           <label>Product Image URL&#42;</label>
-          <input type="url" class="form-control add_new_fields" id="Product_Image_URL" placeholder="Product Image URL&#42;" ng-model="vm.company.productImageURL" ng-required="!(productImg || vm.company.productImageURL)">
-          <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
+          <input type="url" class="form-control add_new_fields" name="Product_Image_URL" id="Product_Image_URL" placeholder="Product Image URL&#42;" ng-model="vm.company.productImageURL" ng-required="!(productImg || vm.company.productImageURL)">
+          <span ng-show="vm.form.companyForm.Product_Image_URL.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
 ">( Valid urls are like http://www.google.com )</span></span>
         </div>
 
@@ -115,16 +115,16 @@
       <div class="row">
         <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
           <label>Company Website&#42;</label>
-          <input type="url" class="form-control add_new_fields" id="Company_Website" placeholder="Company Website&#42;" ng-model="vm.company.companyWebsite" required>
-          <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
+          <input type="url" class="form-control add_new_fields" name="Company_Website" id="Company_Website" placeholder="Company Website&#42;" ng-model="vm.company.companyWebsite" required>
+          <span ng-show="vm.form.companyForm.Company_Website.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
 ">( Valid urls are like http://www.google.com )</span></span>
         </div>
       </div>
       <div class="row">
         <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
           <label>Product URL&#42;</label>
-          <input type="url" class="form-control add_new_fields" id="product_URL" placeholder="Product URL&#42;" ng-model="vm.company.webAddress" required>
-          <span ng-show="vm.form.companyForm.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
+          <input type="url" class="form-control add_new_fields" name="product_URL" id="product_URL" placeholder="Product URL&#42;" ng-model="vm.company.webAddress" required>
+          <span ng-show="vm.form.companyForm.product_URL.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
 ">( Valid urls are like http://www.google.com )</span></span>
 
         </div>
@@ -223,10 +223,10 @@
               <div class="col-md-4 col-sm-6 col-xs-12 invisible_checkbox">
                 <div class="row">
                   <div class="col-xs-1">
-                    <input type="checkbox" id="region" ng-checked="CheckedOperationalReg(region)" ng-model="selectionOperational.ids[region]">
+                    <input type="checkbox" id="regionName" ng-model="region.checked">
                   </div>
                   <div class="col-xs-9" style="float:left">
-                    <label for="region" class="operational_regions"> {{region}}</label>
+                    <label class="operational_regions"> {{region.name}}</label>
                   </div>
                 </div>
               </div>
