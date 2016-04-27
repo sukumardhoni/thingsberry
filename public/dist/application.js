@@ -661,10 +661,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       if (proDetails.logo)
         $scope.previewImg(proDetails.logo);
       $scope.productImg = proDetails.logo;
-
-      $scope.operationalRegionsList = proDetails.operationalRegions ? proDetails.operationalRegions : $scope.operationalRegionsList;
-
-
+      if (proDetails.operationalRegions)
+        $scope.operationalRegionsList = proDetails.operationalRegions;
+      //$scope.operationalRegionsList = proDetails.operationalRegions ? proDetails.operationalRegions : $scope.operationalRegionsList;
       vm.company = proDetails;
     });
 
