@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse hidden-xs hidden-sm" id="footer">
+<div class="navbar navbar-inverse hidden-xs hidden-sm" id="footer" ng-controller="HeaderController">
   <div class="container">
     <div class="ft_left ft_triangle"></div>
     <div class="ft_right ft_triangle"></div>
@@ -8,14 +8,27 @@
       </div>
       <div class="col-md-8 col-xs-12 text-center">
         <ul class="nav navbar-nav navbar-right">
+
           <li class="footer_elements">
+            <a ui-sref="home" class="footer_names">HOME <span style="padding-left:25px" class="hidden-xs" >|</span></a>
+          </li>
+
+
+          <li class="footer_elements" ng-show="authentication.user.roles.indexOf('admin') > -1">
             <a ui-sref="companies.add" class="footer_names">ADD NEW <span style="padding-left:25px" class="hidden-xs">|</span></a>
           </li>
           <!--<li class="footer_elements">
   <a ui-sref="aboutus" class="footer_names">ABOUT US <span style="padding-left:25px" class="hidden-xs">|</span></a>
 </li>-->
+
+
+
+          <li class="footer_elements" ng-hide="authentication.user.roles.indexOf('admin') > -1">
+            <a ui-sref="getListed" class="footer_names">GET LISTED<span style="padding-left:25px" class="hidden-xs" >|</span></a>
+          </li>
+
           <li class="footer_elements">
-            <a ui-sref="contactus" class="footer_names">CONTACT US <span style="padding-left:25px" class="hidden-xs" ng-hide="authentication.user">|</span></a>
+            <a ui-sref="contactus" class="footer_names">CONTACT US <span style="padding-left:25px" class="hidden-xs" >|</span></a>
           </li>
 
 
