@@ -662,12 +662,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         $scope.previewImg(proDetails.logo);
       $scope.productImg = proDetails.logo;
 
-
-      //if (proDetails.operationalRegions)
-      //$scope.selectionOperational = proDetails.operationalRegions;
-
-      console.log('proDetails.operationalRegions is : ' + JSON.stringify(proDetails));
-      $scope.operationalRegionsList = proDetails.operationalRegions;
+      $scope.operationalRegionsList = proDetails.operationalRegions ? proDetails.operationalRegions : $scope.operationalRegionsList;
 
 
       vm.company = proDetails;
@@ -788,16 +783,10 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     };
 
 
-
-
     $scope.removeserviceOfferedSelectedVal = function (indexVal) {
       $scope.serviceOfferedSelectedArray.splice(indexVal, 1);
       //console.log('serviceOfferedSelectedArray sector vals : ' + JSON.stringify($scope.serviceOfferedSelectedArray));
     };
-
-
-    //$scope.operationalRegionsList = ['Africa', 'Asia-Pacific', 'Europe', 'Latin America', 'Middle East', 'North America', 'All Regions'];
-
 
 
     $scope.operationalRegionsList = [{
@@ -837,16 +826,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
       //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
-
-
-
-    /*$scope.CheckedOperationalReg = function (region) {
-
-      console.log('CheckedOperationalReg is called : ' + region);
-
-    };*/
-
-
 
   }
 })();
