@@ -45,7 +45,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           isSearch: false
         });
       }
-
     };
 
 
@@ -54,7 +53,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       logoURL: '../../../../modules/core/client/img/brand/sony logo.png',
       description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       webAddress: 'http://www.sonos.com/shop/play5'
-
     };
 
     $scope.loadCategories = function () {
@@ -70,50 +68,55 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
+    $scope.myInterval = 5000;
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+    var slides = $scope.slides = [];
+    var currIndex = 0;
 
+    $scope.getPremiumProducts = function () {
+      PremiumProducts.query({}, function (res) {
+        $scope.premiumProducts = res;
+        for (var i = 0; i < $scope.premiumProducts.length; i++) {
+          $scope.addSlide($scope.premiumProducts[i]);
+        }
+        $scope.createMatrix();
+      }, function (err) {
+        console.log('Failed to fetch the product details : ' + err);
+      });
+    };
 
+    function listToMatrix(list, elementsPerSubArray) {
+      var matrix = [],
+        i, k;
 
+      for (i = 0, k = -1; i < list.length; i++) {
+        if (i % elementsPerSubArray === 0) {
+          k++;
+          matrix[k] = [];
+        }
 
-
-    PremiumProducts.query({}, function (res) {
-      $scope.premiumProducts = res;
-    }, function (err) {
-      console.log('Failed to fetch the product details : ' + err);
-    });
-
-
-
-
-
-
-
-    /*Carousel Functionality*/
-
-/*(function () {
-  // setup your carousels as you normally would using JS
-  // or via data attributes according to the documentation
-  // http://getbootstrap.com/javascript/#carousel
-  $('#carouselivo').carousel({
-    interval: 5000
-  });
-
-}());
-
-(function () {
-  $('.carousel-showmanymoveone .item').each(function () {
-    var itemToClone = $(this);
-    for (var i = 1; i < 4; i++) {
-      itemToClone = itemToClone.next();
-      // wrap around if at end of item collection
-      if (!itemToClone.length) {
-        itemToClone = $(this).siblings(':first');
+        matrix[k].push(list[i]);
       }
-      // grab item, clone, add marker class, add to collection
-      itemToClone.children(':first-child').clone()
-        .addClass("cloneditem-" + (i))
-        .appendTo($(this));
+
+      return matrix;
     }
-  });
-}());*/
+
+    $scope.addSlide = function (details) {
+      slides.push({
+        image: details.productImageURL,
+        proAddress: details.webAddress,
+        desc: details.description,
+        web: details.companyWebsite,
+        text: details.Proname,
+        id: currIndex++
+      });
+    };
+
+    $scope.createMatrix = function () {
+      $scope.CreateArraySlides = listToMatrix(slides, 2);
+    };
+
+
   }
 ]);

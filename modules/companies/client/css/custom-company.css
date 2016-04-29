@@ -242,6 +242,11 @@
   margin-bottom: 30px;
   border: solid 2px rgb(255, 245, 104);
   position: relative;
+  min-height: 360px;
+}
+
+.premium-product {
+  border: solid 4px rgb(255, 245, 104) !important;
 }
 
 .product-square-logo {

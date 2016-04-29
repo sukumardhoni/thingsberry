@@ -840,6 +840,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   function CompanyListController(CompanyService, $scope, $stateParams, SearchProducts, ListOfProducts) {
     var vm = this;
+    var pageId = 0;
 
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
     /*CompanyService.query(function (res) {
@@ -849,6 +850,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
     $scope.getSearchedProductsList = function () {
+
+      // var pageId = 0;
+
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
       $scope.searchOrder.Lists = [
@@ -868,9 +872,12 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       $scope.searchOrder.List = $scope.searchOrder.Lists[0].value;
 
       if ($stateParams.isSearch == 'false') {
-        ListOfProducts.query({}, function (res) {
+        ListOfProducts.query({
+          pageId: pageId
+        }, function (res) {
           vm.companys = res;
           $scope.spinnerLoading = false;
+          pageId++;
         }, function (err) {
           console.log('Failed to fetch the product details : ' + err);
         });
@@ -878,18 +885,103 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         SearchProducts.query({
           ProCategory: $stateParams.cat,
           ProCompany: $stateParams.com,
-          ProName: $stateParams.name
+          ProName: $stateParams.name,
+          pageId: pageId
         }, function (res) {
           vm.companys = res;
           $scope.spinnerLoading = false;
+          pageId++;
         }, function (err) {
           console.log('Failed to fetch the product details : ' + JSON.stringify(err));
         });
       }
     };
+
+
+
+    $scope.LoadMoreProducts = function () {
+      console.log('LoadMoreProducts function is called');
+      var onScroll = {};
+      $scope.spinnerLoading = true;
+      if ($stateParams.isSearch == 'false') {
+        ListOfProducts.query({
+          pageId: pageId
+        }, function (res) {
+          //vm.companys = res;
+          $scope.spinnerLoading = false;
+          pageId++;
+
+
+          onScroll = res;
+          if (res.length == 0) {
+            $scope.noMoreProductsAvailable = true;
+          }
+          var oldProducts = vm.companys;
+          vm.companys = oldProducts.concat(onScroll);
+
+        }, function (err) {
+          console.log('Failed to fetch the product details : ' + err);
+        });
+      } else {
+        SearchProducts.query({
+          ProCategory: $stateParams.cat,
+          ProCompany: $stateParams.com,
+          ProName: $stateParams.name,
+          pageId: pageId
+        }, function (res) {
+          //vm.companys = res;
+          $scope.spinnerLoading = false;
+          pageId++;
+          onScroll = res;
+          if (res.length == 0) {
+            $scope.noMoreProductsAvailable = true;
+          }
+          var oldProducts = vm.companys;
+          vm.companys = oldProducts.concat(onScroll);
+        }, function (err) {
+          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+        });
+      }
+
+
+    };
+
+
+
   }
 })();
+'use strict';
 
+
+angular.module('companies')
+  .directive('premiumProductDisplay', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/companies/client/views/directive-partials/premium-product-display.client.view.html',
+      link: function (scope, elem, attrs) {
+        scope.user = $localStorage.user;
+        scope.proImgUrl = function () {
+          if (scope.details.image) {
+            return scope.details.image
+          } else if (scope.details.logo != undefined) {
+            //console.log('Detaisl of product getting eroor : ' + JSON.stringify(scope.details));
+            return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+          }
+        };
+        //console.log('Product details are : ' + JSON.stringify(scope.details));
+
+
+        /*scope.ProductDetails = function () {
+          console.log('ProductDetails is triggred');
+        }*/
+
+
+      }
+    };
+  }]);
 'use strict';
 
 
@@ -948,24 +1040,7 @@ angular.module('companies')
         }
       })
     }
-}])
-
-
-
-
-  .factory('Movies', ['$resource',
-  function ($resource) {
-      return $resource('api/listOfMovies/:mainType/:subType', {
-        mainType: '@mainType',
-        subType: '@subType'
-      }, {
-        'query': {
-          method: 'GET',
-          isArray: true
-        }
-      });
-  }
-]);
+}]);
 
 
 
@@ -997,12 +1072,6 @@ angular.module('companies')
 
 
 
-
-
-
-
-
-
   function dataShare($rootScope, $timeout) {
     var service = {};
     service.data = false;
@@ -1020,7 +1089,6 @@ angular.module('companies')
 
 
 })();
-
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -1318,7 +1386,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           isSearch: false
         });
       }
-
     };
 
 
@@ -1327,7 +1394,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       logoURL: '../../../../modules/core/client/img/brand/sony logo.png',
       description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       webAddress: 'http://www.sonos.com/shop/play5'
-
     };
 
     $scope.loadCategories = function () {
@@ -1343,54 +1409,58 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
+    $scope.myInterval = 5000;
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+    var slides = $scope.slides = [];
+    var currIndex = 0;
 
+    $scope.getPremiumProducts = function () {
+      PremiumProducts.query({}, function (res) {
+        $scope.premiumProducts = res;
+        for (var i = 0; i < $scope.premiumProducts.length; i++) {
+          $scope.addSlide($scope.premiumProducts[i]);
+        }
+        $scope.createMatrix();
+      }, function (err) {
+        console.log('Failed to fetch the product details : ' + err);
+      });
+    };
 
+    function listToMatrix(list, elementsPerSubArray) {
+      var matrix = [],
+        i, k;
 
+      for (i = 0, k = -1; i < list.length; i++) {
+        if (i % elementsPerSubArray === 0) {
+          k++;
+          matrix[k] = [];
+        }
 
-
-    PremiumProducts.query({}, function (res) {
-      $scope.premiumProducts = res;
-    }, function (err) {
-      console.log('Failed to fetch the product details : ' + err);
-    });
-
-
-
-
-
-
-
-    /*Carousel Functionality*/
-
-/*(function () {
-  // setup your carousels as you normally would using JS
-  // or via data attributes according to the documentation
-  // http://getbootstrap.com/javascript/#carousel
-  $('#carouselivo').carousel({
-    interval: 5000
-  });
-
-}());
-
-(function () {
-  $('.carousel-showmanymoveone .item').each(function () {
-    var itemToClone = $(this);
-    for (var i = 1; i < 4; i++) {
-      itemToClone = itemToClone.next();
-      // wrap around if at end of item collection
-      if (!itemToClone.length) {
-        itemToClone = $(this).siblings(':first');
+        matrix[k].push(list[i]);
       }
-      // grab item, clone, add marker class, add to collection
-      itemToClone.children(':first-child').clone()
-        .addClass("cloneditem-" + (i))
-        .appendTo($(this));
+
+      return matrix;
     }
-  });
-}());*/
+
+    $scope.addSlide = function (details) {
+      slides.push({
+        image: details.productImageURL,
+        proAddress: details.webAddress,
+        desc: details.description,
+        web: details.companyWebsite,
+        text: details.Proname,
+        id: currIndex++
+      });
+    };
+
+    $scope.createMatrix = function () {
+      $scope.CreateArraySlides = listToMatrix(slides, 2);
+    };
+
+
   }
 ]);
-
 (function () {
   'use strict';
 
@@ -1770,10 +1840,11 @@ angular.module('core')
 angular.module('core')
 
 .factory('SearchProducts', ["$resource", function ($resource) {
-  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName', {
+  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:pageId', {
     ProCategory: '@ProCategory',
     ProCompany: '@ProCompany',
-    ProName: '@ProName'
+    ProName: '@ProName',
+    pageId: '@pageId'
   }, {
     'query': {
       method: 'GET',
@@ -1786,7 +1857,9 @@ angular.module('core')
 
 
 .factory('ListOfProducts', ["$resource", function ($resource) {
-  return $resource('api/listOfProducts', {}, {
+  return $resource('api/listOfProducts/:pageId', {
+    pageId: '@pageId'
+  }, {
     'query': {
       method: 'GET',
       timeout: 20000,
@@ -1805,7 +1878,6 @@ angular.module('core')
     }
   });
 }])
-
 'use strict';
 
 // Create the Socket.io wrapper service

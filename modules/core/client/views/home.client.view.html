@@ -185,50 +185,40 @@
   <br>
 
 
-<!--<div class="row text-center">
-  <div class="col-lg-10 col-lg-offset-1">
-    <h2>Popular Products</h2>
-    <hr class="small">
-    <br>
-    <br>
-
-
-    <div class="carousel carousel-showmanymoveone slide" id="carouselivo">
-      <div class="carousel-inner">
-        <div class="item active">
-          <div class="col-xs-12 col-sm-6 col-md-3">
-            <a href="#"><img src="http://placehold.it/500/0054A6/fff/&amp;text=Premium Product 1" class="img-responsive"></a>
-          </div>
-        </div>
-        <div class="item">
-          <div class="col-xs-12 col-sm-6 col-md-3">
-            <a href="#"><img src="http://placehold.it/500/002d5a/fff/&amp;text=Premium Product 2" class="img-responsive"></a>
-          </div>
-        </div>
-        <div class="item">
-          <div class="col-xs-12 col-sm-6 col-md-3">
-            <a href="#"><img src="http://placehold.it/500/d6d6d6/333&amp;text=Premium Product 3" class="img-responsive"></a>
-          </div>
-        </div>
-        <div class="item">
-          <div class="col-xs-12 col-sm-6 col-md-3">
-            <a href="#"><img src="http://placehold.it/500/002040/eeeeee&amp;text=Premium Product 4" class="img-responsive"></a>
-          </div>
-        </div>
-        <div class="item">
-          <div class="col-xs-12 col-sm-6 col-md-3">
-            <a href="#"><img src="http://placehold.it/500/0054A6/fff/&amp;text=Premium Product 5" class="img-responsive"></a>
-          </div>
-        </div>
-      </div>
-      <a class="left carousel-control" href="#carouselivo" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-      <a class="right carousel-control" href="#carouselivo" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+  <div class="row text-center" ng-init="getPremiumProducts()">
+    <div class="col-lg-10 col-lg-offset-1">
+      <h2>Popular Products</h2>
+      <hr class="small">
+      <br>
+      <br>
     </div>
-    <br>
-
-
+    <div class="col-xs-10 col-xs-offset-1 hidden-xs hidden-sm">
+      <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+        <uib-slide ng-repeat="slide in CreateArraySlides" index="$index">
+          <div class="row">
+            <div class="col-md-6" ng-repeat="singleSlide in slide">
+              <premium-product-display details=singleSlide></premium-product-display>
+            </div>
+          </div>
+        </uib-slide>
+      </uib-carousel>
+    </div>
+    <div class="col-xs-10 col-xs-offset-1 visible-xs visible-sm">
+      <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+        <uib-slide ng-repeat="slide in slides" index="$index">
+          <premium-product-display details=slide></premium-product-display>
+        </uib-slide>
+      </uib-carousel>
+    </div>
   </div>
-</div>-->
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
   <div class="row text-center" ng-hide="authentication.user.roles.indexOf('admin') > -1">
     <div class="col-lg-10 col-lg-offset-1 text-center">

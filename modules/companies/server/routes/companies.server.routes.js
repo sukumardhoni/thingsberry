@@ -13,11 +13,11 @@ module.exports = function (app) {
     .post(companies.create);
 
 
-  app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?')
+  app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?/:pageId')
     .get(companies.searchedProductsList);
 
 
-  app.route('/api/listOfProducts')
+  app.route('/api/listOfProducts/:pageId')
     .get(companies.list);
 
 

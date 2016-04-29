@@ -121,7 +121,7 @@ exports.delete = function (req, res) {
  * List of companies
  */
 exports.list = function (req, res) {
-  Company.find().sort('-created').populate('user', 'displayName').exec(function (err, companies) {
+  Company.find().skip(req.params.pageId * 10).limit(10).exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -144,7 +144,7 @@ exports.premiumProductsList = function (req, res) {
 
   Company.find({
     premiumFlag: true
-  }).exec(function (err, companies) {
+  }).limit(10).exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -227,19 +227,16 @@ exports.searchedProductsList = function (req, res) {
     queryStr = replacedCats + ' ' + req.params.ProCompany + ' ' + req.params.ProName
   }
 
+  //console.log('Request FindOBj is : ' + JSON.stringify(findObj));
+  //console.log('Request FindOBj is : ' + JSON.stringify(queryStr));
 
-
-
-
-  console.log('Request FindOBj is : ' + JSON.stringify(findObj));
-  console.log('Request FindOBj is : ' + JSON.stringify(queryStr));
 
 
   Company.find({
     $text: {
       $search: queryStr
     }
-  }).exec(function (err, companies) {
+  }).skip(req.params.pageId * 10).limit(10).exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

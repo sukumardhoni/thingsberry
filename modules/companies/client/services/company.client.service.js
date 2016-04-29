@@ -27,24 +27,7 @@
         }
       })
     }
-}])
-
-
-
-
-  .factory('Movies', ['$resource',
-  function ($resource) {
-      return $resource('api/listOfMovies/:mainType/:subType', {
-        mainType: '@mainType',
-        subType: '@subType'
-      }, {
-        'query': {
-          method: 'GET',
-          isArray: true
-        }
-      });
-  }
-]);
+}]);
 
 
 
@@ -73,12 +56,6 @@
       }
     });
   };
-
-
-
-
-
-
 
 
 

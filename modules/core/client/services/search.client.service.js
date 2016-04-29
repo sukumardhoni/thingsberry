@@ -5,10 +5,11 @@
 angular.module('core')
 
 .factory('SearchProducts', function ($resource) {
-  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName', {
+  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:pageId', {
     ProCategory: '@ProCategory',
     ProCompany: '@ProCompany',
-    ProName: '@ProName'
+    ProName: '@ProName',
+    pageId: '@pageId'
   }, {
     'query': {
       method: 'GET',
@@ -21,7 +22,9 @@ angular.module('core')
 
 
 .factory('ListOfProducts', function ($resource) {
-  return $resource('api/listOfProducts', {}, {
+  return $resource('api/listOfProducts/:pageId', {
+    pageId: '@pageId'
+  }, {
     'query': {
       method: 'GET',
       timeout: 20000,
