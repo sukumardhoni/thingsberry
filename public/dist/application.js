@@ -950,6 +950,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 'use strict';
 
 
@@ -982,6 +983,7 @@ angular.module('companies')
       }
     };
   }]);
+
 'use strict';
 
 
@@ -1089,6 +1091,7 @@ angular.module('companies')
 
 
 })();
+
 'use strict';
 
 angular.module('core.admin').run(['Menus',
@@ -1461,6 +1464,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
+
 (function () {
   'use strict';
 
@@ -1878,6 +1882,7 @@ angular.module('core')
     }
   });
 }])
+
 'use strict';
 
 // Create the Socket.io wrapper service
