@@ -247,6 +247,7 @@
 
 .premium-product {
   border: solid 4px rgb(255, 245, 104) !important;
+  min-height: 365px !important;
 }
 
 .product-square-logo {
