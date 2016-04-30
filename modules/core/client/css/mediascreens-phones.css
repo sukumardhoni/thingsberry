@@ -104,10 +104,6 @@
     background: #eee !important;
     color: grey !important;
   }
-  /*.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover {
-  color: rgb(51, 51, 51) !important;
-}*/
   .header-title-names:hover {
     color: #ccc !important;
   }

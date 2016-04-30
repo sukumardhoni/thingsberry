@@ -192,7 +192,7 @@
       <br>
       <br>
     </div>
-    <div class="col-xs-10 col-xs-offset-1 hidden-xs hidden-sm">
+    <!--<div class="col-xs-10 col-xs-offset-1 hidden-xs hidden-sm">
       <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
         <uib-slide ng-repeat="slide in CreateArraySlides" index="$index">
           <div class="row">
@@ -202,10 +202,27 @@
           </div>
         </uib-slide>
       </uib-carousel>
+    </div>-->
+    <div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm">
+      <div class="col-md-6 first-carousel">
+        <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slide in slides1" index="$index">
+            <premium-product-display details=slide></premium-product-display>
+          </uib-slide>
+        </uib-carousel>
+      </div>
+      <div class="col-md-6 second-carousel">
+        <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slide in slides2" index="$index">
+            <premium-product-display details=slide></premium-product-display>
+          </uib-slide>
+        </uib-carousel>
+      </div>
     </div>
+
     <div class="col-xs-10 col-xs-offset-1 visible-xs visible-sm">
       <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-        <uib-slide ng-repeat="slide in slides" index="$index">
+        <uib-slide ng-repeat="slide in slides3" index="$index">
           <premium-product-display details=slide></premium-product-display>
         </uib-slide>
       </uib-carousel>

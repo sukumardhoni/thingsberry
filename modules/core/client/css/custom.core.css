@@ -731,3 +731,11 @@ tags-input .tags {
 .carousel-indicators li {
   visibility: hidden;
 }
+
+.first-carousel .glyphicon-chevron-right {
+  display: none !important;
+}
+
+.second-carousel .glyphicon-chevron-left {
+  display: none !important;
+}
