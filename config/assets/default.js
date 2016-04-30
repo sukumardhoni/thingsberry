@@ -12,7 +12,6 @@ module.exports = {
       ],
       js: [
         'public/lib/jquery/dist/jquery.min.js',
-        'public/lib/bootstrap/dist/js/bootstrap.min.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-animate/angular-animate.js',
@@ -30,7 +29,6 @@ module.exports = {
         'public/assets/js/freelancer.js',
         'public/lib/toastr/toastr.js',
         'public/lib/ng-tags-input/ng-tags-input.min.js'
-        //'public/lib/angular-utils-ui-breadcrumbs/uiBreadcrumbs.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
