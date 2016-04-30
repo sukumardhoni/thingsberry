@@ -739,3 +739,7 @@ tags-input .tags {
 .second-carousel .glyphicon-chevron-left {
   display: none !important;
 }
+
+.carousel-control .glyphicon {
+  top: 45% !important;
+}

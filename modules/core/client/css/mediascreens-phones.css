@@ -188,4 +188,7 @@
   .cssSlideUp {
     height: 150px;
   }
+  .premium-product {
+    min-height: 420px !important;
+  }
 }
