@@ -1480,6 +1480,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
+
 (function () {
   'use strict';
 
