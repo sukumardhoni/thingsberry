@@ -252,14 +252,14 @@ if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
   }
 
 
-  if ((req.params.ProCategory == undefined) && (req.params.ProCompany == undefined) && (req.params.ProName == undefined)) {
+  if ((req.params.ProCategory == undefined) && (req.params.ProRegions == undefined) && (req.params.ProCompany == undefined) && (req.params.ProName == undefined)) {
     queryStr = '';
   } else {
     queryStr = replacedCats + ' ' + replacedRegions + ' ' + req.params.ProCompany + ' ' + req.params.ProName
   }
 
   //console.log('Request FindOBj is : ' + JSON.stringify(findObj));
-  console.log('Request FindOBj is : ' + JSON.stringify(queryStr));
+  console.log('Request queryStr is : ' + JSON.stringify(queryStr));
 
 
 

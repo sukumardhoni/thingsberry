@@ -258,6 +258,11 @@
   line-height: 200px;
 }
 
+.fa-angle-double-down:hover,
+.fa-angle-double-up:hover {
+  cursor: pointer;
+}
+
 .product-square-img {
   max-height: 200px;
   max-width: 90%;
@@ -293,22 +298,4 @@
   padding: 30px 15px;
   text-align: center;
   border-bottom: none;
-}
-
-#backTop {
-  width: 35px;
-  height: 35px;
-  padding: 10px;
-  border-radius: 4px;
-  text-indent: -9999px;
-  cursor: pointer;
-  z-index: 999999999;
-  display: none;
-  box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  right: 18px;
-  bottom: 5px;
-  position: fixed;
-  background: url('../../../core/client/img/buttons/uparr-48-w.png') no-repeat center center rgb(2, 168, 243);
-  border: 1px solid #fff;
 }

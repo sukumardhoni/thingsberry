@@ -12,7 +12,7 @@
     </select>
     </center>
     </span>
-    <span class="col-md-2" ng-hide="spinnerLoading">{{vm.companys.length}} of {{vm.count}}</span>
+    <span class="col-md-2" ng-hide="spinnerLoading || vm.companys.length == 0">{{vm.companys.length}} of {{vm.count}}</span>
 
   </div>
   <br>
