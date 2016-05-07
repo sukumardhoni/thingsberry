@@ -20,7 +20,7 @@ angular.module('companies')
 
         scope.changeLimit = function (pro) {
           if (scope.limit == pro.description.length)
-            scope.limit = 140;
+            scope.limit = 100;
           else
             scope.limit = pro.description.length;
         }

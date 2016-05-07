@@ -907,7 +907,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
     $scope.LoadMoreProducts = function () {
-      console.log('LoadMoreProducts function is called');
+      //console.log('LoadMoreProducts function is called');
       var onScroll = {};
       $scope.spinnerLoading = true;
       if ($stateParams.isSearch == 'false') {
@@ -955,7 +955,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 'use strict';
 
 
@@ -1011,7 +1010,7 @@ angular.module('companies')
 
         scope.changeLimit = function (pro) {
           if (scope.limit == pro.description.length)
-            scope.limit = 140;
+            scope.limit = 100;
           else
             scope.limit = pro.description.length;
         }
@@ -1025,7 +1024,6 @@ angular.module('companies')
       }
     };
   }]);
-
 (function () {
   'use strict';
 
@@ -1349,13 +1347,13 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
         $scope.authentication.user = '';
         delete $localStorage.token;
         delete $localStorage.user;
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
+        //$state.go($state.previous.state.name || 'home', $state.previous.params);
+        $state.go('home');
       });
 
     };
   }
 ]);
-
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts',
@@ -1434,10 +1432,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
-        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        // console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
 
-      console.log('defferes1111 obj : ' + JSON.stringify(defObj));
+      //console.log('defferes1111 obj : ' + JSON.stringify(defObj));
       return defObj.promise;
     };
 
@@ -1550,7 +1548,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
-
 (function () {
   'use strict';
 

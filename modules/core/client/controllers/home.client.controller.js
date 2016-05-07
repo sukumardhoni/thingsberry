@@ -76,10 +76,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
-        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        // console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
 
-      console.log('defferes1111 obj : ' + JSON.stringify(defObj));
+      //console.log('defferes1111 obj : ' + JSON.stringify(defObj));
       return defObj.promise;
     };
 

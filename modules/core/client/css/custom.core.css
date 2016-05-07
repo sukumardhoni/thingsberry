@@ -756,9 +756,9 @@ tags-input .tags {
   box-sizing: content-box;
   -webkit-box-sizing: content-box;
   right: 18px;
-  bottom: 5px;
+  bottom: 40px;
   position: fixed;
-  background: url('../../../core/client/img/buttons/uparr-48-w.png') no-repeat center center rgb(2, 168, 243);
+  background: url('../../../../modules/core/client/img/buttons/uparr-48-w.png') no-repeat center center rgb(2, 168, 243);
   border: 1px solid #fff;
 }
 

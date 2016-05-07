@@ -76,7 +76,7 @@
 
 
     $scope.LoadMoreProducts = function () {
-      console.log('LoadMoreProducts function is called');
+      //console.log('LoadMoreProducts function is called');
       var onScroll = {};
       $scope.spinnerLoading = true;
       if ($stateParams.isSearch == 'false') {

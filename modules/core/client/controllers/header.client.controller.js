@@ -37,7 +37,8 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
         $scope.authentication.user = '';
         delete $localStorage.token;
         delete $localStorage.user;
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
+        //$state.go($state.previous.state.name || 'home', $state.previous.params);
+        $state.go('home');
       });
 
     };
