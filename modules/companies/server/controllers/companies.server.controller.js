@@ -147,7 +147,7 @@ exports.list = function (req, res) {
 
   //console.log('Products count is : ' + JSON.stringify(count));
 
-  Company.find().skip(req.params.pageId * 10).limit(10).exec(function (err, companies) {
+  Company.find().skip(req.params.pageId * 10).limit(10).sort('-created').exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

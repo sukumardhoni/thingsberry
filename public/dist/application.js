@@ -955,6 +955,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
+
 'use strict';
 
 
@@ -1024,6 +1025,7 @@ angular.module('companies')
       }
     };
   }]);
+
 (function () {
   'use strict';
 
@@ -1354,6 +1356,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts',
@@ -1548,6 +1551,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
+
 (function () {
   'use strict';
 
