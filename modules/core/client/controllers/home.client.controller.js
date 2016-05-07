@@ -18,27 +18,42 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.BusinessList = ['Business', 'SMALL SCALE', 'LARGE SCALE', 'AUTOMOBILES', 'TRADING', 'MARKETING'];
 
     $scope.getSearchedProducts = function (details) {
-      if (details.Category || details.Company || details.Product) {
-        var catsArray = [];
-        if (details.Category) {
-          if (details.Category.length > 0) {
-            for (var i = 0; i < details.Category.length; i++) {
-              catsArray.push(details.Category[i].title);
+
+      //console.log('details is : ' + JSON.stringify(details));
+      if (details != undefined) {
+        if (details.Category || details.Company || details.Product) {
+          var catsArray = [];
+          var regionsArray = [];
+          if (details.Category) {
+            if (details.Category.length > 0) {
+              for (var i = 0; i < details.Category.length; i++) {
+                catsArray.push(details.Category[i].title);
+              }
+            } else {
+              catsArray.push(details.Category.title);
             }
-          } else {
-            catsArray.push(details.Category.title);
           }
-        }
-        if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
-          $state.go('companies.list', {
-            isSearch: false
-          });
-        } else {
-          $state.go('companies.list', {
-            cat: (catsArray == '') ? 'Category' : catsArray,
-            com: details.Company,
-            name: details.Product
-          });
+          if (details.regions) {
+            if (details.regions.length > 0) {
+              for (var i = 0; i < details.regions.length; i++) {
+                regionsArray.push(details.regions[i].name);
+              }
+            } else {
+              regionsArray.push(details.regions.name);
+            }
+          }
+          if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
+            $state.go('companies.list', {
+              isSearch: false
+            });
+          } else {
+            $state.go('companies.list', {
+              cat: (catsArray == '') ? 'Category' : catsArray,
+              regions: (regionsArray == '') ? 'Regions' : regionsArray,
+              com: details.Company,
+              name: details.Product
+            });
+          }
         }
       } else {
         $state.go('companies.list', {
@@ -61,10 +76,51 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
-        //console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
+
+      console.log('defferes1111 obj : ' + JSON.stringify(defObj));
       return defObj.promise;
     };
+
+
+
+
+    $scope.loadRegions = function () {
+
+
+      var regions = [{
+          name: "Africa",
+          checked: false
+    }, {
+          name: "Asia-Pacific",
+          checked: false
+    }, {
+          name: "Europe",
+          checked: false
+    }, {
+          name: "Latin America",
+          checked: false
+    }, {
+          name: "Middle East",
+          checked: false
+    }, {
+          name: "North America",
+          checked: false
+    }, {
+          name: "All Regions",
+          checked: false
+    }
+  ];
+
+      var deferred = $q.defer();
+      deferred.resolve(regions);
+      return deferred.promise;
+
+    };
+
+
+
 
 
 

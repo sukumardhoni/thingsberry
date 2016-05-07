@@ -354,7 +354,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
       })
       .state('companies.list', {
-        url: '/list/:cat?/:com?/:name?/:isSearch',
+        url: '/list/:cat?/:regions?/:com?/:name?/:isSearch',
         templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
@@ -853,6 +853,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       // var pageId = 0;
 
+
+      $scope.productsDisplayText = $stateParams.isSearch;
+
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
       $scope.searchOrder.Lists = [
@@ -869,13 +872,15 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           'value': 'created'
         }
   ];
-      $scope.searchOrder.List = $scope.searchOrder.Lists[0].value;
+      $scope.searchOrder.List = $scope.searchOrder.Lists[1].value;
 
       if ($stateParams.isSearch == 'false') {
         ListOfProducts.query({
           pageId: pageId
         }, function (res) {
-          vm.companys = res;
+          //console.log('response is : ' + JSON.stringify(res));
+          vm.companys = res.products;
+          vm.count = res.count;
           $scope.spinnerLoading = false;
           pageId++;
         }, function (err) {
@@ -884,11 +889,13 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       } else {
         SearchProducts.query({
           ProCategory: $stateParams.cat,
+          ProRegions: $stateParams.regions,
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
           pageId: pageId
         }, function (res) {
-          vm.companys = res;
+          vm.companys = res.products;
+          vm.count = res.count;
           $scope.spinnerLoading = false;
           pageId++;
         }, function (err) {
@@ -910,9 +917,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           //vm.companys = res;
           $scope.spinnerLoading = false;
           pageId++;
-
-
-          onScroll = res;
+          onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
           }
@@ -932,7 +937,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           //vm.companys = res;
           $scope.spinnerLoading = false;
           pageId++;
-          onScroll = res;
+          onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
           }
@@ -1003,6 +1008,15 @@ angular.module('companies')
           else
             return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
         };
+
+        scope.changeLimit = function (pro) {
+          if (scope.limit == pro.description.length)
+            scope.limit = 140;
+          else
+            scope.limit = pro.description.length;
+        }
+
+
         scope.editProduct = function (Pro) {
           //console.log('Edit Product details on Direc. : ' + JSON.stringify(Pro));
           dataShare.setData(Pro);
@@ -1362,27 +1376,42 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.BusinessList = ['Business', 'SMALL SCALE', 'LARGE SCALE', 'AUTOMOBILES', 'TRADING', 'MARKETING'];
 
     $scope.getSearchedProducts = function (details) {
-      if (details.Category || details.Company || details.Product) {
-        var catsArray = [];
-        if (details.Category) {
-          if (details.Category.length > 0) {
-            for (var i = 0; i < details.Category.length; i++) {
-              catsArray.push(details.Category[i].title);
+
+      //console.log('details is : ' + JSON.stringify(details));
+      if (details != undefined) {
+        if (details.Category || details.Company || details.Product) {
+          var catsArray = [];
+          var regionsArray = [];
+          if (details.Category) {
+            if (details.Category.length > 0) {
+              for (var i = 0; i < details.Category.length; i++) {
+                catsArray.push(details.Category[i].title);
+              }
+            } else {
+              catsArray.push(details.Category.title);
             }
-          } else {
-            catsArray.push(details.Category.title);
           }
-        }
-        if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
-          $state.go('companies.list', {
-            isSearch: false
-          });
-        } else {
-          $state.go('companies.list', {
-            cat: (catsArray == '') ? 'Category' : catsArray,
-            com: details.Company,
-            name: details.Product
-          });
+          if (details.regions) {
+            if (details.regions.length > 0) {
+              for (var i = 0; i < details.regions.length; i++) {
+                regionsArray.push(details.regions[i].name);
+              }
+            } else {
+              regionsArray.push(details.regions.name);
+            }
+          }
+          if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
+            $state.go('companies.list', {
+              isSearch: false
+            });
+          } else {
+            $state.go('companies.list', {
+              cat: (catsArray == '') ? 'Category' : catsArray,
+              regions: (regionsArray == '') ? 'Regions' : regionsArray,
+              com: details.Company,
+              name: details.Product
+            });
+          }
         }
       } else {
         $state.go('companies.list', {
@@ -1405,10 +1434,51 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
-        //console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
+
+      console.log('defferes1111 obj : ' + JSON.stringify(defObj));
       return defObj.promise;
     };
+
+
+
+
+    $scope.loadRegions = function () {
+
+
+      var regions = [{
+          name: "Africa",
+          checked: false
+    }, {
+          name: "Asia-Pacific",
+          checked: false
+    }, {
+          name: "Europe",
+          checked: false
+    }, {
+          name: "Latin America",
+          checked: false
+    }, {
+          name: "Middle East",
+          checked: false
+    }, {
+          name: "North America",
+          checked: false
+    }, {
+          name: "All Regions",
+          checked: false
+    }
+  ];
+
+      var deferred = $q.defer();
+      deferred.resolve(regions);
+      return deferred.promise;
+
+    };
+
+
+
 
 
 
@@ -1860,16 +1930,16 @@ angular.module('core')
 angular.module('core')
 
 .factory('SearchProducts', ["$resource", function ($resource) {
-  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:pageId', {
+  return $resource('api/search/products/:ProCategory/:ProRegions/:ProCompany/:ProName/:pageId', {
     ProCategory: '@ProCategory',
+    ProRegions: '@ProRegions',
     ProCompany: '@ProCompany',
     ProName: '@ProName',
     pageId: '@pageId'
   }, {
     'query': {
       method: 'GET',
-      timeout: 20000,
-      isArray: true
+      timeout: 20000
     }
   });
 }])
@@ -1882,8 +1952,7 @@ angular.module('core')
   }, {
     'query': {
       method: 'GET',
-      timeout: 20000,
-      isArray: true
+      timeout: 20000
     }
   });
 }])

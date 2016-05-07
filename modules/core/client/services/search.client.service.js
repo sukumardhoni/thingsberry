@@ -5,16 +5,16 @@
 angular.module('core')
 
 .factory('SearchProducts', function ($resource) {
-  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:pageId', {
+  return $resource('api/search/products/:ProCategory/:ProRegions/:ProCompany/:ProName/:pageId', {
     ProCategory: '@ProCategory',
+    ProRegions: '@ProRegions',
     ProCompany: '@ProCompany',
     ProName: '@ProName',
     pageId: '@pageId'
   }, {
     'query': {
       method: 'GET',
-      timeout: 20000,
-      isArray: true
+      timeout: 20000
     }
   });
 })
@@ -27,8 +27,7 @@ angular.module('core')
   }, {
     'query': {
       method: 'GET',
-      timeout: 20000,
-      isArray: true
+      timeout: 20000
     }
   });
 })

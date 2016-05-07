@@ -59,7 +59,7 @@ section {
 .cssSlideUp {
   transition: 0.3s linear all;
   height: 50px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .cssSlideUp.ng-hide {
@@ -742,4 +742,14 @@ tags-input .tags {
 
 .carousel-control .glyphicon {
   top: 45% !important;
+}
+
+#fixed-tb-bottom {
+  border-top-color: rgb(2, 168, 243);
+  border-top-style: solid;
+  border-top-width: 5px;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
 }

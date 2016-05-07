@@ -121,21 +121,44 @@ exports.delete = function (req, res) {
  * List of companies
  */
 exports.list = function (req, res) {
+
+
+  var ProObj = {};
+  ProObj.products = [];
+  ProObj.count = 0;
+  console.log('req.params.pageId is : ' + req.params.pageId);
+
+  if (req.params.pageId == 0) {
+
+    Company.find().count({}, function (err, count) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        //console.log('Server side List of products : ' + JSON.stringify(companies));
+        //res.json(count);
+        ProObj.count = count;
+        console.log('Server side List of products count : ' + JSON.stringify(count));
+      }
+    });
+  }
+
+
+  //console.log('Products count is : ' + JSON.stringify(count));
+
   Company.find().skip(req.params.pageId * 10).limit(10).exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      //console.log('Server side List of products : ' + JSON.stringify(companies));
-      res.json(companies);
+      ProObj.products = companies;
+      //console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
+      res.json(ProObj);
     }
   });
 };
-
-
-
-
 
 /**
  * List of Premium Products
@@ -166,69 +189,101 @@ exports.searchedProductsList = function (req, res) {
 
   console.log('searchedProductsList id cslled and details are : ' + JSON.stringify(req.params));
 
-  var findObj = {};
-  if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
+  var ProObj = {};
+  ProObj.products = [];
+  ProObj.count = 0;
 
-    console.log('FIndOBJ print here 1111');
 
+  /*var findObj = {};
+if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
+
+  console.log('FIndOBJ print here 1111');
+
+  findObj = {
+    ProCat: req.params.ProCategory
+  };
+  if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
+    console.log('FIndOBJ print here 1222');
     findObj = {
-      ProCat: req.params.ProCategory
-    };
-    if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
-      console.log('FIndOBJ print here 1222');
-      findObj = {
-        ProCat: req.params.ProCategory,
-        Comname: req.params.ProCompany
-      };
-      if (req.params.ProName && (req.params.ProName !== 'Product')) {
-        console.log('FIndOBJ print here 1333');
-        findObj = {
-          ProCat: req.params.ProCategory,
-          Comname: req.params.ProCompany,
-          Proname: req.params.ProName
-        };
-      }
-    } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
-      console.log('FIndOBJ print here 1333');
-      findObj = {
-        ProCat: req.params.ProCategory,
-        Proname: req.params.ProName
-      };
-    }
-  } else if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
-    console.log('FIndOBJ print here 2111');
-
-    findObj = {
+      ProCat: req.params.ProCategory,
       Comname: req.params.ProCompany
     };
     if (req.params.ProName && (req.params.ProName !== 'Product')) {
       console.log('FIndOBJ print here 1333');
       findObj = {
+        ProCat: req.params.ProCategory,
         Comname: req.params.ProCompany,
         Proname: req.params.ProName
       };
     }
   } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
-    console.log('FIndOBJ print here 3111');
+    console.log('FIndOBJ print here 1333');
     findObj = {
+      ProCat: req.params.ProCategory,
       Proname: req.params.ProName
     };
   }
+} else if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
+  console.log('FIndOBJ print here 2111');
 
-  var replacedCats, queryStr;
+  findObj = {
+    Comname: req.params.ProCompany
+  };
+  if (req.params.ProName && (req.params.ProName !== 'Product')) {
+    console.log('FIndOBJ print here 1333');
+    findObj = {
+      Comname: req.params.ProCompany,
+      Proname: req.params.ProName
+    };
+  }
+} else if (req.params.ProName && (req.params.ProName !== 'Product')) {
+  console.log('FIndOBJ print here 3111');
+  findObj = {
+    Proname: req.params.ProName
+  };
+}*/
+
+  var replacedCats, queryStr, replacedRegions;
   if (req.params.ProCategory) {
     replacedCats = req.params.ProCategory.replace(/\,/g, " ");
+  }
+  if (req.params.ProRegions) {
+    replacedRegions = req.params.ProRegions.replace(/\,/g, " ");
   }
 
 
   if ((req.params.ProCategory == undefined) && (req.params.ProCompany == undefined) && (req.params.ProName == undefined)) {
     queryStr = '';
   } else {
-    queryStr = replacedCats + ' ' + req.params.ProCompany + ' ' + req.params.ProName
+    queryStr = replacedCats + ' ' + replacedRegions + ' ' + req.params.ProCompany + ' ' + req.params.ProName
   }
 
   //console.log('Request FindOBj is : ' + JSON.stringify(findObj));
-  //console.log('Request FindOBj is : ' + JSON.stringify(queryStr));
+  console.log('Request FindOBj is : ' + JSON.stringify(queryStr));
+
+
+
+
+  if (req.params.pageId == 0) {
+
+    Company.find({
+      $text: {
+        $search: queryStr
+      }
+    }).count({}, function (err, count) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        //console.log('Server side List of products : ' + JSON.stringify(companies));
+        //res.json(count);
+        ProObj.count = count;
+        console.log('Server side List of products count : ' + JSON.stringify(count));
+      }
+    });
+  }
+
 
 
 
@@ -242,8 +297,9 @@ exports.searchedProductsList = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      //console.log('Server side List of products : ' + JSON.stringify(companies));
-      res.json(companies);
+      ProObj.products = companies;
+      //console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
+      res.json(ProObj);
     }
   });
 

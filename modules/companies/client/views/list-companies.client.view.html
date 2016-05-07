@@ -1,17 +1,19 @@
 <section class="container" ng-init="getSearchedProductsList()">
   <br>
   <div class="text-center">
-    <h2>Search Results</h2>
+    <h2>{{productsDisplayText ? 'All Products' : 'Search Results'}}</h2>
     <hr class="small">
   </div>
   <br>
   <div class="row">
-    <span class="col-md-2 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to search</span><span class="col-md-8" ng-show="vm.companys.length !== 0">
+    <span class="col-md-2 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to {{productsDisplayText ? 'Home' : 'Search'}}</span><span class="col-md-8" ng-show="vm.companys.length !== 0">
     <center>
      <select  class="select_on_search_results" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
     </select>
     </center>
     </span>
+    <span class="col-md-2" ng-hide="spinnerLoading">{{vm.companys.length}} of {{vm.count}}</span>
+
   </div>
   <br>
   <br>
@@ -28,9 +30,31 @@
       </div>
     </div>
     <div style="margin:5%" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif"></div>
-    <button type="button" class="btn-add-company btn-search-products" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading">Load More Products</button>
+    <button type="button" class="btn-add-company btn-search-products" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">Load More Products</button>
   </div>
   <div class="alert alert-warning text-center" ng-show="vm.companys.length == 0">
     No Products found for this search query.
   </div>
 </section>
+
+
+<a id='backTop'>Back To Top</a>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 100) {
+        $("#backTop").fadeIn();
+      } else {
+        $("#backTop").fadeOut();
+      }
+    });
+
+    // scroll body to 0px on click
+    $("#backTop").click(function () {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 800);
+      return false;
+    })
+  });
+</script>

@@ -14,7 +14,7 @@
         <div class="well">
           <form class="form-horizontal" role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
             <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-6">
+              <div class="col-lg-8 col-md-8 col-sm-6">
                 <!--<div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
                     <select class="form-control" ng-model="homeSearchDetails.Category" ng-init="homeSearchDetails.Category = categoriesList[0]" ng-selected="homeSearchDetails.Category" ng-options="cats for cats in categoriesList" required>
@@ -29,21 +29,21 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="form-group">
-                  <div class="col-xs-12">
-                    <input type="text" class="form-control" id="inputEmail" placeholder="Company" ng-model="homeSearchDetails.Company">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="form-group">
-                  <div class="col-xs-12">
-                    <input type="text" class="form-control" id="inputEmail" placeholder="Product" ng-model="homeSearchDetails.Product">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-6 hidden-xs">
+              <!--<div class="col-lg-3 col-md-4 col-sm-6">
+  <div class="form-group">
+    <div class="col-xs-12">
+      <input type="text" class="form-control" id="inputEmail" placeholder="Company" ng-model="homeSearchDetails.Company">
+    </div>
+  </div>
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+  <div class="form-group">
+    <div class="col-xs-12">
+      <input type="text" class="form-control" id="inputEmail" placeholder="Product" ng-model="homeSearchDetails.Product">
+    </div>
+  </div>
+</div>-->
+              <div class="col-lg-4 col-md-4 col-sm-6 hidden-xs">
                 <div class="form-group">
                   <div class="col-xs-12">
                     <input type="submit" class="form-control btn-search-products" id="searchBtn" value="Search" style="color:white">
@@ -60,23 +60,36 @@
               <div class="col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
-                    <select class="form-control" ng-model="homeSearchDetails.Country" ng-init="homeSearchDetails.Country = CountriesList[0]" ng-selected="homeSearchDetails.Country" ng-options="Country for Country in CountriesList" required>
-                    </select>
+                    <!--<select class="form-control" ng-model="homeSearchDetails.Country" ng-init="homeSearchDetails.Country = CountriesList[0]" ng-selected="homeSearchDetails.Country" ng-options="Country for Country in CountriesList" required>
+                    </select>-->
+                    <input type="text" class="form-control" id="inputEmail" placeholder="Company" ng-model="homeSearchDetails.Company">
+
+
                   </div>
                 </div>
               </div>
               <div class="col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
-                    <select class="form-control" ng-model="homeSearchDetails.State" ng-init="homeSearchDetails.State = StatesList[0]" ng-selected="homeSearchDetails.State" ng-options="State for State in StatesList" required>
-                    </select>
+                    <!--<select class="form-control" ng-model="homeSearchDetails.State" ng-init="homeSearchDetails.State = StatesList[0]" ng-selected="homeSearchDetails.State" ng-options="State for State in StatesList" required>
+                    </select>-->
+
+                    <input type="text" class="form-control" id="inputEmail" placeholder="Product" ng-model="homeSearchDetails.Product">
+
                   </div>
                 </div>
               </div>
               <div class="col-md-4 col-sm-6">
                 <div class="form-group">
-                  <div class="col-xs-12" style="opacity: 1;">
-                    <input type="text" id="telephone" placeholder="Zip code" class="zipcode_select form-control" ng-model="homeSearchDetails.Zipcode">
+                  <div class="col-xs-12 home_input_tags">
+                    <tags-input ng-model="homeSearchDetails.regions" class="form-control-tags-input" display-property="name" placeholder="Search Operational Regions">
+                      <auto-complete source="loadRegions()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+                    <!--<tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Search Category">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>-->
+
                   </div>
                 </div>
               </div>
@@ -115,80 +128,12 @@
     <br>
     <br>
   </div>
-  <div class="container">
-    <div class="row text-center">
-      <div class="col-lg-10 col-lg-offset-1">
-        <h2>Popular Categories</h2>
-        <hr class="small">
-        <br>
-        <br>
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'HOME'})">
-                                <i class="fa fa-home fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HOME'})">HOME</span>
-                                </h4>
-              <span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'AUTOMOBILE'})">
-                                <i class="fa fa-car fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name"  ui-sref="companies.list({cat: 'AUTOMOBILE'})">AUTOMOBILE</span>
-                                </h4>
-              <span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'HEALTH CARE'})">
-                                <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HEALTH CARE'})">HEALTH CARE</span>
-                                </h4>
-              <span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'UTILITIES'})">
-                                <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'UTILITIES'})">UTILITIES</span>
-                                </h4>
-              <span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
   <br>
   <br>
-
-
 
   <div class="row text-center" ng-init="getPremiumProducts()">
     <div class="col-lg-10 col-lg-offset-1">
-      <h2>Popular Products</h2>
+      <h2>Featured Products</h2>
       <hr class="small">
       <br>
       <br>
@@ -221,7 +166,82 @@
   <br>
   <br>
 
-  <div class="row text-center" ng-hide="authentication.user.roles.indexOf('admin') > -1">
+
+
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-10 col-lg-offset-1">
+        <h2>Popular Categories</h2>
+        <hr class="small">
+        <br>
+        <br>
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x PopCats"><!--ui-sref="companies.list({cat: 'HOME'})"-->
+                                <i class="fa fa-home fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HOME'})">HOME</span>
+                                </h4>
+              <!--<span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>-->
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x PopCats"><!--ui-sref="companies.list({cat: 'AUTOMOBILE'})"-->
+                                <i class="fa fa-car fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>                                    <span class="Cat-name"  ui-sref="companies.list({cat: 'AUTOMOBILE'})">AUTOMOBILE</span>
+                                </h4>
+              <!-- <span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>-->
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x PopCats"><!--ui-sref="companies.list({cat: 'HEALTH CARE'})"-->
+                                <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HEALTH CARE'})">HEALTH CARE</span>
+                                </h4>
+              <!-- <span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>-->
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="service-item text-center">
+              <span class="circle-styles fa-stack fa-4x PopCats"><!--ui-sref="companies.list({cat: 'UTILITIES'})"-->
+                                <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
+                            </span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'UTILITIES'})">UTILITIES</span>
+                                </h4>
+              <!--<span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+
+
+
+
+
+  <!--<div class="row text-center" ng-hide="authentication.user.roles.indexOf('admin') > -1">
     <div class="col-lg-10 col-lg-offset-1 text-center">
       <h2>For Company & Product Owners</h2>
       <hr class="small">
@@ -231,37 +251,39 @@
           <p class="forCompanyOwnersText">We can list your product in the premium listing above, please get intouch with our support for more details</p>
         </div>
       </div>
-      <!--<br>
-<div class="row text-center">
-  <div class="col-md-4 col-md-offset-4 col-sm-offset-2 col-sm-8 col-xs-10 col-xs-offset-1">
-    <div class="product-square">
-      <div class="product-square-title">
-        <p class="product_title">{{homePageProductDetails.title}}</p>
-      </div>
-      <div class="product-square-logo">
-        <p> <img class="product-square-img" ng-src="{{homePageProductDetails.logoURL}}"> </p>
-      </div>
-      <div class="product-square-body">
-        <div class="product_desc">{{ homePageProductDetails.description | limitTo: 140 }}{{homePageProductDetails.description.length > 140 ? '...' : ''}}</div>
-        <br>
-        <div class="row icons-on-img-footer">
-          <i class="fa fa-info-circle col-md-4 col-xs-4  text-cente"></i>
-          <i class="fa fa-star col-md-4 col-xs-4 text-center"></i>
-          <a ng-href="{{homePageProductDetails.webAddress}}" target="_blank"><i class="fa fa-globe col-md-4 col-xs-3 text-center"></i></a>
-        </div>
-      </div>
     </div>
-  </div>
-</div>-->
-    </div>
-    <!--<div class="text-center form-group">
-        <button type="submit" class="btn btn-add-company" ui-sref="companies.add">ADD YOUR PRODUCT</button>
-      </div>-->
     <div class="text-center form-group">
       <button type="submit" class="btn-add-company btn-search-products" ui-sref="getListed({isPremium:'isPremium'})">GET LISTED AS PREMIUM</button>
     </div>
+  </div>-->
+
+  <div class="row text-center form-group">
+    <button type="submit" class="btn-add-company btn-search-products" ng-click="getSearchedProducts(homeSearchDetails)">Show All Products</button>
   </div>
-  <br>
-  <br>
-  <br>
+
+
 </section>
+
+
+
+
+<a id='backTop'>Back To Top</a>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 100) {
+        $("#backTop").fadeIn();
+      } else {
+        $("#backTop").fadeOut();
+      }
+    });
+
+    // scroll body to 0px on click
+    $("#backTop").click(function () {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 800);
+      return false;
+    })
+  });
+</script>

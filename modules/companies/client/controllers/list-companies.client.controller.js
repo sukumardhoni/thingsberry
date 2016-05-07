@@ -22,6 +22,9 @@
 
       // var pageId = 0;
 
+
+      $scope.productsDisplayText = $stateParams.isSearch;
+
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
       $scope.searchOrder.Lists = [
@@ -38,13 +41,15 @@
           'value': 'created'
         }
   ];
-      $scope.searchOrder.List = $scope.searchOrder.Lists[0].value;
+      $scope.searchOrder.List = $scope.searchOrder.Lists[1].value;
 
       if ($stateParams.isSearch == 'false') {
         ListOfProducts.query({
           pageId: pageId
         }, function (res) {
-          vm.companys = res;
+          //console.log('response is : ' + JSON.stringify(res));
+          vm.companys = res.products;
+          vm.count = res.count;
           $scope.spinnerLoading = false;
           pageId++;
         }, function (err) {
@@ -53,11 +58,13 @@
       } else {
         SearchProducts.query({
           ProCategory: $stateParams.cat,
+          ProRegions: $stateParams.regions,
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
           pageId: pageId
         }, function (res) {
-          vm.companys = res;
+          vm.companys = res.products;
+          vm.count = res.count;
           $scope.spinnerLoading = false;
           pageId++;
         }, function (err) {
@@ -79,9 +86,7 @@
           //vm.companys = res;
           $scope.spinnerLoading = false;
           pageId++;
-
-
-          onScroll = res;
+          onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
           }
@@ -101,7 +106,7 @@
           //vm.companys = res;
           $scope.spinnerLoading = false;
           pageId++;
-          onScroll = res;
+          onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
           }
