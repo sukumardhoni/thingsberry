@@ -1,18 +1,20 @@
 <section class="container" ng-init="getSearchedProductsList()">
   <br>
-  <div class="text-center">
-    <h2>{{productsDisplayText ? 'All Products' : 'Search Results'}}</h2>
-    <hr class="small">
-  </div>
+
   <br>
   <div class="row">
-    <span class="col-md-2 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to {{productsDisplayText ? 'Home' : 'Search'}}</span><span class="col-md-8" ng-show="vm.companys.length !== 0">
-    <center>
+    <span class="col-md-2 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to {{productsDisplayText ? 'Home' : 'Search'}}</span>
+
+    <span class="col-md-4 text-center">
+    <span class="list-title">{{productsDisplayText ? 'All Products' : 'Search Results'}}</span>
+    <hr class="small">
+    </span>
+    <span class="col-md-3" ng-show="vm.companys.length !== 0">
      <select  class="select_on_search_results" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
     </select>
-    </center>
     </span>
     <!--<span class="col-md-2" ng-hide="spinnerLoading || vm.companys.length == 0">{{vm.companys.length}} of {{vm.count}}</span>-->
+
 
   </div>
   <br>

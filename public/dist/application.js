@@ -1359,8 +1359,8 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout) {
 
     var vm = this;
 
@@ -1490,10 +1490,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var slides2 = $scope.slides2 = [];
     var slides3 = $scope.slides3 = [];
     var currIndex = 0;
-
+    $scope.carouselBg = [];
     $scope.getPremiumProducts = function () {
+      $scope.carouselBg.push('carousel_spinner');
       PremiumProducts.query({}, function (res) {
         $scope.premiumProducts = res;
+
         for (var i = 0; i < ($scope.premiumProducts.length / 2); i++) {
           $scope.addSlide1($scope.premiumProducts[i]);
         }
@@ -1505,6 +1507,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         for (var k = 0; k < $scope.premiumProducts.length; k++) {
           $scope.addSlide3($scope.premiumProducts[k]);
         }
+        $timeout(function () {
+          $scope.carouselBg.pop('carousel_spinner');
+        }, 1000);
 
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
@@ -1551,7 +1556,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
   }
 ]);
-
 (function () {
   'use strict';
 

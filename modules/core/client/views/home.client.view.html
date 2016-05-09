@@ -138,7 +138,10 @@
       <br>
       <br>
     </div>
-    <div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm">
+
+    <!--ng-class="{'fa-angle-double-right': (limit != details.description.length), 'fa-angle-double-left': (limit == details.description.length)}"-->
+
+    <div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm " ng-class="carouselBg">
       <div class="col-md-6 first-carousel">
         <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in slides1" index="$index">

@@ -1,49 +1,52 @@
 <div ng-controller="AuthenticationController" class="authentication">
-  <br>
-  <br>
-  <h3 class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3 text-center">Log In</h3>
-  <br>
-  <br>
-  <h5 class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3 text-center">Don't have an account?  <a ui-sref="authentication.signup">Sign Up</a></h5>
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3">
+  <div class="row ">
     <br>
-    <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
-      <fieldset>
-        <div class="form-group" show-errors>
-          <!--<label for="email">Email</label>-->
-          <input type="email" id="email" name="email" ng-model="credentials.email" placeholder="Email Address" required>
-          <div ng-messages="userForm.email.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Email is required.</p>
-          </div>
-        </div>
-        <div class="form-group" show-errors>
-          <!--<label for="password">Password</label>-->
-          <input type="password" id="password" name="password" ng-model="credentials.password" placeholder="Password" required>
-          <div ng-messages="userForm.password.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Password is required.</p>
-          </div>
-        </div>
-        <div class="text-center forgot-password" style="float:right">
-          <a ui-sref="password.forgot">Forgot your password?</a>
-        </div>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3 text-center login-signup-styles">
+      <br>
+      <br>
+      <h3>Log In</h3>
+      <br>
+      <br>
+      <h5>Don't have an account?  <a ui-sref="authentication.signup">Sign Up</a></h5>
+      <div>
         <br>
-        <div class="text-center invisible_checkbox" style="float:left">
-          <input type="checkbox" ng-model="userForm.rememberme" id="rememberme">
-          <label for="rememberme"> Remember me</label>
-        </div>
+        <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
+          <fieldset>
+            <div class="form-group floating-label-form-group" show-errors>
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" ng-model="credentials.email" placeholder="Email Address" required>
+              <div ng-messages="userForm.email.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Email is required.</p>
+              </div>
+            </div>
+            <div class="form-group floating-label-form-group" show-errors>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" ng-model="credentials.password" placeholder="Password" required>
+              <div ng-messages="userForm.password.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Password is required.</p>
+              </div>
+            </div>
+            <div class="text-center forgot-password" style="float:right">
+              <a ui-sref="password.forgot">Forgot your password?</a>
+            </div>
+            <br>
+            <!--<div class="text-center invisible_checkbox" style="float:left">
+  <input type="checkbox" ng-model="userForm.rememberme" id="rememberme">
+  <label for="rememberme"> Remember me</label>
+</div>-->
 
-        <br>
-        <br>
-        <div class="text-center form-group">
-          <button type="submit" class="btn btn-custom-style">LOG IN</button>
-        </div>
-        <uib-alert type="danger" ng-show="error" class="text-center text-danger">
-          <span ng-bind="error"></span>
-        </uib-alert>
-      </fieldset>
-    </form>
+            <br>
+            <br>
+            <div class="text-center form-group">
+              <button type="submit" class="btn btn-custom-style">LOG IN</button>
+            </div>
+            <uib-alert type="danger" ng-show="error" class="text-center text-danger">
+              <span ng-bind="error"></span>
+            </uib-alert>
+          </fieldset>
+        </form>
 
-    <!--<div class="divider">
+        <!--<div class="divider">
   <hr class="left" /><span style="font-size: 12px;color:#ccc">OR</span>
   <hr class="right" />
 </div>
@@ -53,5 +56,7 @@
   <button type="button" class="btn g-btn-style" ng-click="signinWithG()"><i class="fa fa-google-plus">&nbsp;&nbsp;</i> Sign in with Google</button>
 </div>-->
 
+      </div>
+    </div>
   </div>
 </div>

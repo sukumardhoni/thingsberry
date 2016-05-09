@@ -771,3 +771,13 @@ tags-input .tags {
   width: 100%;
   z-index: 9999;
 }
+
+.carousel_spinner {
+  z-index: 999999;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 83%;
+  height: 400px;
+  background: url('../../../../modules/core/client/img/loaders/spinner.gif') 50% 50% no-repeat;
+}
