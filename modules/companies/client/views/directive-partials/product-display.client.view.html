@@ -1,8 +1,5 @@
 <div class="product-square">
   <div ng-show="user.roles.indexOf('admin') > -1" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProduct(details)"></i></div>
-  <!--<p>User ID : {{user._id | json}}</p>
-<p>Pro User ID : {{details.user | json}}</p>
-<p>User Roles : {{user.roles | json}}</p>-->
   <div class="product-square-title">
     <p class="product_title">{{details.Proname}}</p>
   </div>
@@ -14,11 +11,14 @@
   </div>
 
   <div class="product-square-body" ng-init="limit= 100">
-    <div class="product_desc">{{ details.description | limitTo: limit }}{{details.description.length > limit ? '...' : ''}}<span class="moreDesc" ng-click="changeLimit(details)">&nbsp;&nbsp;{{(limit != details.description.length) ? 'more' :'less'}}<i class="fa text-cente" ng-class="{'fa-angle-double-right': (limit != details.description.length), 'fa-angle-double-left': (limit == details.description.length)}"  ></i></span></div>
+    <div class="product_desc">{{ details.description | limitTo: limit }}{{details.description.length > limit ? '...' : ''}}<span class="moreDesc" ng-click="changeLimit(details)" ng-hide="details.description.length < limit">&nbsp;&nbsp;{{(limit != details.description.length) ? 'more' :'less'}}<i class="fa text-cente" ng-class="{'fa-angle-double-right': (limit != details.description.length), 'fa-angle-double-left': (limit == details.description.length)}"></i></span></div>
     <br>
-    <div class="row icons-on-img-footer">
-      <i class="fa fa-star col-md-6 col-xs-6 text-center"></i>
-      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-6 col-xs-6 text-center"></i></a>
+    <div class="row">
+      <!--<i class="fa fa-star col-md-6 col-xs-6 text-center"></i>-->
+      <span class="col-md-6 col-xs-6 text-center">
+        <uib-rating ng-model="rate" max="5" read-only="isReadonly"  on-titles="['one','two','three']" aria-labelledby="default-rating" uib-popover-template="dynamicPopover.templateUrl" popover-title="You can update your ratings here. (funtionality coming soon)" popover-trigger="mouseenter" class="readOnlyRating"></uib-rating>({{reviewsCount}})
+      </span>
+      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-6 col-xs-6 text-center icons-on-img-footer"></i></a>
       <!--<i class="fa col-md-4 col-xs-4  text-cente" ></i>-->
     </div>
   </div>

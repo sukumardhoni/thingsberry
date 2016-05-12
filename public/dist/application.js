@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
-  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput'];
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -21,7 +21,6 @@ var ApplicationConfiguration = (function () {
     registerModule: registerModule
   };
 })();
-
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -354,7 +353,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
       })
       .state('companies.list', {
-        url: '/list/:cat?/:regions?/:com?/:name?/:isSearch',
+        url: '/list/:cat?/:com?/:name?/:regions?/:isSearch',
         templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
@@ -430,7 +429,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return new CompanyService();
   }
 })();
-
 (function () {
   'use strict';
 
@@ -853,8 +851,28 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
       // var pageId = 0;
 
+      if ($stateParams.cat == 'Home') {
+        //console.log('HOME')
+        $scope.productsDisplayText = 'Home Products'
+      } else if ($stateParams.cat == 'Automobile') {
+        //console.log('AUTOMOBILE')
+        $scope.productsDisplayText = 'Automobile Products'
+      } else if ($stateParams.cat == 'Healthcare') {
+        //console.log('HEALTH')
+        $scope.productsDisplayText = 'Health Care Products'
+      } else if ($stateParams.cat == 'Utilities') {
+        //console.log('UTILITIES')
+        $scope.productsDisplayText = 'Utilities Products'
+      } else if ($stateParams.cat && $stateParams.isSearch) {
+        //console.log('$stateParams.cat && $stateParams.isSearch')
+        $scope.productsDisplayText = 'Search Results';
+      } else {
+        //console.log('ELSE')
+        $scope.productsDisplayText = 'All Products';
+      }
 
-      $scope.productsDisplayText = $stateParams.isSearch;
+
+      //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
 
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
@@ -887,11 +905,17 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           console.log('Failed to fetch the product details : ' + err);
         });
       } else {
+
+        $scope.CatName = $stateParams.cat;
+
+        //console.log('$stateParams.cat is :' + $stateParams.cat);
+        //console.log('$stateParams.cat is :' + $stateParams.cat.length);
+
         SearchProducts.query({
           ProCategory: $stateParams.cat,
-          ProRegions: $stateParams.regions,
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
+          ProRegions: $stateParams.regions,
           pageId: pageId
         }, function (res) {
           vm.companys = res.products;
@@ -955,7 +979,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 'use strict';
 
 
@@ -1002,6 +1025,21 @@ angular.module('companies')
       templateUrl: 'modules/companies/client/views/directive-partials/product-display.client.view.html',
       link: function (scope, elem, attrs) {
         scope.user = $localStorage.user;
+
+
+
+
+        scope.rate1 = 4;
+        scope.max1 = 5;
+        scope.isReadonly1 = false;
+
+
+        scope.rate = Math.floor(Math.random() * 6) + 1;
+        scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
+        scope.max = 5;
+        scope.isReadonly = true;
+
+
         scope.proImgUrl = function () {
           if (scope.details.productImageURL)
             return scope.details.productImageURL
@@ -1022,10 +1060,24 @@ angular.module('companies')
           dataShare.setData(Pro);
           $state.go('companies.add');
         };
+
+
+
+
+        scope.dynamicPopover = {
+          templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+        };
+
+
+        scope.hoveringOver = function (value) {
+          //console.log('hoveringOver is called');
+          scope.overStar = value;
+          scope.percent = 100 * (value / scope.max);
+        };
+
       }
     };
   }]);
-
 (function () {
   'use strict';
 
@@ -1378,9 +1430,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.getSearchedProducts = function (details) {
 
+      //console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
       //console.log('details is : ' + JSON.stringify(details));
+      details.regions = $scope.outputBrowsers;
+
       if (details != undefined) {
-        if (details.Category || details.Company || details.Product) {
+        if (details.Category || details.Company || details.Product || details.outputBrowsers) {
           var catsArray = [];
           var regionsArray = [];
           if (details.Category) {
@@ -1392,25 +1447,29 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
               catsArray.push(details.Category.title);
             }
           }
-          if (details.regions) {
-            if (details.regions.length > 0) {
-              for (var i = 0; i < details.regions.length; i++) {
-                regionsArray.push(details.regions[i].name);
+          if (details.outputBrowsers) {
+            //console.log('details.outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
+
+            if (details.outputBrowsers.length > 0) {
+              for (var i = 0; i < details.outputBrowsers.length; i++) {
+                regionsArray.push(details.outputBrowsers[i].name);
               }
             } else {
-              regionsArray.push(details.regions.name);
+              regionsArray.push(details.outputBrowsers.name);
             }
           }
-          if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
+
+          if ((catsArray == '') && (regionsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
             $state.go('companies.list', {
               isSearch: false
             });
           } else {
             $state.go('companies.list', {
               cat: (catsArray == '') ? 'Category' : catsArray,
-              regions: (regionsArray == '') ? 'Regions' : regionsArray,
               com: details.Company,
-              name: details.Product
+              name: details.Product,
+              regions: (regionsArray == '') ? '' : regionsArray,
+              isSearch: true
             });
           }
         }
@@ -1551,6 +1610,63 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       });
     };
 
+
+
+    $scope.modernBrowsers = [{
+        name: "Africa"
+    }, {
+        name: "Asia-Pacific"
+    }, {
+        name: "Europe"
+    }, {
+        name: "Latin America"
+    }, {
+        name: "Middle East"
+    }, {
+        name: "North America"
+    }, {
+        name: "All Regions"
+    }
+  ];
+
+
+
+    $scope.fOpen = function () {
+      //console.log('On-open');
+    }
+
+    $scope.fClose = function () {
+      //console.log('On-close');
+    }
+
+    $scope.fClick = function (data) {
+      //console.log('On-item-click');
+      //console.log('On-item-click - data:');
+      //console.log(data);
+    }
+
+    $scope.fSelectAll = function () {
+      //console.log('On-select-all');
+    }
+
+    $scope.fSelectNone = function () {
+      //console.log('On-select-none');
+    }
+
+    $scope.fReset = function () {
+      //console.log('On-reset');
+    }
+
+    $scope.fClear = function () {
+      //console.log('On-clear');
+    }
+
+    $scope.fSearchChange = function (data) {
+      //console.log('On-search-change');
+      //console.log('On-search-change - keyword: ' + data.keyword);
+      //console.log('On-search-change - result: ');
+      //console.log(data.result);
+    }
 
 
 
@@ -1935,11 +2051,11 @@ angular.module('core')
 angular.module('core')
 
 .factory('SearchProducts', ["$resource", function ($resource) {
-  return $resource('api/search/products/:ProCategory/:ProRegions/:ProCompany/:ProName/:pageId', {
+  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:ProRegions/:pageId', {
     ProCategory: '@ProCategory',
-    ProRegions: '@ProRegions',
     ProCompany: '@ProCompany',
     ProName: '@ProName',
+    ProRegions: '@ProRegions',
     pageId: '@pageId'
   }, {
     'query': {
@@ -1972,7 +2088,6 @@ angular.module('core')
     }
   });
 }])
-
 'use strict';
 
 // Create the Socket.io wrapper service

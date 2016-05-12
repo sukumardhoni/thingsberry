@@ -8,6 +8,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/font-awesome/css/font-awesome.min.css',
         'public/lib/toastr/toastr.min.css',
+        'public/assets/css/isteven-multi-select.css',
         'public/lib/ng-tags-input/ng-tags-input.min.css',
       ],
       js: [
@@ -27,6 +28,7 @@ module.exports = {
         'public/lib/angular-filter/dist/angular-filter.min.js',
         'public/lib/angular-base64-upload/dist/angular-base64-upload.min.js',
         'public/assets/js/freelancer.js',
+        'public/assets/js/isteven-multi-select.js',
         'public/lib/toastr/toastr.min.js',
         'public/lib/ng-tags-input/ng-tags-input.min.js'
       ]

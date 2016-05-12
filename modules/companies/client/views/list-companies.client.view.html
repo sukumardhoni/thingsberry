@@ -1,31 +1,38 @@
 <section class="container" ng-init="getSearchedProductsList()">
-  <br>
+  <div class="row result-header">
+    <span class="col-md-2 col-xs-3 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;Back</span>
 
-  <br>
-  <div class="row">
-    <span class="col-md-2 Back_to_search" ui-sref="home"><i class="fa fa-angle-left"></i>&nbsp;&nbsp; Back to {{productsDisplayText ? 'Home' : 'Search'}}</span>
-
-    <span class="col-md-4 text-center">
-    <span class="list-title">{{productsDisplayText ? 'All Products' : 'Search Results'}}</span>
-    <hr class="small">
+    <span class="col-md-4 col-xs-3 text-center">
+      <span class="circle-styles-search fa-stack fa-2x PopCats font-stack-size" ng-show="CatName == 'Home'">
+                                <i class="fa fa-home fa-stack-1x favIcons"></i>
+                            </span>
+    <span class="circle-styles-search fa-stack fa-2x PopCats font-stack-size" ng-show="CatName == 'Automobile'">
+                                <i class="fa fa-car fa-stack-1x favIcons"></i>
+                            </span>
+    <span class="circle-styles-search fa-stack fa-2x PopCats font-stack-size" ng-show="CatName == 'Healthcare'">
+                                <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
+                            </span>
+    <span class="circle-styles-search fa-stack fa-2x PopCats font-stack-size" ng-show="CatName == 'Utilities'">
+                                <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
+                            </span>
+    <span class="list-title">&nbsp;{{productsDisplayText}}</span>
+    <!--<hr class="small hidden-xs hidden-sm">-->
     </span>
-    <span class="col-md-3" ng-show="vm.companys.length !== 0">
+    <span class="col-md-4 col-xs-3 text-center" ng-show="vm.companys.length !== 0">
      <select  class="select_on_search_results" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
     </select>
     </span>
-    <!--<span class="col-md-2" ng-hide="spinnerLoading || vm.companys.length == 0">{{vm.companys.length}} of {{vm.count}}</span>-->
-
-
+    <span class="col-md-2 col-xs-3 text-center" ng-hide="spinnerLoading || vm.count == 0">{{vm.companys.length}} of {{vm.count}}</span>
   </div>
   <br>
   <br>
   <!--<ui-breadcrumbs displayname-property="data.displayName" abstract-proxy-property="data.breadcrumbProxy"></ui-breadcrumbs>-->
   <div class="text-center">
     <div class="row">
-      <div class="col-md-offset-1 col-md-10">
+      <div class="col-md-12">
         <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-          <div class="clearfix" ng-if="$index % 2 == 0"></div>
-          <div class="col-sm-6 col-xs-12">
+          <div class="clearfix" ng-if="$index % 3 == 0"></div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
             <product-display details=val></product-display>
           </div>
         </div>
@@ -38,7 +45,6 @@
     No Products found for this search query.
   </div>
 </section>
-
 
 <a id='backTop'>Back To Top</a>
 <script>

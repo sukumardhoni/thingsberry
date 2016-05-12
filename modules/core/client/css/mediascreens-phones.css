@@ -67,6 +67,9 @@
     display: inline-block;
     padding: 0px !important;
   }
+  .readOnlyRating {
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -190,5 +193,18 @@
   }
   .premium-product {
     min-height: 420px !important;
+  }
+  .select_on_search_results {
+    width: 90px;
+    font-size: 15px;
+    padding: 0px 8px;
+    height: 30px;
+  }
+  .list-title {
+    font-size: 16px
+  }
+  .result-header {
+    margin: 0px -15px;
+    margin-top: 11px;
   }
 }

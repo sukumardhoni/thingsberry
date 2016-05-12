@@ -19,9 +19,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.getSearchedProducts = function (details) {
 
+      //console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
       //console.log('details is : ' + JSON.stringify(details));
+      details.regions = $scope.outputBrowsers;
+
       if (details != undefined) {
-        if (details.Category || details.Company || details.Product) {
+        if (details.Category || details.Company || details.Product || details.outputBrowsers) {
           var catsArray = [];
           var regionsArray = [];
           if (details.Category) {
@@ -33,25 +36,29 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
               catsArray.push(details.Category.title);
             }
           }
-          if (details.regions) {
-            if (details.regions.length > 0) {
-              for (var i = 0; i < details.regions.length; i++) {
-                regionsArray.push(details.regions[i].name);
+          if (details.outputBrowsers) {
+            //console.log('details.outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
+
+            if (details.outputBrowsers.length > 0) {
+              for (var i = 0; i < details.outputBrowsers.length; i++) {
+                regionsArray.push(details.outputBrowsers[i].name);
               }
             } else {
-              regionsArray.push(details.regions.name);
+              regionsArray.push(details.outputBrowsers.name);
             }
           }
-          if ((catsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
+
+          if ((catsArray == '') && (regionsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
             $state.go('companies.list', {
               isSearch: false
             });
           } else {
             $state.go('companies.list', {
               cat: (catsArray == '') ? 'Category' : catsArray,
-              regions: (regionsArray == '') ? 'Regions' : regionsArray,
               com: details.Company,
-              name: details.Product
+              name: details.Product,
+              regions: (regionsArray == '') ? '' : regionsArray,
+              isSearch: true
             });
           }
         }
@@ -192,6 +199,63 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       });
     };
 
+
+
+    $scope.modernBrowsers = [{
+        name: "Africa"
+    }, {
+        name: "Asia-Pacific"
+    }, {
+        name: "Europe"
+    }, {
+        name: "Latin America"
+    }, {
+        name: "Middle East"
+    }, {
+        name: "North America"
+    }, {
+        name: "All Regions"
+    }
+  ];
+
+
+
+    $scope.fOpen = function () {
+      //console.log('On-open');
+    }
+
+    $scope.fClose = function () {
+      //console.log('On-close');
+    }
+
+    $scope.fClick = function (data) {
+      //console.log('On-item-click');
+      //console.log('On-item-click - data:');
+      //console.log(data);
+    }
+
+    $scope.fSelectAll = function () {
+      //console.log('On-select-all');
+    }
+
+    $scope.fSelectNone = function () {
+      //console.log('On-select-none');
+    }
+
+    $scope.fReset = function () {
+      //console.log('On-reset');
+    }
+
+    $scope.fClear = function () {
+      //console.log('On-clear');
+    }
+
+    $scope.fSearchChange = function (data) {
+      //console.log('On-search-change');
+      //console.log('On-search-change - keyword: ' + data.keyword);
+      //console.log('On-search-change - result: ');
+      //console.log(data.result);
+    }
 
 
 

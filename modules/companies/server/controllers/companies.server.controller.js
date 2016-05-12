@@ -147,7 +147,7 @@ exports.list = function (req, res) {
 
   //console.log('Products count is : ' + JSON.stringify(count));
 
-  Company.find().skip(req.params.pageId * 10).limit(10).sort('-created').exec(function (err, companies) {
+  Company.find().skip(req.params.pageId * 9).limit(9).sort('-created').exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -194,68 +194,16 @@ exports.searchedProductsList = function (req, res) {
   ProObj.count = 0;
 
 
-  var findObj = {};
-  if (req.params.ProCategory && (req.params.ProCategory !== 'Category')) {
-
-    console.log('FIndOBJ print here 1111');
-
-    findObj = {
-      ProCat: req.params.ProCategory
-    };
-    if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
-      console.log('FIndOBJ print here 1222');
-      findObj = {
-        ProCat: req.params.ProCategory,
-        Comname: req.params.ProCompany
-      };
-      if (req.params.ProName && (req.params.ProName !== 'Product')) {
-        console.log('FIndOBJ print here 1333');
-        findObj = {
-          ProCat: req.params.ProCategory,
-          Comname: req.params.ProCompany,
-          Proname: req.params.ProName
-        };
-      }
-    } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
-      console.log('FIndOBJ print here 1333');
-      findObj = {
-        ProCat: req.params.ProCategory,
-        Proname: req.params.ProName
-      };
-    }
-  } else if (req.params.ProCompany && (req.params.ProCompany !== 'Company')) {
-    console.log('FIndOBJ print here 2111');
-
-    findObj = {
-      Comname: req.params.ProCompany
-    };
-    if (req.params.ProName && (req.params.ProName !== 'Product')) {
-      console.log('FIndOBJ print here 1333');
-      findObj = {
-        Comname: req.params.ProCompany,
-        Proname: req.params.ProName
-      };
-    }
-  } else if (req.params.ProName && (req.params.ProName !== 'Product')) {
-    console.log('FIndOBJ print here 3111');
-    findObj = {
-      Proname: req.params.ProName
-    };
-  }
-
-  var replacedCats, queryStr, replacedRegions;
-  if (req.params.ProCategory) {
-    replacedCats = req.params.ProCategory.replace(/\,/g, " ");
-  }
-  if (req.params.ProRegions) {
-    replacedRegions = req.params.ProRegions.replace(/\,/g, " ");
-  }
+  var mongoQuery, queryStr = '';
 
 
-  if ((req.params.ProCategory == undefined) && (req.params.ProRegions == undefined) && (req.params.ProCompany == undefined) && (req.params.ProName == undefined)) {
-    queryStr = '';
-  } else {
-    queryStr = replacedCats + ' ' + replacedRegions + ' ' + req.params.ProCompany + ' ' + req.params.ProName
+
+  if ((req.params.ProCompany != undefined) && (req.params.ProName != undefined)) {
+    queryStr = req.params.ProCompany + ' ' + req.params.ProName
+  } else if ((req.params.ProCompany != undefined)) {
+    queryStr = req.params.ProCompany
+  } else if ((req.params.ProName != undefined)) {
+    queryStr = req.params.ProName
   }
 
   //console.log('Request FindOBj is : ' + JSON.stringify(findObj));
@@ -263,14 +211,105 @@ exports.searchedProductsList = function (req, res) {
 
 
 
+  var operationalRegns = [];
+  if (req.params.ProRegions) {
+    var RegionsArray = req.params.ProRegions.split(',');
+    console.log('Request Regions array is : ' + JSON.stringify(RegionsArray));
+    for (var i = 0; i < RegionsArray.length; i++) {
+      operationalRegns.push({
+        checked: true,
+        name: RegionsArray[i]
+      });
+    }
+  }
+  console.log('Request Regions array is : ' + JSON.stringify(operationalRegns));
+  var proCats = [];
+  if (req.params.ProCategory != 'Category') {
+    var CatsArray = req.params.ProCategory.split(',');
 
-  if (req.params.pageId == 0) {
+    console.log('CatsArray  array is : ' + JSON.stringify(CatsArray));
 
-    Company.find({
+
+    for (var i = 0; i < CatsArray.length; i++) {
+      proCats.push({
+        title: CatsArray[i]
+      });
+    }
+    console.log('proCats  array is : ' + JSON.stringify(proCats));
+  }
+
+
+
+
+  if ((proCats.length != 0) && (operationalRegns.length != 0) && queryStr != '') {
+    mongoQuery = {
+      ProCat: {
+        "$in": proCats
+      },
+      $text: {
+        $search: queryStr
+      },
+      operationalRegions: {
+        $all: operationalRegns
+      }
+    }
+  } else if ((proCats.length != 0) && (operationalRegns.length != 0)) {
+    mongoQuery = {
+      ProCat: {
+        "$in": proCats
+      },
+      operationalRegions: {
+        $all: operationalRegns
+      }
+    }
+  } else if ((proCats.length != 0) && queryStr != '') {
+    mongoQuery = {
+      ProCat: {
+        "$in": proCats
+      },
       $text: {
         $search: queryStr
       }
-    }).count({}, function (err, count) {
+    }
+  } else if ((operationalRegns.length != 0) && queryStr != '') {
+    mongoQuery = {
+      $text: {
+        $search: queryStr
+      },
+      operationalRegions: {
+        $all: operationalRegns
+      }
+    }
+  } else if ((proCats.length != 0)) {
+    mongoQuery = {
+      ProCat: {
+        "$in": proCats
+      }
+    }
+  } else if (queryStr != '') {
+    mongoQuery = {
+      $text: {
+        $search: queryStr
+      }
+    }
+  } else if ((operationalRegns.length != 0)) {
+    mongoQuery = {
+      operationalRegions: {
+        $all: operationalRegns
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+  if (req.params.pageId == 0) {
+    Company.find(mongoQuery).count({}, function (err, count) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -279,20 +318,19 @@ exports.searchedProductsList = function (req, res) {
         //console.log('Server side List of products : ' + JSON.stringify(companies));
         //res.json(count);
         ProObj.count = count;
-        console.log('Server side List of products count : ' + JSON.stringify(count));
+        console.log('Server side List of products count  with str: ' + JSON.stringify(count));
       }
     });
   }
 
+  console.log('Mongo find Query is : ' + JSON.stringify(mongoQuery));
 
 
-
-  Company.find({
-    $text: {
-      $search: queryStr
-    }
-  }).skip(req.params.pageId * 10).limit(10).exec(function (err, companies) {
+  Company.find(mongoQuery).skip(req.params.pageId * 9).limit(9).sort('-created').exec(function (err, companies) {
     if (err) {
+
+      console.log('Error on search result is : ' + err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -302,6 +340,7 @@ exports.searchedProductsList = function (req, res) {
       res.json(ProObj);
     }
   });
+
 
 
 };

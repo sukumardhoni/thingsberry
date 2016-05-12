@@ -533,7 +533,7 @@ hr.small {
   color: rgb(51, 51, 51);
   line-height: 1.2;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 15px;
 }
 
 #searchBtn {
@@ -756,7 +756,7 @@ tags-input .tags {
   box-sizing: content-box;
   -webkit-box-sizing: content-box;
   right: 18px;
-  bottom: 40px;
+  bottom: 5px;
   position: fixed;
   background: url('../../../../modules/core/client/img/buttons/uparr-48-w.png') no-repeat center center rgb(2, 168, 243);
   border: 1px solid #fff;

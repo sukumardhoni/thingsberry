@@ -22,8 +22,28 @@
 
       // var pageId = 0;
 
+      if ($stateParams.cat == 'Home') {
+        //console.log('HOME')
+        $scope.productsDisplayText = 'Home Products'
+      } else if ($stateParams.cat == 'Automobile') {
+        //console.log('AUTOMOBILE')
+        $scope.productsDisplayText = 'Automobile Products'
+      } else if ($stateParams.cat == 'Healthcare') {
+        //console.log('HEALTH')
+        $scope.productsDisplayText = 'Health Care Products'
+      } else if ($stateParams.cat == 'Utilities') {
+        //console.log('UTILITIES')
+        $scope.productsDisplayText = 'Utilities Products'
+      } else if ($stateParams.cat && $stateParams.isSearch) {
+        //console.log('$stateParams.cat && $stateParams.isSearch')
+        $scope.productsDisplayText = 'Search Results';
+      } else {
+        //console.log('ELSE')
+        $scope.productsDisplayText = 'All Products';
+      }
 
-      $scope.productsDisplayText = $stateParams.isSearch;
+
+      //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
 
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
@@ -56,11 +76,17 @@
           console.log('Failed to fetch the product details : ' + err);
         });
       } else {
+
+        $scope.CatName = $stateParams.cat;
+
+        //console.log('$stateParams.cat is :' + $stateParams.cat);
+        //console.log('$stateParams.cat is :' + $stateParams.cat.length);
+
         SearchProducts.query({
           ProCategory: $stateParams.cat,
-          ProRegions: $stateParams.regions,
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
+          ProRegions: $stateParams.regions,
           pageId: pageId
         }, function (res) {
           vm.companys = res.products;

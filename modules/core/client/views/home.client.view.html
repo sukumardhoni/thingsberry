@@ -13,6 +13,20 @@
       <div class="col-xs-offset-1 col-xs-10 home-search">
         <div class="well">
           <form class="form-horizontal" role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+
+            <!--<div class="row">
+
+  <div class="col-lg-8 col-md-8 col-sm-6">
+    <div class="form-group">
+      <div class="col-xs-12 home_input_tags" style="opacity: 1;">
+        <div isteven-multi-select input-model="modernBrowsers" output-model="outputBrowsers" button-label="name" item-label="name maker" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>-->
+
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-6">
                 <!--<div class="form-group">
@@ -23,7 +37,7 @@
                 </div>-->
                 <div class="form-group">
                   <div class="col-xs-12 home_input_tags" style="opacity: 1;">
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Search Category">
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                     </tags-input>
                   </div>
@@ -63,33 +77,27 @@
                     <!--<select class="form-control" ng-model="homeSearchDetails.Country" ng-init="homeSearchDetails.Country = CountriesList[0]" ng-selected="homeSearchDetails.Country" ng-options="Country for Country in CountriesList" required>
                     </select>-->
                     <input type="text" class="form-control" id="inputEmail" placeholder="Company" ng-model="homeSearchDetails.Company">
-
-
                   </div>
                 </div>
               </div>
               <div class="col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12" style="opacity: 1;">
+
                     <!--<select class="form-control" ng-model="homeSearchDetails.State" ng-init="homeSearchDetails.State = StatesList[0]" ng-selected="homeSearchDetails.State" ng-options="State for State in StatesList" required>
                     </select>-->
-
                     <input type="text" class="form-control" id="inputEmail" placeholder="Product" ng-model="homeSearchDetails.Product">
-
                   </div>
                 </div>
               </div>
               <div class="col-md-4 col-sm-6">
                 <div class="form-group">
                   <div class="col-xs-12 home_input_tags">
-                    <tags-input ng-model="homeSearchDetails.regions" class="form-control-tags-input" display-property="name" placeholder="Search Operational Regions">
+                    <!--<tags-input ng-model="homeSearchDetails.regions" class="form-control-tags-input" display-property="name" placeholder="Search Operational Regions">
                       <auto-complete source="loadRegions()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
-                    </tags-input>
-
-                    <!--<tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Search Category">
-                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                     </tags-input>-->
-
+                    <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -181,54 +189,38 @@
         <div class="row">
           <div class="col-md-3 col-sm-6">
             <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'HOME'})">
+              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Home'})">
                                 <i class="fa fa-home fa-stack-1x favIcons"></i>
                             </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HOME'})">HOME</span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Home'})">HOME</span>
                                 </h4>
-              <!--<span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>-->
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
             <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'AUTOMOBILE'})">
+              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Automobile'})">
                                 <i class="fa fa-car fa-stack-1x favIcons"></i>
                             </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'AUTOMOBILE'})">AUTOMOBILE</span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Automobile'})">AUTOMOBILE</span>
                                 </h4>
-              <!-- <span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>-->
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
             <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'HEALTH CARE'})">
+              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Healthcare'})">
                                 <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
                             </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'HEALTH CARE'})">HEALTH CARE</span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Healthcare'})">HEALTH CARE</span>
                                 </h4>
-              <!-- <span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>-->
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
             <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'UTILITIES'})">
+              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Utilities'})">
                                 <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
                             </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'UTILITIES'})">UTILITIES</span>
+              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Utilities'})">UTILITIES</span>
                                 </h4>
-              <!--<span class="popular_cats">
-              <p>Lorem ipsum dolor</p>
-              <p>Lorem ipsum</p>
-              <p>Lorem ipsum</p></span>-->
             </div>
           </div>
         </div>
@@ -240,7 +232,10 @@
   <br>
   <br>
 
-
+  <!--<span class="popular_cats">
+              <p>Lorem ipsum dolor</p>
+              <p>Lorem ipsum</p>
+              <p>Lorem ipsum</p></span>-->
 
 
 
