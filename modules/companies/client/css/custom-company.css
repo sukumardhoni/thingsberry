@@ -85,7 +85,8 @@
 }
 
 .Back_to_search {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: bold;
   font-family: "OpenSans";
   color: rgb(2, 168, 243);
   line-height: 1.333;
