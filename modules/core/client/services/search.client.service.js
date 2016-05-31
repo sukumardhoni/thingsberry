@@ -34,6 +34,7 @@ angular.module('core')
 
 
 .factory('PremiumProducts', function ($resource) {
+  console.log("@@@@@@coming from premiumproducts controller to premiumproduct service");
   return $resource('api/premiumProducts', {}, {
     'query': {
       method: 'GET',

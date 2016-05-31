@@ -34,6 +34,24 @@ exports.create = function (req, res) {
   });
 };
 
+
+/* var rating = new Company(req.ratingvalue);
+
+  // rating.avgratings = req.ratingvalue;
+  rating.avgratings = (ratingvl + avgratings / 5);
+  console.log("avg:" + avgratings);
+
+  rating.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(rating);
+    }
+  });
+};*/
+
 exports.catsCheck = function (cats) {
   var ProCatsArray = cats;
   console.log('catsCheck function is called : ' + JSON.stringify(cats));
@@ -100,6 +118,69 @@ exports.update = function (req, res) {
   });
 };
 
+
+
+
+function calculateRating(userRating, avgRatings, totalUsers) {
+  // console.log("@@@@@ coming to calculate function");
+  var sum = avgRatings * totalUsers + parseInt(userRating);
+  // console.log("sum:" + sum);
+  var usersCount = parseInt(totalUsers + 1);
+  // console.log("usersCount:" + usersCount);
+  var avg = sum / usersCount;
+  // console.log("avg:" + avg);
+  return avg;
+
+};
+
+
+
+exports.updateRating = function (req, res) {
+  console.log("@@@@@@@@ coming to createRating server side function");
+  // console.log("BEFORE AVG ASSIGN:" + JSON.stringify(req.body));
+  // console.log("userRAting:" + req.params.userRating);
+  //  console.log("productId:" + req.params.companyId);
+  var userRating = req.params.userRating;
+  //  console.log("userRating:" + userRating);
+  var avgRatings = req.company.avgRatings;
+  // console.log("avgRatings:" + avgRatings);
+  var totalUsers = req.company.totalRatingsCount;
+  // console.log("totalUsers:" + totalUsers);
+  /* var calculateRating = avgRatings * totalUsers + parseInt(userRating) / parseInt(totalUsers + 1);
+   console.log("@@@@:" + calculateRating);*/
+
+
+  var currentRating = calculateRating(userRating, req.company.avgRatings, req.company.totalRatingsCount);
+
+  //  console.log("currentRating is :" + currentRating);
+  var count = req.company.totalRatingsCount;
+  count++;
+
+  req.body.avgRatings = currentRating;
+  //  console.log("save to avgRatings:" + req.body.avgRatings);
+  req.body.totalRatingsCount = count;
+  // console.log("save to totalCount:" + req.body.totalRatingsCount);
+
+  var company = req.company;
+
+  company = _.extend(company, req.body);
+  //  console.log("@@@@@ After comparing and have to save in company schema:" + company);
+
+
+  company.save(function (err) {
+    if (err) {
+      console.log("@@@@ error:" + err);
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(company);
+      //    console.log("####:" + company);
+    }
+  });
+
+};
+
 /**
  * Delete an company
  */
@@ -164,7 +245,7 @@ exports.list = function (req, res) {
  * List of Premium Products
  */
 exports.premiumProductsList = function (req, res) {
-
+  console.log("coming from companies server side routes to companies server side controller");
   Company.find({
     premiumFlag: true
   }).limit(10).exec(function (err, companies) {

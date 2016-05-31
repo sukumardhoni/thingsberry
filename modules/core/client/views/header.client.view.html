@@ -63,9 +63,9 @@
             <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
               <a ui-sref="{{item.state}}" ng-bind="item.title"></a>
             </li>
-            <li class="divider hidden-xs"></li>
+            <li class="divider hidden-xs "></li>
             <li>
-              <a ng-click="signout()">Signout</a>
+              <a ng-click="signout()" style="cursor:pointer;">Signout</a>
             </li>
           </ul>
         </li>

@@ -39,6 +39,7 @@ exports.contactUs = function (req, res) {
  * Get Listed admin
  */
 exports.getListed = function (req, res) {
+  console.log("@@@@@@@getListed server side controller");
   var details = req.body;
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
   agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
@@ -53,6 +54,7 @@ exports.getListed = function (req, res) {
 /* JWT Signup */
 
 exports.jwtSignup = function (req, res, next) {
+  console.log("coming to server side signup controller");
   var secret = 'www';
   var payload = {
     email: req.body.email
@@ -104,6 +106,8 @@ exports.jwtSignup = function (req, res, next) {
         userModel.provider = req.body.provider || 'local';
         userModel.displayName = userModel.firstName + ' ' + userModel.lastName;
         userModel.username = userModel.firstName + userModel.lastName;
+        console.log("@@@" + userModel.displayName + "@@@@");
+        console.log("@@@" + userModel.username + "@@@@");
         var jwtToken = jwt.encode(payload, secret);
         userModel.token = jwtToken;
         userModel.save(function (err) {

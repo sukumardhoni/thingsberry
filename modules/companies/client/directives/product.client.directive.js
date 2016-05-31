@@ -2,7 +2,7 @@
 
 
 angular.module('companies')
-  .directive('productDisplay', function (dataShare, $state, $localStorage) {
+  .directive('productDisplay', function (dataShare, $window, $state, $localStorage, ratingService, NotificationFactory) {
     return {
       restrict: 'E',
       scope: {
@@ -13,21 +13,50 @@ angular.module('companies')
         scope.user = $localStorage.user;
 
 
-
-
-        scope.rate1 = 4;
-        scope.max1 = 5;
         scope.isReadonly1 = false;
 
+        scope.rating = function (rate) {
 
-        scope.rate = Math.floor(Math.random() * 6) + 1;
-        scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
+          scope.ratevalue = rate;
+          //console.log("@@@@" + JSON.stringify(scope.details));
+          //console.log('rateValue:' + scope.ratevalue);
+
+          if (scope.details._id) {
+
+            ratingService.update({
+              companyId: scope.details._id,
+              userRating: scope.ratevalue
+            }, scope.details, successCallback, errorCallback);
+
+          }
+
+          function successCallback(res) {
+            // console.log("coming from callback");
+            scope.rate = res.avgRatings;
+            scope.reviewsCount = res.totalRatingsCount;
+
+          }
+
+
+          function errorCallback(res) {
+            //  console.log("coming from callback");
+            NotificationFactory.error('Failed to update the product rating...', res.data.message);
+          }
+        };
+
+
+        scope.details.rateValue = scope.ratevalue;
+        scope.rate1 = scope.details.rateValue;
+        scope.rate = scope.details.avgRatings;
+        scope.reviewsCount = scope.details.totalRatingsCount;
         scope.max = 5;
         scope.isReadonly = true;
 
 
         scope.proImgUrl = function () {
+
           if (scope.details.productImageURL)
+
             return scope.details.productImageURL
           else
             return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
@@ -50,6 +79,7 @@ angular.module('companies')
 
 
 
+
         scope.dynamicPopover = {
           templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
         };
@@ -58,9 +88,8 @@ angular.module('companies')
         scope.hoveringOver = function (value) {
           //console.log('hoveringOver is called');
           scope.overStar = value;
-          scope.percent = 100 * (value / scope.max);
-        };
 
+        };
       }
     };
   });

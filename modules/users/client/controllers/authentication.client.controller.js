@@ -28,7 +28,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
 
     $scope.signup = function (isValid) {
-
+      console.log("coming to controller signup function");
       $scope.buttonTextSignUp = 'Signing Up...';
 
 
@@ -41,7 +41,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       }
 
       $http.post('/api/auth/jwtSignup', $scope.credentials).success(function (response) {
-
+        console.log("came to client side signup success function from server side");
         if (response.type === false) {
           $scope.error = response.data;
           //$scope.isDisabled = false;
@@ -104,6 +104,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $localStorage.token = respUser.token;
       NotificationFactory.success('Hi ' + respUser.displayName, 'Authentication Success !');
       $state.go($state.previous.state.name || 'home', $state.previous.params);
+      console.log("state" + $state.previous.state.name);
     };
 
 

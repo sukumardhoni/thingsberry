@@ -140,8 +140,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var currIndex = 0;
     $scope.carouselBg = [];
     $scope.getPremiumProducts = function () {
+      console.log("@@@@@coming to home controller getPremiumProducts");
       $scope.carouselBg.push('carousel_spinner');
       PremiumProducts.query({}, function (res) {
+        console.log("@@@@@coming from companies server controller to premiumProducts controller:" + res);
         $scope.premiumProducts = res;
 
         for (var i = 0; i < ($scope.premiumProducts.length / 2); i++) {
