@@ -30,7 +30,8 @@ module.exports = {
         'public/assets/js/freelancer.js',
         'public/assets/js/isteven-multi-select.js',
         'public/lib/toastr/toastr.js',
-        'public/lib/ng-tags-input/ng-tags-input.min.js'
+        'public/lib/ng-tags-input/ng-tags-input.min.js',
+        'public/lib/hello/dist/hello.all.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

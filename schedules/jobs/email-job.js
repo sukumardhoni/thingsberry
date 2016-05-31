@@ -22,7 +22,8 @@ exports.sendUserInfoToThingsBerryTeam = function (agenda) {
     //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
     var mailData = {};
     mailData.templateName = 'emailtemplates/new-user-email-to-thingsberry';
-    mailData.to = 'support@thingsberry.com';
+    //mailData.to = 'support@thingsberry.com';
+    mailData.to = 'sukumarm@globaltechminds.com';
     mailData.subject = 'New User To ThingsBerry';
     mailData.userData = job.attrs.data.userData;
     mailData.appEnv = config.app.title;

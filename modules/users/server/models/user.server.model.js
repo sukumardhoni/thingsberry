@@ -70,7 +70,7 @@ var UserSchema = new Schema({
     unique: 'Username already exists',
     required: 'Please fill in a username',
     lowercase: true,
-    trim: true
+
   },
   password: {
     type: String,
@@ -134,6 +134,7 @@ UserSchema.pre('save', function (callback) {
         bcrypt.hash(user.password, salt, null, function (err, hash) {
           if (err) return callback(err);
           user.password = hash;
+     console.log('User Password after encryption : ' + JSON.stringify(user.password));
           callback();
         });
       });
