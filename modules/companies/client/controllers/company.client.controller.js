@@ -48,6 +48,20 @@
     vm.addCompanyDetails = addCompanyDetails;
 
     $scope.addBtnText = 'SUBMIT';
+    /*$scope.user = $localStorage.user;*/
+
+
+
+        $scope.rate1 = 4;
+        $scope.max1 = 5;
+        $scope.isReadonly1 = false;
+
+        $scope.rate = Math.floor(Math.random() * 6) + 1;
+        $scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
+        $scope.max = 5;
+        $scope.isReadonly = true;
+
+
 
     /*   $scope.userValidation = function () {
          if (vm.authentication.user) {} else {
@@ -76,6 +90,25 @@
       });
       return defObj.promise;
     };
+
+
+
+      $scope.changeLimit = function (pro) {
+          if ($scope.limit == pro.description.length)
+            $scope.limit = 100;
+          else
+            $scope.limit = pro.description.length;
+        };
+
+      $scope.dynamicPopover = {
+          templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+        };
+       $scope.hoveringOver = function (value) {
+          console.log('hoveringOver is called');
+          $scope.overStar = value;
+          $scope.percent = 100 * (value / $scope.max);
+        };
+
 
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({

@@ -289,7 +289,7 @@
   padding: 18px;
   position: relative;
   text-align: center;
-  min-height: 140px;
+  /*min-height: 140px;*/
 }
 
 .editIon {
@@ -385,4 +385,18 @@
   padding: 15px 0px;
   margin: 0px -38px;
   margin-top: 2px;
+}
+
+
+#disqus_thread {
+     position: relative;
+}
+#disqus_thread:after {
+     content: "";
+     display: block;
+     height: 55px;
+     width: 100%;
+     position: absolute;
+     bottom: 0;
+     background: white;
 }

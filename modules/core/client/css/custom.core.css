@@ -675,10 +675,13 @@ footer {
 /* Sticky footer styles
       -------------------------------------------------- */
 
+
+
 html,
 body {
   height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
+
+/*   The html and body elements cannot have any padding or margin. */
 }
 
 
@@ -686,9 +689,14 @@ body {
 
 #wrap {
   min-height: 80%;
+    position: relative;
   height: auto !important;
   height: 100%;
   margin: 50px auto 0px;
+     /*overflow: auto;*/
+      overflow: hidden;
+
+
 }
 
 
@@ -696,7 +704,59 @@ body {
 
 #footer {
   height: 60px;
+
 }
+
+.container {
+   min-height:100%;
+   position:relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*html,
+body {
+  height: 100%;
+   The html and body elements cannot have any padding or margin.
+}*/
+
+
+/* Wrapper for page content to push down footer */
+
+/*#wrap {
+  min-height: 80%;
+  height: auto !important;
+  height: 100%;
+  margin: 50px auto 0px;
+}*/
+
+
+/* Set the fixed height of the footer here */
+
+/*
+#footer {
+  height: 60px;
+}
+*/
 
 
 /* Lastly, apply responsive CSS fixes as necessary */
