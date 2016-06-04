@@ -1,3 +1,5 @@
+
+
 <section ng-controller="HomeController">
   <div class="content-on-img">
     <div class="left triangle"></div>
@@ -149,22 +151,26 @@
 
     <!--ng-class="{'fa-angle-double-right': (limit != details.description.length), 'fa-angle-double-left': (limit == details.description.length)}"-->
 
-    <div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm " ng-class="carouselBg">
-      <div class="col-md-6 first-carousel">
-        <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-          <uib-slide ng-repeat="slide in slides1" index="$index">
-            <premium-product-display details=slide></premium-product-display>
+
+     <div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm " ng-class="carouselBg">
+      <uib-carousel  interval="myInterval" active=0 no-wrap="noWrapSlides">
+      <!--<uib-slide active="active" ng-repeat="slid in slidesarray" index="$index" class=" first-carousel col-md-6">
+        <span ng-repeat="sarray in slid" class="col-md-6" active="active">
+        {{sarray}}
+        </span>
+        </uib-slide>-->
+        <!--<div ng-repeat="slid in slides2">
+        {{slid}}
+        </div>-->
+      <uib-slide ng-repeat="slide in sample" index="$index" >
+
+        <div ng-repeat="sarray in slide" class="col-md-6 " data-wrap="false">
+          <premium-product-display details=sarray></premium-product-display>
+         </div>
           </uib-slide>
-        </uib-carousel>
-      </div>
-      <div class="col-md-6 second-carousel">
-        <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-          <uib-slide ng-repeat="slide in slides2" index="$index">
-            <premium-product-display details=slide></premium-product-display>
-          </uib-slide>
-        </uib-carousel>
-      </div>
+      </uib-carousel>
     </div>
+
 
     <div class="col-xs-10 col-xs-offset-1 visible-xs visible-sm">
       <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">

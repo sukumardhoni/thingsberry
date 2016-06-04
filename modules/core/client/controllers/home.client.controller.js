@@ -127,30 +127,52 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
+ /* $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  $scope.addSlide = function() {
+    console.log('in the home controller');
+    var newWidth = 600 + slides.length + 1;
+    slides.push({
+      image: 'http://placekitten.com/' + newWidth + '/300',
+      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+    });
+  };
+  for (var i=0; i<4; i++) {
+    $scope.addSlide();
+  };*/
 
 
 
 
-    $scope.myInterval = 5000;
+
+
+
+
+
+   $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
     var slides1 = $scope.slides1 = [];
-    var slides2 = $scope.slides2 = [];
+    /*var slidesarray =$scope.slidesarray = [['slide1','slide2'],['slide3','slide4'],['slide5','slide6'],['slide7','slide8'],['slide9','slide10']];*/
+
+    var sample = $scope.sample = [];
     var slides3 = $scope.slides3 = [];
     var currIndex = 0;
     $scope.carouselBg = [];
+
     $scope.getPremiumProducts = function () {
       $scope.carouselBg.push('carousel_spinner');
       PremiumProducts.query({}, function (res) {
         $scope.premiumProducts = res;
 
-        for (var i = 0; i < ($scope.premiumProducts.length / 2); i++) {
+    //console.log('the length:'+JSON.stringify($scope.premiumProducts));
+        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
           $scope.addSlide1($scope.premiumProducts[i]);
         }
 
-        for (var j = ($scope.premiumProducts.length / 2); j < $scope.premiumProducts.length; j++) {
-          $scope.addSlide2($scope.premiumProducts[j]);
-        }
+         $scope.sample=$scope.listToMatrix($scope.slides1,2);
+       // console.log('the resultant matrix'+JSON.stringify($scope.sample));
 
         for (var k = 0; k < $scope.premiumProducts.length; k++) {
           $scope.addSlide3($scope.premiumProducts[k]);
@@ -163,6 +185,25 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         console.log('Failed to fetch the product details : ' + err);
       });
     };
+
+
+    $scope.listToMatrix= function(list, elementsPerSubArray) {
+      //console.log('calling to listtomatrix function');
+    var matrix = [],
+      i, k;
+
+    for (i = 0, k = -1; i < list.length; i++) {
+      if (i % elementsPerSubArray === 0) {
+        k++;
+        matrix[k] = [];
+      }
+
+      matrix[k].push(list[i]);
+    }
+
+    return matrix;
+ //console.log('the resultant matrix:'+matrix);
+    }
 
 
 
@@ -198,6 +239,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         id: currIndex++
       });
     };
+
 
 
 
