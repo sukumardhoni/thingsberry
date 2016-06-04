@@ -2,7 +2,7 @@
 
 
 angular.module('companies')
-  .directive('productDisplay', function (dataShare, $window, $state, $localStorage, ratingService, NotificationFactory) {
+  .directive('productDisplay', function (dataShare, $state, $localStorage) {
     return {
       restrict: 'E',
       scope: {
@@ -33,6 +33,7 @@ angular.module('companies')
         }
 
 
+<<<<<<< HEAD
 
         scope.rating = function (rate) {
 
@@ -73,6 +74,13 @@ angular.module('companies')
           }
 
         };
+=======
+
+
+        scope.rate1 = 4;
+        scope.max1 = 5;
+        scope.isReadonly1 = false;
+>>>>>>> origin/ratingsBranch
 
         scope.showMe = function () {
 
@@ -97,6 +105,7 @@ angular.module('companies')
 
           scope.showRatings = false;
 
+<<<<<<< HEAD
         } else {
 
           scope.showRatings = true;
@@ -106,14 +115,16 @@ angular.module('companies')
         scope.isReadonly1 = false;
         scope.rate = scope.details.avgRatings;
         scope.reviewsCount = scope.details.totalRatingsCount;
+=======
+        scope.rate = Math.floor(Math.random() * 6) + 1;
+        scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
+>>>>>>> origin/ratingsBranch
         scope.max = 5;
         scope.isReadonly = true;
 
 
         scope.proImgUrl = function () {
-
           if (scope.details.productImageURL)
-
             return scope.details.productImageURL
           else
             return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
@@ -136,7 +147,6 @@ angular.module('companies')
 
 
 
-
         scope.dynamicPopover = {
           templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
         };
@@ -145,8 +155,9 @@ angular.module('companies')
         scope.hoveringOver = function (value) {
           //console.log('hoveringOver is called');
           scope.overStar = value;
-
+          scope.percent = 100 * (value / scope.max);
         };
+
       }
     };
   });

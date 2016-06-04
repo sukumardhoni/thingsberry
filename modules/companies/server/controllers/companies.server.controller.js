@@ -34,24 +34,6 @@ exports.create = function (req, res) {
   });
 };
 
-
-/* var rating = new Company(req.ratingvalue);
-
-  // rating.avgratings = req.ratingvalue;
-  rating.avgratings = (ratingvl + avgratings / 5);
-  console.log("avg:" + avgratings);
-
-  rating.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(rating);
-    }
-  });
-};*/
-
 exports.catsCheck = function (cats) {
   var ProCatsArray = cats;
   console.log('catsCheck function is called : ' + JSON.stringify(cats));
@@ -120,6 +102,7 @@ exports.update = function (req, res) {
   });
 };
 
+<<<<<<< HEAD
 
 /**UPDATE RATINGS**/
 
@@ -194,6 +177,8 @@ exports.updateRating = function (req, res) {
 };
 
 
+=======
+>>>>>>> origin/ratingsBranch
 /**
  * Delete an company
  */
@@ -258,7 +243,7 @@ exports.list = function (req, res) {
  * List of Premium Products
  */
 exports.premiumProductsList = function (req, res) {
-  console.log("coming from companies server side routes to companies server side controller");
+
   Company.find({
     premiumFlag: true
   }).limit(10).exec(function (err, companies) {

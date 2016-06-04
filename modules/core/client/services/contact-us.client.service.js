@@ -4,22 +4,21 @@
 angular.module('core')
 
 .factory('ContactUsService', ['$resource',
- function ($resource) {
+	function ($resource) {
     return $resource('api/contactUs', {}, {
       send: {
         method: 'POST'
       }
     });
- }
+	}
 ])
 
 .factory('GetListedService', ['$resource',
- function ($resource) {
-    console.log("getListed service from controller");
+	function ($resource) {
     return $resource('api/getListed', {}, {
       send: {
         method: 'POST'
       }
     });
- }
+	}
 ])

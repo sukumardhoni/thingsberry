@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var passport = require('passport');
-
+console.log('in the auth.server.routes@@@@');
 module.exports = function (app) {
   // User Routes
   var users = require('../controllers/users.server.controller');
@@ -16,7 +16,8 @@ module.exports = function (app) {
   app.route('/api/auth/reset/:token').post(users.reset);
 
   // Setting up the users authentication api
-  app.route('/api/auth/signup').post(users.signup);
+
+  //app.route('/api/auth/signup').post(users.signup);
   //app.route('/api/auth/signup').post(users.signupFirebase);
   app.route('/api/auth/signin').post(users.signin);
   //app.route('/api/auth/signin').post(users.signinFirebase);
@@ -34,7 +35,7 @@ module.exports = function (app) {
   // JWT Auth Routes
   app.route('/api/auth/jwtSignup').post(users.jwtSignup);
   app.route('/api/auth/jwtSignin').post(users.jwtSignin);
-  app.route('/api/auth/jwtSignout').post(users.jwtSignout);
+  app.route('/api/auth/jwtSignout').get(users.jwtSignout);
 
   app.route('/api/auth/jwtForgot').post(users.jwtForgot);
   app.route('/api/auth/jwtChangePassword').post(users.jwtChangePassword);

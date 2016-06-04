@@ -20,11 +20,16 @@ module.exports = function (app) {
   app.route('/api/listOfProducts/:pageId')
     .get(companies.list);
 
-  console.log("@@@@@@coming from premiumproduct service to companies server side routes ");
+
   app.route('/api/premiumProducts')
     .get(companies.premiumProductsList);
 
+<<<<<<< HEAD
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
+=======
+
+
+>>>>>>> origin/ratingsBranch
 
 
   // Single company routes
@@ -35,6 +40,4 @@ module.exports = function (app) {
 
   // Finish by binding the company middleware
   app.param('companyId', companies.companyByID);
-
-
 };

@@ -6,9 +6,6 @@
     .factory('CompanyService', CompanyService)
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
-    .factory('ratingService', ratingService)
-
-
 
 
 
@@ -77,6 +74,7 @@
     return service;
   };
 
+<<<<<<< HEAD
   ratingService.$inject = ['$resource'];
 
   function ratingService($resource) {
@@ -92,5 +90,7 @@
     console.log("coming to rating service:");
   };
 
+=======
+>>>>>>> origin/ratingsBranch
 
 })();

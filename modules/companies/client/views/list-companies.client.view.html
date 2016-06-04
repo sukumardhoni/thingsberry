@@ -33,14 +33,12 @@
         <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
           <div class="clearfix" ng-if="$index % 3 == 0"></div>
           <div class="col-md-4 col-sm-6 col-xs-12">
-
             <product-display details=val></product-display>
           </div>
         </div>
       </div>
     </div>
-    <div style="margin:5%" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
-    </div>
+    <div style="margin:5%" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif"></div>
     <button type="button" class="btn-add-company btn-search-products" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">Load More Products</button>
   </div>
   <div class="alert alert-warning text-center" ng-show="vm.companys.length == 0">

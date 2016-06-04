@@ -39,7 +39,6 @@ exports.contactUs = function (req, res) {
  * Get Listed admin
  */
 exports.getListed = function (req, res) {
-  console.log("@@@@@@@getListed server side controller");
   var details = req.body;
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
   agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
@@ -54,7 +53,7 @@ exports.getListed = function (req, res) {
 /* JWT Signup */
 
 exports.jwtSignup = function (req, res, next) {
-  console.log("coming to server side signup controller");
+  console.log(' in the Authentication server controller(jwtsignup)');
   var secret = 'www';
   var payload = {
     email: req.body.email
@@ -105,9 +104,9 @@ exports.jwtSignup = function (req, res, next) {
         var userModel = new User(req.body);
         userModel.provider = req.body.provider || 'local';
         userModel.displayName = userModel.firstName + ' ' + userModel.lastName;
-        userModel.username = userModel.firstName + userModel.lastName;
-        console.log("@@@" + userModel.displayName + "@@@@");
-        console.log("@@@" + userModel.username + "@@@@");
+        console.log('@##$userdetails on signup[userModel.displayName]'+userModel.displayName);
+        userModel.username = userModel.email;
+        console.log('@##$userdetails on signup[userModel.username]'+userModel.username);
         var jwtToken = jwt.encode(payload, secret);
         userModel.token = jwtToken;
         userModel.save(function (err) {
@@ -205,7 +204,7 @@ exports.jwtSignin = function (req, res, next) {
           } else {
             res.json({
               type: false,
-              data: 'Incorrect password'
+              data: 'Incorrect password from user'
             });
           }
         });
@@ -258,13 +257,15 @@ exports.checkUserByToken = function (req, res) {
 
 
 exports.jwtSignout = function (req, res, next) {
+  console.log('in the jwtsignout ##');
   /*  req.logout();
     res.redirect('/');*/
-  var bearerToken;
+ var bearerToken ;
   var bearerHeader = req.headers.authorization;
   if (typeof bearerHeader !== 'undefined') {
     console.log('bearerHeader is received : ' + bearerHeader);
     var bearer = bearerHeader.split(' ');
+    console.log('-----bearer------>'+bearer);
     if (bearer[1] === 'undefined') {
       res.sendStatus(401);
       //req.logout();
@@ -293,8 +294,9 @@ exports.jwtSignout = function (req, res, next) {
               console.log('Error occured on singout function is : ' + err);
               res.status(400).send(err);
             } else {
-              console.log('Success singout ');
-              req.logout();
+              console.log('Success singout-297 line ');
+              req.logOut();
+              req.session.destroy();
               res.status(200).send({
                 type: true,
                 data: 'User is susccessfully logged out'
@@ -381,6 +383,7 @@ exports.signout = function (req, res) {
  * OAuth provider call
  */
 exports.oauthCall = function (strategy, scope) {
+  //console.log('##########in the server side controller oauthcall');
   return function (req, res, next) {
     // Set redirection path on session.
     // Do not redirect to a signin or signup page
@@ -396,6 +399,7 @@ exports.oauthCall = function (strategy, scope) {
  * OAuth callback
  */
 exports.oauthCallback = function (strategy) {
+  //console.log('@@@@@@@ in the oauthcallback() ');
   return function (req, res, next) {
     // Pop redirect URL from session
     var sessionRedirectURL = req.session.redirect_to;
@@ -420,7 +424,7 @@ exports.oauthCallback = function (strategy) {
 };
 
 /**
- * Helper function to save or update a OAuth user profile
+  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
   if (!req.user) {

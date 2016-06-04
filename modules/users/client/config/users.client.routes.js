@@ -1,8 +1,10 @@
 'use strict';
 
 // Setting up route
+
 angular.module('users').config(['$stateProvider',
   function ($stateProvider) {
+   // console.log('In the clientSide Routes');
     // Users state routing
     $stateProvider
       .state('settings', {

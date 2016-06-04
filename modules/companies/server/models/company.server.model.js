@@ -100,16 +100,6 @@ var CompanySchema = new Schema({
     type: Boolean,
     default: false
   },
-  avgRatings: {
-    type: Number,
-    default: 0
-
-  },
-  totalRatingsCount: {
-    type: Number,
-    default: 0
-
-  },
   businessSector: [],
   serviceOffered: [],
   operationalRegions: [],
