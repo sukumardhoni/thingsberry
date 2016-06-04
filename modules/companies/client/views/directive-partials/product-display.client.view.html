@@ -33,20 +33,29 @@
     <div class="row">
       <span class="col-md-6 col-xs-6 text-center user ">
 
-      <div class="arrow_box rt">
+      <div ng-mouseleave="hoverOut()" class=" arrow_box rt" ng-show="showRatings">
         <div class="ratingName">
           <h5><b>Give your rating here..</b></h5>
         </div>
 
-
+<div class="stars">
         <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
       </div>
+</div>
+
+        <div class="arrow_box rt" ng-hide="showRatings">
+
+          <h5>You have given <b>{{rate1}} star</b> rating would you like to <br><a ng-click="showMe()" class="modifyIt"><b  >Modify it</b></a>
+
+      </h5>
+
+    </div>
 
 
-      <!--<span class="col-md-6 col-xs-6 text-center ">-->
-        <uib-rating ng-model="rate" max="5" read-only="isReadonly"  on-titles="['one','two','three']" aria-labelledby="default-rating"  class="readOnlyRating"></uib-rating>({{reviewsCount}})
+    <!--<span class="col-md-6 col-xs-6 text-center ">-->
+    <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating"></uib-rating>({{reviewsCount}})
 
-      </span>
+    </span>
 
       <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-6 col-xs-6 text-center icons-on-img-footer"></i></a>
     </div>

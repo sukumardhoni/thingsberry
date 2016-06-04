@@ -10,31 +10,60 @@ angular.module('companies')
       },
       templateUrl: 'modules/companies/client/views/directive-partials/product-display.client.view.html',
       link: function (scope, elem, attrs) {
+
+        var previousRatingValue;
+        var localStorageRatingKey;
+
         scope.user = $localStorage.user;
 
+        var productname = scope.details.Proname;
+        var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
 
-        scope.isReadonly1 = false;
+
+        if (scope.user == undefined) {
+
+          localStorageRatingKey = "guest" + productNameLowerCase;
+          //console.log("userId:" + localStorageRatingKey);
+
+        } else {
+
+          localStorageRatingKey = scope.user._id + productNameLowerCase;
+          // console.log("userId:" + localStorageRatingKey);
+
+        }
+
+
 
         scope.rating = function (rate) {
 
+
           scope.ratevalue = rate;
-          //console.log("@@@@" + JSON.stringify(scope.details));
-          //console.log('rateValue:' + scope.ratevalue);
 
-          if (scope.details._id) {
 
-            ratingService.update({
-              companyId: scope.details._id,
-              userRating: scope.ratevalue
-            }, scope.details, successCallback, errorCallback);
+          if ($localStorage[localStorageRatingKey] == undefined) {
+
+            previousRatingValue = 0;
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+          } else {
+
+            previousRatingValue = $localStorage[localStorageRatingKey];
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
 
           }
+
+
+          ratingService.update({
+            companyId: scope.details._id,
+            userRating: scope.ratevalue,
+            previousRatingValue: previousRatingValue
+          }, scope.details, successCallback, errorCallback);
+
 
           function successCallback(res) {
             // console.log("coming from callback");
             scope.rate = res.avgRatings;
             scope.reviewsCount = res.totalRatingsCount;
-
           }
 
 
@@ -42,11 +71,39 @@ angular.module('companies')
             //  console.log("coming from callback");
             NotificationFactory.error('Failed to update the product rating...', res.data.message);
           }
+
         };
 
+        scope.showMe = function () {
 
-        scope.details.rateValue = scope.ratevalue;
-        scope.rate1 = scope.details.rateValue;
+          scope.showRatings = !scope.showRatings;
+
+        }
+
+        scope.hoverOut = function () {
+
+          if ($localStorage[localStorageRatingKey]) {
+
+            scope.showRatings = !scope.showRatings;
+
+          } else {
+
+            scope.showRatings = true;
+          }
+        }
+
+
+        if ($localStorage[localStorageRatingKey]) {
+
+          scope.showRatings = false;
+
+        } else {
+
+          scope.showRatings = true;
+        }
+
+        scope.rate1 = $localStorage[localStorageRatingKey];
+        scope.isReadonly1 = false;
         scope.rate = scope.details.avgRatings;
         scope.reviewsCount = scope.details.totalRatingsCount;
         scope.max = 5;
