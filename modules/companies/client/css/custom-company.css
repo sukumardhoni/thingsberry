@@ -365,7 +365,6 @@
   color: #e9ce18;
 }
 
-<<<<<<< HEAD
 .modifyIt:hover {
   cursor: pointer;
   text-decoration: none !important;
@@ -431,7 +430,6 @@
  top: 10%;
  left: 9px;
  right: 210px;*/
-
   border: 1px solid;
   border-color: #777 #6c6c6c #666;
   border-radius: 5px;
@@ -447,8 +445,6 @@
   transition: 0.2s ease-out;
 }
 
-=======
->>>>>>> origin/ratingsBranch
 .circle-styles-search {
   padding: 23px 25px;
   display: inline-block;
@@ -471,16 +467,16 @@
   margin-top: 2px;
 }
 
-
 #disqus_thread {
-     position: relative;
+  position: relative;
 }
+
 #disqus_thread:after {
-     content: "";
-     display: block;
-     height: 55px;
-     width: 100%;
-     position: absolute;
-     bottom: 0;
-     background: white;
+  content: "";
+  display: block;
+  height: 55px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: white;
 }

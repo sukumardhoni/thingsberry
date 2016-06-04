@@ -32,9 +32,6 @@ angular.module('companies')
 
         }
 
-
-<<<<<<< HEAD
-
         scope.rating = function (rate) {
 
 
@@ -74,13 +71,9 @@ angular.module('companies')
           }
 
         };
-=======
 
 
-        scope.rate1 = 4;
-        scope.max1 = 5;
-        scope.isReadonly1 = false;
->>>>>>> origin/ratingsBranch
+
 
         scope.showMe = function () {
 
@@ -105,7 +98,6 @@ angular.module('companies')
 
           scope.showRatings = false;
 
-<<<<<<< HEAD
         } else {
 
           scope.showRatings = true;
@@ -115,10 +107,7 @@ angular.module('companies')
         scope.isReadonly1 = false;
         scope.rate = scope.details.avgRatings;
         scope.reviewsCount = scope.details.totalRatingsCount;
-=======
-        scope.rate = Math.floor(Math.random() * 6) + 1;
-        scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
->>>>>>> origin/ratingsBranch
+
         scope.max = 5;
         scope.isReadonly = true;
 

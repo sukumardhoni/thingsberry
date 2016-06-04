@@ -24,12 +24,8 @@ module.exports = function (app) {
   app.route('/api/premiumProducts')
     .get(companies.premiumProductsList);
 
-<<<<<<< HEAD
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
-=======
 
-
->>>>>>> origin/ratingsBranch
 
 
   // Single company routes

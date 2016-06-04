@@ -14,25 +14,18 @@
     <div class="product_desc">{{ details.description | limitTo: limit }}{{details.description.length > limit ? '...' : ''}}<span class="moreDesc" ng-click="changeLimit(details)" ng-hide="details.description.length < limit">&nbsp;&nbsp;{{(limit != details.description.length) ? 'more' :'less'}}<i class="fa text-cente" ng-class="{'fa-angle-double-right': (limit != details.description.length), 'fa-angle-double-left': (limit == details.description.length)}"></i></span></div>
     <br>
     <div class="row">
-<<<<<<< HEAD
-      <span class="col-md-6 col-xs-6 text-center user ">
-
+      <span class="col-md-4 col-xs-4 text-center user ">
       <div ng-mouseleave="hoverOut()" class=" arrow_box rt" ng-show="showRatings">
         <div class="ratingName">
           <h5><b>Give your rating here..</b></h5>
         </div>
-
 <div class="stars">
         <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
       </div>
 </div>
-
         <div class="arrow_box rt" ng-hide="showRatings">
-
           <h5>You have given <b>{{rate1}} star</b> rating would you like to <br><a ng-click="showMe()" class="modifyIt"><b  >Modify it</b></a>
-
       </h5>
-
     </div>
 
 
@@ -41,17 +34,15 @@
 
     </span>
 
-      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-6 col-xs-6 text-center icons-on-img-footer"></i></a>
-=======
+      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-4 col-xs-4 text-center icons-on-img-footer"></i></a>
       <!--<i class="fa fa-star col-md-6 col-xs-6 text-center"></i>-->
-      <span class="col-md-6 col-xs-6 text-center">
+      <!-- <span class="col-md-6 col-xs-6 text-center">
         <uib-rating ng-model="rate" max="5" read-only="isReadonly"  on-titles="['one','two','three']" aria-labelledby="default-rating" uib-popover-template="dynamicPopover.templateUrl" popover-title="You can update your ratings here. (funtionality coming soon)" popover-trigger="mouseenter" class="readOnlyRating"></uib-rating>({{reviewsCount}})
       </span>
-      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-3 col-xs-3 text-center icons-on-img-footer"></i></a>
-       <a ui-sref="companies.view({ companyId: details._id })" >
-          <i class="fa fa-expand col-md-2 col-xs-2 text-center icons-on-img-footer"></i></a>
+      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-3 col-xs-3 text-center icons-on-img-footer"></i></a>-->
+      <a ui-sref="companies.view({ companyId: details._id })">
+        <i class="fa fa-expand col-md-4 col-xs-4 text-center icons-on-img-footer"></i></a>
       <!--<i class="fa col-md-4 col-xs-4  text-cente" ></i>-->
->>>>>>> origin/ratingsBranch
     </div>
   </div>
 </div>

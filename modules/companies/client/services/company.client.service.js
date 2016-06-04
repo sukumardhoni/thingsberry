@@ -74,7 +74,6 @@
     return service;
   };
 
-<<<<<<< HEAD
   ratingService.$inject = ['$resource'];
 
   function ratingService($resource) {
@@ -89,8 +88,5 @@
     });
     console.log("coming to rating service:");
   };
-
-=======
->>>>>>> origin/ratingsBranch
 
 })();

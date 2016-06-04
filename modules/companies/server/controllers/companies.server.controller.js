@@ -102,7 +102,6 @@ exports.update = function (req, res) {
   });
 };
 
-<<<<<<< HEAD
 
 /**UPDATE RATINGS**/
 
@@ -177,8 +176,6 @@ exports.updateRating = function (req, res) {
 };
 
 
-=======
->>>>>>> origin/ratingsBranch
 /**
  * Delete an company
  */
