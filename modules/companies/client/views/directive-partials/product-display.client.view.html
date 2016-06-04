@@ -18,7 +18,9 @@
       <span class="col-md-6 col-xs-6 text-center">
         <uib-rating ng-model="rate" max="5" read-only="isReadonly"  on-titles="['one','two','three']" aria-labelledby="default-rating" uib-popover-template="dynamicPopover.templateUrl" popover-title="You can update your ratings here. (funtionality coming soon)" popover-trigger="mouseenter" class="readOnlyRating"></uib-rating>({{reviewsCount}})
       </span>
-      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-6 col-xs-6 text-center icons-on-img-footer"></i></a>
+      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-3 col-xs-3 text-center icons-on-img-footer"></i></a>
+       <a ui-sref="companies.view({ companyId: details._id })" >
+          <i class="fa fa-expand col-md-2 col-xs-2 text-center icons-on-img-footer"></i></a>
       <!--<i class="fa col-md-4 col-xs-4  text-cente" ></i>-->
     </div>
   </div>

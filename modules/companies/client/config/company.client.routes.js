@@ -66,7 +66,29 @@
           pageTitle: 'Edit Company {{ companyResolve.Proname }}'
         }
       })
-      .state('companies.view', {
+
+     .state('companies.view', {
+        url: '/:companyId',
+        templateUrl: 'modules/companies/client/views/view-company.client.view.html',
+        controller: 'CompanyController',
+        controllerAs: 'vm',
+        resolve: {
+          companyResolve: getCompany
+        },
+        data: {
+          pageTitle: 'Company {{ companyResolve.Proname }}'
+        }
+      });
+  }
+
+  getCompany.$inject = ['$stateParams', 'CompanyService'];
+
+  function getCompany($stateParams, CompanyService) {
+    return CompanyService.get({
+      companyId: $stateParams.companyId
+    }).$promise;
+  }
+   /*   .state('companies.view', {
         url: '/:companyId',
         templateUrl: 'modules/company/client/views/view-company.client.view.html',
         controller: 'CompanyController',
@@ -86,7 +108,7 @@
     return CompanyService.get({
       companyId: $stateParams.companyId
     }).$promise;
-  }
+  }*/
 
   newCompany.$inject = ['CompanyService'];
 
