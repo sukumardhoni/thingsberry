@@ -81,8 +81,8 @@
 
   function ratingService($resource) {
 
-    return $resource('api/updateRating/:companyId/:userRating', {
-
+    return $resource('api/updateRating/:companyId/:previousRatingValue/:userRating', {
+      previousRatingValue: '@previousRatingValue',
       companyId: '@companyId'
     }, {
       update: {

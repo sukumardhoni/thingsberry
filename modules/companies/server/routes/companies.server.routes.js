@@ -24,7 +24,7 @@ module.exports = function (app) {
   app.route('/api/premiumProducts')
     .get(companies.premiumProductsList);
 
-  app.route('/api/updateRating/:companyId/:userRating').put(companies.updateRating);
+  app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
 
 
   // Single company routes
