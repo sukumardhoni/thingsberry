@@ -2,7 +2,7 @@
 
 
 angular.module('companies')
-  .directive('productDisplay', function (dataShare, $state, $localStorage) {
+  .directive('productDisplay', function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
     return {
       restrict: 'E',
       scope: {
@@ -136,10 +136,10 @@ angular.module('companies')
 
 
 
-        scope.dynamicPopover = {
+        /* scope.dynamicPopover = {
           templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
         };
-
+*/
 
         scope.hoveringOver = function (value) {
           //console.log('hoveringOver is called');

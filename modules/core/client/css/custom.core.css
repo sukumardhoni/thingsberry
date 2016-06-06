@@ -39,8 +39,6 @@ section {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
   background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
 }
-
-
 /*.navbar-inverse {
   background-color: #029ce3 !important;
   border-color: #029ce3 !important;
@@ -327,8 +325,6 @@ navbar-inverse .navbar-nav > .open > a,
   height: 55px;
   z-index: 158;
 }
-
-
 /*.default-search > select {
   background: #fff url('../../../../modules/core/client/img/buttons/arrow.png') no-repeat;
   background-size: 15px;
@@ -349,8 +345,6 @@ navbar-inverse .navbar-nav > .open > a,
 input {
   color: rgb(51, 51, 51) !important;
 }
-
-
 /*.custom-homepage-input {
   font-size: 20px;
   margin-top: 25px;
@@ -359,8 +353,6 @@ input {
   height: 55px;
   margin-left: -6px;
 }*/
-
-
 /*.btn-custom-search {
   border-radius: 5px;
   margin-top: 25px;
@@ -670,95 +662,54 @@ footer {
 .PopCats:hover {
   cursor: pointer;
 }
-
-
 /* Sticky footer styles
       -------------------------------------------------- */
-
-
 
 html,
 body {
   height: 100%;
-
-/*   The html and body elements cannot have any padding or margin. */
+  /*   The html and body elements cannot have any padding or margin. */
 }
-
-
 /* Wrapper for page content to push down footer */
 
 #wrap {
   min-height: 80%;
-    position: relative;
+  position: relative;
   height: auto !important;
   height: 100%;
   margin: 50px auto 0px;
-     /*overflow: auto;*/
-      overflow: hidden;
+  /*overflow: auto;*/
 
-
+  overflow: hidden;
 }
-
-
 /* Set the fixed height of the footer here */
 
 #footer {
   height: 60px;
-
 }
 
 .container {
-   min-height:100%;
-   position:relative;
+  min-height: 100%;
+  position: relative;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*html,
 body {
   height: 100%;
    The html and body elements cannot have any padding or margin.
 }*/
-
-
 /* Wrapper for page content to push down footer */
-
 /*#wrap {
   min-height: 80%;
   height: auto !important;
   height: 100%;
   margin: 50px auto 0px;
 }*/
-
-
 /* Set the fixed height of the footer here */
-
 /*
 #footer {
   height: 60px;
 }
 */
-
-
 /* Lastly, apply responsive CSS fixes as necessary */
 
 @media (max-width: 767px) {
@@ -818,6 +769,24 @@ tags-input .tags {
   bottom: 5px;
   position: fixed;
   background: url('../../../../modules/core/client/img/buttons/uparr-48-w.png') no-repeat center center rgb(2, 168, 243);
+  border: 1px solid #fff;
+}
+
+#back {
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+  border-radius: 4px;
+  text-indent: -9999px;
+  cursor: pointer;
+  z-index: 999999999;
+  display: none;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  right: 20px;
+  top: 59px;
+  position: fixed;
+  background: url('../../../../modules/core/client/img/buttons/resize-small.png') no-repeat center center rgb(2, 168, 243);
   border: 1px solid #fff;
 }
 

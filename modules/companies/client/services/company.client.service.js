@@ -6,6 +6,7 @@
     .factory('CompanyService', CompanyService)
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
+    .factory('ratingService', ratingService)
 
 
 
@@ -86,7 +87,7 @@
         method: 'PUT'
       }
     });
-    console.log("coming to rating service:");
+
   };
 
 })();

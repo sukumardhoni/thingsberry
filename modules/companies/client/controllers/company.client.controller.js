@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
     var vm = this;
 
     vm.company = company;
@@ -50,17 +50,105 @@
     $scope.addBtnText = 'SUBMIT';
     /*$scope.user = $localStorage.user;*/
 
+    var previousRatingValue;
+    var localStorageRatingKey;
+
+    $scope.user = $localStorage.user;
+
+    var productname = vm.company.Proname;
+    //  console.log("company details:" + vm.company.Proname);
+    var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
 
 
-        $scope.rate1 = 4;
-        $scope.max1 = 5;
-        $scope.isReadonly1 = false;
+    if ($scope.user == undefined) {
 
-        $scope.rate = Math.floor(Math.random() * 6) + 1;
-        $scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
-        $scope.max = 5;
-        $scope.isReadonly = true;
+      localStorageRatingKey = "guest" + productNameLowerCase;
+      //console.log("userId:" + localStorageRatingKey);
 
+    } else {
+
+      localStorageRatingKey = $scope.user._id + productNameLowerCase;
+      // console.log("userId:" + localStorageRatingKey);
+
+    }
+
+    $scope.rating = function (userRateValue) {
+
+
+      $scope.ratevalue = userRateValue;
+
+
+      if ($localStorage[localStorageRatingKey] == undefined) {
+
+        previousRatingValue = 0;
+        $localStorage[localStorageRatingKey] = $scope.ratevalue;
+
+      } else {
+
+        previousRatingValue = $localStorage[localStorageRatingKey];
+        $localStorage[localStorageRatingKey] = $scope.ratevalue;
+
+      }
+
+
+      ratingService.update({
+        companyId: vm.company._id,
+        userRating: $scope.ratevalue,
+        previousRatingValue: previousRatingValue
+      }, vm.company, successCallback, errorCallback);
+
+
+      function successCallback(res) {
+        // console.log("coming from callback");
+        $scope.rate = res.avgRatings;
+        $scope.reviewsCount = res.totalRatingsCount;
+      }
+
+
+      function errorCallback(res) {
+        console.log("coming from callback");
+        NotificationFactory.error('Failed to update the product rating...', res.data.message);
+      }
+
+    };
+
+
+    $scope.rate1 = $localStorage[localStorageRatingKey];
+
+    $scope.isReadonly1 = false;
+
+    $scope.rate = vm.company.avgRatings;
+    $scope.reviewsCount = vm.company.totalRatingsCount;
+
+    $scope.isReadonly = true;
+
+    $scope.showMe = function () {
+
+      $scope.showRatings = !$scope.showRatings;
+
+    }
+
+    $scope.hoverOut = function () {
+
+      if ($localStorage[localStorageRatingKey]) {
+
+        $scope.showRatings = !$scope.showRatings;
+
+      } else {
+
+        $scope.showRatings = true;
+      }
+    }
+
+
+    if ($localStorage[localStorageRatingKey]) {
+
+      $scope.showRatings = false;
+
+    } else {
+
+      $scope.showRatings = true;
+    }
 
 
     /*   $scope.userValidation = function () {
@@ -93,21 +181,21 @@
 
 
 
-      $scope.changeLimit = function (pro) {
-          if ($scope.limit == pro.description.length)
-            $scope.limit = 100;
-          else
-            $scope.limit = pro.description.length;
-        };
+    $scope.changeLimit = function (pro) {
+      if ($scope.limit == pro.description.length)
+        $scope.limit = 100;
+      else
+        $scope.limit = pro.description.length;
+    };
 
-      $scope.dynamicPopover = {
-          templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
-        };
-       $scope.hoveringOver = function (value) {
-          console.log('hoveringOver is called');
-          $scope.overStar = value;
-          $scope.percent = 100 * (value / $scope.max);
-        };
+    /*$scope.dynamicPopover = {
+      templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+    };*/
+    $scope.hoveringOver = function (value) {
+      //  console.log('hoveringOver is called');
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };
 
 
     $scope.removeProduct = function () {

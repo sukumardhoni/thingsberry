@@ -1,86 +1,101 @@
+<!-- <div class="product-square">-->
+<!--    <a  ng-href="#" targer="_blank"><i style="font-size:1.7em;color:blue;" class="fa fa-compress col-md-offset-10 col-md-8 col-md-8 col-sm-offset-5 col-sm-10  col-xs-15 icons-on-img-header" onclick="history.back(-1)"></i></a>-->
 
+<div class="product">
+  <br>
+  <!--<a ng-href="#" targer="_blank"><i style="font-size:1.7em;color:#00aff0;" class="fa fa-compress col-md-offset-10 col-md-8  col-sm-offset-5 col-sm-10  hidden-xs icons-on-img-header" onclick="history.back(-1)"></i></a>-->
 
+  <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12" style="opacity: 1;">
+    <div>
 
+      <div ng-show="user.roles.indexOf('admin') > -1" class="editIon">
+        <i class="fa fa-pencil pencilIcon" ng-click="editProduct(details)"></i>
+      </div>
+      <div class="product-square-title">
+        <!--        <span style="font-size:1.6em;color:#3b5997;" class="glyphicons glyphicons-resize-full col-md-offset-10 col-md-8 col-md-8 col-sm-offset-5 col-sm-10  col-xs-15 icons-on-img-header" onclick="history.back(-1)"></span>-->
+        <p class="product_title">{{vm.company.Proname}} </p>
+      </div>
 
+      <div class="product-square-logo">
+        <p>
+          <a ng-href="{{vm.company.webAddress}}" target="_blank"> <img class="product-square-img" ng-src="{{vm.company.productImageURL}}"> </a>
+        </p>
+      </div>
 
-   <!-- <div class="product-square">-->
-      <!--    <a  ng-href="#" targer="_blank"><i style="font-size:1.7em;color:blue;" class="fa fa-compress col-md-offset-10 col-md-8 col-md-8 col-sm-offset-5 col-sm-10  col-xs-15 icons-on-img-header" onclick="history.back(-1)"></i></a>-->
-
-           <div class="product">
-        <a  ng-href="#" targer="_blank"><i style="font-size:1.7em;color:#00aff0;" class="fa fa-compress col-md-offset-10 col-md-8 col-md-8 col-sm-offset-5 col-sm-10  col-xs-15 icons-on-img-header" onclick="history.back(-1)"></i></a>
-
- <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12" style="opacity: 1;">
-          <div>
-
-<div ng-show="user.roles.indexOf('admin') > -1" class="editIon">
-    <i class="fa fa-pencil pencilIcon" ng-click="editProduct(details)"></i></div>
-  <div class="product-square-title">
-<!--        <span style="font-size:1.6em;color:#3b5997;" class="glyphicons glyphicons-resize-full col-md-offset-10 col-md-8 col-md-8 col-sm-offset-5 col-sm-10  col-xs-15 icons-on-img-header" onclick="history.back(-1)"></span>-->
-    <p class="product_title">{{vm.company.Proname}} </p>
-  </div>
-
-  <div class="product-square-logo">
-    <p>
-      <a ng-href="{{vm.company.webAddress}}" target="_blank"> <img class="product-square-img" ng-src="{{vm.company.productImageURL}}"> </a>
-    </p>
-  </div>
-
- <!-- <div class="product-square-body" ng-init="limit= 100">
+      <!-- <div class="product-square-body" ng-init="limit= 100">
     <div class="product_desc">{{ vm.company.description | limitTo: limit }}{{vm.company.description.length > limit ? '...' : ''}}<span class="moreDesc" ng-click="changeLimit(vm.company)"   ng-hide="vm.company.description.length < limit">&nbsp;&nbsp;{{(limit != vm.company.description.length) ? 'more' :'less'}}<i class="fa text-cente" ng-class="{'fa-angle-double-right': (limit != vm.company.description.length), 'fa-angle-double-left': (limit == vm.company.description.length)}"></i></span></div>-->
 
-    <div class="product-square-body" ng-init="limit= 100">
-    <div class="product_desc">{{ vm.company.description}}</div></div>
+      <div class="product-square-body" ng-init="limit= 100">
+        <div class="product_desc">{{ vm.company.description}}</div>
+      </div>
 
-    <br>
-    <div class="row">
-      <!--<i class="fa fa-star col-md-6 col-xs-6 text-center"></i>-->
-      <span class="col-md-6 col-xs-6 text-center">
+      <br>
+      <div class="row">
+        <span class="col-md-4 col-md-offset-1 col-xs-4 col-xs-offset-1 text-center user ">
+      <div ng-mouseleave="hoverOut()" class=" arrow_box rt" ng-show="showRatings">
+        <div class="ratingName">
+          <h5><b>Give your rating here..</b></h5>
+        </div>
+<div class="stars">
+        <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
+      </div>
+</div>
+        <div class="arrow_box rt" ng-hide="showRatings">
+          <h5 class="ratedPopover">You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b  > modify</b></a>
+      </h5>
+    </div>
 
-      <uib-rating ng-model="rate" max="5" read-only="isReadonly"  on-titles="['one','two','three']" aria-labelledby="default-rating" uib-popover-template="dynamicPopover.templateUrl" popover-title="You can update your ratings here. (funtionality coming soon)" popover-trigger="mouseenter" class="readOnlyRating" >
-          </uib-rating>({{reviewsCount}})
-      </span>
-        <div>
-      <a ng-href="{{vm.company.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-6 col-xs-6 text-center icons-on-img-footer"></i></a>
+
+    <!--<span class="col-md-6 col-xs-6 text-center ">-->
+    <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating"></uib-rating>({{reviewsCount}})
+
+    </span>
+
+        <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-3 col-md-offset-1 col-xs-offset-1 col-xs-3 text-center icons-on-img-footer"></i></a>
+
+        <a ng-href="#" targer="_blank"><i  class="fa fa-compress  col-md-3  col-sm-3  col-xs-3 text-center icons-on-img-footer" onclick="history.back(-1)"></i></a>
 
       </div>
     </div>
   </div>
 </div>
-          </div>
 
 
- <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12" style="opacity: 1;">
-     <center>
-    <h3>Comments</h3></center>
+<div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12" style="opacity: 1;">
+  <center>
+    <h3>Comments</h3>
+  </center>
 
-        <div id="disqus_thread"></div>
-<script>
-/**
-* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
 
-s.src = '//qathingsberrycom.disqus.com/embed.js';
+      s.src = '//qathingsberrycom.disqus.com/embed.js';
 
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-        </div>
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+</div>
 
 
 
 
-    <a id='backTop'>Back To Top</a>
+<a id='backTop'>Back To Top</a>
 <script>
   $(document).ready(function () {
     $(window).scroll(function () {
@@ -102,15 +117,24 @@ s.setAttribute('data-timestamp', +new Date());
 </script>
 
 
+<a id='back'>Back To Previous Page</a>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 10) {
+        $("#back").fadeIn();
+      } else {
+        $("#back").fadeOut();
+      }
+    });
 
-
-
-
-
-
-
-
-
+    // scroll body to 0px on click
+    $("#back").click(function () {
+      window.history.back(-1);
+      return false;
+    })
+  });
+</script>
 
 
 

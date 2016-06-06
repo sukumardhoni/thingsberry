@@ -110,21 +110,22 @@ function calculateRating(previousRatingValue, userRating, avgRatings, totalUsers
   if (previousRatingValue == 0) {
 
     var sum = (((avgRatings * totalUsers) - parseInt(previousRatingValue)) + parseInt(userRating));
-    // console.log("sum:" + sum);
+    //  console.log("sum:" + sum);
     var usersCount = parseInt(totalUsers + 1);
     //  console.log("usersCount:" + usersCount);
     var avg = sum / usersCount;
-    // console.log("avg:" + avg);
-    // console.log("coming to true condition count have to increase");
+    //  console.log("avg:" + avg);
+    //  console.log("coming to true condition count have to increase");
 
   } else {
 
     sum = (((avgRatings * totalUsers) - parseInt(previousRatingValue)) + parseInt(userRating));
-    console.log("sum:" + sum);
-    // console.log("total users:" + totalUsers);
+    //  console.log("sum:" + sum);
+    //  console.log("total users:" + totalUsers);
     avg = sum / totalUsers;
     //  console.log("coming to false condition no count increament");
   }
+
   return avg;
 };
 
@@ -134,9 +135,13 @@ exports.updateRating = function (req, res) {
   // console.log("@@@@@@@@ coming to createRating server side function");
 
   var previousRatingValue = req.params.previousRatingValue;
+  // console.log("previousRatingValue:" + previousRatingValue);
   var userRating = req.params.userRating;
+  //  console.log("userRating:" + userRating);
   var avgRatings = req.company.avgRatings;
+  //  console.log("avgRatings:" + avgRatings);
   var totalUsers = req.company.totalRatingsCount;
+  //  console.log("totalUsers:" + totalUsers);
 
   var currentRating = calculateRating(previousRatingValue, userRating, req.company.avgRatings, req.company.totalRatingsCount);
 
@@ -146,10 +151,13 @@ exports.updateRating = function (req, res) {
     var count = req.company.totalRatingsCount;
     count++
 
-  } else {
+  } else if (userRating == 0) {
 
     count = req.company.totalRatingsCount;
+    count--;
 
+  } else {
+    count = req.company.totalRatingsCount;
   }
 
   req.body.avgRatings = Math.round(currentRating);
