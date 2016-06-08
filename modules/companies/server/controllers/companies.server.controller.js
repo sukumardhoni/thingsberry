@@ -71,7 +71,9 @@ exports.read = function (req, res) {
 
   // Add a custom field to the Company, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Company model.
-  company.isCurrentUserOwner = req.user && company.user && company.user._id.toString() === req.user._id.toString() ? true : false;
+  company.isCurrentUserOwner = req.user && company.user && company.user._id.toString() === req.user._id.toString()
+
+  ? true: false;
 
   res.json(company);
 };
@@ -99,6 +101,88 @@ exports.update = function (req, res) {
     }
   });
 };
+
+
+/**UPDATE RATINGS**/
+
+function calculateRating(previousRatingValue, userRating, avgRatings, totalUsers) {
+
+  if (previousRatingValue == 0) {
+
+    var sum = (((avgRatings * totalUsers) - parseInt(previousRatingValue)) + parseInt(userRating));
+    //  console.log("sum:" + sum);
+    var usersCount = parseInt(totalUsers + 1);
+    //  console.log("usersCount:" + usersCount);
+    var avg = sum / usersCount;
+    //  console.log("avg:" + avg);
+    //  console.log("coming to true condition count have to increase");
+
+  } else {
+
+    sum = (((avgRatings * totalUsers) - parseInt(previousRatingValue)) + parseInt(userRating));
+    //  console.log("sum:" + sum);
+    //  console.log("total users:" + totalUsers);
+    avg = sum / totalUsers;
+    //  console.log("coming to false condition no count increament");
+  }
+
+  return avg;
+};
+
+
+exports.updateRating = function (req, res) {
+
+  // console.log("@@@@@@@@ coming to createRating server side function");
+
+  var previousRatingValue = req.params.previousRatingValue;
+  // console.log("previousRatingValue:" + previousRatingValue);
+  var userRating = req.params.userRating;
+  //  console.log("userRating:" + userRating);
+  var avgRatings = req.company.avgRatings;
+  //  console.log("avgRatings:" + avgRatings);
+  var totalUsers = req.company.totalRatingsCount;
+  //  console.log("totalUsers:" + totalUsers);
+
+  var currentRating = calculateRating(previousRatingValue, userRating, req.company.avgRatings, req.company.totalRatingsCount);
+
+  // console.log("currentRating is :" + currentRating);
+  if (previousRatingValue == 0) {
+
+    var count = req.company.totalRatingsCount;
+    count++
+
+  } else if (userRating == 0) {
+
+    count = req.company.totalRatingsCount;
+    count--;
+
+  } else {
+    count = req.company.totalRatingsCount;
+  }
+
+  req.body.avgRatings = Math.round(currentRating);
+  //  console.log("save to avgRatings:" + req.body.avgRatings);
+  req.body.totalRatingsCount = count;
+  //  console.log("save to totalCount:" + req.body.totalRatingsCount);
+
+  var company = req.company;
+
+  company = _.extend(company, req.body);
+
+  company.save(function (err) {
+    if (err) {
+      console.log("@@@@ error:" + err);
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(company);
+      //    console.log("####:" + company);
+    }
+  });
+
+};
+
 
 /**
  * Delete an company

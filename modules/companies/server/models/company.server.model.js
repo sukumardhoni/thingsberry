@@ -96,6 +96,14 @@ var CompanySchema = new Schema({
     default: '',
     trim: true
   },
+  avgRatings: {
+    type: Number,
+    default: 0
+  },
+  totalRatingsCount: {
+    type: Number,
+    default: 0
+  },
   premiumFlag: {
     type: Boolean,
     default: false

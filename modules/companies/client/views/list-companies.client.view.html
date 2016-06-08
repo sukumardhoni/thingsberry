@@ -38,7 +38,8 @@
         </div>
       </div>
     </div>
-    <div style="margin:5%" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif"></div>
+    <div style="margin:5%" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
+    </div>
     <button type="button" class="btn-add-company btn-search-products" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">Load More Products</button>
   </div>
   <div class="alert alert-warning text-center" ng-show="vm.companys.length == 0">

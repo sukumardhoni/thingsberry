@@ -6,6 +6,7 @@
     .factory('CompanyService', CompanyService)
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
+    .factory('ratingService', ratingService)
 
 
 
@@ -74,5 +75,19 @@
     return service;
   };
 
+  ratingService.$inject = ['$resource'];
+
+  function ratingService($resource) {
+
+    return $resource('api/updateRating/:companyId/:previousRatingValue/:userRating', {
+      previousRatingValue: '@previousRatingValue',
+      companyId: '@companyId'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+
+  };
 
 })();
