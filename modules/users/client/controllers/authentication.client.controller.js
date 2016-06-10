@@ -113,10 +113,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
 
     hello.init({
-      facebook: '239001833102223',
-      google: '1011487504050-sjufok8ijqcho7h19uke77et14bmu87n.apps.googleusercontent.com'
+      google: '1011487504050-sjufok8ijqcho7h19uke77et14bmu87n.apps.googleusercontent.com',
+      facebook: '239001833102223'
     }, {
-      scope: 'email'
+      scope: 'email',
+      redirect_uri: '/'
     });
 
     $scope.fbAuthLogIn = function () {
@@ -167,11 +168,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.googleAuthLogIn = function () {
       //console.log('in the googleAuthLogIn');
-      hello('google').login({
-        scope: 'email',
-        force: false
-      }).then(function (gRes) {
-        //console.log('google user response'+JSON.stringify(gRes));
+      hello('google').login().then(function (gRes) {
+        //console.log('google user response' + JSON.stringify(gRes));
         $http({
             method: "GET",
             url: 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + gRes.authResponse.access_token,

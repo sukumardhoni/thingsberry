@@ -45,9 +45,11 @@ module.exports = {
     callbackURL: '/api/auth/twitter/callback'
   },
   google: {
-    clientID: process.env.GOOGLE_ID || '1011487504050-sjufok8ijqcho7h19uke77et14bmu87n.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || 't3uDdLdcpScStl2NN-nKELuc',
-    //callbackURL: 'http://localhost:3000/'
+    /*
+        clientID: process.env.GOOGLE_ID || '1011487504050-sjufok8ijqcho7h19uke77et14bmu87n.apps.googleusercontent.com',
+        clientSecret: process.env.GOOGLE_SECRET || 't3uDdLdcpScStl2NN-nKELuc',*/
+    clientID: process.env.GOOGLE_ID || 'APP_ID',
+    clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
     callbackURL: '/api/auth/google/callback'
   },
   linkedin: {
