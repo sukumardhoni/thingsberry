@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$localStorage', 'NotificationFactory','SignUpCondition','Users',
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$localStorage', 'NotificationFactory', 'SignUpCondition', 'Users',
   function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, $localStorage, NotificationFactory, SignUpCondition, Users) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
@@ -81,7 +81,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           $scope.error = response.data;
           //$scope.isDisabled = false;
           //$scope.buttonTextSignUp = 'Sign Up';
-         // console.log('Error Msg : ' + JSON.stringify(response.data));
+          // console.log('Error Msg : ' + JSON.stringify(response.data));
 
         } else {
           $scope.error = null;
@@ -105,31 +105,31 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $localStorage.user = respUser;
       $localStorage.token = respUser.token;
       NotificationFactory.success('Hi ' + respUser.displayName, 'Authentication Success !');
-     /* console.log('states:'+ $state.previous.state.name);
-      console.log('states++++:'+ JSON.stringify($state.previous.params));*/
+      /* console.log('states:'+ $state.previous.state.name);
+       console.log('states++++:'+ JSON.stringify($state.previous.params));*/
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     };
 
 
 
     hello.init({
-      facebook: '963137080473816',
-      google: '226809584702-nt65tpd2osfdaocborbthhtvhcnsd2v9.apps.googleusercontent.com'
+      facebook: '239001833102223',
+      google: '1011487504050-sjufok8ijqcho7h19uke77et14bmu87n.apps.googleusercontent.com'
     }, {
-      scope:'email'
+      scope: 'email'
     });
 
     $scope.fbAuthLogIn = function () {
       //console.log('in the fbAuthlogin');
- hello('facebook').login().then(function (fbRes) {
-   //console.log('user response is:'+JSON.stringify(fbRes));
+      hello('facebook').login().then(function (fbRes) {
+        //console.log('user response is:'+JSON.stringify(fbRes));
         $http({
             method: "GET",
             url: 'https://graph.facebook.com/me?fields=email,first_name,gender,id,last_name&access_token=' + fbRes.authResponse.access_token,
             data: null,
             dataType: 'json',
           })
-        .success(function (data) {
+          .success(function (data) {
             //console.log('User Profile Details is : ' + JSON.stringify(data));
             $scope.fUser = {
               firstName: data.first_name,
@@ -137,9 +137,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
               email: data.email,
               provider: 'fb'
             };
-       // console.log('$scope fuser details :'+JSON.stringify($scope.fUser));
+            // console.log('$scope fuser details :'+JSON.stringify($scope.fUser));
             Users.Signup.create($scope.fUser).$promise.then(function (res) {
-             // console.log('##users.signup.create response :'+JSON.stringify(res));
+              // console.log('##users.signup.create response :'+JSON.stringify(res));
               if (res.type === false) {
                 //console.log('@@ res.type is :'+res.type);
                 $scope.errMsg = res.data;
@@ -154,10 +154,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
             });
           })
-      .error(function (data, status) {
+          .error(function (data, status) {
             $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
           });
-  },function (e) {
+      }, function (e) {
         console.log('Signin error: ' + e.error.message);
       })
     };
@@ -201,7 +201,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           .error(function (data, status) {
             $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
           });
-      },function (e) {
+      }, function (e) {
         console.log('Signin error: ' + e.error.message);
       })
     };
