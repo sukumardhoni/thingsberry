@@ -402,7 +402,29 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           pageTitle: 'Edit Company {{ companyResolve.Proname }}'
         }
       })
-      .state('companies.view', {
+
+     .state('companies.view', {
+        url: '/:companyId',
+        templateUrl: 'modules/companies/client/views/view-company.client.view.html',
+        controller: 'CompanyController',
+        controllerAs: 'vm',
+        resolve: {
+          companyResolve: getCompany
+        },
+        data: {
+          pageTitle: 'Company {{ companyResolve.Proname }}'
+        }
+      });
+  }
+
+  getCompany.$inject = ['$stateParams', 'CompanyService'];
+
+  function getCompany($stateParams, CompanyService) {
+    return CompanyService.get({
+      companyId: $stateParams.companyId
+    }).$promise;
+  }
+   /*   .state('companies.view', {
         url: '/:companyId',
         templateUrl: 'modules/company/client/views/view-company.client.view.html',
         controller: 'CompanyController',
@@ -422,7 +444,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return CompanyService.get({
       companyId: $stateParams.companyId
     }).$promise;
-  }
+  }*/
 
   newCompany.$inject = ['CompanyService'];
 
@@ -467,9 +489,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
     var vm = this;
 
     vm.company = company;
@@ -481,6 +503,108 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     vm.addCompanyDetails = addCompanyDetails;
 
     $scope.addBtnText = 'SUBMIT';
+    /*$scope.user = $localStorage.user;*/
+
+    var previousRatingValue;
+    var localStorageRatingKey;
+
+    $scope.user = $localStorage.user;
+
+    var productname = vm.company.Proname;
+    //  console.log("company details:" + vm.company.Proname);
+    var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
+
+
+    if ($scope.user == undefined) {
+
+      localStorageRatingKey = "guest" + productNameLowerCase;
+      //console.log("userId:" + localStorageRatingKey);
+
+    } else {
+
+      localStorageRatingKey = $scope.user._id + productNameLowerCase;
+      // console.log("userId:" + localStorageRatingKey);
+
+    }
+
+    $scope.rating = function (userRateValue) {
+
+
+      $scope.ratevalue = userRateValue;
+
+
+      if ($localStorage[localStorageRatingKey] == undefined) {
+
+        previousRatingValue = 0;
+        $localStorage[localStorageRatingKey] = $scope.ratevalue;
+
+      } else {
+
+        previousRatingValue = $localStorage[localStorageRatingKey];
+        $localStorage[localStorageRatingKey] = $scope.ratevalue;
+
+      }
+
+
+      ratingService.update({
+        companyId: vm.company._id,
+        userRating: $scope.ratevalue,
+        previousRatingValue: previousRatingValue
+      }, vm.company, successCallback, errorCallback);
+
+
+      function successCallback(res) {
+        // console.log("coming from callback");
+        $scope.rate = res.avgRatings;
+        $scope.reviewsCount = res.totalRatingsCount;
+      }
+
+
+      function errorCallback(res) {
+        console.log("coming from callback");
+        NotificationFactory.error('Failed to update the product rating...', res.data.message);
+      }
+
+    };
+
+
+    $scope.rate1 = $localStorage[localStorageRatingKey];
+
+    $scope.isReadonly1 = false;
+
+    $scope.rate = vm.company.avgRatings;
+    $scope.reviewsCount = vm.company.totalRatingsCount;
+
+    $scope.isReadonly = true;
+
+    $scope.showMe = function () {
+
+      $scope.showRatings = !$scope.showRatings;
+
+    }
+
+    $scope.hoverOut = function () {
+
+      if ($localStorage[localStorageRatingKey]) {
+
+        $scope.showRatings = !$scope.showRatings;
+
+      } else {
+
+        $scope.showRatings = true;
+      }
+    }
+
+
+    if ($localStorage[localStorageRatingKey]) {
+
+      $scope.showRatings = false;
+
+    } else {
+
+      $scope.showRatings = true;
+    }
+
 
     /*   $scope.userValidation = function () {
          if (vm.authentication.user) {} else {
@@ -509,6 +633,25 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       });
       return defObj.promise;
     };
+
+
+
+    $scope.changeLimit = function (pro) {
+      if ($scope.limit == pro.description.length)
+        $scope.limit = 100;
+      else
+        $scope.limit = pro.description.length;
+    };
+
+    /*$scope.dynamicPopover = {
+      templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+    };*/
+    $scope.hoveringOver = function (value) {
+      //  console.log('hoveringOver is called');
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };
+
 
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({
@@ -1019,7 +1162,7 @@ angular.module('companies')
 
 
 angular.module('companies')
-  .directive('productDisplay', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+  .directive('productDisplay', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
     return {
       restrict: 'E',
       scope: {
@@ -1027,18 +1170,123 @@ angular.module('companies')
       },
       templateUrl: 'modules/companies/client/views/directive-partials/product-display.client.view.html',
       link: function (scope, elem, attrs) {
+
+        var previousRatingValue;
+        var localStorageRatingKey;
+
         scope.user = $localStorage.user;
 
+        var productname = scope.details.Proname;
+        var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
+
+
+        if (scope.user == undefined) {
+
+          localStorageRatingKey = "guest" + productNameLowerCase;
+          //console.log("userId:" + localStorageRatingKey);
+
+        } else {
+
+          localStorageRatingKey = scope.user._id + productNameLowerCase;
+          // console.log("userId:" + localStorageRatingKey);
+
+        }
+
+        scope.rating = function (rate) {
+
+
+          scope.ratevalue = rate;
+
+
+          if ($localStorage[localStorageRatingKey] == undefined) {
+
+            previousRatingValue = 0;
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+          } else {
+
+            previousRatingValue = $localStorage[localStorageRatingKey];
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+          }
+
+
+          ratingService.update({
+            companyId: scope.details._id,
+            userRating: scope.ratevalue,
+            previousRatingValue: previousRatingValue
+          }, scope.details, successCallback, errorCallback);
+
+
+          function successCallback(res) {
+            // console.log("coming from callback");
+            scope.rate = res.avgRatings;
+            scope.reviewsCount = res.totalRatingsCount;
+          }
+
+
+          function errorCallback(res) {
+            //  console.log("coming from callback");
+            NotificationFactory.error('Failed to update the product rating...', res.data.message);
+          }
+
+        };
+
+
+       // scope.show = false;
+
+        scope.showMe = function () {
+
+          scope.showRatings = !scope.showRatings;
+
+        }
+
+        scope.hoverOut = function () {
+
+          if ($localStorage[localStorageRatingKey]) {
+
+            scope.showRatings = !scope.showRatings;
+
+          } else {
+
+            scope.showRatings = true;
+          }
+        }
+
+
+        if ($localStorage[localStorageRatingKey]) {
+
+          scope.showRatings = false;
+
+        } else {
+
+          scope.showRatings = true;
+        }
+
+
+      /*  scope.stars1 = function (stars) {
+    if ($localStorage[localStorageRatingKey]) {
+
+      var stars = false;
+    } else {
+      stars = true;
+
+    }
+
+    return stars;
+
+  }*/
 
 
 
-        scope.rate1 = 4;
-        scope.max1 = 5;
+
+
+
+        scope.rate1 = $localStorage[localStorageRatingKey];
         scope.isReadonly1 = false;
+        scope.rate = scope.details.avgRatings;
+        scope.reviewsCount = scope.details.totalRatingsCount;
 
-
-        scope.rate = Math.floor(Math.random() * 6) + 1;
-        scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
         scope.max = 5;
         scope.isReadonly = true;
 
@@ -1067,10 +1315,10 @@ angular.module('companies')
 
 
 
-        scope.dynamicPopover = {
+        /* scope.dynamicPopover = {
           templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
         };
-
+*/
 
         scope.hoveringOver = function (value) {
           //console.log('hoveringOver is called');
@@ -1091,6 +1339,7 @@ angular.module('companies')
     .factory('CompanyService', CompanyService)
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
+    .factory('ratingService', ratingService)
 
 
 
@@ -1159,6 +1408,20 @@ angular.module('companies')
     return service;
   };
 
+  ratingService.$inject = ['$resource'];
+
+  function ratingService($resource) {
+
+    return $resource('api/updateRating/:companyId/:previousRatingValue/:userRating', {
+      previousRatingValue: '@previousRatingValue',
+      companyId: '@companyId'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+
+  };
 
 })();
 
@@ -1399,8 +1662,9 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
     $scope.signout = function () {
       //console.log('signout is called');
+      //console.log('@@# in $http'+JSON.stringify($localStorage));
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
-      $http.post('/api/auth/jwtSignout').success(function (response) {
+       $http.get('/api/auth/jwtSignout').success(function (response) {
         //console.log('Signout callback : ' + JSON.stringify(response));
         $scope.authentication.user = '';
         delete $localStorage.token;
@@ -1542,30 +1806,52 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
+ /* $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  $scope.addSlide = function() {
+    console.log('in the home controller');
+    var newWidth = 600 + slides.length + 1;
+    slides.push({
+      image: 'http://placekitten.com/' + newWidth + '/300',
+      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+    });
+  };
+  for (var i=0; i<4; i++) {
+    $scope.addSlide();
+  };*/
 
 
 
 
-    $scope.myInterval = 5000;
+
+
+
+
+
+   $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
     var slides1 = $scope.slides1 = [];
-    var slides2 = $scope.slides2 = [];
+    /*var slidesarray =$scope.slidesarray = [['slide1','slide2'],['slide3','slide4'],['slide5','slide6'],['slide7','slide8'],['slide9','slide10']];*/
+
+    var sample = $scope.sample = [];
     var slides3 = $scope.slides3 = [];
     var currIndex = 0;
     $scope.carouselBg = [];
+
     $scope.getPremiumProducts = function () {
       $scope.carouselBg.push('carousel_spinner');
       PremiumProducts.query({}, function (res) {
         $scope.premiumProducts = res;
 
-        for (var i = 0; i < ($scope.premiumProducts.length / 2); i++) {
+    //console.log('the length:'+JSON.stringify($scope.premiumProducts));
+        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
           $scope.addSlide1($scope.premiumProducts[i]);
         }
 
-        for (var j = ($scope.premiumProducts.length / 2); j < $scope.premiumProducts.length; j++) {
-          $scope.addSlide2($scope.premiumProducts[j]);
-        }
+         $scope.sample=$scope.listToMatrix($scope.slides1,2);
+       // console.log('the resultant matrix'+JSON.stringify($scope.sample));
 
         for (var k = 0; k < $scope.premiumProducts.length; k++) {
           $scope.addSlide3($scope.premiumProducts[k]);
@@ -1578,6 +1864,25 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         console.log('Failed to fetch the product details : ' + err);
       });
     };
+
+
+    $scope.listToMatrix= function(list, elementsPerSubArray) {
+      //console.log('calling to listtomatrix function');
+    var matrix = [],
+      i, k;
+
+    for (i = 0, k = -1; i < list.length; i++) {
+      if (i % elementsPerSubArray === 0) {
+        k++;
+        matrix[k] = [];
+      }
+
+      matrix[k].push(list[i]);
+    }
+
+    return matrix;
+ //console.log('the resultant matrix:'+matrix);
+    }
 
 
 
@@ -1613,6 +1918,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         id: currIndex++
       });
     };
+
 
 
 
@@ -2197,8 +2503,10 @@ angular.module('users.admin.routes').config(['$stateProvider',
 'use strict';
 
 // Setting up route
+
 angular.module('users').config(['$stateProvider',
   function ($stateProvider) {
+   // console.log('In the clientSide Routes');
     // Users state routing
     $stateProvider
       .state('settings', {
@@ -2379,8 +2687,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
 
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$localStorage', 'NotificationFactory',
-  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, $localStorage, NotificationFactory) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$localStorage', 'NotificationFactory', 'SignUpCondition', 'Users',
+  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, $localStorage, NotificationFactory, SignUpCondition, Users) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
@@ -2407,7 +2715,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
 
     $scope.signup = function (isValid) {
-
+      //console.log('In the controller function from signup page');
       $scope.buttonTextSignUp = 'Signing Up...';
 
 
@@ -2420,7 +2728,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       }
 
       $http.post('/api/auth/jwtSignup', $scope.credentials).success(function (response) {
-
+        //console.log('proving the route to go to server side routes');
         if (response.type === false) {
           $scope.error = response.data;
           //$scope.isDisabled = false;
@@ -2432,6 +2740,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
           $scope.populateUserLocally(response);
+          console.log('Msg : ' + JSON.stringify(response));
         }
 
 
@@ -2459,13 +2768,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           $scope.error = response.data;
           //$scope.isDisabled = false;
           //$scope.buttonTextSignUp = 'Sign Up';
-          console.log('Error Msg : ' + JSON.stringify(response.data));
+          // console.log('Error Msg : ' + JSON.stringify(response.data));
 
         } else {
           $scope.error = null;
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
           $scope.populateUserLocally(response);
+          //console.log('#####->user login detailsss : ' + JSON.stringify(response));
         }
       }).error(function (response) {
         $scope.error = response.message;
@@ -2482,22 +2792,122 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $localStorage.user = respUser;
       $localStorage.token = respUser.token;
       NotificationFactory.success('Hi ' + respUser.displayName, 'Authentication Success !');
+      /* console.log('states:'+ $state.previous.state.name);
+       console.log('states++++:'+ JSON.stringify($state.previous.params));*/
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     };
 
 
 
+    hello.init({
+      google: '1011487504050-sjufok8ijqcho7h19uke77et14bmu87n.apps.googleusercontent.com',
+      facebook: '239001833102223'
+    }, {
+      scope: 'email',
+      redirect_uri: '/'
+    });
+
+    $scope.fbAuthLogIn = function () {
+      //console.log('in the fbAuthlogin');
+      hello('facebook').login().then(function (fbRes) {
+        //console.log('user response is:'+JSON.stringify(fbRes));
+        $http({
+            method: "GET",
+            url: 'https://graph.facebook.com/me?fields=email,first_name,gender,id,last_name&access_token=' + fbRes.authResponse.access_token,
+            data: null,
+            dataType: 'json',
+          })
+          .success(function (data) {
+            //console.log('User Profile Details is : ' + JSON.stringify(data));
+            $scope.fUser = {
+              firstName: data.first_name,
+              lastName: data.last_name,
+              email: data.email,
+              provider: 'fb'
+            };
+            // console.log('$scope fuser details :'+JSON.stringify($scope.fUser));
+            Users.Signup.create($scope.fUser).$promise.then(function (res) {
+              // console.log('##users.signup.create response :'+JSON.stringify(res));
+              if (res.type === false) {
+                //console.log('@@ res.type is :'+res.type);
+                $scope.errMsg = res.data;
+                //console.log('@@ res.data is :'+res.data);
+                $scope.populateUserLocally(res.user);
+                //console.log('@@ res.user is :'+res.user);
+              } else {
+                $scope.errMsg = false;
+                $scope.populateUserLocally(res);
+              }
+            }).catch(function (err) {
+              alert('Looks like there is an issue with your connectivity, Please try after sometime!');
+            });
+          })
+          .error(function (data, status) {
+            $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
+          });
+      }, function (e) {
+        console.log('Signin error: ' + e.error.message);
+      })
+    };
 
 
-    // OAuth provider request
+
+
+    $scope.googleAuthLogIn = function () {
+      //console.log('in the googleAuthLogIn');
+      hello('google').login().then(function (gRes) {
+        //console.log('google user response' + JSON.stringify(gRes));
+        $http({
+            method: "GET",
+            url: 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + gRes.authResponse.access_token,
+            data: null,
+            dataType: 'json',
+          })
+          .success(function (data) {
+            //console.log('User Profile is : ' + JSON.stringify(data));
+            $scope.gUser = {
+              firstName: data.given_name,
+              lastName: data.family_name,
+              email: data.email,
+              provider: 'gmail'
+            };
+            Users.Signup.create($scope.gUser).$promise.then(function (res) {
+              if (res.type === false) {
+                $scope.errMsg = res.data;
+                $scope.populateUserLocally(res.user);
+              } else {
+                $scope.errMsg = false;
+                $scope.populateUserLocally(res);
+              }
+            }).catch(function (err) {
+              alert('Looks like there is an issue with your connectivity, Please try after sometime!');
+            });
+          })
+          .error(function (data, status) {
+            $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
+          });
+      }, function (e) {
+        console.log('Signin error: ' + e.error.message);
+      })
+    };
+
+
+
+
+
+
+    /*  // OAuth provider request
     $scope.callOauthProvider = function (url) {
+      console.log('client side url'+url);
       if ($state.previous && $state.previous.href) {
         url += '?redirect_to=' + encodeURIComponent($state.previous.href);
+        console.log('client side url'+JSON.stringify($state.previous.href));
+        console.log('######client side url'+url);
       }
 
       // Effectively call OAuth authentication route:
       $window.location.href = url;
-    };
+    };*/
   }
 ]);
 
@@ -2890,4 +3300,49 @@ angular.module('users.admin').factory('Admin', ['$resource',
       }
     });
   }
-]);
+])
+.factory('SignUpCondition', function () {
+  return false;
+})
+
+
+
+
+
+
+  .factory('Users', ['$resource', 'ConfigService', function ($resource, ConfigService, $localStorage) {
+  return {
+    Signup: $resource(ConfigService.API_URL + '/users/signup', {}, {
+      create: {
+        method: 'POST',
+        timeout: 30000
+      }
+    }),
+    Login: $resource(ConfigService.API_URL + '/users/signin', {}, {
+      create: {
+        method: 'POST',
+        timeout: 20000
+      }
+    }),
+
+
+  }
+}])
+
+/*provides environment specific API url */
+.service('ConfigService', ["$window", function ($window) {
+  if ($window.location.host.match(/localhost:3000\.com/)) {
+    //console.log('its prod: ' + $window.location.host);
+    this.API_URL = 'http://www.qa.thingsberry.com';
+    return this.API_URL;
+  } else if ($window.location.host.match(/202.83.31.92\:3000/)) {
+    //console.log('its test: ' + $window.location.host);
+    this.API_URL = 'http://localhost:3000';
+    return this.API_URL;
+  } else {
+    //console.log('its dev: ' + $window.location.host);
+    this.API_URL = 'http://' + $window.location.host;
+    return this.API_URL;
+  }
+}])
+
