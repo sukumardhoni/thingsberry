@@ -118,8 +118,8 @@ input[type="checkbox"]:checked + label:before {
   color: #8c8c8c;
   text-align: center;
   width: 250px;
-
 }
+
 .hr-row:after {
   content: "OR USING EMAIL";
   display: inline-block;
@@ -128,23 +128,19 @@ input[type="checkbox"]:checked + label:before {
   font-size: 1em;
   padding: 0 0.25em;
   background: #fff;
- }
-
+}
 
 .img-row {
-	opacity: 1;
-	transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
   width: 250px;
   cursor: pointer;
 }
-.img-row:hover  {
 
-	opacity: .8;
-  -webkit-transform: scale(1.1);
-	transform: scale(1.1);
+.img-row:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
 }
 
-.forgot{
+.forgot {
   padding-top: 10px;
-
 }
