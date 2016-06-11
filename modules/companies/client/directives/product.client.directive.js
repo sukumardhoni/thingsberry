@@ -73,7 +73,7 @@ angular.module('companies')
         };
 
 
-
+       // scope.show = false;
 
         scope.showMe = function () {
 
@@ -102,6 +102,25 @@ angular.module('companies')
 
           scope.showRatings = true;
         }
+
+
+      /*  scope.stars1 = function (stars) {
+    if ($localStorage[localStorageRatingKey]) {
+
+      var stars = false;
+    } else {
+      stars = true;
+
+    }
+
+    return stars;
+
+  }*/
+
+
+
+
+
 
         scope.rate1 = $localStorage[localStorageRatingKey];
         scope.isReadonly1 = false;

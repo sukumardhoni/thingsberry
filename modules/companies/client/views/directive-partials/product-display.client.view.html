@@ -16,24 +16,31 @@
     </div>
     <br>
     <div class="row">
-      <span class="col-md-6 col-xs-6 text-center user ">
-      <div ng-mouseleave="hoverOut()" class=" arrow_box rt" ng-show="showRatings">
+      <span class="col-md-5 col-xs-6 text-center">
+
+    <div class="user">
+
+      <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>({{reviewsCount}})
+
+
+      <div class=" arrow_box rt" ng-show="showRatings">
         <div class="ratingName">
           <h5><b>Give your rating here..</b></h5>
         </div>
-<div class="stars">
-        <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
+        <div class="stars">
+          <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
+        </div>
       </div>
-</div>
-        <div class="arrow_box rt" ng-hide="showRatings">
-          <h5 class="ratedPopover">You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b  > modify</b></a>
+      <div ng-mouseleave="hoverOut()" class="arrow_box rt" ng-show="ratevalue">
+        <h5 class="ratedPopover"> Thanks for rating </h5>
+      </div>
+
+      <div class="arrow_box rt" ng-hide="showRatings">
+        <h5 class="ratedPopover">You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b  > modify?</b></a>
       </h5>
+      </div>
+
     </div>
-
-
-    <!--<span class="col-md-6 col-xs-6 text-center ">-->
-    <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating"></uib-rating>({{reviewsCount}})
-
     </span>
 
       <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-3 col-xs-3 text-center icons-on-img-footer"></i></a>
@@ -41,7 +48,6 @@
       <a ui-sref="companies.view({ companyId: details._id })">
         <i class="fa fa-expand col-md-3 col-xs-3 text-center icons-on-img-footer"></i>
       </a>
-      <!--<i class="fa col-md-4 col-xs-4  text-cente" ></i>-->
     </div>
   </div>
 </div>

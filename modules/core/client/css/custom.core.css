@@ -687,7 +687,6 @@ body {
 #footer {
   height: 60px;
 }
-
 /*.container {
   min-height: 100%;
   position: relative;
@@ -780,7 +779,6 @@ tags-input .tags {
   text-indent: -9999px;
   cursor: pointer;
   z-index: 999999999;
-  display: none;
   box-sizing: content-box;
   -webkit-box-sizing: content-box;
   right: 20px;
@@ -788,6 +786,10 @@ tags-input .tags {
   position: fixed;
   background: url('../../../../modules/core/client/img/buttons/resize-small.png') no-repeat center center rgb(2, 168, 243);
   border: 1px solid #fff;
+}
+
+#back.visible {
+  opacity: 1;
 }
 
 #fixed-tb-bottom {

@@ -289,7 +289,10 @@
   padding: 18px;
   position: relative;
   text-align: center;
-  /*min-height: 140px;*/
+}
+
+.product_desc {
+  min-height: 60px;
 }
 
 .editIon {
@@ -366,7 +369,7 @@
 }
 
 .ratedPopover {
-  margin-top: 17px;
+  margin-top: 24px;
 }
 
 .modifyIt:hover {
@@ -463,8 +466,7 @@
   margin: 0px -38px;
   margin-top: 2px;
 }
-
-#disqus_thread {
+/*#disqus_thread {
   position: relative;
 }
 
@@ -476,4 +478,9 @@
   position: absolute;
   bottom: 0;
   background: white;
+}*/
+
+#disqus_thread {
+  overflow: hidden;
+  margin-bottom: -54px;
 }
