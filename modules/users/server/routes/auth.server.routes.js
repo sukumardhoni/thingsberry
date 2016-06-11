@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var passport = require('passport');
-console.log('in the auth.server.routes@@@@');
+
 module.exports = function (app) {
   // User Routes
   var users = require('../controllers/users.server.controller');

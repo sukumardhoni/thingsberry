@@ -53,7 +53,7 @@ exports.getListed = function (req, res) {
 /* JWT Signup */
 
 exports.jwtSignup = function (req, res, next) {
-  console.log(' in the Authentication server controller(jwtsignup)');
+  //console.log(' in the Authentication server controller(jwtsignup)');
   var secret = 'www';
   var payload = {
     email: req.body.email
@@ -102,17 +102,18 @@ exports.jwtSignup = function (req, res, next) {
       } else {
         //delete req.body.roles;
         var userModel = new User(req.body);
+
+        //console.log('User details on signup : ' + JSON.stringify(req.body));
+
         userModel.provider = req.body.provider || 'local';
         userModel.displayName = userModel.firstName + ' ' + userModel.lastName;
-        console.log('@##$userdetails on signup[userModel.displayName]'+userModel.displayName);
         userModel.username = userModel.email;
-        console.log('@##$userdetails on signup[userModel.username]'+userModel.username);
         var jwtToken = jwt.encode(payload, secret);
         userModel.token = jwtToken;
         userModel.save(function (err) {
           if (err) {
             //console.log('Error while saving user 111111: ' + err.errors.email.message);
-            console.log('Error while saving user 111: ' + err);
+            //console.log('Error while saving user 111: ' + err);
             var errData;
             if (err.code === 11000) {
               errData = 'User already exists with email : ' + userModel.email;
@@ -132,7 +133,7 @@ exports.jwtSignup = function (req, res, next) {
           } else {
             req.login(userModel, function (err) {
               if (err) {
-                console.log('Error while saving user 2222222: ' + err);
+                //console.log('Error while saving user 2222222: ' + err);
                 res.status(400).send(err);
               } else {
                 //send a welcome mail notification using agenda
@@ -157,7 +158,7 @@ exports.jwtSignup = function (req, res, next) {
 /* JWT Signin */
 
 exports.jwtSignin = function (req, res, next) {
-  console.log('jwtSignin func. is called : ' + JSON.stringify(req.body));
+  //console.log('jwtSignin func. is called : ' + JSON.stringify(req.body));
   User.findOne({
     email: req.body.email
   }, function (err, user) {
@@ -172,7 +173,7 @@ exports.jwtSignin = function (req, res, next) {
         var password = req.body.password;
         // Make sure the password is correct
         user.verifyPassword(password, function (err, isMatch) {
-          console.log('Password is matched or not : ' + isMatch);
+          //console.log('Password is matched or not : ' + isMatch);
           if (isMatch) {
             // Success
             var secret = 'www';
@@ -184,7 +185,7 @@ exports.jwtSignin = function (req, res, next) {
             user.password = req.body.password;
             user.save(function (err) {
               if (err) {
-                console.log('Error occured on singin function is : ' + err);
+                //console.log('Error occured on singin function is : ' + err);
                 return res.status(400).send({
                   message: errorHandler.getErrorMessage(err)
                 });
@@ -192,10 +193,10 @@ exports.jwtSignin = function (req, res, next) {
                 console.log('User saved');
                 req.login(user, function (err) {
                   if (err) {
-                    console.log('Error while login in signin func : ' + err);
+                    //console.log('Error while login in signin func : ' + err);
                     res.status(400).send(err);
                   } else {
-                    console.log('@@@@@@ Found user in signin  func.  @@@@@@@' + JSON.stringify(user));
+                    //console.log('@@@@@@ Found user in signin  func.  @@@@@@@' + JSON.stringify(user));
                     res.jsonp(user);
                   }
                 });
@@ -260,12 +261,12 @@ exports.jwtSignout = function (req, res, next) {
   console.log('in the jwtsignout ##');
   /*  req.logout();
     res.redirect('/');*/
- var bearerToken ;
+  var bearerToken;
   var bearerHeader = req.headers.authorization;
   if (typeof bearerHeader !== 'undefined') {
     console.log('bearerHeader is received : ' + bearerHeader);
     var bearer = bearerHeader.split(' ');
-    console.log('-----bearer------>'+bearer);
+    console.log('-----bearer------>' + bearer);
     if (bearer[1] === 'undefined') {
       res.sendStatus(401);
       //req.logout();
@@ -424,7 +425,7 @@ exports.oauthCallback = function (strategy) {
 };
 
 /**
-  * Helper function to save or update a OAuth user profile
+ * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
   if (!req.user) {
