@@ -1,15 +1,12 @@
 <div ng-controller="AuthenticationController" class="authentication">
   <div class="row ">
-    <br>
-    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3 text-center login-signup-styles">
-      <br>
-      <br>
+
+
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3 col-sm-offset-2 col-sm-6 text-center login-signup-styles">
+
       <h3>Sign Up</h3>
-      <br>
-      <br>
-      <h5>Already have an account?  <a ui-sref="authentication.signin">Log In</a></h5>
+
       <div>
-        <br>
         <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
           <fieldset>
             <div class="form-group floating-label-form-group">
@@ -50,8 +47,9 @@
                 <p class="help-block error-text" ng-message="required">Password is required.</p>
               </div>
             </div>
-            <br>
-            <br>
+
+            <h5 style="padding-top:8px; padding-bottom:5px;">Already have an account?  <a ui-sref="authentication.signin">Log In</a></h5>
+
             <div class="text-center form-group">
               <button type="submit" class="btn btn-custom-style" ng-disabled="userForm.$invalid">SIGN UP</button>
             </div>

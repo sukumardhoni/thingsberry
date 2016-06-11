@@ -1,15 +1,12 @@
 <div ng-controller="AuthenticationController" class="authentication">
+
   <div class="row ">
-    <br>
-    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3 text-center login-signup-styles">
-      <br>
-      <br>
+
+
+<div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-3 col-sm-offset-2 col-sm-6  text-center login-signup-styles">
       <h3>Log In</h3>
-      <br>
-      <br>
-      <h5>Don't have an account?  <a ui-sref="authentication.signup">Sign Up</a></h5>
-      <div>
-        <br>
+        <div>
+
         <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
           <fieldset>
             <div class="form-group floating-label-form-group" show-errors>
@@ -26,17 +23,20 @@
                 <p class="help-block error-text" ng-message="required">Password is required.</p>
               </div>
             </div>
-            <div class="text-center forgot-password" style="float:right">
+
+
+            <div class="text-center forgot-password forgot" style="float:right">
               <a ui-sref="password.forgot">Forgot your password?</a>
             </div>
             <br>
+            <h5 style="padding-bottom:5px; padding-top:10px;">Don't have an account?  <a ui-sref="authentication.signup">Sign Up</a></h5>
+
             <!--<div class="text-center invisible_checkbox" style="float:left">
   <input type="checkbox" ng-model="userForm.rememberme" id="rememberme">
   <label for="rememberme"> Remember me</label>
 </div>-->
 
-            <br>
-            <br>
+
             <div class="text-center form-group">
               <button type="submit" class="btn btn-custom-style">LOG IN</button>
             </div>
