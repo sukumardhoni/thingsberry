@@ -16,38 +16,73 @@
     </div>
     <br>
     <div class="row">
-      <span class="col-md-5 col-xs-6 text-center">
+      <span class="col-md-offset-1 text-center " style="float:left;">
 
-    <div class="user">
-
-      <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>({{reviewsCount}})
+     <!-- <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating defult-content"></uib-rating>({{reviewsCount}})
 
 
-      <div class=" arrow_box rt" ng-show="showRatings">
+<div  class="border_box on-hover-content" ng-show="showRatings">
+  <div class="ratingName">
+    <h5><b>Give your rating here..</b></h5>
+  </div>
+  <div class="stars">
+    <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="[' ',' ',' ',' ',' ']" aria-labelledby="default-rating" class="readOnlyRating " style="cursor: pointer;"></uib-rating>
+  </div>
+  <span class="label" ng-class="{'label-info': percent}" ng-show="overStar && !isReadonly1">{{productReviewLabel}}</span> </div>
+
+
+    <div ng-mouseleave="hoverOut()" style="cursor:default" class="border_box on-hover-content" ng-show="ratevalue">
+      <h5 class="ratedPopover"><br> Thanks for rating </h5>
+    </div>
+
+
+    <div class="border_box on-hover-content" ng-hide="showRatings">
+      <h5 class="ratedPopover"><br>You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b  > modify?</b></a>
+      </h5>
+    </div>-->
+
+
+
+
+
+
+
+    <div class="initialStars" style="cursor:pointer">
+
+      <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating"></uib-rating>
+
+
+      <div ng-mouseleave="mouseOut()" class=" arrow_box hover_box" ng-show="showRatings">
         <div class="ratingName">
           <h5><b>Give your rating here..</b></h5>
         </div>
         <div class="stars">
-          <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
+          <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="[' ',' ',' ',' ',' ']" aria-labelledby="default-rating" class="readOnlyRating " style="cursor: pointer;"></uib-rating>
         </div>
-      </div>
-      <div ng-mouseleave="hoverOut()" class="arrow_box rt" ng-show="ratevalue">
-        <h5 class="ratedPopover"> Thanks for rating </h5>
+        <span class="label" ng-class="{'label-info': percent}" ng-show="overStar && !isReadonly1">{{percent}}</span>
+
+        <div style="cursor:default; top:-1px; left:-1px;" ng-mouseleave="hoverOut()" class="arrow_box hover_box" ng-show="ratevalue">
+          <h5 class="ratedPopover"><br> Thanks for rating </h5>
+        </div>
+
       </div>
 
-      <div class="arrow_box rt" ng-hide="showRatings">
-        <h5 class="ratedPopover">You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b  > modify?</b></a>
+
+
+      <div style="cursor: default;" class="arrow_box hover_box" ng-hide="showRatings">
+        <h5 class="ratedPopover"><br>You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b  > modify?</b></a>
       </h5>
       </div>
 
     </div>
-    </span>
 
-      <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-3 col-xs-3 text-center icons-on-img-footer"></i></a>
+    </span><span style="float:left; cursor:default;">({{reviewsCount}})</span>
 
-      <a ui-sref="companies.view({ companyId: details._id })">
-        <i class="fa fa-expand col-md-3 col-xs-3 text-center icons-on-img-footer"></i>
-      </a>
-    </div>
+    <a ng-href="{{details.companyWebsite}}" target="_blank"><i class="fa fa-globe col-md-offset-1 col-md-2 col-xs-3 text-center icons-on-img-footer"></i></a>
+
+    <a ui-sref="companies.view({ companyId: details._id })">
+      <i class="fa fa-expand col-md-offset-1 col-md-2 col-xs-3 text-center icons-on-img-footer"></i>
+    </a>
   </div>
+</div>
 </div>

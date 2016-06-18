@@ -36,6 +36,8 @@ angular.module('companies')
 
 
           scope.ratevalue = rate;
+          console.log("ratevalue:" + scope.ratevalue);
+
 
 
           if ($localStorage[localStorageRatingKey] == undefined) {
@@ -73,13 +75,34 @@ angular.module('companies')
         };
 
 
-       // scope.show = false;
-
         scope.showMe = function () {
 
           scope.showRatings = !scope.showRatings;
-
+          scope.ratevalue = false;
+          console.log("showme :" + scope.showRatings);
+          //  console.log("---->" + scope.ratevalue);
         }
+
+        scope.mouseOut = function () {
+            scope.showRatings = false;
+          }
+          // scope.ratevalue = true;
+          /*if (scope.ratevalue == true) {
+            scope.showRatings = false;
+          } else {
+            scope.showRatings = false;
+          }*/
+
+        /*
+                  if ($localStorage[localStorageRatingKey]) {
+                    scope.ratevalue = true;
+                  } else {
+                    scope.ratevalue = false;
+
+                  }*/
+
+
+
 
         scope.hoverOut = function () {
 
@@ -91,6 +114,7 @@ angular.module('companies')
 
             scope.showRatings = true;
           }
+          console.log("hoverOut ShowRatings:" + scope.showRatings);
         }
 
 
@@ -102,25 +126,7 @@ angular.module('companies')
 
           scope.showRatings = true;
         }
-
-
-      /*  scope.stars1 = function (stars) {
-    if ($localStorage[localStorageRatingKey]) {
-
-      var stars = false;
-    } else {
-      stars = true;
-
-    }
-
-    return stars;
-
-  }*/
-
-
-
-
-
+        console.log("showRatings :" + scope.showRatings);
 
         scope.rate1 = $localStorage[localStorageRatingKey];
         scope.isReadonly1 = false;
@@ -163,7 +169,20 @@ angular.module('companies')
         scope.hoveringOver = function (value) {
           //console.log('hoveringOver is called');
           scope.overStar = value;
-          scope.percent = 100 * (value / scope.max);
+          // console.log('hoveringOver is called:' + scope.overStar);
+          if (scope.overStar == 1) {
+            scope.productReviewLabel = 'Unusable Product';
+            // console.log('hoveringOver is called:' + scope.percent);
+          } else if (scope.overStar == 2) {
+            scope.productReviewLabel = 'Poor Product';
+          } else if (scope.overStar == 3) {
+            scope.productReviewLabel = 'Ok Product';
+          } else if (scope.overStar == 4) {
+            scope.productReviewLabel = 'Good Product';
+          } else {
+            scope.productReviewLabel = 'Excellect Product';
+          }
+          // scope.percent = 100 * (value / scope.max);
         };
 
       }
