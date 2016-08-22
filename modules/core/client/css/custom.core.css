@@ -53,6 +53,7 @@ section {
 }
 */
 
+/*
 .cssSlideUp {
   transition: 0.3s linear all;
   height: 50px;
@@ -62,6 +63,7 @@ section {
 .cssSlideUp.ng-hide {
   height: 0;
 }
+*/
 
 .header-title-names {
   font-size: 13px!important;
@@ -151,7 +153,7 @@ navbar-inverse .navbar-nav > .open > a,
 
 #tb_top_menu {
   padding-top: 15px;
-  margin-right: 127px;
+  margin-right: 77px;
 }
 
 /*
@@ -671,9 +673,11 @@ footer {
 }
 */
 
+/*
 .PopCats:hover {
   cursor: pointer;
 }
+*/
 
 
 /* Sticky footer styles
@@ -703,7 +707,7 @@ body {
 
 #footer {
 
-    height: 80px;
+    height: 72px;
     
 }
 
@@ -724,12 +728,14 @@ body {
 /* Wrapper for page content to push down footer */
 
 
+/*
 #wrap {
   min-height: 80%;
   height: auto !important;
   height: 100%;
   margin: 50px auto 0px;
 }
+*/
 
 
 /* Set the fixed height of the footer here */
@@ -829,6 +835,7 @@ tags-input .tags {
   opacity: 1;
 }
 
+/*
 #fixed-tb-bottom {
   border-top-color: rgb(2, 168, 243);
   border-top-style: solid;
@@ -848,6 +855,7 @@ tags-input .tags {
   height: 400px;
   background: url('../../../../modules/core/client/img/loaders/spinner.gif') 50% 50% no-repeat;
 }
+*/
 
 
 /*
@@ -999,7 +1007,7 @@ tags-input .tags {
         .carousel-indicators {
   
 
-           margin-bottom: 2px;
+           margin-bottom: -27px;
       
            
            
@@ -1056,11 +1064,13 @@ tags-input .tags {
      
         
         
+/*
          .row{
             
           margin-left: -280px;
           margin-top: 58px;
         }
+*/
         
          .carousel-inner {
              
@@ -1207,6 +1217,50 @@ tags-input .tags {
 
 
 
+        
+        .navbar-inverse .navbar-toggle {
+            
+          background-color: #333;
+            
+        }
+
+
+
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    
+    color: black;
+    border-bottom: 3px solid blue;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: white;
+    box-shadow: none;
+       
+}
+    
+.navbar-default .navbar-nav{
+    
+    
+    color:black;
+    text-transform: uppercase;
+    
+}
+
+
+
+
+.box-one {
+ 
+ 
+  border-radius: 4px;
+   /* width: 236px;*/
+     width: auto;
+    margin-left: 680px;
+    background-color: wheat;
+    padding-top: 11px;
+    padding-left: 10px;
+
+}
 
 
 

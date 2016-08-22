@@ -60,7 +60,8 @@
                                     
                                
                           
-                            <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                            <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;" ng-model="homeSearchDetails.Category">
+                                
                                     
                                 </div>
                           
@@ -111,11 +112,11 @@
                         
                         
        
-                        <div class="col-lg-12 col-sm-6 col-xs-12" style="padding-right: 12px;    margin-top: -7px;">
+                        <div class="col-lg-12 col-sm-6 col-xs-12 col-md-12" style="padding-right: 12px;    margin-top: -7px;">
                        <label for="ex1"></label> 
 
                                 
-                                <a ui-sref="#">
+                                <a ui-sref="companies.list">
                                 <input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px;" ng-click="getSearchedProducts(homeSearchDetails)">
                             </a>
                              </div>
@@ -204,7 +205,7 @@
                 
                 
                 
-               <!--  visible only in xs devices-->
+              
                 
                 
                 <div class="visible-xs  text-center col-xs-12" style="font-size:20px;">
@@ -403,7 +404,7 @@
                 
                <!-- --------------------------------------->
                 
-                <!-- visible only in sm devices-->
+           
                 
                 
                 
@@ -780,14 +781,21 @@
                     <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
             
             <div class="row" style="height:215px;padding-top: 7px;margin-left: -43px;">
+            
+          
                 
     
                 
+ 
                 
-                
-                
+<!--
 <div class="hidden-xs hidden-sm customNavigation" style="margin-left: 640px;
     margin-top: -40px;">
+-->
+                
+                <div class="hidden-xs hidden-sm customNavigation" style="margin-left: 742px; margin-top: -11px;">
+                
+                
     <a class="btn prev" style="border-radius: 50%;background-color:white;margin-top: -18px;color:white;color:black;margin-left: -20px;border-color:black;">  <i class="fa fa-arrow-left" aria-hidden="true"></i> </a>
     <a class="btn next" style="border-radius: 50%;background-color:white;margin-top: -18px;color:black;border-color:black;"> <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
 </div>
@@ -797,12 +805,16 @@
             
                <!--<mycarousel></mycarousel>-->
             
-            
-            
+    
             
                <div class="row">
+<!--
       <div class="hidden-xs col-md-6" style="width:67%;margin-top: -46px;height: 395px;margin-left: 375px;
     margin-top: -260px;">       
+-->
+                   
+                    <div class="hidden-xs  col-md-6" style="width:85%;margin-top: -46px;height: 395px;margin-left: 150px;
+    margin-top: -179px;">  
              
     <uib-carousel interval="myInterval">
             <uib-slide ng-repeat="pro in slidesarray" active="active" index="$index">
@@ -914,15 +926,33 @@
         
         
         
-        
-        
+  <!--      background-color: white;
+    height: 354px;
+    margin-top: -212px;
+    width: 83%;
+    margin-left: 46px;
+        -->
         
         
         
       <!-- visible in featured products xs part carousel-->
         
-         <div class="visible-xs col-xs-12" style="background-color:white;   height: 354px; margin-top: -299px;width: 53%;
-    margin-left: 282px;">
+        <!-- <div class="visible-xs col-xs-12" style="background-color:white;   height: 354px; margin-top: -299px;width: 53%;
+    margin-left: 282px;">-->
+                
+                   
+                   
+                   
+   
+                   
+                   
+                   
+                   
+                                       <div class="visible-xs col-xs-12" style="  background-color: white;
+    height: 354px;
+    margin-top: -212px;
+    width: 83%;
+    margin-left: 46px;">
                         
                         
                   
@@ -990,8 +1020,22 @@
              
              
     </div>
-             
-             
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
              
        
         
@@ -1001,7 +1045,7 @@
         
     </div>
      
-            
+                   
             
             
             
