@@ -41,7 +41,7 @@
                              
                         
                         <div>
-                         
+                        
                          
                     <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
                         <br>
@@ -51,7 +51,7 @@
 <!--prevous category form-->
 
 
-                        <form role="form">
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
                             <div class="form-group" style="margin-top: 8px;font-size: 12px;">
                      
                               <!--  <p style="margin-left: -358px;">CATEGORY</p>-->
@@ -64,36 +64,7 @@
                                     
                                 </div>
                           
-                         
-                          </form> 
-                        
-                        
-                        
-                        
-<!--
-                        <form action="#" class="form-horizontal ws-validate">
-   
-   <div class="form-group">
-
-       
-             <p style="margin-left: -358px;">CATEGORY</p>
-        <input type="email" class="form-control" id="inputEmail3" style="width:434px;margin-left: 10px;margin-left: 23px;" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" required/>
-    </div>
-                            
-                        </form>
--->
-                        
-                        
-                        
-                        
- <!--  changed form
-       --------------
-
-   <div class="form-group">
-        <label for="inputEmail3" class="control-label">CATOGORIES</label>
-        <input type="email" class="form-control" id="inputEmail3" style="width:434px;margin-left: 23px;" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" required/>
-    </div>
-           -->             
+            
                                
                 
                         <input type="checkbox"style="margin-top: 0px;margin-left: -296px;">&nbsp; Advanced Search   <br>
@@ -111,6 +82,7 @@
                              </div>
                         
                         &nbsp;
+<!--
                         <span style="margin-top:10px;font-size: 12px;margin-right: 355px;">LOCATION:</span>
                         
                          <br>
@@ -129,6 +101,7 @@
                             </select>
                 
                          </div>
+-->
                 
                       
                    
@@ -138,17 +111,23 @@
                         
                         
        
-                        <div class="col-lg-6 col-sm-6 col-xs-12" style="padding-right: 12px;">
+                        <div class="col-lg-12 col-sm-6 col-xs-12" style="padding-right: 12px;    margin-top: -7px;">
                        <label for="ex1"></label> 
-                            <a href="http://www.w3schools.com"><input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px;">
+
+                                
+                                <a ui-sref="#">
+                                <input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px;" ng-click="getSearchedProducts(homeSearchDetails)">
                             </a>
                              </div>
+                            
+                            
+
                       
-                        
+                           </form> 
                      </span> 
                             
                             
-<!--                            <h3 ng-show="showme" style="color:red;"> content empty  </h3>-->
+
                             
                           
                             
@@ -1106,6 +1085,14 @@
         <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
                       
      </div>
+    
+    
+    
+<!-- 
+
+<billgates title="BILL GATES, founder of Microsoft" description="Success is a lousy teacher. It seduces<br>
+                       smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" img2="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" img3="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg"></billgates>
+-->
     
     
     

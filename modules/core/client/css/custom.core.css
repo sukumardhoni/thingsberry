@@ -2,10 +2,13 @@ section {
   padding-top: 55px 0;
 }
 
+/*
 #tb_footer {
   padding-right: 30px;
 }
+*/
 
+/*
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #fff;
 }
@@ -30,6 +33,7 @@ section {
 .navbar-collapse.in {
   overflow: visible;
 }
+*/
 
 .navbar-inverse {
   background-color: rgb(255, 255, 255) !important;
@@ -42,10 +46,12 @@ section {
 
 
 
+/*
 .navbar {
   #min-height: 60px !important;
   #z-index: 99999;
 }
+*/
 
 .cssSlideUp {
   transition: 0.3s linear all;
@@ -76,12 +82,15 @@ section {
   padding: 5px 12px !important;
 }
 
+/*
 .user-icon {
   width: 12px;
   height: 11px;
   margin-top: -5px;
 }
+*/
 
+/*
 navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .active > a {
   background-image: -webkit-linear-gradient(top, #029ce3 0%, #02a8f3 100%) !important;
@@ -111,7 +120,9 @@ navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .active > a:hover {
   color: #fff !important;
 }
+*/
 
+/*
 .triangle {
   border-bottom: 35px solid #fff;
   width: 50%;
@@ -136,12 +147,14 @@ navbar-inverse .navbar-nav > .open > a,
 .home-search .well {
   background: rgba(0, 0, 0, 0.53) !important;
 }
+*/
 
 #tb_top_menu {
   padding-top: 15px;
-/*  margin-right: 127px;*/
+  margin-right: 127px;
 }
 
+/*
 .home-page-bg {
   position: relative;
   width: 100%;
@@ -301,6 +314,7 @@ navbar-inverse .navbar-nav > .open > a,
   height: 55px;
   z-index: 158;
 }
+*/
 
 
 /*.default-search > select {
@@ -320,9 +334,11 @@ navbar-inverse .navbar-nav > .open > a,
   margin-left: -115px;
 }*/
 
+/*
 input {
   color: rgb(51, 51, 51) !important;
 }
+*/
 
 
 /*.custom-homepage-input {
@@ -346,6 +362,7 @@ input {
   right: 300px;
 }*/
 
+/*
 .Advanced_Search {
   font-size: 20px;
   font-family: "OpenSans";
@@ -354,6 +371,7 @@ input {
   line-height: 3;
   z-index: 153;
 }
+*/
 
 
 /*.fa-angle-down {
@@ -367,6 +385,7 @@ input {
   padding-left: 5px;
 }*/
 
+/*
 .Advanced_Search:hover {
   cursor: pointer;
 }
@@ -515,6 +534,8 @@ hr.small {
 #searchBtn {
   color: #FFF !important;
 }
+*/
+/*
 
 .navbar-inverse .navbar-nav > li > a:hover {
   color: #029ce3 !important;
@@ -529,7 +550,9 @@ hr.small {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
   background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
 }
+*/
 
+/*
 .img-label {
   width: 50%;
   height: 0;
@@ -587,6 +610,7 @@ hr.small {
   height: 50px;
   z-index: 17;
 }
+*/
 
 .footer_names {
   font-size: 12px;
@@ -618,6 +642,7 @@ footer {
   z-index: 1;
 }
 
+/*
 .ft_triangle {
   border-top: 35px solid #fff;
   width: 50%;
@@ -637,11 +662,14 @@ footer {
   border-right: 35px solid transparent;
   z-index: 1;
 }
+*/
 
+/*
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav > li > a {
   text-shadow: none !important;
 }
+*/
 
 .PopCats:hover {
   cursor: pointer;
@@ -654,7 +682,7 @@ footer {
 html,
 body {
   height: 100%;
-  /*   The html and body elements cannot have any padding or margin. */
+
 }
 
 
@@ -666,7 +694,7 @@ body {
   height: auto !important;
   height: 100%;
   margin: 50px auto 0px;
-  /*overflow: auto;*/
+  
   overflow: hidden;
 }
 
@@ -674,7 +702,7 @@ body {
 /* Set the fixed height of the footer here */
 
 #footer {
-/*  height: 60px;*/
+
     height: 80px;
     
 }
@@ -696,12 +724,12 @@ body {
 /* Wrapper for page content to push down footer */
 
 
-/*#wrap {
+#wrap {
   min-height: 80%;
   height: auto !important;
   height: 100%;
   margin: 50px auto 0px;
-}*/
+}
 
 
 /* Set the fixed height of the footer here */
@@ -716,6 +744,7 @@ body {
 
 /* Lastly, apply responsive CSS fixes as necessary */
 
+/*
 @media (max-width: 767px) {
   #footer {
     margin-left: -20px;
@@ -741,6 +770,7 @@ tags-input .tags {
   border: none !important;
   box-shadow: none !important;
 }
+*/
 
 
 /*.carousel-indicators li {
@@ -857,7 +887,11 @@ tags-input .tags {
 
 
 
-/*css styles*/
+
+
+
+
+/* landing page css styles*/
 
 
 
@@ -1045,7 +1079,7 @@ tags-input .tags {
   
  
        
-           margin-right: 85px;
+           margin-right: 68px;
  
 /*    padding-right: 18px;*/
     color: black;
@@ -1056,7 +1090,7 @@ tags-input .tags {
     font-size: 17px;
     margin-top: -230px;
    
-    padding-left: 683px;
+    padding-left: 664px;
     position: absolute;
     padding-right: -17px;
     color: black;
@@ -1123,8 +1157,53 @@ tags-input .tags {
         }
         
 
+/*
+.custom #navbar #holder ul li a.active{
+
+   background-color:white;
+    border-top: 6px solid blue;
+    background: #FFF;
+    color:black;
+
+}
+*/
 
 
+
+                a.back-to-top {
+            
+	       display: none;
+	       width: 46px;
+           height: 42px;
+	       text-indent: -9999px;
+	       position: fixed;
+	       z-index: 99;
+	       right: 29px;
+	       bottom: 62px;
+   
+	       background: white  url("http://www.megaicons.net/static/img/icons_title/8/60/title/arrows-up-4-icon.png") no-repeat center 30%;
+            
+          /* background: red url('http://www.greatandhra.com/images/top.png') no-repeat -8px 0px;*/
+
+	       border-radius: 23px;
+           margin-bottom: 63px;
+           margin-right: 10px;
+          
+           background-image: url(up%20arrow2.png);
+            
+           
+            
+        }
+
+        a:hover.back-to-top{
+            
+            background: pink url("http://www.megaicons.net/static/img/icons_title/8/60/title/arrows-up-4-icon.png") no-repeat center 30%;
+            background-image: url(up%20arrow2.png);
+            text-decoration: none;
+            border-bottom: none;
+                
+        }
+        
 
 
 

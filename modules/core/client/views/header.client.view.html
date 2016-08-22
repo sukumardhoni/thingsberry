@@ -77,6 +77,23 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapse" uib-collapse="!isCollapsed">
       <ul class="nav navbar-nav navbar-right text-center" id="tb_top_menu">
+          
+          
+          
+          
+        <li ng-repeat="foo in content" ui-sref-active="active">
+          <a ui-sref="{{foo.route}}"class="header-title-names" style="background-color:white;">{{foo.link}}</a>
+        </li>
+       
+          
+          
+          
+          
+          
+          
+          
+          
+<!--
         <li ui-sref-active="active">
           <a ui-sref="home" class="header-title-names">HOME</a>
         </li>
@@ -119,8 +136,14 @@ authentication.user.provider == 'gmail') && (item.title == 'Change Password')"><
             <li>
               <a ng-click="signout()" style="cursor:pointer;">Signout</a>
             </li>
-          </ul>
-        </li>
+-->
+              
+              
+              
+              
+              
+              
+         
       </ul>
     </div>
   </div>
