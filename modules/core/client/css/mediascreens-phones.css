@@ -1,4 +1,4 @@
-@media screen and (max-width: 480px) {
+/*@media screen and (max-width: 480px) {
   @media screen and (max-width: 300px) {
     .business_sector_select {
       width: 220px !important;
@@ -70,25 +70,64 @@
   .readOnlyRating {
     font-size: 12px;
   }
+}*/
+
+
+/*-----------------Midhun media screens styles----------------------------*/
+
+@media (min-width: 992px) {
+  .col-md-offset-3 {
+    margin-left: 28%;
+  }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 991px) {
+  .header_carousel_box {
+    position: relative;
+    top: 30px !important;
+  }
+  .carousel_footer_options {
+    margin-top: 30px;
+    font-size: 12px;
+  }
+  .smple_desc {
+    margin-top: 90px;
+  }
+  .sngle_view {
+    left: 0px;
+    top: 60px;
+  }
+}
+
+@media (max-width: 765px) {
+  .smple_desc {
+    margin-top: 5px;
+  }
+}
+
+
+/*-----------------UPTO HERE Midhun media screens styles----------------------------*/
+
+
+/*@media (min-width: 768px) {
   .container {
     width: 95%;
     padding-right: 0;
     padding-left: 0;
   }
-}
+}*/
 
-@media (min-width: 768px) {
+
+/*@media (min-width: 768px) {
   .navbar-fixed-top .navbar-collapse,
   .navbar-static-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse {
     padding-right: 30px;
   }
-}
+}*/
 
-@media (max-width: 768px) {
+
+/*@media (max-width: 768px) {
   .navbar-collapse {
     background-color: rgb(2, 168, 243);
     color: white;
@@ -99,7 +138,6 @@
   }
   .nav > li > a {
     padding: 10px 15px !important;
-    color: rgb(255, 255, 255) !important;
     border-top: 1px solid white;
   }
   .navbar-inverse .navbar-nav > .open > a,
@@ -212,4 +250,4 @@
     margin: 0px -15px;
     margin-top: 11px;
   }
-}
+}*/

@@ -1,0 +1,45 @@
+<tb-header-image image="http://www.keyshot.com/wp-content/uploads/2013/04/fossil-watches-keyshot-cover.jpg" opacity="0.8" maintitle="Product Listing" subtitle="Loeriem ispium will show all the text in image Loeriem ispium will show all the text in image"></tb-header-image>
+
+<div class="container" ng-init="getSearchedProductsList()">
+  <div class="row col-md-offset-1 col-sm-offset-1 prdcts-list-box">
+    <div class="col-md-9 col-xs-12 ">
+      <div class="row prdcts-sorting hidden-sm">
+        <div class="col-md-4 prdct_showing_item">
+          <div class="glyphicon glyphicon-th col-md-1  hidden-xs prdcts_sorting_item"></div>
+          <div class="glyphicon glyphicon-th-list col-md-1  hidden-xs prdcts_sorting_item"></div>
+          <div class="col-md-9   prdcts_sorting_item ">Showing 1-9 of 30 products</div>
+        </div>
+
+        <div class="col-md-4 col-md-offset-3">
+          <div class="col-md-4 hidden-xs hidden-sm prdcts_sorting_item prdct_sort_align">View 12/24/All</div>
+          <div class="col-md-5 hidden-xs prdcts_sorting_item prdct_sort_align">Sort by Newest &nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+          <div class="col-xs-offset-1 visible-xs prdcts_sorting_item">Default sorting &nbsp;<i class="fa fa-angle-down" aria-hidden="true" style="float:right;"></i></div>
+        </div>
+
+      </div>
+      <div class="row prdcts-sorting visible-sm">
+        <div class="col-sm-4 prdcts_sorting_item " style="text-align:center;">Showing 1-9 of 30 products</div>
+        <div class="glyphicon glyphicon-th col-sm-2 prdcts_sorting_item"></div>
+        <div class="glyphicon glyphicon-th-list  col-sm-2 prdcts_sorting_item"></div>
+        <div class="col-sm-4 hidden-xs prdcts_sorting_item">Sort by Newest &nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+      </div>
+      <div ng-repeat="val in vm.companys.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
+        <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
+          <tb-products-list details=val></tb-products-list>
+          <!--  <tb-products-list product-image={{val.productImageURL}} product-name={{val.Proname}} product-desc={{val.description}} product-url={{val.companyWebsite}}></tb-products-list>-->
+        </div>
+      </div>
+      <div class="row text-center col-md-12 col-sm-12 hidden-xs">
+        <div uib-pagination total-items="vm.count" ng-model="currentPage" max-size="maxSize" boundary-link-numbers="true" items-per-page="itemsPerPage"></div>
+      </div>
+      <div class="row col-xs-12 visible-xs text-center" style="margin-top:20px;">
+        <button type="button" class="btn btn-default view_all_prdcts_bttn" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">VIEW ALL PRODUCTS</button>
+      </div>
+    </div>
+
+    <div class="col-md-2 col-xs-12">
+      <h2>accordions</h2>
+    </div>
+
+  </div>
+</div>

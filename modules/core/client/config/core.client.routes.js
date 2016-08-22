@@ -16,6 +16,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       .state('home', {
         url: '/',
         templateUrl: 'modules/core/client/views/home.client.view.html'
+          /*templateUrl: 'modules/core/client/views/new-home.client.view.html'*/
       })
       .state('aboutus', {
         url: '/aboutus',
@@ -33,7 +34,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       })
       .state('contactus', {
         url: '/contactus',
-        templateUrl: 'modules/core/client/views/contact-us.client.view.html',
+        /*  templateUrl: 'modules/core/client/views/contact-us.client.view.html',*/
+        templateUrl: 'modules/core/client/views/new-tb-contact-us.client.view.html',
         data: {
           pageTitle: 'Contact ThingsBerry'
         }

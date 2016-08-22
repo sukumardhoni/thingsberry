@@ -179,6 +179,16 @@
       return defObj.promise;
     };
 
+    $scope.BackgroundImage = "https://www.sleekcover.com/covers/citizen-watch-facebook-cover.jpg";
+    /*$scope.headerImgMainTitle = "Withings Activite Activity tracker";
+    $scope.headerImgSubTitle = "ID 123456";*/
+    $scope.prodImages = ['https://www.sleekcover.com/covers/independent-girl-facebook-cover.jpg', 'http://d2rfsfyh2505gh.cloudfront.net/wp-content/uploads/2015/07/Prabhas.jpg', 'http://www.latesthdwallpapers.in/photos/Allu-Arjun-facebook-best-hd-photos-free-for-mobile.jpg'];
+    $scope.sampleDesc = "In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since. 'Whenever you feel like criticizing anyone,' he told me, 'just remember that all the people in this world haven't had the advantages that you've had.Only then, with the reader’s attention hooked,  ";
+
+    $scope.prodId = "123456";
+    //$scope.sName = "$state.current.name==='companies.view'"
+    // console.log("sName:" + $state.current.name);
+
 
 
     $scope.changeLimit = function (pro) {

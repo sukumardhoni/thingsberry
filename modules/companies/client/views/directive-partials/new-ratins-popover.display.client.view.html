@@ -1,0 +1,16 @@
+<div>
+  <span class=" initialStars ">
+            <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
+            <div class="hover_box arrow_box">
+              <div>
+                <div class="ratingName">
+                  <h5><b>Give your rating here..</b></h5>
+                </div>
+                <div class="stars">
+                  <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="[' ',' ',' ',' ',' ']" aria-labelledby="default-rating" class="readOnlyRating " style="cursor: pointer;"></uib-rating>
+                </div>
+              </div>
+            </div>
+          </span>
+  <!--<span>(231)</span>-->
+</div>

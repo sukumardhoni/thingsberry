@@ -1,0 +1,88 @@
+<!--<tb-header-image image="{{BackgroundImage}}" opacity="0.8" maintitle="{{vm.company.Proname}}" subtitle="{{headerImgSubTitle}}"></tb-header-image>-->
+
+<tb-header-image image="{{BackgroundImage}}" opacity="0.8" maintitle="{{vm.company.Proname}}" subtitle="{{headerImgSubTitle}}"></tb-header-image>
+
+<div class="container">
+  <div class="row header_carousel_box">
+    <div class="col-md-9 ">
+      <div class="row">
+        <div class="col-md-4 col-sm-5 col-md-offset-2">
+          <tb-header-carousel images="prodImages"></tb-header-carousel>
+        </div>
+        <div class="col-md-6 col-sm-7">
+          <!-- <div class="row header_title hidden-xs hidden-sm">
+            <h1>{{vm.company.Proname}}::</h1>
+            <h5>12345678 ::</h5>
+          </div>-->
+          <div class="row smple_desc">
+            <tb-ratings-container prod-id={{prodId}} style="float:right;"></tb-ratings-container>
+            <tb-small-snippet desc={{sampleDesc}} prod-id={{prodId}}></tb-small-snippet>
+          </div>
+          <tb-link-button prod-link=" http://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow_auto " btn-color="#4D4DB4 " class="col-md-12 col-sm-12 col-xs-12 "></tb-link-button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-sm-offset-3 col-md-offset-2 ">
+          <tb-header-carousel-options images="prodImages" options="z,s,f"></tb-header-carousel-options>
+        </div>
+        <!--<div class="col-md-6 visible-xs visible-sm">
+          <tb-link-button prod-link=" http://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow_auto " btn-color="#4D4DB4 " class="col-md-12 col-sm-12 col-xs-12 "></tb-link-button>
+        </div>-->
+
+
+      </div>
+      <div class="row col-md-offset-2 sngle_prdct_desc_comments">
+        <my-tabs>
+          <my-pane title="Description">
+            <h4>Product Description</h4>
+            <p>{{vm.company.description}}</p>
+          </my-pane>
+          <my-pane title="Comments">
+            <h4>Comments</h4>
+            <div id="disqus_thread"></div>
+            <script>
+              var disqus_config = function () {
+                this.experiment.enable_scroll_container = true;
+              };
+
+              (function () { // DON'T EDIT BELOW THIS LINE
+                var d = document,
+                  s = d.createElement('script');
+                s.src = '//qathingsberry.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+
+              /* * * Disqus Reset Function * * */
+              var reset = function (newIdentifier, newUrl, newTitle, newLanguage) {
+                DISQUS.reset({
+                  reload: true,
+                  config: function () {
+                    this.page.identifier = newIdentifier;
+                    this.page.url = newUrl;
+                    this.page.title = newTitle;
+                    this.language = newLanguage;
+                    this.experiment.enable_scroll_container = true;
+                  }
+                });
+
+              };
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Things.</a>
+            </noscript>
+          </my-pane>
+        </my-tabs>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="col-md-2 " style="top:170px; ">
+      <h2>accordions</h2>
+      <!--<tb-accordions array="groups " title="groups.title " body-content="groups.content "></tb-accordions>-->
+    </div>
+  </div>
+
+</div>

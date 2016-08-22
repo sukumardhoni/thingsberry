@@ -41,6 +41,10 @@
         //console.log('ELSE')
         $scope.productsDisplayText = 'All Products';
       }
+      $scope.totalItems = $scope.getSearchedProductsList.length;
+      $scope.currentPage = 1;
+      $scope.itemsPerPage = 9;
+      $scope.maxSize = 7;
 
 
       //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);

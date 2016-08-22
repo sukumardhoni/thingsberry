@@ -51,8 +51,30 @@
 
       <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating"></uib-rating>
 
+      <div class="arrow_box hover_box">
+        <div ng-mouseleave="mouseOut()" ng-show="showRatings">
+          <div>
+            <div class="ratingName">
+              <h5><b>Give your rating here..</b></h5>
+            </div>
+            <div class="stars">
+              <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="[' ',' ',' ',' ',' ']" aria-labelledby="default-rating" class="readOnlyRating " style="cursor: pointer;"></uib-rating>
+            </div>
+            <span class="label" ng-class="{'label-info': percent}" ng-show="overStar && !isReadonly1">{{percent}}</span>
+          </div>
 
-      <div ng-mouseleave="mouseOut()" class=" arrow_box hover_box" ng-show="showRatings">
+          <div style="cursor:default; " ng-mouseleave="hoverOut()" ng-show="ratevalue">
+            <h5 class="ratedPopover">Thanks for rating </h5>
+          </div>
+        </div>
+
+        <div style="cursor: default;" ng-hide="showRatings">
+          <h5 class="ratedPopover">You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b> modify?</b></a>
+      </h5>
+        </div>
+
+      </div>
+      <!--<div ng-mouseleave="mouseOut()" class=" arrow_box hover_box" ng-show="showRatings">
         <div class="ratingName">
           <h5><b>Give your rating here..</b></h5>
         </div>
@@ -65,14 +87,14 @@
           <h5 class="ratedPopover"><br> Thanks for rating </h5>
         </div>
 
-      </div>
+      </div>-->
 
 
 
-      <div style="cursor: default;" class="arrow_box hover_box" ng-hide="showRatings">
+      <!-- <div style="cursor: default;" class="arrow_box hover_box" ng-hide="showRatings">
         <h5 class="ratedPopover"><br>You rated <b>{{rate1}} star.</b><a ng-click="showMe()" class="modifyIt"><b  > modify?</b></a>
       </h5>
-      </div>
+      </div>-->
 
     </div>
 

@@ -15,6 +15,7 @@ angular.module('companies')
         var localStorageRatingKey;
 
         scope.user = $localStorage.user;
+        console.log("---->:" + JSON.stringify(scope.user));
 
         var productname = scope.details.Proname;
         var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
@@ -84,7 +85,7 @@ angular.module('companies')
         }
 
         scope.mouseOut = function () {
-            scope.showRatings = false;
+            scope.showRatings = !scope.showRatings;
           }
           // scope.ratevalue = true;
           /*if (scope.ratevalue == true) {

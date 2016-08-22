@@ -10,6 +10,9 @@ module.exports = {
         'public/lib/toastr/toastr.min.css',
         'public/assets/css/isteven-multi-select.css',
         'public/lib/ng-tags-input/ng-tags-input.min.css',
+        'public/lib/owl.carousel/dist/assets/owl.carousel.min.css',
+        'public/lib/owl.carousel/dist/assets/owl.theme.default.min.css',
+
       ],
       js: [
         'public/lib/jquery/dist/jquery.min.js',
@@ -31,7 +34,9 @@ module.exports = {
         'public/assets/js/isteven-multi-select.js',
         'public/lib/toastr/toastr.js',
         'public/lib/ng-tags-input/ng-tags-input.min.js',
-        'public/lib/hello/dist/hello.all.js'
+        'public/lib/hello/dist/hello.all.js',
+        'public/lib/owl.carousel/dist/owl.carousel.min.js',
+
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

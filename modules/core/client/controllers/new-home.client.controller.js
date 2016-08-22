@@ -1,14 +1,17 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout',
+angular.module('core').controller('HomeController1', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout',
   function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout) {
 
     var vm = this;
+
+    /*    $scope.myInter=2000;*/
 
     $scope.myInterval = 0;
     $scope.myInter = 2000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
+
 
     // This provides Authentication context.
     $scope.authentication = Authentication;
@@ -132,25 +135,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
-    /* $scope.myInterval = 5000;
-     var slides = $scope.slides = [];
-     $scope.addSlide = function() {
-       console.log('in the home controller');
-       var newWidth = 600 + slides.length + 1;
-       slides.push({
-         image: 'http://placekitten.com/' + newWidth + '/300',
-         text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-           ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-       });
-     };
-     for (var i=0; i<4; i++) {
-       $scope.addSlide();
-     };*/
-
-
-
-
-
 
 
 
@@ -159,25 +143,22 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.noWrapSlides = false;
     $scope.active = 0;
     var slides1 = $scope.slides1 = [];
-    /*var slidesarray =$scope.slidesarray = [['slide1','slide2'],['slide3','slide4'],['slide5','slide6'],['slide7','slide8'],['slide9','slide10']];*/
-
-    var sample = $scope.sample = [];
+    var slides2 = $scope.slides2 = [];
     var slides3 = $scope.slides3 = [];
     var currIndex = 0;
     $scope.carouselBg = [];
-
     $scope.getPremiumProducts = function () {
       $scope.carouselBg.push('carousel_spinner');
       PremiumProducts.query({}, function (res) {
         $scope.premiumProducts = res;
 
-        //console.log('the length:'+JSON.stringify($scope.premiumProducts));
-        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
+        for (var i = 0; i < ($scope.premiumProducts.length / 2); i++) {
           $scope.addSlide1($scope.premiumProducts[i]);
         }
 
-        $scope.sample = $scope.listToMatrix($scope.slides1, 2);
-        // console.log('the resultant matrix'+JSON.stringify($scope.sample));
+        for (var j = ($scope.premiumProducts.length / 2); j < $scope.premiumProducts.length; j++) {
+          $scope.addSlide2($scope.premiumProducts[j]);
+        }
 
         for (var k = 0; k < $scope.premiumProducts.length; k++) {
           $scope.addSlide3($scope.premiumProducts[k]);
@@ -190,25 +171,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         console.log('Failed to fetch the product details : ' + err);
       });
     };
-
-
-    $scope.listToMatrix = function (list, elementsPerSubArray) {
-      //console.log('calling to listtomatrix function');
-      var matrix = [],
-        i, k;
-
-      for (i = 0, k = -1; i < list.length; i++) {
-        if (i % elementsPerSubArray === 0) {
-          k++;
-          matrix[k] = [];
-        }
-
-        matrix[k].push(list[i]);
-      }
-
-      return matrix;
-      //console.log('the resultant matrix:'+matrix);
-    }
 
 
 
@@ -244,7 +206,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         id: currIndex++
       });
     };
-
 
 
 
@@ -305,6 +266,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
 
 
+
+
+
+
+
     $scope.slides = [
 
 
@@ -336,7 +302,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
 
 
-        image: 'http://www.xkuty.com/images/xkuty.jpg',
+        image: 'modules/core/client/img/stackbox.jpg',
 
                 }
 
@@ -348,8 +314,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-    /*  $scope.slidesarray = [
-                   [
+    $scope.slidesarray = [
+                 [
 
         {
 
@@ -363,7 +329,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around to the noise behind while..'
 
 
-                  },
+                },
         {
 
           image: 'http://cdn.toptenreviews.com/rev/scrn/medium/59964-withings-pulse3.jpg',
@@ -375,7 +341,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'Track steps,running,calaries burned,elevation & distance.Measure heart rate & blood oxygen level with asingle touch Analyze funes and ..'
 
 
-                  },
+                },
         {
 
           image: 'https://ksr-ugc.imgix.net/assets/011/803/987/bc382547b1160d0bce8400d1e6373f83_original.jpg?w=1536&h=864&fit=fill&bg=FFFFFF&v=1463696995&auto=format&q=92&s=427d1a7f748b5453324ee61a31be2f92',
@@ -387,8 +353,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'With 16 infrared sensors and our patented HotSpot Sensor,Thermo finds the hottest spot and provides a highly accurate touch Analyze temperature..'
 
 
-                  }],
-                   [
+                }],
+                 [
 
         {
 
@@ -402,7 +368,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'Track steps,running,calaries burned,elevation & distance.Measure heart rate & blood oxygen level with a single touch Analyze your night..'
 
 
-                  },
+                },
         {
 
           image: 'http://www.xkuty.com/images/xkuty.jpg',
@@ -417,7 +383,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'With 16 infrared sensors and our patented HotSpot Sensor,Thermo finds the hottest spot and provides a highly accurate temperature..'
 
 
-                  },
+                },
         {
 
           image: 'http://cdn.toptenreviews.com/rev/scrn/medium/59964-withings-pulse3.jpg',
@@ -429,10 +395,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around to the noise behind while..'
 
 
-                  }],
+                }],
 
 
-                   [
+                 [
 
 
         {
@@ -447,7 +413,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'With 16 infrared sensors and our patented HotSpot Sensor,Thermo finds the hottest spot and provides a highly accurate touch Analyze temperature..'
 
 
-                  },
+                },
         {
 
           image: 'http://www.xkuty.com/images/xkuty.jpg',
@@ -462,7 +428,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'Track steps,running,calaries burned,elevation & distance.Measure heart rate & blood oxygen level with a single touch Analyze your night..'
 
 
-                  },
+                },
         {
 
           image: 'http://g01.a.alicdn.com/kf/HTB1i0nJHVXXXXatXFXXq6xXFXXXf/Fashion-Health-Electronic-Devices-Bluetooth-Smart-Watch-LED-Display-Touch-Screen-Smartwatches-for-Android-IOS-mobile.jpg_640x640.jpg',
@@ -474,18 +440,32 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           content: 'its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around to the noise behind while..'
 
 
-                  }]
+                }]
 
 
 
-              ];*/
-
-
-
-
+            ];
 
 
 
 
-}
-]);
+
+
+
+  }
+])
+
+
+.directive("carousel", function () {
+  console.log("entering into carousel directive1");
+
+  return {
+
+    restrict: 'E',
+
+    templateUrl: 'modules/core/client/views/carousel.html'
+
+  }
+
+
+})

@@ -61,7 +61,9 @@
           </a>
           <ul class="dropdown-menu" role="menu">
             <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
-              <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'|| authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
+              <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'||
+
+authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
             </li>
             <li class="divider hidden-xs"></li>
             <li>

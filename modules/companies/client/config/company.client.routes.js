@@ -3,7 +3,10 @@
 
   angular
     .module('companies.routes')
-    .config(routeConfig);
+    .config(routeConfig)
+    .run(function ($state, $rootScope) {
+      $rootScope.$state = $state;
+    });
 
   routeConfig.$inject = ['$stateProvider'];
 
@@ -19,7 +22,8 @@
       })
       .state('companies.list', {
         url: '/list/:cat?/:com?/:name?/:regions?/:isSearch',
-        templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        /*templateUrl: 'modules/companies/client/views/list-companies.client.view.html',*/
+        templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
         data: {
@@ -67,18 +71,19 @@
         }
       })
 
-     .state('companies.view', {
-        url: '/:companyId',
-        templateUrl: 'modules/companies/client/views/view-company.client.view.html',
-        controller: 'CompanyController',
-        controllerAs: 'vm',
-        resolve: {
-          companyResolve: getCompany
-        },
-        data: {
-          pageTitle: 'Company {{ companyResolve.Proname }}'
-        }
-      });
+    .state('companies.view', {
+      url: '/:companyId',
+      /*templateUrl: 'modules/companies/client/views/view-company.client.view.html',*/
+      templateUrl: 'modules/companies/client/views/new-single-product.client.view.html',
+      controller: 'CompanyController',
+      controllerAs: 'vm',
+      resolve: {
+        companyResolve: getCompany
+      },
+      data: {
+        pageTitle: 'Company {{ companyResolve.Proname }}'
+      }
+    });
   }
 
   getCompany.$inject = ['$stateParams', 'CompanyService'];
@@ -88,7 +93,7 @@
       companyId: $stateParams.companyId
     }).$promise;
   }
-   /*   .state('companies.view', {
+  /*   .state('companies.view', {
         url: '/:companyId',
         templateUrl: 'modules/company/client/views/view-company.client.view.html',
         controller: 'CompanyController',
