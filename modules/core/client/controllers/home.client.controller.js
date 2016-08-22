@@ -6,7 +6,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var vm = this;
 
     $scope.myInterval = 0;
-    $scope.myInter = 2000;
+//    $scope.myInter = 2000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
 
@@ -348,7 +348,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-    /*  $scope.slidesarray = [
+      $scope.slidesarray = [
                    [
 
         {
@@ -478,7 +478,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-              ];*/
+              ];
 
 
 
