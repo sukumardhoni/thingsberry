@@ -10,15 +10,195 @@
                   <div class="hidden-xs hidden-sm col-md-6 col-lg-5">
                     <div class="custom" style="background-color:white;">
                         
+
+    <uib-tabset>
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 224px;">
+
+         <span style="font-size: 13px;padding-left: 6px;">
+
+             <p style="margin-top:14px">
+                 Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+
+                    </span>
+
+
+
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+                            <div class="form-group" style="margin-top: 9px;font-size: 12px;">
+
+                                <p style="margin-left: -358px;">CATEGORY</p>
+
+
+
+<!--  <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;">-->
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+                                </div>
+
+
+
+                <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+
+
+
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
+                </div>
+
+                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                 </form>
+
+
+
+
+      </uib-tab>
+      <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 225px;">
+
+
+
+                        <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
+
+
+                            <p style="margin-top:14px">
+                                Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+                        <br>
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+
+
+
+
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+
+
+                                  <p style="margin-left: -353px;">CATEGORY</p>
+
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+
+
+                                </div>
+
+
+
+
+                        <input type="checkbox"style="margin-top: 0px;margin-left: -296px;">&nbsp; Advanced Search   <br>
+
+
+
+
+                          <div class="col-md-6 col-xs-12" style="padding-left:11px;">
+                       <label for="ex1"></label>
+                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
+                             </div>
+                         <div class="col-md-6 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
+                             </div>
+
+                        &nbsp;
+
+
+<!--
+                      ------  <span style="margin-top:10px;font-size: 12px;margin-right: 355px;">LOCATION:</span>
+
+                         <br>
+
+
+                        <div class="col-lg-6  col-sm-6 col-xs-12" style="padding-left:11px;">
+                        <label for="ex1"></label>
+
+                            <select class="form-control" style="height: 38px;cursor:pointer;">
+
+                           <option>America</option>
+                           <option>Australia</option>
+                           <option>India</option>
+                           <option>China</option>
+
+                            </select>
+
+                         </div>
+-->
+
+
+
+
+
+
+
+                        <div class="col-lg-12 col-sm-6 col-xs-12 col-md-12" style="padding-right: 12px;    margin-top: -7px;" >
+                       <label for="ex1"></label>
+
+
+
+
+                            <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+                             </div>
+
+
+
+            <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </form>
+
+    </span>
+
+
+      </uib-tab>
+    </uib-tabset>
+
+
+
+
     
+<!--
                           <div id="navbar">
-                             <div id="holder" >
+                             <div id="holder">
+
+
                              
                                  <ul>
 
                                      
-                                    <li  class="col-lg-6"><a href="#" ng-click="showme=true">Search</a></li>
-                                    <li class="col-lg-6"><a href="#" ng-click="showme=false" class="active">Advanced search</a>
+                                    <li  class="col-lg-6"><a href="#" ng-click="showme=true" id="onlink">Search</a></li>
+                                    <li class="col-lg-6"><a href="#" ng-click="showme=false">Advanced search</a>
                                     </li>
                                      
                                  </ul>
@@ -34,6 +214,8 @@
                         <div>
                         
                          
+
+
                     <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
                         <br>
 
@@ -45,13 +227,10 @@
 
                             <div class="form-group" style="margin-top: 8px;font-size: 12px;">
                      
-                              <!--  <p style="margin-left: -358px;">CATEGORY</p>-->
+
                                 
                                   <p style="margin-left: -353px;">CATEGORY</p>
-                                    
-                               
-                          
-<!--                            <input type="text" ng-model="homeSearchDetails.Category"  class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;" >-->
+
 
 
 
@@ -84,8 +263,7 @@
                         &nbsp;
 
 
-<!--
-                        <span style="margin-top:10px;font-size: 12px;margin-right: 355px;">LOCATION:</span>
+                      ------  <span style="margin-top:10px;font-size: 12px;margin-right: 355px;">LOCATION:</span>
                         
                          <br>
                         
@@ -104,7 +282,6 @@
                 
                          </div>
 
--->
 
 
 
@@ -114,7 +291,6 @@
                         <div class="col-lg-12 col-sm-6 col-xs-12 col-md-12" style="padding-right: 12px;    margin-top: -7px;" >
                        <label for="ex1"></label> 
 
-<!--   <input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px;" ng-click="getSearchedProducts(homeSearchDetails)">-->
 
 
 
@@ -156,7 +332,7 @@
                          
 
                                 
-                    <img ng-src="men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
                                 
                                 
                         <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
@@ -166,7 +342,7 @@
                                 
                                
                           
-<!--  <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;">-->
+  <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;">
 
                     <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
@@ -212,6 +388,7 @@
                          </div>      
                     
                    
+-->
                     </div>
                 </div>
              
@@ -232,16 +409,12 @@
                                <div id="navbar">
                              <div id="holder"  style="list-style: none;margin: 0;padding: 0;">
                              
-                                 <ul>
-                                      
-                                   <!--   <li  class="col-lg-6 col-sm-4 col-xs-6" ><a href="#" ng-click="showme=true">Search</a></li>
-                                      <li  class="col-lg-6 col-sm-4 col-xs-6">-->
+                                 <ul id="nav">
+
+                                       <li class="col-xs-6" id="nav-home"><a href="#" ng-click="showme=true" style="font-size:15px;text-align:center;float:left;width: 184px;">Search</a></li>
+                                      <li class="col-xs-6" id="nav-home">
                                      
-                                     
-                                       <li class="col-xs-6"><a href="#" ng-click="showme=true" style="font-size:15px;text-align:center;float:left;width: 184px;">Search</a></li>
-                                      <li class="col-xs-6">
-                                     
-                                       <a href="#" ng-click="showme=false" class="active" style="font-size:15px;text-align-center;width: 155px;">Advanced search</a>
+                                       <a href="http;site2" ng-click="showme=false" class="active" style="font-size:15px;text-align-center;width: 155px;">Advanced search</a>
                                           
                                           
                                      </li>
@@ -276,13 +449,7 @@
                             <div class="form-group" style="margin-top: 8px;font-size: 12px;">
                      
                                 <p style="margin-left: -245px;">CATEGORY</p>
-                                
-                               
-                          
-<!--
-                            <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 319px;">
 
--->
 
                     <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 319px;">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
@@ -291,13 +458,7 @@
                                     
                                 </div>
                           
-                         
-
-                        
-                        
-                        
-                        
-                        <div class="col-xs-12" style="padding-left:11px;margin-top: -29px;">
+                       <div class="col-xs-12" style="padding-left:11px;margin-top: -29px;">
                        <label for="ex1" style="margin-left:-237px; margin-top: 18px;">COMPANY</label>
                         <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
                         </div>
@@ -334,12 +495,8 @@
                         
                         
                     <div class="col-xs-12" style="padding-right: 12px;">
-                       <label for="ex1"></label> 
-<!--
-                            <a href="http://www.w3schools.com"><input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px;">
+                       <label for="ex1"></label>
 
-                            </a>
--->
                         
                         
                         <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
@@ -462,15 +619,11 @@
                       <div class="col-sm-12 col-sm-offset-2">
                           <div class="custom" style="background-color:white;width: 538px;margin-left: -25px;height: 115%;min-height: 465px;"> 
                               
-                               <div id="navbar">
+                            <div id="navbar">
                              <div id="holder"  style="list-style: none;margin: 0;padding: 0;">
                              
                                  <ul>
-                                      
-                                   <!--   <li  class="col-lg-6 col-sm-4 col-xs-6" ><a href="#" ng-click="showme=true">Search</a></li>
-                                      <li  class="col-lg-6 col-sm-4 col-xs-6">-->
-                                     
-                                     
+
                                        <li class="col-sm-6"><a href="#" ng-click="showme=true" style="font-size:15px;text-align:center;float:left;width: 268px;">Search</a></li>
                                       <li class="col-sm-6">
                                      
@@ -486,10 +639,7 @@
                          
                          </div>
                               
-                              
-                              
-                              
-                              
+
                  <br>
                           
                           
@@ -527,27 +677,7 @@
                         <input type="text" class="form-control"  placeholder="Company" style="border-radius:1px;height: 42px;">
                         </div>
                         
-                       
-                        
-<!--
-                          <p style="font-size: 12px;    margin-left: -431px; margin-top: 68px;">LOCATION:</p>
-                        
-                        
-                           <div class="col-xs-12" style="padding-left:11px;">
-                        <label for="ex1"></label>
 
-                            <select class="form-control" style="height: 38px;cursor:pointer;    margin-top: -25px;">
-                                
-                           <option>America</option>
-                           <option>Australia</option>
-                           <option>India</option>
-                           <option>China</option>
-                            
-                            </select>
-                
-                         </div>
--->
-                        
                         
                         
                          <div class="col-sm-6" style="padding-right: 12px;    margin-top: -30px;">
@@ -1307,6 +1437,9 @@
       return false;
     })
   });
+
+
+
 </script>
 
 

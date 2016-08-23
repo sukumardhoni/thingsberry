@@ -484,6 +484,20 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
+   $scope.activeTab = false;
+
+  $scope.selectTab1 = function() {
+    $scope.activeTab = true;
+  }
+  $scope.clickTab1 = function() {
+    $scope.activeTab = true;
+  }
+  $scope.clickTab2 = function() {
+    $scope.activeTab = false;
+  }
+
+
+
 
 
 
