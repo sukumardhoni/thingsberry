@@ -74,7 +74,8 @@
     .state('companies.view', {
       url: '/:companyId',
       /*templateUrl: 'modules/companies/client/views/view-company.client.view.html',*/
-      templateUrl: 'modules/companies/client/views/new-single-product.client.view.html',
+      /*templateUrl: 'modules/companies/client/views/new-single-product.client.view.html',*/
+      templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
       controller: 'CompanyController',
       controllerAs: 'vm',
       resolve: {
