@@ -1085,11 +1085,11 @@ tags-input .tags {
    .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
 
     font-size: 17px;
-    margin-top: -230px;
+    margin-top: -224px;
   
  
        
-           margin-right: 68px;
+           margin-right: 88px;
  
 /*    padding-right: 18px;*/
     color: black;
@@ -1098,9 +1098,9 @@ tags-input .tags {
     .carousel-control .glyphicon-chevron-left, .carousel-control .icon-next {
 
     font-size: 17px;
-    margin-top: -230px;
+    margin-top: -224px;
    
-    padding-left: 664px;
+    padding-left: 674px;
     position: absolute;
     padding-right: -17px;
     color: black;
@@ -1263,7 +1263,12 @@ tags-input .tags {
 }
 
 
+/*
+.custom:active{
 
+    border-top:2px solid red;
+}
+*/
 
 
 

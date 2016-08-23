@@ -24,8 +24,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.getSearchedProducts = function (details) {
 
-      //console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
-      //console.log('details is : ' + JSON.stringify(details));
+      console.log("entering into getsearchproducts :" +details);
+
+      console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
+      console.log('details is : ' + JSON.stringify(details));
       details.regions = $scope.outputBrowsers;
 
       if (details != undefined) {

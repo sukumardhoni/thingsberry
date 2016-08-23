@@ -20,6 +20,8 @@
 
     $scope.getSearchedProductsList = function () {
 
+        console.log("Entering into getsearchproductslists");
+
       // var pageId = 0;
 
       if ($stateParams.cat == 'Home') {
@@ -98,7 +100,7 @@
           $scope.spinnerLoading = false;
           pageId++;
         }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+          console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       }
     };
