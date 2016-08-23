@@ -77,11 +77,16 @@
 
 @media (min-width: 992px) {
   .col-md-offset-3 {
-    margin-left: 28%;
-  }
+   margin-left: 28%;
+ }
 }
 
 @media (max-width: 991px) {
+  .container {
+    width: 95%;
+    padding-right: 0;
+    padding-left: 20px;
+  }
   .header_carousel_box {
     position: relative;
     top: 30px !important;
@@ -102,6 +107,9 @@
 @media (max-width: 765px) {
   .smple_desc {
     margin-top: 5px;
+  }
+  .prdct_srt_view_icons {
+    margin-left: -45px;
   }
 }
 

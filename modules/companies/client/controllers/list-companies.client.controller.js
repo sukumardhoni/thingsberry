@@ -43,8 +43,8 @@
       }
       $scope.totalItems = $scope.getSearchedProductsList.length;
       $scope.currentPage = 1;
-      $scope.itemsPerPage = 9;
-      $scope.maxSize = 7;
+      $scope.itemsPerPage = 12;
+      $scope.maxSize = 2;
 
 
       //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
@@ -57,11 +57,11 @@
           'value': ''
         },
         {
-          'name': 'Latest',
+          'name': 'Sort by Newest',
           'value': '-created'
         },
         {
-          'name': 'Ratings',
+          'name': 'Sort by Ratings',
           'value': 'created'
         }
   ];

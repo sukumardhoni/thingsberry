@@ -1,0 +1,77 @@
+<div class="container" ng-init="getSearchedProductsList()">
+  <div class="row prdcts-list-box">
+    <div class="col-md-9">
+      <div class="row new_sngle_prdct_box">
+        <div class="col-md-5 col-sm-5" style="padding:0px;">
+          <p>
+            <a ng-href="{{vm.company.webAddress}}" target="_blank"> <img class="" ng-src="{{vm.company.productImageURL}}" style="width:100%;height:300px;"> </a>
+          </p>
+        </div>
+        <div class="col-md-7 col-sm-7 prdct_rightSide_desc">
+          <div class="row">
+            <div class="col-md-3">
+              <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date | date:'yyyy-MM-dd'}}</span>
+            </div>
+            <div class="col-md-2">
+              <i class="fa fa-heart-o icons_in_sngle_prdct"></i>
+            </div>
+            <div class="col-md-2">
+              <i class="fa fa-share-alt prodIcons icons_in_sngle_prdct" aria-hidden="true"></i>
+            </div>
+
+
+            <tb-ratings-container prod-id={{prodId}} style="float:right;"></tb-ratings-container>
+          </div>
+          <div class="row">
+            <h2 style="margin: 12px;">{{vm.company.Proname}}</h2>
+          </div>
+          <tb-small-snippet desc={{sampleDesc}} prod-id={{prodId}}></tb-small-snippet>
+        </div>
+      </div>
+      <div class="row new_sngle_prdct_box">
+        <h3 class="text-center">Comments</h3>
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.experiment.enable_scroll_container = true;
+          };
+
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document,
+              s = d.createElement('script');
+            s.src = '//qathingsberry.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+
+          /* * * Disqus Reset Function * * */
+          var reset = function (newIdentifier, newUrl, newTitle, newLanguage) {
+            DISQUS.reset({
+              reload: true,
+              config: function () {
+                this.page.identifier = newIdentifier;
+                this.page.url = newUrl;
+                this.page.title = newTitle;
+                this.language = newLanguage;
+                this.experiment.enable_scroll_container = true;
+              }
+            });
+          };
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Things.</a>
+        </noscript>
+      </div>
+    </div>
+
+
+
+    <div class="col-md-3" style="margin-top:15px;">
+      <h4>Under maintenence.....</h4>
+    </div>
+
+
+  </div>
+
+
+
+</div>
