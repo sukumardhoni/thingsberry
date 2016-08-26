@@ -1,18 +1,19 @@
 
-<section ng-controller="HomeController">
+<section ng-controller="HomeController" >
     
     <div style="background-color:grey;">
     
               <div class="container" style="background-color:grey;margin-top: 32px;">
             
-            <div class="row" style="background-color:grey;height:396px;margin-left: -4px; margin-top: 64px;">
+             <div class="row" style="background-color:grey;height:414px;margin-left: -4px; margin-top: 64px;">
               
                   <div class="hidden-xs hidden-sm col-md-6 col-lg-5 ">
-                    <div class="custom" style="background-color:white;">
+
+                      <div class="custom"  ng-init="indextab = 1">
                         
 
-    <uib-tabset>
-      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 224px;">
+    <uib-tabset active="indextab">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 224px;background: #f2f2f2;    height: 46px;">
 
          <span style="font-size: 13px;padding-left: 6px;">
 
@@ -31,11 +32,7 @@
 
                                 <p style="margin-left: -358px;">CATEGORY</p>
 
-
-
-<!--  <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;">-->
-
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                   <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                     </tags-input>
 
@@ -71,7 +68,7 @@
 
 
       </uib-tab>
-      <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 225px;">
+      <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 225px;background: #f2f2f2;    height: 46px;">
 
 
 
@@ -88,7 +85,7 @@
 
 
 
-                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+                            <div class="form-group" style="margin-top: -8px;font-size: 12px;">
 
 
 
@@ -97,7 +94,7 @@
 
 
 
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                     </tags-input>
 
@@ -109,17 +106,17 @@
 
 
 
-                        <input type="checkbox"style="margin-top: 0px;margin-left: -296px;">&nbsp; Advanced Search   <br>
+                        <!--<input type="checkbox"style="margin-top: 0px;margin-left: -296px;">&nbsp; Advanced Search  --> <br>
 
 
 
 
                           <div class="col-md-6 col-xs-12" style="padding-left:11px;">
-                       <label for="ex1"></label>
+                       <label for="ex1" style="margin-left: -126px;">COMPANY</label>
                         <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
                              </div>
                          <div class="col-md-6 col-xs-12" style="padding-right: 12px;">
-                       <label for="ex1"></label>
+                       <label for="ex1" style="margin-left: -136px;">PRODUCT</label>
                         <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
                              </div>
 
@@ -400,7 +397,8 @@
                 
 
                 
-                <div class="visible-xs  text-center col-xs-12" style="font-size:20px;">
+<!--
+                <div class="hidden-xs  text-center col-xs-12" style="font-size:20px;">
 
 
                       <div class="col-xs-12">
@@ -463,27 +461,7 @@
                         <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
                         </div>
                         
-                       
-                        
-<!--
-                          <p style="font-size: 12px;    margin-left: -234px; margin-top: 68px;">LOCATION:</p>
-                        
-                        
-                           <div class="col-xs-12" style="padding-left:11px;">
-                        <label for="ex1"></label>
 
-                            <select class="form-control" style="height: 38px;cursor:pointer;    margin-top: -25px;">
-                                
-                           <option>America</option>
-                           <option>Australia</option>
-                           <option>India</option>
-                           <option>China</option>
-                            
-                            </select>
-                
-                         </div>
--->
-                        
                         
                         
                          <div class="col-xs-12" style="padding-right: 12px;">
@@ -552,12 +530,6 @@
                                 
                                 
                     <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;">
-<!--
-                       <label for="ex1"></label> 
-                            <a href="http://www.w3schools.com"><input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px;">
-                            </a>
--->
-
 
 
                         <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
@@ -603,6 +575,7 @@
                     
                 </div>
                 
+-->
                 
                 
                 
@@ -613,19 +586,19 @@
                 
                 
                 
-                <div class="visible-sm text-center col-sm-12" style="font-size:20px;">
+                <div class="visible-sm  text-center col-sm-12 " style="font-size:20px;">
 
 
-                      <div class="col-sm-12 col-sm-offset-2">
-                          <div class="custom" style="background-color:white;width: 538px;margin-left: -25px;height: 115%;min-height: 465px;"> 
+                      <div class="col-sm-12 col-xs-12 col-sm-offset-2">
+                          <div class="custom" style="background-color:white;width: 538px;margin-left: -25px;height: 115%;min-height: 440px;" ng-init="indextab = 1">
                               
 
 
 
 
 
-                            <uib-tabset>
-      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 276px;">
+    <uib-tabset active="indextab">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 276px;background: #f2f2f2;height: 46px;">
 
          <span style="font-size: 13px;padding-left: 6px;">
 
@@ -646,7 +619,7 @@
 
 
 
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 520px;">
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 520px;">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                     </tags-input>
 
@@ -655,12 +628,12 @@
 
 
 
-                <div class=" col-sm-12 " style="padding-right: 12px;">
+                <div class=" col-sm-12 col-xs-12" style="padding-right: 12px;">
                        <label for="ex1"></label>
 
 
 
-                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998;margin-top: -18px;">
 
 
 
@@ -683,7 +656,7 @@
 
       </uib-tab>
 
-              <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 262px;">
+              <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 262px;background: #f2f2f2;    height: 46px;">
 
 
 
@@ -721,17 +694,17 @@
 
 
 
-                        <input type="checkbox"style="margin-top: 0px;margin-left: -373px">&nbsp; Advanced Search   <br>
+                     <!--   <input type="checkbox"style="margin-top: 0px;margin-left: -373px">&nbsp; Advanced Search-->   <br>
 
 
 
 
-                          <div class="col-md-6 col-xs-12" style="padding-left:11px;">
-                       <label for="ex1"></label>
+                          <div class="col-sm-6" style="padding-left:11px;">
+                       <label for="ex1" style="margin-left: -155px;">COMPANY</label>
                         <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
                              </div>
-                         <div class="col-md-6 col-xs-12" style="padding-right: 12px;">
-                       <label for="ex1"></label>
+                         <div class="col-sm-6" style="padding-right: 12px;">
+                       <label for="ex1 " style="margin-left: -164px;">PRODUCT</label>
                         <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
                              </div>
 
@@ -934,6 +907,216 @@
                           </div>
                     </div>    
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="visible-xs text-center col-sm-12 col-xs-12" style="font-size:20px;">
+
+
+                      <div class="col-xs-12">
+                          <div class="custom" style="background-color:white;width: 330px;margin-left: -33px;height: 115%;min-height: 465px;" ng-init="indextab = 1">
+
+
+
+
+
+
+    <uib-tabset active="indextab">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="    width: 155px;background: #f2f2f2;height: 46px;    font-size: 17px;">
+
+         <span style="font-size: 13px;padding-left: 6px;">
+
+             <p style="margin-top:14px">
+                 Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+
+                    </span>
+
+
+
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+                            <div class="form-group" style="margin-top: 54px;font-size: 12px;">
+
+                                <p style="margin-left: -250px">CATEGORY</p>
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 310px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+                                </div>
+
+
+
+                <div class=" col-sm-12 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+
+
+
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
+                </div>
+
+                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                 </form>
+
+
+
+
+      </uib-tab>
+
+              <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 173px;background: #f2f2f2;    height: 46px;    font-size: 17px;">
+
+
+
+                        <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
+
+
+                            <p style="margin-top:14px">
+                                Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+                        <br>
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+
+
+
+
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+
+
+                                  <p style="margin-left: -250px">CATEGORY</p>
+
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 310px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+
+
+                                </div>
+
+
+
+
+                  <!--      <input type="checkbox"style="margin-top: 0px;margin-left: -179px">&nbsp; Advanced Search -->  <br>
+
+
+
+
+                          <div class="col-xs-12" style="padding-left:11px;">
+                       <label for="ex1" style="margin-left: -216px">COMPANY</label>
+                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
+                             </div>
+                         <div class="col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1" style="margin-left: -216px;margin-top: 14px;">PRODUCT</label>
+                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
+                             </div>
+
+                        &nbsp;
+
+
+
+                        <div class=" col-sm-12 " style="padding-right: 12px;    margin-top: -7px;" >
+                       <label for="ex1"></label>
+
+
+
+
+                            <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+                             </div>
+
+
+
+            <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </form>
+
+    </span>
+
+
+      </uib-tab>
+                              </uib-tabset>
+
+
+
+
+
+
+
+
+
+                          </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
 
         
@@ -941,8 +1124,20 @@
               <!--  <div class="col-md-6 col-lg-5 col-sm-8 col-xs-12 col-sm-offset-2">-->
                 
 <!--                  <div class="col-md-5 col-lg-5 col-sm-8 col-xs-12 col-sm-offset-2 col-md-offset-1">-->
+
+
                 
                 
+
+
+
+<!--
+
+
+
+first carousel part
+
+
                 <div class="hidden-sm col-md-5 col-lg-5 col-xs-12  col-sm-offset-2 col-md-offset-1">
                     <div class="custom" style="background-color:grey;">
 
@@ -1042,6 +1237,11 @@
                         </div>
                 </div>
                 
+-->
+
+
+
+                <tb-first-carousel options="p"></tb-first-carousel>
                 
 
 
@@ -1096,16 +1296,7 @@
             
             <div class="row" style="height:215px;padding-top: 7px;margin-left: -43px;">
             
-          
-                
-    
-                
- 
-                
-<!--
-<div class="hidden-xs hidden-sm customNavigation" style="margin-left: 640px;
-    margin-top: -40px;">
--->
+
                 
                 <div class="hidden-xs hidden-sm customNavigation" style="margin-left: 742px; margin-top: -11px;">
                 
@@ -1117,15 +1308,17 @@
                 
               </div>    
             
-               <!--<mycarousel></mycarousel>-->
+
             
     
             
-               <div class="row">
+
+
+
+
 <!--
-      <div class="hidden-xs col-md-6" style="width:67%;margin-top: -46px;height: 395px;margin-left: 375px;
-    margin-top: -260px;">       
--->
+               <div class="row">
+
                    
                     <div class="hidden-xs  col-md-6" style="width:85%;margin-top: -46px;height: 395px;margin-left: 150px;
     margin-top: -179px;">  
@@ -1136,11 +1329,7 @@
                
                 <span ng-repeat="pro1 in pro">  
                     
-                    
-                    
 
- 
-       
          
          <div class=" cal-md-3 col-xs-12" id="services_block">
          
@@ -1148,28 +1337,20 @@
              
           <img ng-src="{{pro1.image}}" style="width: 261px;height: 150px;margin-top: 2px;margin-bottom: 75px;margin-left: -8px;">
              
-             
-             
-             
-             
-             
+
              
         <p style="margin-top:-67px;margin-bottom:59px;font-size:13px; margin-left: -167px;">{{pro1.date}} </p> 
-            
-                        
+
+
              
-             
-       <!-- <div class="rating" style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:18px;margin-left: 173px;cursor:pointer;"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                             </div>-->
-             
-             
-             
-            <!-- Ratings functionality-->
+
              
              <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
  
               <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
               </uib-rating>
+
+
              </div>
              
              
@@ -1183,8 +1364,7 @@
              
              <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
                  
-                 
-          <!--  <i class="fa fa-expand" aria-hidden="true" style="padding-right:25px;margin-left: 20px;color:blue;"></i>    -->
+
                  
                  
                
@@ -1215,18 +1395,7 @@
             
         </span>
                 
-                
-                
-                
-    <!--            
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="    margin-left: -101px;">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-          </a>
-          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>-->
-                
-                
+
                 
                 
                 
@@ -1238,35 +1407,8 @@
         
         </div>
         
-        
-        
-  <!--      background-color: white;
-    height: 354px;
-    margin-top: -212px;
-    width: 83%;
-    margin-left: 46px;
-        -->
-        
-        
-        
-      <!-- visible in featured products xs part carousel-->
-        
-        <!-- <div class="visible-xs col-xs-12" style="background-color:white;   height: 354px; margin-top: -299px;width: 53%;
-    margin-left: 282px;">-->
-                
-                   
-                   
-                   
-   
-                   
-                   
-                   
-                   
-                                       <div class="visible-xs col-xs-12" style="  background-color: white;
-    height: 354px;
-    margin-top: -212px;
-    width: 83%;
-    margin-left: 46px;">
+
+            <div class="visible-xs col-xs-12" style="  background-color: white; height: 354px;margin-top: -212px;width: 83%;margin-left: 46px;">
                         
                         
                   
@@ -1280,15 +1422,9 @@
              
         <p style="font-size:13px; ">{{pro1.date}} </p> 
             
-                        
+
              
-             
-       <!-- <div class="rating" style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:18px;margin-left: 173px;cursor:pointer;"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                             </div>-->
-             
-             
-             
-            <!-- Ratings functionality-->
+             Ratings functionality
              
              <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
  
@@ -1307,8 +1443,7 @@
              
              <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
                  
-                 
-          <!--  <i class="fa fa-expand" aria-hidden="true" style="padding-right:25px;margin-left: 20px;color:blue;"></i>    -->
+
                  
                  
                
@@ -1334,57 +1469,24 @@
              
              
     </div>
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-             
-       
-        
-        
-                        
-                   
+
         
     </div>
-     
-                   
+        -->
+            
+            
+            
+            
+            
+            <tb-second-carousel options="f"></tb-second-carousel>
             
             
             
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-               
-                
+
+
                  <br>
                 
                 <div class=" hidden-xs hidden-sm col-xs-4" style="padding-left: 131px;margin-left: 31px;">
@@ -1425,6 +1527,7 @@
 <!--    BILL GATES, founder of Microsoft-->
     
     
+<!--
     <div class="jumbotron text-center" style="background:url(https://wallpaperscraft.com/image/wood_background_texture_36573_2560x1600.jpg);height:359px;margin-bottom:-19px;">
 
                   
@@ -1442,26 +1545,24 @@
                    
         <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
                       
-     </div>
-    
-    
-    
-<!-- 
-
-<billgates title="BILL GATES, founder of Microsoft" description="Success is a lousy teacher. It seduces<br>
-                       smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" img2="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" img3="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg"></billgates>
+        </div>
 -->
     
     
+
+
+<tb-billgates title="BILL GATES, founder of Microsoft" description="Success is a lousy teacher. It seduces
+smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" img2="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" img3="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg">
+    
+</tb-billgates>
     
     
+    
+
     
   <!--  ::: Our Clients :::-->
     
-    
-    
-    
-               
+
         <div style="background-color: #f2f2f2;text-align:center;">
                 
         <div class="container" style="background-color: #f2f2f2;">
@@ -1490,6 +1591,9 @@
                    
                     <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
             
+
+<!--
+
             <div class="row" style="height:215px;padding-top: 7px;margin-left: 10px;">
                 
     
@@ -1560,30 +1664,18 @@
                 </div>
                
         </div>
-        
+
+-->
+
+
+            <tb-ourclients  ourclients="['STATON','Genuine','SOUTHBEACH','Hand craft','CUBANESE']">
+            </tb-ourclients>
+
+
         </div>
         </div> 
          
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
 </section>

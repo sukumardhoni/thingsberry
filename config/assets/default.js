@@ -13,6 +13,7 @@ module.exports = {
         'public/lib/owl.carousel/dist/assets/owl.carousel.min.css',
         'public/lib/owl.carousel/dist/assets/owl.theme.default.min.css',
 
+
       ],
       js: [
         'public/lib/jquery/dist/jquery.min.js',

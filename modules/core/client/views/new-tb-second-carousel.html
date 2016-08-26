@@ -1,0 +1,341 @@
+<div ng-show="showMeM">
+
+<div class="row">
+
+
+<div class="col-xs-12 col-md-6 col-md-offset-2" style="width:79%;margin-top: -46px;height: 395px;margin-left: 150px;
+    margin-top: -179px;">
+
+    <uib-carousel interval="myInterval" active="active" >
+            <uib-slide ng-repeat="pro in slidesarray"  index="$index" >
+
+
+                <span ng-repeat="pro1 in pro">
+
+
+
+         <div class=" col-xs-12 cal-md-3" id="services_block">
+
+
+
+          <img ng-src="{{pro1.image}}" style="width: 261px;height: 150px;margin-top: 2px;margin-bottom: 75px;margin-left: -8px;">
+
+
+
+        <p style="margin-top:-67px;margin-bottom:59px;font-size:13px; margin-left: -167px;">{{pro1.date}} </p>
+
+
+
+
+
+             <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
+
+              <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
+              </uib-rating>
+
+
+             </div>
+
+
+
+                <p style="margin-top:-52px;margin-bottom:11px;font-size: 20px;margin-left: -167px;">{{pro1.title}}</p>
+
+                  <p style="margin-top:-8px;font-size:15px;width:260px;height:73px;text-align: center;text-indent: 10px;">{{pro1.content}}</p>
+
+                  <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
+
+
+             <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
+
+
+
+
+
+            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
+
+
+
+
+            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
+
+            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
+
+
+                </span>
+
+
+                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+
+
+    </div>
+
+
+
+        </span>
+
+
+
+
+
+    </uib-slide>
+
+</uib-carousel>
+
+
+
+        </div>
+
+
+<!--
+            <div class="visible-xs col-xs-12" style="  background-color: white; height: 354px;margin-top: -212px;width: 83%;margin-left: 7px;">
+
+
+
+          <img ng-src="http://www.xkuty.com/images/xkuty.jpg" style="width: 307px;height: 150px;margin-top: 2px;margin-bottom: 75px;    margin-left: -4px;;">
+
+
+
+
+
+
+
+        <p style="font-size:13px; ">{{pro1.date}} </p>
+
+
+
+             Ratings functionality
+
+             <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
+
+              <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
+              </uib-rating>
+             </div>
+
+
+
+                <p style="font-size: 20px;margin-top: -51px;margin-left: -172px;">Xkuty One</p>
+
+                  <p style="font-size:15px;text-align: center;text-indent: 10px;">its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around ..</p>
+
+                  <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
+
+
+             <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
+
+
+
+
+
+            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
+
+
+
+
+            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
+
+            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
+
+
+                </span>
+
+
+                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+
+
+    </div>
+-->
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div ng-show="showMeB">
+
+<div class="row">
+
+
+<div class="col-xs-12 col-md-6 col-md-offset-2" style="width:79%;margin-top: -46px;height: 395px;margin-left: 150px;margin-top: -179px;">
+
+    <uib-carousel interval="myInterval" active="active">
+            <uib-slide ng-repeat="pro in slidesarray1"  index="$index">
+
+
+                <span ng-repeat="pro1 in pro">
+
+
+
+         <div class=" cal-md-3 col-xs-12" id="services_block">
+
+
+
+          <img ng-src="{{pro1.image}}" style="width: 261px;height: 150px;margin-top: 2px;margin-bottom: 75px;margin-left: -8px;">
+
+
+
+        <p style="margin-top:-67px;margin-bottom:59px;font-size:13px; margin-left: -167px;">{{pro1.date}} </p>
+
+
+
+
+
+             <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
+
+              <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
+              </uib-rating>
+
+
+             </div>
+
+
+
+                <p style="margin-top:-52px;margin-bottom:11px;font-size: 20px;margin-left: -167px;">{{pro1.title}}</p>
+
+                  <p style="margin-top:-8px;font-size:15px;width:260px;height:73px;text-align: center;text-indent: 10px;">{{pro1.content}}</p>
+
+                  <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
+
+
+             <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
+
+
+
+
+
+            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
+
+
+
+
+            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
+
+            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
+
+
+                </span>
+
+
+                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+
+
+    </div>
+
+
+
+        </span>
+
+
+
+
+
+    </uib-slide>
+
+</uib-carousel>
+
+
+
+        </div>
+
+
+<!--            <div class="visible-xs col-xs-12" style="  background-color: white; height: 354px;margin-top: -212px;width: 83%;margin-left: 46px;">
+
+
+
+          <img ng-src="http://www.xkuty.com/images/xkuty.jpg" style="width: 307px;height: 150px;margin-top: 2px;margin-bottom: 75px;    margin-left: -4px;;">
+
+
+
+
+
+
+
+        <p style="font-size:13px; ">{{pro1.date}} </p>
+
+
+
+             Ratings functionality
+
+             <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
+
+              <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
+              </uib-rating>
+             </div>
+
+
+
+                <p style="font-size: 20px;margin-top: -51px;margin-left: -172px;">Xkuty One</p>
+
+                  <p style="font-size:15px;text-align: center;text-indent: 10px;">its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around ..</p>
+
+                  <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
+
+
+             <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
+
+
+
+
+
+            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
+
+
+
+
+            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
+
+            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
+
+
+                </span>
+
+
+                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+
+
+    </div>
+          -->
+
+    </div>
+
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,1182 @@
+<html ng-app="myapp">
+
+    <head>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <!--Font awesome-->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+             <!-- Carousel headers-->
+       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+      <script data-require="angular.js@1.4.8" data-semver="1.4.8" src="https://code.angularjs.org/1.4.8/angular.js"></script>
+      <script data-require="angular-route@*" data-semver="1.4.8" src="https://code.angularjs.org/1.4.8/angular-route.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+      <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.1.js"></script>
+      <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js">
+    </script>
+
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>   -->
+
+
+
+      <!-- sm device search icon-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-animate.min.js"></script>
+
+
+
+
+
+
+
+
+
+    </head>
+
+    <style>
+
+          .header{
+
+
+            background-color: gray;
+            margin-top: 20px;
+            opacity: 0.9;
+
+            }
+
+        #navbar #holder{
+
+            height: 50px;
+            padding-left: 1px;
+        }
+
+        #navbar #holder ul{
+
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #navbar #holder ul li a{
+
+            text-decoration: none;
+            float: left;
+            margin-right: 3px;
+            color:#000;
+            border-bottom: none;
+            padding: 20px;
+            width: 221px;
+            text-align: center;
+            background-color:#f2f2f2;
+            margin-right: -4px;
+            margin-top: 0px;
+            display: inline-block;
+
+
+        }
+
+
+       #navbar #holder ul li a:focus{
+
+            background: #FFF;
+            color:black;
+            background-color:white;
+            border-top: 6px solid blue;
+
+
+        }
+
+
+        #navbar #holder{
+
+            background-color:#f2f2f2;
+            height: 60px;
+
+        }
+
+
+     .darrow{
+
+       margin-left: 180px;
+       font-size: 11px;
+       top: 19px;
+       position: absolute;
+       right: 34px;
+       cursor: pointer;
+
+
+        }
+
+
+        a.back-to-top {
+
+	       display: none;
+	       width: 46px;
+           height: 42px;
+	       text-indent: -9999px;
+	       position: fixed;
+	       z-index: 99;
+	       right: 29px;
+	       bottom: 62px;
+
+	       background: white  url("http://www.megaicons.net/static/img/icons_title/8/60/title/arrows-up-4-icon.png") no-repeat center 30%;
+
+          /* background: red url('http://www.greatandhra.com/images/top.png') no-repeat -8px 0px;*/
+
+	       border-radius: 23px;
+           margin-bottom: 63px;
+           margin-right: 10px;
+
+           background-image: url(up%20arrow2.png);
+
+
+
+        }
+
+        a:hover.back-to-top{
+
+            background: pink url("http://www.megaicons.net/static/img/icons_title/8/60/title/arrows-up-4-icon.png") no-repeat center 30%;
+            background-image: url(up%20arrow2.png);
+            text-decoration: none;
+            border-bottom: none;
+
+        }
+
+
+        .logo-container {
+
+            padding-top: 4px;
+            display: inline-block;
+            margin-left:158px;
+
+        }
+
+
+        .header2{
+
+
+            background-color:white;
+
+            height: 10px;
+
+            width: 100%;
+
+            margin:auto;
+
+
+          }
+
+
+
+
+        .wrapper{
+
+            margin-top: -8px;
+        }
+
+        .form-control{
+
+
+            height: 43px;
+        }
+
+
+
+  /*    .jumbotron {
+    padding-top: 48px;
+    padding-bottom: 48px;
+         }
+
+
+        .jumbotron p {
+
+    font-size: 29px;
+
+    margin-top: 30px;
+    color: white;
+         }
+ */
+
+
+
+
+/*    it will removes the carousel background shadow    */
+
+
+
+      .carousel-control.left, .carousel-control.right {
+
+          background-image:none !important;
+          filter:none !important;
+
+          }
+
+
+
+
+
+
+        body{
+
+            padding-top: 42px;
+
+        }
+
+
+
+
+
+
+   /*    ::: Our Clients ::: */
+
+        .cus{
+
+            background-color: white;
+            min-height: 124px;
+            margin-top: -40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.6s;
+        }
+
+
+        .cus:hover{
+
+	    cursor:pointer;
+	    transition:all 0.6s ease;
+	    transform:scale(1.1);
+        box-shadow: 1px 1px 5px #888888;
+
+        }
+
+
+        .cus a{
+
+            text-align:left;
+            margin-top: 46px;
+            position: absolute;
+            color:black;
+            text-decoration:none;
+
+        }
+         .cus a:hover{
+
+
+            color:black;
+            text-decoration:none;
+
+        }
+
+
+
+
+        .custom{
+
+            background-color: white;
+            min-height: 345px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .cus{
+
+            background-color: white;
+            min-height: 124px;
+            margin-top: 10px;
+            text-align: center;
+            cursor: pointer;
+             transition: all 0.6s;
+        }
+
+
+
+
+
+        #navbar #holder{
+
+            height: 50px;
+            padding-left: 1px;
+        }
+
+        #navbar #holder ul{
+
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #navbar #holder ul li a{
+
+            text-decoration: none;
+            float: left;
+            margin-right: 3px;
+            color:#000;
+            border-bottom: none;
+            padding: 20px;
+            width: 221px;
+            text-align: center;
+            background-color:#f2f2f2;
+            margin-right: -4px;
+            margin-top: 0px;
+            display: inline-block;
+            margin-left: -17px;
+
+
+        }
+
+
+    /*   #navbar #holder ul li a:focus{
+
+            background: #FFF;
+            color:black;
+            background-color:white;
+            border-top: 6px solid blue;
+
+
+        }
+          */
+
+        #navbar #holder{
+
+            background-color:#f2f2f2;
+            height: 60px;
+
+        }
+
+
+         .darrow{
+
+       margin-left: 180px;
+       font-size: 11px;
+       top: 19px;
+       position: absolute;
+       right: 34px;
+       cursor: pointer;
+
+
+        }
+
+
+
+
+
+       .carousel-inner > .item > img,
+       .carousel-inner > .item > a > img {
+
+                   width:266px;
+
+                   margin:auto;
+                   padding-left:27px;
+                   margin-top: 124px;
+                   margin-left: 85px;
+
+      }
+
+
+
+
+
+
+
+
+        .carousel-inner{
+
+                margin-top: -4px;
+/*                margin-left: 22px;*/
+
+        }
+
+
+        .carousel-inner {
+
+            height: 367px;
+
+        }
+
+
+
+
+
+        .carousel-indicators {
+
+
+           margin-bottom: 2px;
+
+
+
+         }
+
+
+        .carousel-indicatiors li{
+
+            margin-left: -133px;
+        }
+
+
+
+
+            .carousel-control.left, .carousel-control.right {
+
+          background-image:none !important;
+          filter:none !important;
+
+          }
+
+
+/*
+        .right.carousel-control, .left.carousel-control {
+
+         display: none;
+
+           }
+*/
+
+
+/*
+    form {
+    max-width: 480px;
+    margin: auto;
+}
+*/
+
+
+
+
+/*    #navbar #holder a.active{
+    background-color:white;
+    border-top: 6px solid blue;
+    background: #FFF;
+    color:black;
+}*/
+
+
+
+.custom #navbar #holder ul li a.active{
+
+   background-color:white;
+    border-top: 6px solid blue;
+    background: #FFF;
+    color:black;
+
+}
+
+
+
+
+
+</style>
+
+    <body>
+
+     <script type="text/javascript">
+
+
+	          $('body').prepend('<a  href="#" class="hidden-xs back-to-top" style="border: 1px solid grey;margin-bottom: 37px;">Back to Top</a>');
+      </script>
+
+
+
+
+       <div ng-controller="myctrl1">
+
+           <div class="navbar-fixed-top">
+
+           <header1></header1>
+
+
+<!--            <div class="header2">-->
+
+
+                <tb-menu-dir  image="logo.png"></tb-menu-dir>
+
+
+<!--           </div>-->
+
+          </div>
+
+         </div>
+
+
+
+
+        <div ng-controller="myctrl2">
+
+
+
+            <tb-content></tb-content>
+
+
+
+
+
+    <tb-footer title="COPYRIGHTS 2016.THINGSBERRY.COM" image="logo.png" footer="['home','GET LISTED','BLOG','LOG IN']">
+            </tb-footer>
+
+
+        </div>
+
+
+    </body>
+
+    <script>
+
+        var app=angular.module("myapp",['ui.bootstrap', 'ngRoute', 'ui.router']);
+
+
+
+            app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider){
+
+            console.log("entering into state provider");
+
+            $stateProvider
+
+            .state('home',{
+
+                url:'/home',
+                controller:'myctrl2'
+
+
+            })
+            .state('allproducts',{
+
+                url:'/allproducts',
+                 templateUrl:'contact-us.client.view.html'
+
+
+            })
+             .state('blog',{
+
+                url:'/blog',
+                template:'<h1>Reciflix</h1><br><p>Reciflix</p>'
+            })
+             .state('getlisted',{
+
+                url:'/getlisted',
+               /* template:'<h1>Menueditor</h1><br><p>Menueditor</p>'*/
+                 templateUrl:'get-listing-page.html'
+
+            })
+             .state('contactus',{
+
+                url:'/contactus',
+
+
+
+                template:'<h1>Menubuddy</h1><br><p>Menubuddy</p>'
+            })
+
+            $urlRouterProvider.otherwise('/home');
+
+        }])
+
+
+
+
+
+
+        app.controller("myctrl1",function($scope){
+
+
+
+            console.log("entering into menu controller");
+
+
+
+
+
+
+
+
+             var self = this;
+
+  self.showBoxOne = false;
+  self.showBoxTwo = false;
+
+
+            $scope.content=[
+
+                {
+
+                    link:'HoMe',
+
+                    route: 'home'
+
+
+
+                },
+
+                {
+
+                    link:'ALLPRODUCTS',
+                    route: 'allproducts'
+
+
+                },
+
+                {
+
+                    link:'BLOG',
+                    route: 'blog'
+
+                },
+
+                {
+
+                    link:'GETLISTED',
+                    route: 'getlisted'
+
+                },
+
+                {
+
+                    link:'CONTACTUS',
+                    route:'contactus'
+
+                }
+
+                ];
+
+
+
+        })
+
+
+
+
+
+        .directive("header1",function(){
+
+            console.log("entering into directive1");
+
+            return{
+
+                restrict:'E',
+
+                templateUrl:'header1.html'
+
+            }
+        })
+
+        .directive("tbMenuDir",function(){
+
+            console.log("entering into menuDir directive1");
+
+
+            var linkfunction=function(scope,element,attrs){
+
+
+                  scope.image=attrs.image;
+
+                  }
+
+            return{
+
+                restrict:'E',
+
+              /*  scope:{
+
+                    content:'='
+                },*/
+
+                  templateUrl:'header2.html',
+
+                  link: linkfunction
+
+
+            }
+        })
+
+
+        app.controller("myctrl2",function($scope){
+
+            console.log("entering into content controller");
+
+
+
+
+
+
+
+
+
+
+
+            $scope.myInterval = 0;
+            $scope.myInter=2000;
+            $scope.noWrapSlides = false;
+            $scope.active = 0;
+
+
+
+
+/*            	$scope.activeTab1 = true;
+	$scope.activeTab2 = false;
+
+
+	$scope.clickTab = function(selectedTab) {
+
+        console.log("entering into clickTab function");
+	  switch (selectedTab) {
+	    case 'activeTab1':
+	      $scope.activeTab1 = true;
+      	$scope.activeTab2 = false;
+
+      	break;
+      case 'activeTab2':
+        $scope.activeTab1 = false;
+      	$scope.activeTab2 = true;
+
+      	break;
+
+      default:
+    }
+	}*/
+
+
+
+
+
+
+
+
+             $scope.slidesarray =[
+                 [
+
+                {
+
+                  image:'http://www.xkuty.com/images/xkuty.jpg',
+
+
+                    date:'june 6,2016',
+
+                    title:'Xkuty One',
+
+                    content:'its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around to the noise behind while..'
+
+
+                },
+                    {
+
+                    image:'http://cdn.toptenreviews.com/rev/scrn/medium/59964-withings-pulse3.jpg',
+
+                    date:'june 6,2016',
+
+                    title:'Pulse O2',
+
+                    content:'Track steps,running,calaries burned,elevation & distance.Measure heart rate & blood oxygen level with asingle touch Analyze funes and ..'
+
+
+                },
+                    {
+
+                    image:'https://ksr-ugc.imgix.net/assets/011/803/987/bc382547b1160d0bce8400d1e6373f83_original.jpg?w=1536&h=864&fit=fill&bg=FFFFFF&v=1463696995&auto=format&q=92&s=427d1a7f748b5453324ee61a31be2f92',
+
+                    date:'june 6,2016',
+
+                    title:'Stack Box',
+
+                    content:'With 16 infrared sensors and our patented HotSpot Sensor,Thermo finds the hottest spot and provides a highly accurate touch Analyze temperature..'
+
+
+                }],
+                 [
+
+                {
+
+                    image:'http://g01.a.alicdn.com/kf/HTB1i0nJHVXXXXatXFXXq6xXFXXXf/Fashion-Health-Electronic-Devices-Bluetooth-Smart-Watch-LED-Display-Touch-Screen-Smartwatches-for-Android-IOS-mobile.jpg_640x640.jpg',
+
+
+                    date:'june 6,2016',
+
+                    title:'Xkuty One',
+
+                    content:'Track steps,running,calaries burned,elevation & distance.Measure heart rate & blood oxygen level with a single touch Analyze your night..'
+
+
+                },
+                    {
+
+                    image:'http://www.xkuty.com/images/xkuty.jpg',
+
+
+
+
+                    date:'june 6,2016',
+
+                    title:'Pulse O2',
+
+                    content:'With 16 infrared sensors and our patented HotSpot Sensor,Thermo finds the hottest spot and provides a highly accurate temperature..'
+
+
+                },
+                    {
+
+                    image:'http://cdn.toptenreviews.com/rev/scrn/medium/59964-withings-pulse3.jpg',
+
+                    date:'june 6,2016',
+
+                    title:'Stack Box',
+
+                    content:'its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around to the noise behind while..'
+
+
+                }],
+
+
+                 [
+
+
+                {
+
+                    image:'http://cdn.toptenreviews.com/rev/scrn/medium/59964-withings-pulse3.jpg',
+
+
+                    date:'june 6,2016',
+
+                    title:'Xkuty One',
+
+                    content:'With 16 infrared sensors and our patented HotSpot Sensor,Thermo finds the hottest spot and provides a highly accurate touch Analyze temperature..'
+
+
+                },
+                    {
+
+                    image:'http://www.xkuty.com/images/xkuty.jpg',
+
+
+
+
+                    date:'june 6,2016',
+
+                    title:'Pulse O2',
+
+                    content:'Track steps,running,calaries burned,elevation & distance.Measure heart rate & blood oxygen level with a single touch Analyze your night..'
+
+
+                },
+                    {
+
+                    image:'http://g01.a.alicdn.com/kf/HTB1i0nJHVXXXXatXFXXq6xXFXXXf/Fashion-Health-Electronic-Devices-Bluetooth-Smart-Watch-LED-Display-Touch-Screen-Smartwatches-for-Android-IOS-mobile.jpg_640x640.jpg',
+
+                    date:'june 6,2016',
+
+                    title:'Stack Box',
+
+                    content:'its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around to the noise behind while..'
+
+
+                }]
+
+
+
+            ];
+
+
+
+
+
+            $scope.slides=[
+
+
+
+                {
+
+                    title:'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
+
+                    description:'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+                    /*image:'stackbox.jpg'*/
+
+                    image:'stackbox.jpg'
+
+
+
+
+
+
+                },
+
+                 {
+
+                    title:'XKUTY ONE: BEAUTIFUL SIMPLE AND CONNECTED',
+
+                    description:'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+                    image:'http://www.xkuty.com/images/xkuty.jpg',
+
+                },
+
+                 {
+
+                    title:'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
+
+                    description:'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+
+                      image:'stackbox.jpg',
+
+                }
+
+            ];
+
+
+        })
+          .directive("tbContent",function(){
+
+            console.log("entering into content directive");
+
+            return{
+
+                restrict:'E',
+
+                templateUrl:'landing-page-content.html'
+
+            }
+        })
+
+
+
+          .directive("tbFooter",function(){
+
+            console.log("entering into footer directive1");
+
+
+            var linkfunction=function(scope,element,attrs){
+
+                  scope.title=attrs.title;
+                  scope.image=attrs.image;
+
+                  element.css('backgroundColor','white');
+
+
+            }
+
+
+            return{
+
+                restrict:'E',
+
+                scope:{
+
+                    footer:'='
+                },
+
+                templateUrl:'footer.html',
+
+                link: linkfunction
+
+            };
+
+
+        })
+
+
+        .directive("billgates",function(){
+
+
+            console.log("entering into billgates directive");
+
+
+            var linkfunction=function(scope,element,attrs){
+
+                console.log("entering into linkfunction");
+                console.log("image is "+attrs.myBackgroundImage);
+
+                scope.backimage=attrs.myBackgroundImage;
+                console.log("we got the image"+scope.backimage);
+                scope.title=attrs.title;
+
+                scope.description=attrs.description;
+
+                scope.img1=attrs.img1;
+                scope.img2=attrs.img2;
+                scope.img3=attrs.img3;
+
+
+//                  element.find('img').css({
+//                        width: '100%',
+//                        height: '359px',
+//                        opacity: ImageOpcty,
+//                        marginBottom:'-19px'
+//                    });
+
+
+                }
+
+
+
+
+            return{
+
+                restrict:'E',
+
+
+
+                templateUrl:"billgates.html",
+
+                link: linkfunction
+
+            };
+
+        })
+
+
+
+
+        .directive("carousel",function(){
+             console.log("entering into carousel directive1");
+
+            return{
+
+                restrict:'E',
+
+                templateUrl:'car.html'
+
+            }
+
+
+        })
+         .directive("mycarousel", function (){
+
+             console.log("entering into mycarousel directive1");
+
+            return{
+
+                restrict:'E',
+
+                templateUrl:'or2-carousel.html',
+
+                link:function(scope,elem,attrs){
+
+
+                    console.log("entering into mycarousel link function");
+
+                    var options=attrs.options;
+
+                    console.log("options are.." +options);
+
+
+                    if(options.indexOf("p") !== -1) {
+
+                        console.log("entering into premium products");
+
+                        scope.showMeP = true;
+                    }
+
+
+                    if(options.indexOf("f") !== -1){
+
+                        console.log("entering into feautured products");
+
+                        scope.showMeF = true;
+                    }
+
+                }
+
+            }
+
+
+        })
+
+
+
+
+
+
+
+
+       /* featured products module expand toggle popover*/
+
+        .directive('toggle', function(){
+
+            console.log("entering into toggle directive");
+
+           return {
+
+         restrict: 'A',
+        link: function(scope, element, attrs){
+
+         if (attrs.toggle=="tooltip"){
+          $(element).tooltip();
+        }
+         if (attrs.toggle=="popover"){
+          $(element).popover();
+        }
+
+
+
+
+
+    }
+  };
+})
+
+
+
+
+ var amountScrolled = 300;
+
+$(window).scroll(function() {
+	if ( $(window).scrollTop() > amountScrolled ) {
+		$('a.back-to-top').fadeIn('slow');
+	} else {
+		$('a.back-to-top').fadeOut('slow');
+	}
+});
+
+        $('a.back-to-top').click(function() {
+	$('html, body').animate({
+		scrollTop: 0
+	}, 700);
+	return false;
+});
+
+
+      $(function() {
+   $("a").click(function() {
+      // remove classes from all
+      $("a").removeClass("active");
+      // add class to the one we clicked
+      $(this).addClass("active");
+   });
+});
+
+
+
+
+
+
+        $(function() {
+   $("a").click(function() {
+      // remove classes from all
+      $("a").removeClass("active");
+      // add class to the one we clicked
+      $(this).addClass("active");
+   });
+});
+
+
+
+
+    </script>
+
+</html>
+
+
