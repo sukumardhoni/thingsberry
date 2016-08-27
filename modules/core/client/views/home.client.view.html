@@ -1,119 +1,57 @@
-<div ng-controller="HomeController">
-  <div style="background-color:grey;">
-    <div class="container" style="background-color:grey;margin-top: 32px;">
-      <div class="row" style="background-color:grey;height:396px;margin-left: -4px; margin-top: 64px;">
-        <div class="hidden-xs hidden-sm col-md-6 col-lg-5 ">
-          <div class="custom" style="background-color:white;">
-            <uib-tabset>
-              <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 224px;">
-                <span style="font-size: 13px;padding-left: 6px;">
+
+<section ng-controller="HomeController" >
+
+    <div style="background-color:grey;">
+
+              <div class="container" style="background-color:grey;margin-top: 32px;">
+
+             <div class="row" style="background-color:grey;height:414px;margin-left: -4px; margin-top: 64px;">
+
+                  <div class="hidden-xs hidden-sm col-md-6 col-lg-5 ">
+
+                      <div class="custom"  ng-init="indextab = 1">
+
+
+    <uib-tabset active="indextab">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 221px;background: #f2f2f2;    height: 46px;">
+
+         <span style="font-size: 13px;padding-left: 6px;">
+
              <p style="margin-top:14px">
                  Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+
                     </span>
-                <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
-                <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
-                  <div class="form-group" style="margin-top: 9px;font-size: 12px;">
-                    <p style="margin-left: -358px;">CATEGORY</p>
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
-                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
-                    </tags-input>
-                  </div>
-                  <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;">
-                    <label for="ex1"></label>
-                    <input type="submit" class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
-                  </div>
-                  <div class="hidden-md hidden-xs hidden-sm hidden-lg">
-                    <div class="form-group">
-                      <div class="col-xs-12 home_input_tags">
-                        <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </uib-tab>
-              <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 225px;">
-                <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
-                            <p style="margin-top:14px">
-                                Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
-                        <br>
+
+
+
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+
+
                         <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
-                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
-                                  <p style="margin-left: -353px;">CATEGORY</p>
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                            <div class="form-group" style="margin-top: 9px;font-size: 12px;">
+
+                                <p style="margin-left: -358px;">CATEGORY</p>
+
+                   <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                     </tags-input>
+
+
                                 </div>
-                        <input type="checkbox"style="margin-top: 0px;margin-left: -296px;">&nbsp; Advanced Search   <br>
-                          <div class="col-md-6 col-xs-12" style="padding-left:11px;">
+
+
+
+                <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;">
                        <label for="ex1"></label>
-                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
-                             </div>
-                         <div class="col-md-6 col-xs-12" style="padding-right: 12px;">
-                       <label for="ex1"></label>
-                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
-                             </div>
-                        &nbsp;
-                <div class="col-lg-12 col-sm-6 col-xs-12 col-md-12" style="padding-right: 12px;    margin-top: -7px;">
-                  <label for="ex1"></label>
-                  <input type="submit" class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
                 </div>
-                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
-                  <div class="form-group">
-                    <div class="col-xs-12 home_input_tags">
-                      <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                </form>
-                </span>
-              </uib-tab>
-            </uib-tabset>
-          </div>
-        </div>
-        <div class="visible-xs  text-center col-xs-12" style="font-size:20px;">
 
-
-          <div class="col-xs-12">
-            <div class="custom" style="background-color:white;width: 338px;margin-left: -3px;height: 134%;    min-height: 454px;">
-
-              <div id="navbar">
-                <div id="holder" style="list-style: none;margin: 0;padding: 0;">
-
-                  <ul id="nav">
-
-                    <li class="col-xs-6" id="nav-home"><a href="#" ng-click="showme=true" style="font-size:15px;text-align:center;float:left;width: 184px;">Search</a></li>
-                    <li class="col-xs-6" id="nav-home">
-
-                      <a href="http;site2" ng-click="showme=false" class="active" style="font-size:15px;text-align-center;width: 155px;">Advanced search</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <br>
-              <div>
-                <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
-                        <br>
-                    
-                        <form role="form"  ng-submit="getSearchedProducts(homeSearchDetails)">
-                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
-                                <p style="margin-left: -245px;">CATEGORY</p>
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 319px;">
-                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
-                    </tags-input>
-                                </div>
-                       <div class="col-xs-12" style="padding-left:11px;margin-top: -29px;">
-                       <label for="ex1" style="margin-left:-237px; margin-top: 18px;">COMPANY</label>
-                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
-                        </div>
-                         <div class="col-xs-12" style="padding-right: 12px;">
-                       <label for="ex1" style="margin-left: -226px;margin-top: 12px;">PRODUCTS</label>
-                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Products" style="border-radius:1px;height: 42px;">
-                        </div>
-                    <div class="col-xs-12" style="padding-right: 12px;">
-                       <label for="ex1"></label>
-                        <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">                    </div>
                 <div class="hidden-md hidden-xs hidden-sm hidden-lg">
                 <div class="form-group">
                   <div class="col-xs-12 home_input_tags">
@@ -122,91 +60,108 @@
                   </div>
                 </div>
               </div>
-                      </form>
-                    </span>
-                <div ng-show="showme">
-                  <span style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
-                    </span>
-                  <img src="../img/men.jpg" alt="Smiley" style="width: 159px;height: 105px;margin-top: 16px;">
-                  <form role="form">
-                    <div class="form-group" style="margin-top: 9px;font-size: 12px;">
-                      <p style="margin-left: -252px;">CATEGORY</p>
-                      <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 315px;">
-                    </div>
-                    <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;">
-                      <input type="submit" class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
-                    </div>
-                    <div class="hidden-md hidden-xs hidden-sm hidden-lg">
-                      <div class="form-group">
-                        <div class="col-xs-12 home_input_tags">
-                          <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="visible-sm text-center col-sm-12" style="font-size:20px;">
-          <div class="col-sm-12 col-sm-offset-2">
-            <div class="custom" style="background-color:white;width: 538px;margin-left: -25px;height: 115%;min-height: 465px;">
-              <uib-tabset>
-                <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 276px;">
-                  <span style="font-size: 13px;padding-left: 6px;">
-             <p style="margin-top:14px">
-                 Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
-                    </span>
-                  <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
-                  <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
-                    <div class="form-group" style="margin-top: 54px;font-size: 12px;">
-                      <p style="margin-left: -438px">CATEGORY</p>
-                      <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 520px;">
-                        <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
-                      </tags-input>
-                    </div>
-                    <div class=" col-sm-12 " style="padding-right: 12px;">
-                      <label for="ex1"></label>
-                      <input type="submit" class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
-                    </div>
-                    <div class="hidden-md hidden-xs hidden-sm hidden-lg">
-                      <div class="form-group">
-                        <div class="col-xs-12 home_input_tags">
-                          <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </uib-tab>
-                <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 262px;">
-                  <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
+
+
+                 </form>
+
+
+
+
+      </uib-tab>
+      <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 228px;background: #f2f2f2;    height: 46px;">
+
+
+
+                        <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
+
+
                             <p style="margin-top:14px">
                                 Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
                         <br>
+
+
                         <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
-                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
-                                  <p style="margin-left: -445px">CATEGORY</p>
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 520px;">
+
+
+
+
+                            <div class="form-group" style="margin-top: -8px;font-size: 12px;">
+
+
+
+                                  <p style="margin-left: -353px;">CATEGORY</p>
+
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
                       <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                     </tags-input>
+
+
+
+
                                 </div>
-                        <input type="checkbox"style="margin-top: 0px;margin-left: -373px">&nbsp; Advanced Search   <br>
+
+
+
+
+                        <!--<input type="checkbox"style="margin-top: 0px;margin-left: -296px;">&nbsp; Advanced Search  --> <br>
+
+
+
+
                           <div class="col-md-6 col-xs-12" style="padding-left:11px;">
-                       <label for="ex1"></label>
+                       <label for="ex1" style="margin-left: -126px;">COMPANY</label>
                         <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
                              </div>
                          <div class="col-md-6 col-xs-12" style="padding-right: 12px;">
-                       <label for="ex1"></label>
+                       <label for="ex1" style="margin-left: -136px;">PRODUCT</label>
                         <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
                              </div>
+
                         &nbsp;
-                        <div class=" col-sm-12 " style="padding-right: 12px;    margin-top: -7px;" >
+
+
+<!--
+                      ------  <span style="margin-top:10px;font-size: 12px;margin-right: 355px;">LOCATION:</span>
+
+                         <br>
+
+
+                        <div class="col-lg-6  col-sm-6 col-xs-12" style="padding-left:11px;">
+                        <label for="ex1"></label>
+
+                            <select class="form-control" style="height: 38px;cursor:pointer;">
+
+                           <option>America</option>
+                           <option>Australia</option>
+                           <option>India</option>
+                           <option>China</option>
+
+                            </select>
+
+                         </div>
+-->
+
+
+
+
+
+
+
+                        <div class="col-lg-12 col-sm-6 col-xs-12 col-md-12" style="padding-right: 12px;    margin-top: -7px;" >
                        <label for="ex1"></label>
+
+
+
+
                             <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
                              </div>
+
+
+
             <div class="hidden-md hidden-xs hidden-sm hidden-lg">
                 <div class="form-group">
                   <div class="col-xs-12 home_input_tags">
@@ -215,247 +170,1662 @@
                   </div>
                 </div>
               </div>
+
+
+
             </form>
+
     </span>
-                </uib-tab>
-              </uib-tabset>
-            </div>
-          </div>
-        </div>
-        <div class="hidden-sm col-md-5 col-lg-5 col-xs-12  col-sm-offset-2 col-md-offset-1">
-          <div class="custom" style="background-color:grey;">
-            <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <uib-carousel interval="myInter">
-                  <uib-slide ng-repeat="slide in slides" active="active" index="$index">
 
-                    <p style="width:430px;color:white;font-size:24px;padding-top:12px;height:20px;margin-left: 18px;"> {{slide.title}}
-                      <br> <span style="font-size:15px;padding-left:17px;"> {{slide.description}} </span> </p>
-                    <img ng-src="{{slide.image}}">
-                  </uib-slide>
-                </uib-carousel>
+
+      </uib-tab>
+    </uib-tabset>
+
+
+
+
+
+<!--
+                          <div id="navbar">
+                             <div id="holder">
+
+
+
+                                 <ul>
+
+
+                                    <li  class="col-lg-6"><a href="#" ng-click="showme=true" id="onlink">Search</a></li>
+                                    <li class="col-lg-6"><a href="#" ng-click="showme=false">Advanced search</a>
+                                    </li>
+
+                                 </ul>
+
+
+                             </div>
+
+                         </div>
+
+                      <br>
+
+
+                        <div>
+
+
+
+
+                    <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
+                        <br>
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+
+
+
+
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+
+
+                                  <p style="margin-left: -353px;">CATEGORY</p>
+
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+
+
+                                </div>
+
+
+
+
+                        <input type="checkbox"style="margin-top: 0px;margin-left: -296px;">&nbsp; Advanced Search   <br>
+
+
+
+
+                          <div class="col-md-6 col-xs-12" style="padding-left:11px;">
+                       <label for="ex1"></label>
+                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
+                             </div>
+                         <div class="col-md-6 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
+                             </div>
+
+                        &nbsp;
+
+
+                      ------  <span style="margin-top:10px;font-size: 12px;margin-right: 355px;">LOCATION:</span>
+
+                         <br>
+
+
+                        <div class="col-lg-6  col-sm-6 col-xs-12" style="padding-left:11px;">
+                        <label for="ex1"></label>
+
+                            <select class="form-control" style="height: 38px;cursor:pointer;">
+
+                           <option>America</option>
+                           <option>Australia</option>
+                           <option>India</option>
+                           <option>China</option>
+
+                            </select>
+
+                         </div>
+
+
+
+
+
+
+
+                        <div class="col-lg-12 col-sm-6 col-xs-12 col-md-12" style="padding-right: 12px;    margin-top: -7px;" >
+                       <label for="ex1"></label>
+
+
+
+
+                            <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+                             </div>
+
+
+
+            <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="col-xs-1" style="padding-right: 2px;">
-              <label for="ex1"></label>
-              <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                <input type="button" value="READ MORE" class="form-control" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -71px;width: 148px;border-color:none;">
-              </a>
-            </div>
-            <div class="col-xs-1" style="padding-right: 2px;">
-              <label for="ex1"></label>
-              <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                <input type="button" value="VISIT WEBSITE" class="form-control" placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;">
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="visible-sm  col-sm-8 col-sm-offset-2">
-          <div class="custom" style="background-color:grey;margin-top: 10px;">
-            <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <uib-carousel interval="myInter">
-                  <uib-slide ng-repeat="slide in slides" active="active" index="$index">
-                    <p style="width:430px;color:white;font-size:24px;padding-top:12px;height:20px;margin-left: 18px;"> {{slide.title}}
-                      <br> <span style="font-size:15px;padding-left:17px;"> {{slide.description}} </span> </p>
-                    <img ng-src="{{slide.image}}">
-                  </uib-slide>
-                </uib-carousel>
+
+
+
+            </form>
+
+    </span>
+
+
+
+
+
+
+
+
+
+
+                <div ng-show="showme">
+
+                    <span style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
+
+                    </span>
+
+
+
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+                            <div class="form-group" style="margin-top: 9px;font-size: 12px;">
+
+                                <p style="margin-left: -358px;">CATEGORY</p>
+
+
+
+  <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 434px;">
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 434px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+                                </div>
+
+
+
+                <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+
+
+
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
+                </div>
+
+                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
               </div>
+
+
+                 </form>
             </div>
-            <div class="col-xs-1" style="padding-right: 2px;">
-              <label for="ex1"></label>
-              <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                <input type="button" value="READ MORE" class="form-control" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -71px;width: 148px;border-color:none;">
-              </a>
-            </div>
-            <div class="col-xs-1" style="padding-right: 2px;">
-              <label for="ex1"></label>
-              <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                <input type="button" value="VISIT WEBSITE" class="form-control" placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;">
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!--  ::: Our Feautured Products ::: -->
 
-  <div style="background-color: #f2f2f2;text-align:center;">
-    <div class="container" style="background-color: #f2f2f2;margin-top: -21px;">
-      <br>
-      <!--This will be visible only in sm and xs devices-->
 
-      <div class="visible-xs visible-sm text-center col-xs-12" style="font-size:20px;">
-        <h1 style="text-align:center;color:black;font-size:23px;">::: Our Feautured Products :::</h1>
-      </div>
-      <div class="hidden-sm hidden-xs">
-        <h1 style="text-align:center;color:black;">::: Our Feautured Products :::</h1></div>
-      <br>
-      <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
-      <div class="row" style="height:215px;padding-top: 7px;margin-left: -43px;">
 
-        <div class="hidden-xs hidden-sm customNavigation" style="margin-left: 742px; margin-top: -11px;">
-          <a class="btn prev" style="border-radius: 50%;background-color:white;margin-top: -18px;color:white;color:black;margin-left: -20px;border-color:black;"> <i class="fa fa-arrow-left" aria-hidden="true"></i> </a>
-          <a class="btn next" style="border-radius: 50%;background-color:white;margin-top: -18px;color:black;border-color:black;"> <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="hidden-xs  col-md-6" style="width:85%;margin-top: -46px;height: 395px;margin-left: 150px;
-    margin-top: -179px;">
-          <uib-carousel interval="myInterval">
-            <uib-slide ng-repeat="pro in slidesarray" active="active" index="$index">
-              <span ng-repeat="pro1 in pro">
-         <div class=" cal-md-3 col-xs-12" id="services_block">
-          <img ng-src="{{pro1.image}}" style="width: 261px;height: 150px;margin-top: 2px;margin-bottom: 75px;margin-left: -8px;">
-        <p style="margin-top:-67px;margin-bottom:59px;font-size:13px; margin-left: -167px;">{{pro1.date}} </p>
-        <!-- Ratings functionality-->
 
-        <div class="ui-grid-cell-contents" style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
 
-          <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
-          </uib-rating>
-        </div>
-        <p style="margin-top:-52px;margin-bottom:11px;font-size: 20px;margin-left: -167px;">{{pro1.title}}</p>
-        <p style="margin-top:-8px;font-size:15px;width:260px;height:73px;text-align: center;text-indent: 10px;">{{pro1.content}}</p>
-        <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
-        <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
-            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
-            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
-            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
-                </span>
-              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-              </a>
-              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-              </a>
-        </div>
-        </span>
-        </uib-slide>
+
+
+
+                         </div>
+
+
+-->
+                    </div>
+                </div>
+
+
+
+
+
+              <!-- -------------------------------------------- -->
+
+
+
+<!--
+                <div class="hidden-xs  text-center col-xs-12" style="font-size:20px;">
+
+
+                      <div class="col-xs-12">
+                          <div class="custom" style="background-color:white;width: 338px;margin-left: -3px;height: 134%;    min-height: 454px;">
+
+                               <div id="navbar">
+                             <div id="holder"  style="list-style: none;margin: 0;padding: 0;">
+
+                                 <ul id="nav">
+
+                                       <li class="col-xs-6" id="nav-home"><a href="#" ng-click="showme=true" style="font-size:15px;text-align:center;float:left;width: 184px;">Search</a></li>
+                                      <li class="col-xs-6" id="nav-home">
+
+                                       <a href="http;site2" ng-click="showme=false" class="active" style="font-size:15px;text-align-center;width: 155px;">Advanced search</a>
+
+
+                                     </li>
+
+                                 </ul>
+
+
+                             </div>
+
+                         </div>
+
+
+
+
+
+                 <br>
+
+
+
+                          <div>
+
+
+
+
+
+
+
+                    <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
+                        <br>
+                    
+                        <form role="form"  ng-submit="getSearchedProducts(homeSearchDetails)">
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+                                <p style="margin-left: -245px;">CATEGORY</p>
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 319px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+                                </div>
+
+                       <div class="col-xs-12" style="padding-left:11px;margin-top: -29px;">
+                       <label for="ex1" style="margin-left:-237px; margin-top: 18px;">COMPANY</label>
+                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
+                        </div>
+
+
+
+
+                         <div class="col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1" style="margin-left: -226px;margin-top: 12px;">PRODUCTS</label>
+                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Products" style="border-radius:1px;height: 42px;">
+                        </div>
+
+
+
+
+                    <div class="col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+
+
+
+                        <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+                    </div>
+
+
+
+                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+                      </form>
+
+                    </span>
+
+
+
+                    <div ng-show="showme">
+
+                    <span style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
+
+                    </span>
+
+
+                    <img src="../img/men.jpg" alt="Smiley" style="width: 159px;height: 105px;margin-top: 16px;">
+
+
+                        <form role="form">
+                            <div class="form-group" style="margin-top: 9px;font-size: 12px;">
+
+                                <p style="margin-left: -252px;">CATEGORY</p>
+
+
+
+                            <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 315px;">
+
+                                </div>
+
+
+
+
+
+                    <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;">
+
+
+                        <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
+
+                    </div>
+
+
+
+                                 <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+                           </form>
+                            </div>
+
+
+
+
+                          </div>
+
+
+
+                    </div>
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+
+-->
+
+
+
+               <!-- --------------------------------------->
+
+
+
+
+
+
+                <div class="visible-sm  text-center col-sm-12 " style="font-size:20px;">
+
+
+                      <div class="col-sm-12 col-xs-12 col-sm-offset-2">
+                          <div class="custom" style="background-color:white;width: 538px;margin-left: -25px;height: 115%;min-height: 440px;" ng-init="indextab = 1">
+
+
+
+
+
+
+    <uib-tabset active="indextab">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 276px;background: #f2f2f2;height: 46px;">
+
+         <span style="font-size: 13px;padding-left: 6px;">
+
+             <p style="margin-top:14px">
+                 Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+
+                    </span>
+
+
+
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+                            <div class="form-group" style="margin-top: 54px;font-size: 12px;">
+
+                                <p style="margin-left: -438px">CATEGORY</p>
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 520px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+                                </div>
+
+
+
+                <div class=" col-sm-12 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+
+
+
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998;margin-top: -18px;">
+
+
+
+                </div>
+
+                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                 </form>
+
+
+
+
+      </uib-tab>
+
+              <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 262px;background: #f2f2f2;    height: 46px;">
+
+
+
+                        <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
+
+
+                            <p style="margin-top:14px">
+                                Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+                        <br>
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+
+
+
+
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+
+
+                                  <p style="margin-left: -445px">CATEGORY</p>
+
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 520px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+
+
+                                </div>
+
+
+
+
+                     <!--   <input type="checkbox"style="margin-top: 0px;margin-left: -373px">&nbsp; Advanced Search-->   <br>
+
+
+
+
+                          <div class="col-sm-6" style="padding-left:11px;">
+                       <label for="ex1" style="margin-left: -155px;">COMPANY</label>
+                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
+                             </div>
+                         <div class="col-sm-6" style="padding-right: 12px;">
+                       <label for="ex1 " style="margin-left: -164px;">PRODUCT</label>
+                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
+                             </div>
+
+                        &nbsp;
+
+
+
+                        <div class=" col-sm-12 " style="padding-right: 12px;    margin-top: -7px;" >
+                       <label for="ex1"></label>
+
+
+
+
+                            <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+                             </div>
+
+
+
+            <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </form>
+
+    </span>
+
+
+      </uib-tab>
+                              </uib-tabset>
+
+
+
+
+
+
+
+
+
+
+<!--
+                            <div id="navbar">
+                             <div id="holder"  style="list-style: none;margin: 0;padding: 0;">
+
+                                 <ul>
+
+                                       <li class="col-sm-6"><a href="#" ng-click="showme=true" style="font-size:15px;text-align:center;float:left;width: 268px;">Search</a></li>
+                                      <li class="col-sm-6">
+
+                                       <a href="#" ng-click="showme=false" class="active" style="font-size:15px;text-align-center;width: 250px;">Advanced search</a>
+
+
+                                     </li>
+
+                                 </ul>
+
+
+                             </div>
+
+                         </div>
+
+
+                 <br>
+
+
+
+                          <div>
+
+
+
+
+
+
+
+                    <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
+                        <br>
+
+                        <form role="form">
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+                                <p style="margin-left: -431px;">CATEGORY</p>
+
+
+
+                            <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 510px;">
+
+                                </div>
+
+
+                          </form>
+
+
+
+
+                        <div class="col-sm-6" style="padding-left:11px;">
+                       <label for="ex1" style="margin-left:-167px; margin-top: -6px;">COMPANY</label>
+                        <input type="text" class="form-control"  placeholder="Company" style="border-radius:1px;height: 42px;">
+                        </div>
+
+
+
+
+                         <div class="col-sm-6" style="padding-right: 12px;    margin-top: -30px;">
+                       <label for="ex1" style="    margin-left: -173px;
+    margin-top: -27px;">PRODUCTS</label>
+                        <input type="text" class="form-control"  placeholder="Product" style="border-radius:1px;height: 42px;">
+                        </div>
+
+
+                        <p style="font-size: 12px;    margin-left: -431px; margin-top: 45px;">LOCATION:</p>
+
+
+                           <div class="col-sm-12" style="padding-left:11px;">
+                        <label for="ex1"></label>
+
+                            <select class="form-control" style="height: 38px;cursor:pointer;    margin-top: -46px;">
+
+                           <option>America</option>
+                           <option>Australia</option>
+                           <option>India</option>
+                           <option>China</option>
+
+                            </select>
+
+                        </div>
+
+
+
+                    <div class="col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+                            <a href="http://www.w3schools.com"><input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px; margin-top: 14px;">
+                            </a>
+                    </div>
+
+
+
+
+
+                    </span>
+
+
+
+                    <div ng-show="showme">
+
+                    <span style="font-size: 13px;">Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...
+
+                    </span>
+
+              <br>
+                    <img ng-src="men.jpg" style="width: 159px;height: 112px;margin-top: 25px;">
+
+
+                        <form role="form">
+                            <div class="form-group" style="margin-top: 9px;font-size: 12px;">
+
+                                <p style="margin-left: -437px;margin-top: 13px;">CATEGORY</p>
+
+
+
+                            <input type="text" class="form-control col-sm-offset-2" id="usr" placeholder="Enter a category Eg. Home,Accesories, or Baby-Products" style="border-radius:1px;height: 42px;margin-top: 3px;margin-left: 10px; width: 510px;">
+
+                                </div>
+
+
+                          </form>
+
+
+                    <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-right: 12px;margin-top: -25px;">
+                       <label for="ex1"></label>
+                            <a href="http://www.w3schools.com"><input type="button" value="SEARCH" class="form-control"  placeholder="Search" style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: -1%;height: 42px;font-size: 12px;">
+                            </a>
+                    </div>
+
+
+
+                            </div>
+
+
+
+                          </div>
+
+-->
+
+
+
+
+
+
+
+
+
+
+                          </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="visible-xs text-center col-sm-12 col-xs-12" style="font-size:20px;">
+
+
+                      <div class="col-xs-12">
+                          <div class="custom" style="background-color:white;width: 330px;margin-left: -33px;height: 115%;min-height: 465px;" ng-init="indextab = 1">
+
+
+
+
+
+
+    <uib-tabset active="indextab">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="    width: 155px;background: #f2f2f2;height: 46px;    font-size: 17px;">
+
+         <span style="font-size: 13px;padding-left: 6px;">
+
+             <p style="margin-top:14px">
+                 Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+
+                    </span>
+
+
+
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+                            <div class="form-group" style="margin-top: 54px;font-size: 12px;">
+
+                                <p style="margin-left: -250px">CATEGORY</p>
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 310px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+                                </div>
+
+
+
+                <div class=" col-sm-12 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+
+
+
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
+                </div>
+
+                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                 </form>
+
+
+
+
+      </uib-tab>
+
+              <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 173px;background: #f2f2f2;    height: 46px;    font-size: 17px;">
+
+
+
+                        <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
+
+
+                            <p style="margin-top:14px">
+                                Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+                        <br>
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+
+
+
+
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+
+
+                                  <p style="margin-left: -250px">CATEGORY</p>
+
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 310px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+
+
+                                </div>
+
+
+
+
+                  <!--      <input type="checkbox"style="margin-top: 0px;margin-left: -179px">&nbsp; Advanced Search -->  <br>
+
+
+
+
+                          <div class="col-xs-12" style="padding-left:11px;">
+                       <label for="ex1" style="margin-left: -216px">COMPANY</label>
+                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
+                             </div>
+                         <div class="col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1" style="margin-left: -216px;margin-top: 14px;">PRODUCT</label>
+                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
+                             </div>
+
+                        &nbsp;
+
+
+
+                        <div class=" col-sm-12 " style="padding-right: 12px;    margin-top: -7px;" >
+                       <label for="ex1"></label>
+
+
+
+
+                            <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+                             </div>
+
+
+
+            <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </form>
+
+    </span>
+
+
+      </uib-tab>
+                              </uib-tabset>
+
+
+
+
+
+
+
+
+
+                          </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <!--  <div class="col-md-6 col-lg-5 col-sm-8 col-xs-12 col-sm-offset-2">-->
+
+<!--                  <div class="col-md-5 col-lg-5 col-sm-8 col-xs-12 col-sm-offset-2 col-md-offset-1">-->
+
+
+
+
+
+
+
+<!--
+
+
+
+first carousel part
+
+
+                <div class="hidden-sm col-md-5 col-lg-5 col-xs-12  col-sm-offset-2 col-md-offset-1">
+                    <div class="custom" style="background-color:grey;">
+
+
+
+                      <div class="carousel-inner" role="listbox">
+
+                          <div class="item active">
+
+               <uib-carousel interval="myInter">
+                   <uib-slide ng-repeat="slide in slides" active="active" index="$index">
+
+                     <p style="width:430px;color:white;font-size:24px;padding-top:12px;height:20px;margin-left: 18px;"> {{slide.title}} <br> <span style="font-size:15px;padding-left:17px;"> {{slide.description}} </span> </p>
+
+
+                        <img ng-src="{{slide.image}}">
+
+            </uib-slide>
         </uib-carousel>
-      </div>
-      <div class="visible-xs col-xs-12" style="  background-color: white;
-    height: 354px;
-    margin-top: -212px;
-    width: 83%;
-    margin-left: 46px;">
-        <img ng-src="http://www.xkuty.com/images/xkuty.jpg" style="width: 307px;height: 150px;margin-top: 2px;margin-bottom: 75px;    margin-left: -4px;;">
-        <p style="font-size:13px; ">{{pro1.date}} </p>
-        <div class="ui-grid-cell-contents" style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
-          <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
-          </uib-rating>
+
+            </div>
+
+    </div>
+
+
+
+
+
+               <div class="col-xs-1" style="padding-right: 2px;">
+                       <label for="ex1"></label>
+                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
+                                <input type="button" value="READ MORE" class="form-control"   style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -71px;width: 148px;border-color:none;">
+                            </a>
+          </div>
+             <div class="col-xs-1" style="padding-right: 2px;">
+                       <label for="ex1"></label>
+                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
+                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;">
+                            </a>
+          </div>
+
+
+
+
+                        </div>
+                </div>
+
+
+
+
+
+
+
+
+                 <div class="visible-sm  col-sm-8 col-sm-offset-2">
+                    <div class="custom" style="background-color:grey;margin-top: 10px;">
+
+
+
+                      <div class="carousel-inner" role="listbox" >
+
+                          <div class="item active">
+
+               <uib-carousel interval="myInter">
+                   <uib-slide ng-repeat="slide in slides" active="active" index="$index">
+
+                     <p style="width:430px;color:white;font-size:24px;padding-top:12px;height:20px;margin-left: 18px;"> {{slide.title}} <br> <span style="font-size:15px;padding-left:17px;"> {{slide.description}} </span> </p>
+
+
+                        <img ng-src="{{slide.image}}">
+
+            </uib-slide>
+        </uib-carousel>
+
+            </div>
+
+    </div>
+
+
+
+
+
+               <div class="col-xs-1" style="padding-right: 2px;">
+                       <label for="ex1"></label>
+                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
+                                <input type="button" value="READ MORE" class="form-control"   style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -71px;width: 148px;border-color:none;">
+                            </a>
+          </div>
+             <div class="col-xs-1" style="padding-right: 2px;">
+                       <label for="ex1"></label>
+                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
+                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;">
+                            </a>
+          </div>
+
+
+                        </div>
+                </div>
+
+-->
+
+
+
+                <!--<tb-first-carousel options="f"></tb-first-carousel>-->
+
+                 <tb-first-carousel></tb-first-carousel>
+
+
+
+
+
+            </div>
+
         </div>
-        <p style="font-size: 20px;margin-top: -51px;margin-left: -172px;">Xkuty One</p>
-
-        <p style="font-size:15px;text-align: center;text-indent: 10px;">its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around ..</p>
-
-        <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
 
 
-        <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
-            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
-            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
-            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
-                </span>
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-      </div>
     </div>
-    <br>
-    <div class=" hidden-xs hidden-sm col-xs-4" style="padding-left: 131px;margin-left: 31px;">
-      <label for="ex1"></label>
-      <a href="http://www.indiabix.com" style="text-decoration: none;">
-        <input type="button" value="VIEW ALL PRODUCTS" class="form-control" style="text-align:center;color:black;cursor:pointer;width: 175px;margin-left: 323px;border-color: black;background-color: #f2f2f2;margin-bottom: 10px;">
-      </a>
-    </div>
-    <!--  Button visible only in sm devices-->
-    <div class="visible-sm col-sm-offset-1" style="padding-left: 131px;">
-      <label for="ex1"></label>
-      <a href="http://www.indiabix.com" style="text-decoration: none;">
-        <input type="button" value="VIEW ALL PRODUCTS" class="form-control" style="text-align:center;color:black;cursor:pointer;width: 175px;margin-left: 105px;border-color: black;background-color: #f2f2f2;margin-bottom: 10px;">
-      </a>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+<!--  ::: Our Feautured Products ::: -->
+
+
+
+
+        <div style="background-color: #f2f2f2;text-align:center;">
+
+        <div class="container" style="background-color: #f2f2f2;margin-top: -21px;">
+
+            <br>
+
+
+
+   <!--This will be visible only in sm and xs devices-->
+
+<div class="visible-xs visible-sm text-center col-xs-12" style="font-size:20px;">
+ <h1 style="text-align:center;color:black;font-size:23px;">::: Our Feautured Products :::</h1>
+
 </div>
+
+
+
+
+
+
+
+
+            <div class="hidden-sm hidden-xs">
+                <h1 style="text-align:center;color:black;">::: Our Feautured Products :::</h1></div>
+
+                               <br>
+
+                    <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
+
+            <div class="row" style="height:215px;padding-top: 7px;margin-left: -43px;">
+
+
+
+                <div class="hidden-xs hidden-sm customNavigation" style="margin-left: 742px; margin-top: -11px;">
+
+
+    <a class="btn prev" style="border-radius: 50%;background-color:white;margin-top: -18px;color:white;color:black;margin-left: -20px;border-color:black;">  <i class="fa fa-arrow-left" aria-hidden="true"></i> </a>
+    <a class="btn next" style="border-radius: 50%;background-color:white;margin-top: -18px;color:black;border-color:black;"> <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
+</div>
+
+
+              </div>
+
+
+
+
+
+
+
+
+
+<!--
+               <div class="row">
+
+
+                    <div class="hidden-xs  col-md-6" style="width:85%;margin-top: -46px;height: 395px;margin-left: 150px;
+    margin-top: -179px;">
+
+    <uib-carousel interval="myInterval">
+            <uib-slide ng-repeat="pro in slidesarray" active="active" index="$index">
+
+
+                <span ng-repeat="pro1 in pro">
+
+
+
+         <div class=" cal-md-3 col-xs-12" id="services_block">
+
+
+
+          <img ng-src="{{pro1.image}}" style="width: 261px;height: 150px;margin-top: 2px;margin-bottom: 75px;margin-left: -8px;">
+
+
+
+        <p style="margin-top:-67px;margin-bottom:59px;font-size:13px; margin-left: -167px;">{{pro1.date}} </p>
+
+
+
+
+
+             <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
+
+              <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
+              </uib-rating>
+
+
+             </div>
+
+
+
+                <p style="margin-top:-52px;margin-bottom:11px;font-size: 20px;margin-left: -167px;">{{pro1.title}}</p>
+
+                  <p style="margin-top:-8px;font-size:15px;width:260px;height:73px;text-align: center;text-indent: 10px;">{{pro1.content}}</p>
+
+                  <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
+
+
+             <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
+
+
+
+
+
+            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
+
+
+
+
+            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
+
+            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
+
+
+                </span>
+
+
+                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+
+
+    </div>
+
+
+
+        </span>
+
+
+
+
+
+    </uib-slide>
+
+</uib-carousel>
+
+
+
+        </div>
+
+
+            <div class="visible-xs col-xs-12" style="  background-color: white; height: 354px;margin-top: -212px;width: 83%;margin-left: 46px;">
+
+
+
+          <img ng-src="http://www.xkuty.com/images/xkuty.jpg" style="width: 307px;height: 150px;margin-top: 2px;margin-bottom: 75px;    margin-left: -4px;;">
+
+
+
+
+
+
+
+        <p style="font-size:13px; ">{{pro1.date}} </p>
+
+
+
+             Ratings functionality
+
+             <div class="ui-grid-cell-contents"  style="color:gold;margin-top:-75px;margin-bottom:55px;font-size:14px;margin-left: 173px;cursor:pointer;">
+
+              <uib-rating ng-model="row.entity.Rating" max="5" readonly="isReadonly">
+              </uib-rating>
+             </div>
+
+
+
+                <p style="font-size: 20px;margin-top: -51px;margin-left: -172px;">Xkuty One</p>
+
+                  <p style="font-size:15px;text-align: center;text-indent: 10px;">its fun to go quietly over the asp and get the city turning around to look at it easily and effortless.Leaving the funes and around ..</p>
+
+                  <button type="submit" class="btn btn-primary" style="width:76px;height:32px;background-color:#3b5998;color:white;margin-top: 15px;margin-left:-162px;">View ></button>
+
+
+             <span style="display-inline;position:absolute;margin-left: 37px;margin-top: 19px;">
+
+
+
+
+
+            <i class="fa fa-expand" aria-hidden="true" title="More details" data-toggle="tooltip" style="padding-right:25px;margin-left: 20px;color:blue;"></i>
+
+
+
+
+            <i class="fa fa-heart-o" aria-hidden="true" style="padding-right:25px;color:black;opacity:0.3;"></i>
+
+            <i class="fa fa-share-alt" aria-hidden="true" style="color:black;opacity:0.3;"></i>
+
+
+                </span>
+
+
+                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+
+
+    </div>
+
+
+    </div>
+        -->
+
+
+
+
+
+            <tb-second-carousel options="f"></tb-second-carousel>
+
+
+
+
+
+
+
+
+                 <br>
+
+                <div class=" hidden-xs hidden-sm col-xs-4" style="padding-left: 131px;margin-left: 31px;">
+
+                       <label for="ex1"></label>
+
+                <a href="http://www.indiabix.com" style="text-decoration: none;"><input type="button" value="VIEW ALL PRODUCTS" class="form-control"   style="text-align:center;color:black;cursor:pointer;width: 175px;margin-left: 323px;border-color: black;background-color: #f2f2f2;margin-bottom: 10px;"></a>
+
+                </div>
+
+
+
+              <!--  Button visible only in sm devices-->
+
+
+                  <div class="visible-sm col-sm-offset-1" style="padding-left: 131px;">
+
+                       <label for="ex1"></label>
+
+                <a href="http://www.indiabix.com" style="text-decoration: none;"><input type="button" value="VIEW ALL PRODUCTS" class="form-control"   style="text-align:center;color:black;cursor:pointer;width: 175px;margin-left: 105px;border-color: black;background-color: #f2f2f2;margin-bottom: 10px;"></a>
+
+                </div>
+
+
+
+
+
+        </div>
+        </div>
+
+
+
+
+
+
+
+
 <!--    BILL GATES, founder of Microsoft-->
 
+   <!--
+    <div class="jumbotron text-center" style="background:url(modules/core/client/img/billgates-img.jpg);height:359px;margin-bottom:-19px;);height:359px;margin-bottom:-19px;" ng-init="show='a'">
 
 
-<div class="jumbotron text-center" style="background:url(https://wallpaperscraft.com/image/wood_background_texture_36573_2560x1600.jpg);height:359px;margin-bottom:-19px;">
-  <br>
+        <span ng-show="show=='a'">
+             <br>
+             <span style="color: white;    margin-left: -45px;">BILL GATES, founder of Microsoft.</span>
+             <br>
+      <p style=" font-size: 29px;margin-top: 30px;color: white;">Bill gates is a lousy teacher. It seduces<br>
+          smart people into thinking they can't lose.</p>
+        </span>
 
-  <span style="color: white;">BILL GATES, founder of Microsoft.</span>
 
-  <br>
-  <p style=" font-size: 29px;margin-top: 30px;color: white;">Success is a lousy teacher. It seduces
-    <br> smart people into thinking they can't lose.</p>
-  <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: -24px;margin-top: 11px;">
+        <span ng-show="show=='b'">
+             <br>
+             <span style="color: white;    margin-left: -45px;">STEVE JOBS, founder of Apple.</span>
+             <br>
+      <p style=" font-size: 29px;margin-top: 30px;color: white;">steve jobs  Lorem ipsum dolor sit seduces<br>
+         consectetur adipiscing aelit,sed do eiusmod.</p>
+        </span>
 
-  <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
 
-  <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
+        <span ng-show="show=='c'">   <br>
+             <span style="color: white;    margin-left: -45px;">MARK ZUCKERBERG, founder of Apple.</span>
+             <br>
+      <p style=" font-size: 29px;margin-top: 30px;color: white;"> Zuckerberg launched Facebook from his Harv<br>
+         An earlier inspiration for Facebook do eiusm.</p>
+        </span>
+
+
+      <a  href="#" ng-click="show='a'">
+            <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: -24px;margin-top: 11px;">
+        </a>
+
+         <a  href="#" ng-click="show='b'">
+
+            <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
+        </a>
+
+
+
+        <a  href="#" ng-click="show='c'">
+
+        <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
+        </a>
+
+        </div>
+   -->
+
+
+
+
+
+
+ <div class="jumbotron text-center" style="background:url(modules/core/client/img/billgates-img.jpg);height:359px;margin-bottom:-19px;" ng-init="show='a'">
+
+
+          <br>
+
+
+     <div class="row" ng-show="show=='a'">
+
+         <div class="container">
+
+               <span style="color: white;">BILL GATES, founder of Microsoft</span>
+
+          <br>
+
+
+             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
+
+                 <p>Bill gates is a lousy teacher. It seduces<br>
+          smart people into thinking they can't lose</p>
+
+             </div>
+
+                <div class="visible-xs col-xs-12 ">
+
+                 <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;">Bill gates is a lousy teacher. It seduces<br>
+          smart people into thinking they can't lose</p>
+
+             </div>
+
+
+         </div>
+
+     </div>
+
+     <div class="row" ng-show="show=='b'">
+
+         <div class="container">
+
+               <span style="color: white;">STEVE JOBS, founder of Apple.</span>
+
+          <br>
+
+
+             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
+
+                 <p >steve jobs  Lorem ipsum dolor sit seduces<br>
+         consectetur adipiscing aelit,sed do eiusmod.</p>
+
+             </div>
+
+                <div class="visible-xs col-xs-12 ">
+
+                 <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;">steve jobs  Lorem ipsum dolor sit seduces<br>
+         consectetur adipiscing aelit,sed do eiusmod.</p>
+
+             </div>
+
+
+         </div>
+
+     </div>
+
+     <div class="row" ng-show="show=='c'">
+
+         <div class="container">
+
+               <span style="color: white;">MARK ZUCKERBERG, founder of Facebook.</span>
+
+          <br>
+
+
+             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
+
+                 <p> Zuckerberg launched Facebook from his Harv<br>
+         An earlier inspiration for Facebook do eiusm</p>
+
+             </div>
+
+                <div class="visible-xs col-xs-12 ">
+
+                 <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;"> Zuckerberg launched Facebook from his Harv<br>
+         An earlier inspiration for Facebook do eiusm</p>
+
+             </div>
+
+
+         </div>
+
+     </div>
+
+
+<a href="#" ng-click="show='a'">
+    <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" class="img1"></a>
+
+
+<a href="#" ng-click="show='b'">
+    <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" class="img2"></a>
+
+     <a href="#" ng-click="show='c'">
+
+        <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" alt="miss" class="img3">
+     </a>
+     </div>
+
+
+
+
+
+
+
+<!--
+<tb-billgates title="BILL GATES, founder of Microsoft" description="Success is a lousy teacher. It seduces
+smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" img2="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" img3="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg">
+
+</tb-billgates>
+-->
+
+
+
+
+
+  <!--  ::: Our Clients :::-->
+
+
+        <div style="background-color: #f2f2f2;text-align:center;">
+
+        <div class="container" style="background-color: #f2f2f2;">
+
+
+ <!--This will be visible only in sm and xs devices-->
+
+<div class="visible-xs visible-sm text-center col-xs-12" style="font-size:20px;">
+ <h1 style="text-align:center;color:black;font-size:23px;">::: Our Clients :::</h1>
 
 </div>
 
-<!--  ::: Our Clients :::-->
 
-<div style="background-color: #f2f2f2;text-align:center;">
-  <div class="container" style="background-color: #f2f2f2;">
-    <!--This will be visible only in sm and xs devices-->
+            <br>
 
-    <div class="visible-xs visible-sm text-center col-xs-12" style="font-size:20px;">
-      <h1 style="text-align:center;color:black;font-size:23px;">::: Our Clients :::</h1>
-    </div>
-    <br>
-    <div class="hidden-sm hidden-xs">
-      <h1 style="text-align:center;color:black;">::: Our Clients :::</h1>
-    </div>
-    <br>
-    <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
 
-    <div class="row" style="height:215px;padding-top: 7px;margin-left: 10px;">
-      <div class="col-md-2 col-sm-4 col-xs-6">
-        <div class="cus">
-          <a href="http://www.w3schools.com" style="font-family:Impact;font-size: 19px; margin-left: -29px;">STATION</a>
-        </div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-xs-6">
-        <div class="cus">
-          <a href="#" style=" margin-left: -29px;">Genuine</a>
-        </div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-xs-6">
-        <div class="cus">
-          <a href="#" style="letter-spacing:5px; margin-left: -29px;">NORD <br>HAUS</a>
-        </div>
-      </div>
+             <div class="hidden-sm hidden-xs">
+                <h1 style="text-align:center;color:black;">::: Our Clients :::</h1>
 
-      <div class="col-md-2 col-sm-4 col-xs-6">
-        <div class="cus">
-          <a href="#" style="letter-spacing:-1px; margin-left: -43px;">SOUTHBEACH</a>
+            </div>
+
+
+
+
+                               <br>
+
+                    <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
+
+
+<!--
+
+            <div class="row" style="height:215px;padding-top: 7px;margin-left: 10px;">
+
+
+                <div class="col-md-2 col-sm-4 col-xs-6">
+
+
+
+                    <div class="cus">
+
+                        <a href="http://www.w3schools.com"  style="font-family:Impact;font-size: 19px; margin-left: -29px;">STATON</a>
+
+                    </div>
+
+
+                </div>
+
+                 <div class="col-md-2 col-sm-4 col-xs-6">
+
+                    <div class="cus">
+
+                        <a href="#" style=" margin-left: -29px;">Genuine</a>
+
+                     </div>
+
+
+                </div>
+
+                 <div class="col-md-2 col-sm-4 col-xs-6">
+
+                    <div class="cus">
+
+                        <a href="#" style="letter-spacing:5px; margin-left: -29px;">NORD <br>HAUS</a>
+
+                     </div>
+
+
+                </div>
+
+                 <div class="col-md-2 col-sm-4 col-xs-6">
+
+                    <div class="cus">
+
+                        <a href="#" style="letter-spacing:-1px; margin-left: -43px;">SOUTHBEACH</a>
+
+                     </div>
+
+
+                </div>
+                  <div class="col-md-2 col-sm-4 col-xs-6">
+
+                    <div class="cus">
+
+                        <a href="#" style="margin-left: -29px;">Hand craft</a>
+
+                      </div>
+
+
+                </div>
+                  <div class="col-md-2 col-sm-4 col-xs-6">
+
+                    <div class="cus">
+
+                        <a href="#" style="letter-spacing:3px; margin-left: -40px;">CUBANESE</a>
+
+                      </div>
+
+
+                </div>
+
         </div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-xs-6">
-        <div class="cus">
-          <a href="#" style="margin-left: -29px;">Hand craft</a>
+
+-->
+
+
+            <tb-ourclients  ourclients="['STATON','Genuine','SOUTHBEACH','Hand craft','CUBANESE']">
+            </tb-ourclients>
+
+
         </div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-xs-6">
-        <div class="cus">
-          <a href="#" style="letter-spacing:3px; margin-left: -40px;">CUBANESE</a>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+
+
+
+
+</section>
 
 
 
@@ -478,7 +1848,23 @@
       return false;
     })
   });
+
+
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -676,3 +2062,6 @@
 </section>
 
 -->
+
+
+
