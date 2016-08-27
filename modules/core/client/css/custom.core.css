@@ -127,7 +127,7 @@ navbar-inverse .navbar-nav > .open > a,
 /*
 .triangle {
   border-bottom: 35px solid #fff;
-  width: 50%;
+  width: 50%;m
   position: absolute;
   bottom: 0;
 }
@@ -1318,3 +1318,28 @@ tags-input .tags {
     margin-top: 11px;
 }
 
+
+.label-styles{
+margin-left: 13px;
+  margin-bottom: -1px;
+}
+
+.label-styles-msg{
+  margin-left: 25px;
+  margin-bottom: -1px;
+}
+.input-styles{
+  font-weight: bold;
+}
+.btn-styles{
+    padding: 4px;
+    width: 150px;
+    border-radius: 2px;
+    font-size: 14px;
+    height: 39px;
+    padding-top: 3px;
+}
+.btn-styles-contact{
+    width: 185px;
+    height: 47px;
+}
