@@ -13,7 +13,7 @@
                         
 
     <uib-tabset active="indextab">
-      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 224px;background: #f2f2f2;    height: 46px;">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="width: 221px;background: #f2f2f2;    height: 46px;">
 
          <span style="font-size: 13px;padding-left: 6px;">
 
@@ -68,7 +68,7 @@
 
 
       </uib-tab>
-      <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 225px;background: #f2f2f2;    height: 46px;">
+      <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 228px;background: #f2f2f2;    height: 46px;">
 
 
 
@@ -1241,8 +1241,11 @@ first carousel part
 
 
 
-                <tb-first-carousel options="p"></tb-first-carousel>
-                
+                <!--<tb-first-carousel options="f"></tb-first-carousel>-->
+
+                 <tb-first-carousel></tb-first-carousel>
+
+
 
 
                 
@@ -1526,35 +1529,179 @@ first carousel part
     
 <!--    BILL GATES, founder of Microsoft-->
     
-    
-<!--
-    <div class="jumbotron text-center" style="background:url(https://wallpaperscraft.com/image/wood_background_texture_36573_2560x1600.jpg);height:359px;margin-bottom:-19px;">
+   <!--
+    <div class="jumbotron text-center" style="background:url(modules/core/client/img/billgates-img.jpg);height:359px;margin-bottom:-19px;);height:359px;margin-bottom:-19px;" ng-init="show='a'">
 
-                  
-               
+
+        <span ng-show="show=='a'">
+             <br>
+             <span style="color: white;    margin-left: -45px;">BILL GATES, founder of Microsoft.</span>
+             <br>
+      <p style=" font-size: 29px;margin-top: 30px;color: white;">Bill gates is a lousy teacher. It seduces<br>
+          smart people into thinking they can't lose.</p>
+        </span>
+
+
+        <span ng-show="show=='b'">
+             <br>
+             <span style="color: white;    margin-left: -45px;">STEVE JOBS, founder of Apple.</span>
+             <br>
+      <p style=" font-size: 29px;margin-top: 30px;color: white;">steve jobs  Lorem ipsum dolor sit seduces<br>
+         consectetur adipiscing aelit,sed do eiusmod.</p>
+        </span>
+
+
+        <span ng-show="show=='c'">   <br>
+             <span style="color: white;    margin-left: -45px;">MARK ZUCKERBERG, founder of Apple.</span>
+             <br>
+      <p style=" font-size: 29px;margin-top: 30px;color: white;"> Zuckerberg launched Facebook from his Harv<br>
+         An earlier inspiration for Facebook do eiusm.</p>
+        </span>
+
+
+      <a  href="#" ng-click="show='a'">
+            <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: -24px;margin-top: 11px;">
+        </a>
+
+         <a  href="#" ng-click="show='b'">
                    
-          <br>
-          <span style="color: white;">BILL GATES, founder of Microsoft.</span>
-          
-          <br>
-      <p style=" font-size: 29px;margin-top: 30px;color: white;">Success is a lousy teacher. It seduces<br>
-                       smart people into thinking they can't lose.</p>
-        <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: -24px;margin-top: 11px;">
-                   
-        <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
-                   
+            <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
+        </a>
+
+
+
+        <a  href="#" ng-click="show='c'">
+
         <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" style="background-color:white;width:36px;height:38px;border-radius: 60px;margin-left: 20px;margin-top: 11px;">
+        </a>
                       
         </div>
--->
+   -->
     
     
 
 
+
+
+ <div class="jumbotron text-center" style="background:url(modules/core/client/img/billgates-img.jpg);height:359px;margin-bottom:-19px;" ng-init="show='a'">
+
+
+          <br>
+
+
+     <div class="row" ng-show="show=='a'">
+
+         <div class="container">
+
+               <span style="color: white;">BILL GATES, founder of Microsoft</span>
+
+          <br>
+
+
+             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
+
+                 <p>Bill gates is a lousy teacher. It seduces<br>
+          smart people into thinking they can't lose</p>
+
+             </div>
+
+                <div class="visible-xs col-xs-12 ">
+
+                 <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;">Bill gates is a lousy teacher. It seduces<br>
+          smart people into thinking they can't lose</p>
+
+             </div>
+
+
+         </div>
+
+     </div>
+
+     <div class="row" ng-show="show=='b'">
+
+         <div class="container">
+
+               <span style="color: white;">STEVE JOBS, founder of Apple.</span>
+
+          <br>
+
+
+             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
+
+                 <p >steve jobs  Lorem ipsum dolor sit seduces<br>
+         consectetur adipiscing aelit,sed do eiusmod.</p>
+
+             </div>
+
+                <div class="visible-xs col-xs-12 ">
+
+                 <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;">steve jobs  Lorem ipsum dolor sit seduces<br>
+         consectetur adipiscing aelit,sed do eiusmod.</p>
+
+             </div>
+
+
+         </div>
+
+     </div>
+
+     <div class="row" ng-show="show=='c'">
+
+         <div class="container">
+
+               <span style="color: white;">MARK ZUCKERBERG, founder of Facebook.</span>
+
+          <br>
+
+
+             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
+
+                 <p> Zuckerberg launched Facebook from his Harv<br>
+         An earlier inspiration for Facebook do eiusm</p>
+
+             </div>
+
+                <div class="visible-xs col-xs-12 ">
+
+                 <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;"> Zuckerberg launched Facebook from his Harv<br>
+         An earlier inspiration for Facebook do eiusm</p>
+
+             </div>
+
+
+         </div>
+
+     </div>
+
+
+<a href="#" ng-click="show='a'">
+    <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" class="img1"></a>
+
+
+<a href="#" ng-click="show='b'">
+    <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" class="img2"></a>
+
+     <a href="#" ng-click="show='c'">
+
+        <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" alt="miss" class="img3">
+     </a>
+     </div>
+
+
+
+
+
+
+
+<!--
 <tb-billgates title="BILL GATES, founder of Microsoft" description="Success is a lousy teacher. It seduces
 smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" img2="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" img3="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg">
     
 </tb-billgates>
+-->
     
     
     
