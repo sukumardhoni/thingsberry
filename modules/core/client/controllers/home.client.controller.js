@@ -9,12 +9,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
     $scope.myInterval = 0;
-<<<<<<< HEAD
-    //    $scope.myInter = 2000;
-=======
-    /*$scope.myInter = 2000;*/
-      $scope.myInter = 0;
->>>>>>> materials1
+
     $scope.noWrapSlides = false;
     $scope.active = 0;
     $scope.spinnerLoading = true;
@@ -178,27 +173,27 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-/*    $scope.myInterval = 5000;
-    $scope.noWrapSlides = false;
-    $scope.active = 0;
-    var slides1 = $scope.slides1 = [];*/
+    /*    $scope.myInterval = 5000;
+        $scope.noWrapSlides = false;
+        $scope.active = 0;
+        var slides1 = $scope.slides1 = [];*/
     /*var slidesarray =$scope.slidesarray = [['slide1','slide2'],['slide3','slide4'],['slide5','slide6'],['slide7','slide8'],['slide9','slide10']];*/
 
-/*    var sample = $scope.sample = [];
-    var slides3 = $scope.slides3 = [];
-    var currIndex = 0;
-    $scope.carouselBg = [];*/
+    /*    var sample = $scope.sample = [];
+        var slides3 = $scope.slides3 = [];
+        var currIndex = 0;
+        $scope.carouselBg = [];*/
 
 
 
-//    $scope.myInterval = 5000;
-//    $scope.noWrapSlides = false;
-//    $scope.active = 0;
+    //    $scope.myInterval = 5000;
+    //    $scope.noWrapSlides = false;
+    //    $scope.active = 0;
 
 
     var slides1 = $scope.slides1 = [];
-//    var slides2 = $scope.slides2 = [];
-//    var slides3 = $scope.slides3 = [];
+    //    var slides2 = $scope.slides2 = [];
+    //    var slides3 = $scope.slides3 = [];
     var currIndex = 0;
     $scope.carouselBg = [];
 
@@ -211,19 +206,19 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
         $scope.premiumProducts = res;
 
-        for (var i = 0; i < ($scope.premiumProducts.length/4); i++) {
+        for (var i = 0; i < ($scope.premiumProducts.length / 4); i++) {
 
 
           $scope.addSlide1($scope.premiumProducts[i]);
         }
 
-    /*    for (var j = ($scope.premiumProducts.length / 4); j < $scope.premiumProducts.length; j++) {
-          $scope.addSlide2($scope.premiumProducts[j]);
-        }*/
-//
-//        for (var k = 0; k < $scope.premiumProducts.length; k++) {
-//          $scope.addSlide3($scope.premiumProducts[k]);
-//        }
+        /*    for (var j = ($scope.premiumProducts.length / 4); j < $scope.premiumProducts.length; j++) {
+              $scope.addSlide2($scope.premiumProducts[j]);
+            }*/
+        //
+        //        for (var k = 0; k < $scope.premiumProducts.length; k++) {
+        //          $scope.addSlide3($scope.premiumProducts[k]);
+        //        }
         $timeout(function () {
           $scope.carouselBg.pop('carousel_spinner');
         }, 1000);
@@ -237,31 +232,31 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-//
-//    $scope.getPremiumProducts = function () {
-//      $scope.carouselBg.push('carousel_spinner');
-//      PremiumProducts.query({}, function (res) {
-//        $scope.premiumProducts = res;
-//
-//        //console.log('the length:'+JSON.stringify($scope.premiumProducts));
-//        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
-//          $scope.addSlide1($scope.premiumProducts[i]);
-//        }
-//
-//        $scope.sample = $scope.listToMatrix($scope.slides1, 2);
-//        // console.log('the resultant matrix'+JSON.stringify($scope.sample));
-//
-//        for (var k = 0; k < $scope.premiumProducts.length; k++) {
-//          $scope.addSlide3($scope.premiumProducts[k]);
-//        }
-//        $timeout(function () {
-//          $scope.carouselBg.pop('carousel_spinner');
-//        }, 1000);
-//
-//      }, function (err) {
-//        console.log('Failed to fetch the product details : ' + err);
-//      });
-//    };
+    //
+    //    $scope.getPremiumProducts = function () {
+    //      $scope.carouselBg.push('carousel_spinner');
+    //      PremiumProducts.query({}, function (res) {
+    //        $scope.premiumProducts = res;
+    //
+    //        //console.log('the length:'+JSON.stringify($scope.premiumProducts));
+    //        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
+    //          $scope.addSlide1($scope.premiumProducts[i]);
+    //        }
+    //
+    //        $scope.sample = $scope.listToMatrix($scope.slides1, 2);
+    //        // console.log('the resultant matrix'+JSON.stringify($scope.sample));
+    //
+    //        for (var k = 0; k < $scope.premiumProducts.length; k++) {
+    //          $scope.addSlide3($scope.premiumProducts[k]);
+    //        }
+    //        $timeout(function () {
+    //          $scope.carouselBg.pop('carousel_spinner');
+    //        }, 1000);
+    //
+    //      }, function (err) {
+    //        console.log('Failed to fetch the product details : ' + err);
+    //      });
+    //    };
 
 
     $scope.listToMatrix = function (list, elementsPerSubArray) {
@@ -295,27 +290,27 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       });
     };
 
-  /*  $scope.addSlide2 = function (details) {
-      slides2.push({
-        image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++
-      });
-    };*/
+    /*  $scope.addSlide2 = function (details) {
+        slides2.push({
+          image: details.productImageURL,
+          proAddress: details.webAddress,
+          desc: details.description,
+          web: details.companyWebsite,
+          text: details.Proname,
+          id: currIndex++
+        });
+      };*/
 
-//    $scope.addSlide3 = function (details) {
-//      slides3.push({
-//        image: details.productImageURL,
-//        proAddress: details.webAddress,
-//        desc: details.description,
-//        web: details.companyWebsite,
-//        text: details.Proname,
-//        id: currIndex++
-//      });
-//    };
+    //    $scope.addSlide3 = function (details) {
+    //      slides3.push({
+    //        image: details.productImageURL,
+    //        proAddress: details.webAddress,
+    //        desc: details.description,
+    //        web: details.companyWebsite,
+    //        text: details.Proname,
+    //        id: currIndex++
+    //      });
+    //    };
 
 
 
@@ -376,90 +371,84 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       //console.log(data.result);
     }
 
-/*
+    /*
 
-    $scope.slides = [
-
-
-
-      {
-
-        title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
-
-        description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
-
-        image: 'http://www.xkuty.com/images/xkuty.jpg',
-
-                },
-
-      {
-
-        title: 'XKUTY ONE: BEAUTIFUL SIMPLE AND CONNECTED',
-
-        description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
-
-        image: 'http://www.xkuty.com/images/xkuty.jpg',
-
-                },
-
-      {
-
-        title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
-
-        description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
-
-
-        image: 'http://www.xkuty.com/images/xkuty.jpg',
-
-                }
-
-            ];
+        $scope.slides = [
 
 
 
-          $scope.slides1 = [
+          {
+
+            title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
+
+            description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+            image: 'http://www.xkuty.com/images/xkuty.jpg',
+
+                    },
+
+          {
+
+            title: 'XKUTY ONE: BEAUTIFUL SIMPLE AND CONNECTED',
+
+            description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+            image: 'http://www.xkuty.com/images/xkuty.jpg',
+
+                    },
+
+          {
+
+            title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
+
+            description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+
+            image: 'http://www.xkuty.com/images/xkuty.jpg',
+
+                    }
+
+                ];
 
 
 
-      {
-
-        title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
-
-        description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
-
-        image: 'https://ksr-ugc.imgix.net/assets/011/803/987/bc382547b1160d0bce8400d1e6373f83_original.jpg?w=1536&h=864&fit=fill&bg=FFFFFF&v=1463696995&auto=format&q=92&s=427d1a7f748b5453324ee61a31be2f92',
-
-                },
-
-      {
-
-        title: 'XKUTY ONE: BEAUTIFUL SIMPLE AND CONNECTED',
-
-        description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
-
-        image: 'https://ksr-ugc.imgix.net/assets/011/803/987/bc382547b1160d0bce8400d1e6373f83_original.jpg?w=1536&h=864&fit=fill&bg=FFFFFF&v=1463696995&auto=format&q=92&s=427d1a7f748b5453324ee61a31be2f92',
-
-                },
-
-      {
-
-        title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
-
-        description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
-
-
-        image: 'http://www.xkuty.com/images/xkuty.jpg',
-
-                }
-
-            ];
-*/
+              $scope.slides1 = [
 
 
 
+          {
+
+            title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
+
+            description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+            image: 'https://ksr-ugc.imgix.net/assets/011/803/987/bc382547b1160d0bce8400d1e6373f83_original.jpg?w=1536&h=864&fit=fill&bg=FFFFFF&v=1463696995&auto=format&q=92&s=427d1a7f748b5453324ee61a31be2f92',
+
+                    },
+
+          {
+
+            title: 'XKUTY ONE: BEAUTIFUL SIMPLE AND CONNECTED',
+
+            description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
+
+            image: 'https://ksr-ugc.imgix.net/assets/011/803/987/bc382547b1160d0bce8400d1e6373f83_original.jpg?w=1536&h=864&fit=fill&bg=FFFFFF&v=1463696995&auto=format&q=92&s=427d1a7f748b5453324ee61a31be2f92',
+
+                    },
+
+          {
+
+            title: 'STACKBOX: BEAUTIFUL SIMPLE AND CONNECTED',
+
+            description: 'The first smart thermostat that doesnt think its smarter than  Most home thermostat are either extremely unattractive',
 
 
+            image: 'http://www.xkuty.com/images/xkuty.jpg',
 
+                    }
+
+                ];
+    */
 
 
 
@@ -602,24 +591,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
               ];
 
 
-
-<<<<<<< HEAD
-    $scope.activeTab = false;
-
-    $scope.selectTab1 = function () {
-      $scope.activeTab = true;
-    }
-    $scope.clickTab1 = function () {
-      $scope.activeTab = true;
-    }
-    $scope.clickTab2 = function () {
-      $scope.activeTab = false;
-    }
-=======
-
-
-
-            $scope.slidesarray1 = [
+    $scope.slidesarray1 = [
 
                    [
 
@@ -756,36 +728,30 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-/*   $scope.activeTab = false;
+    /*   $scope.activeTab = false;
 
-  $scope.selectTab1 = function() {
+      $scope.selectTab1 = function() {
+        $scope.activeTab = true;
+      }
+      $scope.clickTab1 = function() {
+        $scope.activeTab = true;
+      }
+      $scope.clickTab2 = function() {
+        $scope.activeTab = false;
+      }*/
+
     $scope.activeTab = true;
-  }
-  $scope.clickTab1 = function() {
-    $scope.activeTab = true;
-  }
-  $scope.clickTab2 = function() {
-    $scope.activeTab = false;
-  }*/
 
-     $scope.activeTab = true;
+    $scope.selectTab1 = function () {
+      $scope.activeTab = false;
+    }
+    $scope.clickTab1 = function () {
+      $scope.activeTab = true;
+    }
+    $scope.clickTab2 = function () {
+      $scope.activeTab = false;
+    }
 
-  $scope.selectTab1 = function() {
-    $scope.activeTab = false;
-  }
-  $scope.clickTab1 = function() {
-    $scope.activeTab = true;
-  }
-  $scope.clickTab2 = function() {
-    $scope.activeTab = false;
-  }
-
-
-
-
-
-
->>>>>>> materials1
 
 
 
@@ -795,112 +761,113 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 }
-]);   /*.directive("billgates",function(){
+]);
+/*.directive("billgates",function(){
 
 
-            console.log("entering into billgates directive");
+         console.log("entering into billgates directive");
 
 
-            var linkfunction=function(scope,element,attrs){
+         var linkfunction=function(scope,element,attrs){
 
-                scope.title=attrs.title;
-                scope.description=attrs.description;
+             scope.title=attrs.title;
+             scope.description=attrs.description;
 
-                scope.img1=attrs.img1;
-                scope.img2=attrs.img2;
-                scope.img3=attrs.img3;
-
-
-            }
+             scope.img1=attrs.img1;
+             scope.img2=attrs.img2;
+             scope.img3=attrs.img3;
 
 
-
-
-            return{
-
-                restrict:'E',
-
-                templateUrl:'modules/core/client/views/billgates.html',
-
-                link: linkfunction
-
-            };
-
-        })*/
-
-       /* .directive("ourclients",function(){
-
-            console.log("entering into ourclients directive1");
+         }
 
 
 
 
+         return{
 
-            return{
+             restrict:'E',
 
-                restrict:'E',
+             templateUrl:'modules/core/client/views/billgates.html',
 
-                scope:{
+             link: linkfunction
 
-                    ourclients:'='
-                },
+         };
 
-                templateUrl:'modules/core/client/views/new-tb-our-clients.html'
+     })*/
 
+/* .directive("ourclients",function(){
 
-            };
-
-
-        })*/
+     console.log("entering into ourclients directive1");
 
 
 
 
 
- /*        .directive("tbFirstCarousel",function(){
+     return{
+
+         restrict:'E',
+
+         scope:{
+
+             ourclients:'='
+         },
+
+         templateUrl:'modules/core/client/views/new-tb-our-clients.html'
 
 
-            console.log("entering into tbFirstCarousel directive");
+     };
 
 
-            return{
-
-                restrict:'E',
-
-                templateUrl:'modules/core/client/views/new-tb-first-carousel.html',
-
-                link:function(scope,elem,attrs){
-
-
-                    console.log("entering into tbFirstCarousel link function");
-
-                    var options=attrs.options;
-
-                    console.log("options are.." +options);
-
-
-                    if(options.indexOf("p") !== -1) {
-
-                        console.log("entering into premium products");
-
-                        scope.showMeP = true;
-                    }
-
-
-                    if(options.indexOf("f") !== -1){
-
-                        console.log("entering into feautured products");
-
-                        scope.showMeF = true;
-                    }
-
-                }
+ })*/
 
 
 
-            };
 
-        })*/
+
+/*        .directive("tbFirstCarousel",function(){
+
+
+           console.log("entering into tbFirstCarousel directive");
+
+
+           return{
+
+               restrict:'E',
+
+               templateUrl:'modules/core/client/views/new-tb-first-carousel.html',
+
+               link:function(scope,elem,attrs){
+
+
+                   console.log("entering into tbFirstCarousel link function");
+
+                   var options=attrs.options;
+
+                   console.log("options are.." +options);
+
+
+                   if(options.indexOf("p") !== -1) {
+
+                       console.log("entering into premium products");
+
+                       scope.showMeP = true;
+                   }
+
+
+                   if(options.indexOf("f") !== -1){
+
+                       console.log("entering into feautured products");
+
+                       scope.showMeF = true;
+                   }
+
+               }
+
+
+
+           };
+
+       })*/
 
 
 
