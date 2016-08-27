@@ -24,8 +24,9 @@
     "ngstorage": "^0.3.10",
     "ng-tags-input": "^3.0.0",
     "hello": "~1.9.8",
-    "owl.carousel": "^2.1.6"
-
+    "owl.carousel": "^2.1.6",
+    "angular-material": "^1.1.0",
+    "angular-aria": "^1.5.8"
   },
   "resolutions": {
     "angular": "~1.5"

@@ -45,7 +45,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
 
 
-    /*  $scope.content = [
+      $scope.content = [
 
         {
 
@@ -57,10 +57,10 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
                   },
 
-        {
+      {
 
           link: 'ALLPRODUCTS',
-          route: 'getListed'
+          route: 'not-found'
 
 
                   },
@@ -79,13 +79,17 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
                   },
 
-        {
+       {
 
           link: 'CONTACTUS',
           route: 'contactus'
 
                   }
 
-                  ];*/
+                  ];
+
+
+
+
   }
 ]);

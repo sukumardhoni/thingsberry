@@ -127,7 +127,7 @@ navbar-inverse .navbar-nav > .open > a,
 /*
 .triangle {
   border-bottom: 35px solid #fff;
-  width: 50%;
+  width: 50%;m
   position: absolute;
   bottom: 0;
 }
@@ -797,8 +797,48 @@ tags-input .tags {
 }*/
 
 #backTop {
-  width: 35px;
-  height: 35px;
+
+
+
+           display: none;
+	       width: 46px;
+           height: 42px;
+	       text-indent: -9999px;
+	       position: fixed;
+	       z-index: 99;
+	       right: 29px;
+	       bottom: 62px;
+
+	       background: white url('../../../../modules/core/client/img/up-arrow2.png') no-repeat center 40%;
+	       border-radius: 23px;
+           margin-bottom: 8px;
+           margin-right: 10px;
+           border: 1px solid gray;
+
+
+
+}
+
+
+ a:hover#backTop{
+
+            background: pink url('../../../../modules/core/client/img/up-arrow2.png') no-repeat center 40%;
+            text-decoration: none;
+            border-bottom: none;
+            border: 1px solid black;
+
+        }
+
+
+/*
+    Previous
+    ---------
+
+    #backTop{
+
+
+  width: 30px;
+  height: 30px;
   padding: 10px;
   border-radius: 4px;
   text-indent: -9999px;
@@ -811,10 +851,14 @@ tags-input .tags {
   bottom: 5px;
   position: fixed;
   background: url('../../../../modules/core/client/img/buttons/uparr-48-w.png') no-repeat center center rgb(2, 168, 243);
-  border: 1px solid #fff;
+   border: 1px solid #fff;
+
 }
 
-#back {
+  */
+
+
+/*#back {
   width: 35px;
   height: 35px;
   padding: 5px;
@@ -835,7 +879,7 @@ tags-input .tags {
   opacity: 1;
 }
 
-/*
+
 #fixed-tb-bottom {
   border-top-color: rgb(2, 168, 243);
   border-top-style: solid;
@@ -868,6 +912,8 @@ tags-input .tags {
   position: relative;
 }
 
+
+
 .contactUs_text {
   position: absolute;
   top: 140px;
@@ -899,7 +945,12 @@ tags-input .tags {
 
 
 
-/* landing page css styles*/
+/* ------------ landing page css styles--------------- */
+
+
+
+
+
 
 
 
@@ -961,9 +1012,7 @@ tags-input .tags {
     .custom{
             
             background-color: white;
-
-             min-height: 379px;
-       
+            min-height: 392px;
             margin-top: -23px;
             text-align: center;
         }
@@ -1048,9 +1097,9 @@ tags-input .tags {
           cursor: pointer;
           margin-right: 2px;
           display: inline-block;
-                 padding-left: 10px;
-    padding-right: 10px;
-                 transition: all 0.6s ease;
+          padding-left: 10px;
+          padding-right: 10px;
+          transition: all 0.6s ease;
    
              
        }
@@ -1060,7 +1109,7 @@ tags-input .tags {
     box-shadow: 0 .75rem 2rem 0 rgba(0,0,0,.2);
             transition: all 0.6s ease;
             transform: scale(1.0);
-}
+        }
         
         
 
@@ -1070,6 +1119,7 @@ tags-input .tags {
           overflow: hidden;
           height: 363px;
 
+
         }
         
   
@@ -1078,12 +1128,7 @@ tags-input .tags {
 
     font-size: 17px;
     margin-top: -224px;
-  
- 
-       
-           margin-right: 88px;
- 
-
+    margin-right: 23px;
     color: black;
     
 }
@@ -1091,8 +1136,7 @@ tags-input .tags {
 
     font-size: 17px;
     margin-top: -224px;
-   
-    padding-left: 674px;
+    padding-left: 679px;
     position: absolute;
     padding-right: -17px;
     color: black;
@@ -1159,69 +1203,19 @@ tags-input .tags {
         }
         
 
-/*
-.custom #navbar #holder ul li a.active{
 
-   background-color:white;
-    border-top: 6px solid blue;
-    background: #FFF;
-    color:black;
-
+  .navbar-inverse .navbar-toggle {
+            
+    background-color: #333;
+            
 }
-*/
-
-
-
-                a.back-to-top {
-            
-	       display: none;
-	       width: 46px;
-           height: 42px;
-	       text-indent: -9999px;
-	       position: fixed;
-	       z-index: 99;
-	       right: 29px;
-	       bottom: 62px;
-   
-	       background: white  url("http://www.megaicons.net/static/img/icons_title/8/60/title/arrows-up-4-icon.png") no-repeat center 30%;
-            
-          /* background: red url('http://www.greatandhra.com/images/top.png') no-repeat -8px 0px;*/
-
-	       border-radius: 23px;
-           margin-bottom: 63px;
-           margin-right: 10px;
-          
-           background-image: url(up%20arrow2.png);
-            
-           
-            
-        }
-
-        a:hover.back-to-top{
-            
-            background: pink url("http://www.megaicons.net/static/img/icons_title/8/60/title/arrows-up-4-icon.png") no-repeat center 30%;
-            background-image: url(up%20arrow2.png);
-            text-decoration: none;
-            border-bottom: none;
-                
-        }
-        
-
-
-
-        
-        .navbar-inverse .navbar-toggle {
-            
-          background-color: #333;
-            
-        }
 
 
 
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
     
-    color: black;
+    color: blue;
     border-bottom: 3px solid blue;
     text-decoration: none;
     text-transform: uppercase;
@@ -1260,9 +1254,19 @@ tags-input .tags {
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
 
+/*.nav-tabs > li.active > a,.nav-tabs > li.active > a:focus{*/
+
   border-top: 6px solid blue;
 
 }
+
+
+
+.nav-tabs > li > a:hover {
+
+    border-bottom: none;
+}
+
 
 /*This is for giving height to the search tabs*/
 
@@ -1270,4 +1274,100 @@ tags-input .tags {
 .nav > li > a {
     padding: 10px 12px !important;
 }
+
+
+
+
+.getlisting_img{
+  width: 100%;
+  height: 250px;
+  opacity: 0.8;
+  position: relative;
+}
+
+
+#navbarCollapse{
+
+    background: white;
+
+
+}
+
+.jumbotron p{
+
+    font-size: 29px;
+    margin-top: 30px;
+    color: white;
+    margin-left: -77px;
+}
+
+.jumbotron .img1{
+
+    background-color:white;
+    width:36px;
+    height:38px;
+    border-radius: 60px;
+    margin-top: 11px;
+}
+.jumbotron .img2{
+
+    background-color:white;
+    width:36px;
+    height:38px;
+    border-radius: 60px;
+    margin-left: 20px;
+    margin-top: 11px;
+}
+.jumbotron .img3{
+
+    background-color:white;
+    width:36px;
+    height:38px;
+    border-radius: 60px;
+    margin-left: 20px;
+    margin-top: 11px;
+}
+
+
+
+.label-styles{
+margin-left: 13px;
+  margin-bottom: -1px;
+}
+
+.label-styles-msg{
+  margin-left: 25px;
+  margin-bottom: -1px;
+}
+.input-styles{
+  font-weight: bold;
+}
+.btn-styles{
+    padding: 4px;
+    width: 150px;
+    border-radius: 2px;
+    font-size: 14px;
+    height: 39px;
+    padding-top: 3px;
+}
+.btn-styles-contact{
+    width: 185px;
+    height: 47px;
+
+}
+
+.premium-product-img{
+
+    width: 208px;
+    margin-top: 110px;
+    height: 135px;
+    /*margin-left: -74px;*/
+    margin-left: -70px
+}
+
+.firstcarouselP{
+
+    width:430px;color:white;font-size:24px;height:20px;
+}
+
 

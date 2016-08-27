@@ -42,7 +42,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       })
       .state('getListed', {
         url: '/getListed/:isPremium',
-        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+//        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+          templateUrl: 'modules/core/client/views/new-tb-get-listing-page.html',
         data: {
           pageTitle: 'Get Listed ThingsBerry'
         }

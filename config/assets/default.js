@@ -12,6 +12,8 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.min.css',
         'public/lib/owl.carousel/dist/assets/owl.carousel.min.css',
         'public/lib/owl.carousel/dist/assets/owl.theme.default.min.css',
+        'public/lib/angular-material/angular-material.css'
+
 
       ],
       js: [
@@ -36,6 +38,8 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.min.js',
         'public/lib/hello/dist/hello.all.js',
         'public/lib/owl.carousel/dist/owl.carousel.min.js',
+        'public/lib/angular-material/angular-material.js',
+        'public/lib/angular-aria/angular-aria.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

@@ -64,16 +64,47 @@
 
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse" ng-click="toggleCollapsibleMenu()">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse" ng-click="toggleCollapsibleMenu()" style="float:left;">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
+
+       <div class="col-xs-offset-2">
       <a ui-sref="home" class="navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo">
         <u style="left: -999999px;position: absolute;">thingsberry.com A list of all internet of things</u>
       </a>
+      </div>
+
+        <div class="visible-xs">
+
+         <i class="fa fa-search" ng-click="test.showBoxOne = !test.showBoxOne" style="font-size: 20px;
+    opacity: 0.3;cursor:pointer;float: right; margin-left: 34px;position: absolute;margin-top: 19px;"></i>
+
+        </div>
+
+
+
+        <!-- Search icon hidden part -->
+
+
+       <div class="box-one" ng-show="test.showBoxOne">
+
+
+      <input type="text" placeholder="search" style="width:220px;">
+      <br> <br>
+      <button type="submit" value="submit">submit</button>
+
+      </div>
+
     </div>
+
+
+
+
+
 
     <div class="collapse navbar-collapse" id="navbarCollapse" uib-collapse="!isCollapsed">
       <ul class="nav navbar-nav navbar-right text-center" id="tb_top_menu">
@@ -81,18 +112,48 @@
           
           
           
+<!--
         <li ng-repeat="foo in content" ui-sref-active="active">
           <a ui-sref="{{foo.route}}"class="header-title-names" style="background-color:white;">{{foo.link}}</a>
         </li>
        
+-->
+
+
+
+         <li ui-sref-active="active">
+          <a ui-sref="home" class="header-title-names">HOME</a>
+        </li>
+
+
+          <li ui-sref-active="active">
+          <a ui-sref="companies.list({isSearch:false})" class="header-title-names">ALLPRODUCTS</a>
+
+          </li>
           
-          
-          
-          
-          
-          
-          
-          
+           <li ui-sref-active="active">
+          <a href="http://blog.thingsberry.com" class="header-title-names">BLOG</a>
+        </li>
+
+        <li ui-sref-active="active" ng-hide="authentication.user.roles.indexOf('admin') > -1">
+          <a ui-sref="getListed" class="header-title-names">GET LISTED</a>
+        </li>
+
+        <li ui-sref-active="active">
+          <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
+        </li>
+
+
+
+        </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
 <!--
         <li ui-sref-active="active">
           <a ui-sref="home" class="header-title-names">HOME</a>
@@ -143,15 +204,10 @@ authentication.user.provider == 'gmail') && (item.title == 'Change Password')"><
               
               
               
-         
-      </ul>
-    </div>
-  </div>
-</nav>
+
 
     
-    
-    
+
         
 
 
@@ -180,4 +236,3 @@ authentication.user.provider == 'gmail') && (item.title == 'Change Password')"><
     
     
     
-  
