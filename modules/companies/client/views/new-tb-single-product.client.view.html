@@ -1,6 +1,9 @@
 <div class="container" ng-init="getSearchedProductsList()">
-  <div class="row prdcts-list-box">
+  <div class="row " style="margin-top:75px;">
     <div class="col-md-9">
+      <div class="row ">
+        <a class="back_on_sngle_prdct_view" onclick="history.back(-1)"><i class="fa fa-arrow-left" aria-hidden="true" ></i> BACK </a>
+      </div>
       <div class="row new_sngle_prdct_box">
         <div class="col-md-5 col-sm-5" style="padding:0px;">
           <p>
@@ -18,8 +21,6 @@
             <div class="col-md-2">
               <i class="fa fa-share-alt prodIcons icons_in_sngle_prdct" aria-hidden="true"></i>
             </div>
-
-
             <tb-ratings-container prod-id={{prodId}} style="float:right;"></tb-ratings-container>
           </div>
           <div class="row">
@@ -69,6 +70,26 @@
       <h4>Under maintenence.....</h4>
     </div>
 
+    <a id='backTop'>Back To Top</a>
+    <script>
+      $(document).ready(function () {
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 100) {
+            $("#backTop").fadeIn();
+          } else {
+            $("#backTop").fadeOut();
+          }
+        });
+
+        // scroll body to 0px on click
+        $("#backTop").click(function () {
+          $("html, body").animate({
+            scrollTop: 0
+          }, 800);
+          return false;
+        })
+      });
+    </script>
 
   </div>
 

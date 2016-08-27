@@ -22,7 +22,7 @@
       })
       .state('companies.list', {
         url: '/list/:cat?/:com?/:name?/:regions?/:isSearch',
-//       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',

@@ -1,22 +1,22 @@
-
-<tb-header-image image="../../../../modules/core/client/img/tb_new_listing_page_image.jpg" opacity="0.8" maintitle="Product Listing" subtitle="Loeriem ispium will show all the text in image Loeriem ispium will show all the text in image"></tb-header-image>
+<tb-header-image image="../../../../modules/core/client/img/products.jpg" opacity="1" maintitle="Product Listing" subtitle="Loeriem ispium will show all the text in image Loeriem ispium will show all the text in image">
+</tb-header-image>
 
 
 <div class="container" ng-init="getSearchedProductsList()">
   <div class="row  prdcts-list-box">
     <div class="col-md-9 col-md-offset-1 col-xs-12 ">
-      <div ng-show="vm.companys.length !== 0">
+      <div ng-hide="vm.companys.length == 0">
         <div class="row prdcts-sorting hidden-sm">
           <div class="col-md-5 prdct_showing_item">
-            <div class="glyphicon glyphicon-th col-md-1  hidden-xs prdcts_sorting_item"></div>
-            <div class="glyphicon glyphicon-th-list col-md-1  hidden-xs prdcts_sorting_item"></div>
-            <div class="col-md-9   prdcts_sorting_item ">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
+            <div class="glyphicon glyphicon-th col-md-1  hidden-xs prdcts_sorting_item" ng-click="grdView()" ng-class="{'listclr':(gridView===true)}"></div>
+            <div class="glyphicon glyphicon-th-list col-md-1  hidden-xs prdcts_sorting_item" ng-click="listView()" ng-class="{'listclr':(gridView===false)}"></div>
+            <div class="col-md-9 ">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
           </div>
 
           <div class="col-md-4 prdct_srt_view_icons">
-            <div class="col-md-5 hidden-xs hidden-sm prdcts_sorting_item prdct_sort_align">View 12/24/All</div>
+            <div class="col-md-5 hidden-xs hidden-sm  prdct_sort_align">View <span class="prdcts_sorting_item">12</span><span class="prdcts_sorting_item">/24 </span><span class="prdcts_sorting_item">/All</span> </div>
             <div class="prdcts_sorting_item">
-              <select class="col-md-6  hidden-xs sort_on_search prdct_sort_align" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+              <select class="col-md-6  hidden-xs  sort_on_search prdct_sort_align" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
               </select>
             </div>
             <div class="col-xs-offset-1 visible-xs prdcts_sorting_item">
@@ -27,36 +27,48 @@
         </div>
 
         <div class="row prdcts-sorting visible-sm">
-          <div class="col-sm-4 prdcts_sorting_item " style="text-align:center;">Showing 1-9 of 30 products</div>
-          <div class="glyphicon glyphicon-th col-sm-2 prdcts_sorting_item"></div>
-          <div class="glyphicon glyphicon-th-list  col-sm-2 prdcts_sorting_item"></div>
+          <div class="col-sm-4  " style="text-align:center;">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
+          <div class="col-sm-2"><span class="glyphicon glyphicon-th  prdcts_sorting_item" ng-click="grdView()"></span> </div>
+          <div class="col-sm-1"><span class="glyphicon glyphicon-th-list  col-sm-2 prdcts_sorting_item" ng-click="listView()"></span> </div>
           <div class=" hidden-xs prdcts_sorting_item">
-            <select class="col-sm-2  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+            <select class="col-sm-3 col-sm-offset-1  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
             </select>
           </div>
         </div>
       </div>
-      <div>
-        <div ng-repeat="val in vm.companys.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
-          <!--<div class="clearfix" ng-if="$index % 3 == 0"></div>-->
+      <div ng-show="gridView">
+        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
+          <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
           <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
-            <tb-products-list details=val></tb-products-list>
-            <!--  <tb-products-list product-image={{val.productImageURL}} product-name={{val.Proname}} product-desc={{val.description}} product-url={{val.companyWebsite}}></tb-products-list>-->
+            <tb-products-grid details=val></tb-products-grid>
           </div>
+          <!--   <div class=" " ng-hide="div1show">
+            <tb-products-list details=val></tb-products-list>
+          </div>-->
         </div>
         <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
         </div>
+      </div>
+
+      <div ng-hide="gridView">
+        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
+          <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-products-list>
+        </div>
+        <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
+        </div>
+      </div>
+
+      <!-- <div class="row tb_paginate text-center col-md-12 col-sm-12 hidden-xs">
+          <div class="my-pagination" uib-pagination total-items="vm.count" ng-model="currentPage" max-size="maxSize" boundary-link-numbers="false" items-per-page="itemsPerPage" previous-text="&#xf060;" next-text="&#xf061;"></div>
+        </div>-->
+      <div class="row col-xs-12  text-center" style="margin-top:20px;">
+        <button type="button" class="btn btn-default view_all_prdcts_bttn" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">VIEW MORE PRODUCTS</button>
       </div>
       <div class="alert alert-warning text-center" ng-show="vm.companys.length == 0">
         No Products found for this search query.
       </div>
 
-      <div class="row tb_paginate text-center col-md-12 col-sm-12 hidden-xs">
-        <div uib-pagination total-items="vm.count" ng-model="currentPage" max-size="maxSize" boundary-link-numbers="false" items-per-page="itemsPerPage" previous-text="&#xf060;" next-text="&#xf051;"></div>
-      </div>
-      <div class="row col-xs-12 visible-xs text-center" style="margin-top:20px;">
-        <button type="button" class="btn btn-default view_all_prdcts_bttn" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">VIEW ALL PRODUCTS</button>
-      </div>
+
     </div>
 
     <div class="col-md-2 col-xs-12">
@@ -64,4 +76,26 @@
     </div>
 
   </div>
+
+  <a id='backTop'>Back To Top</a>
+  <script>
+    $(document).ready(function () {
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+          $("#backTop").fadeIn();
+        } else {
+          $("#backTop").fadeOut();
+        }
+      });
+
+      // scroll body to 0px on click
+      $("#backTop").click(function () {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 800);
+        return false;
+      })
+    });
+  </script>
+
 </div>

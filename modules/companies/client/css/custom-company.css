@@ -545,7 +545,7 @@ BEFORE THIS ALREDY STYLES
 
 .prdct_body {
   margin: 0px;
-  min-height: 155px;
+  min-height: 175px;
 }
 
 .icons_on_prdct_footer {
@@ -625,7 +625,7 @@ BEFORE THIS ALREDY STYLES
   visibility: hidden;
   opacity: 0;
   right: 0px;
-  bottom: 45px;
+  /* bottom: 45px;*/
   border: 1px solid;
   position: absolute;
   background-color: white;
@@ -667,6 +667,7 @@ BEFORE THIS ALREDY STYLES
 
 .prdct_srt_view_icons {
   margin-left: 210px;
+  padding: 0px;
 }
 
 .prdcts-sorting {
@@ -806,7 +807,7 @@ body {
   margin-top: 25px;
   background-color: white;
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
-  transition: all 0.4s ease;
+  margin-bottom: 20px;
 }
 
 .icons_in_sngle_prdct {
@@ -867,7 +868,64 @@ select:focus {
   color: #a6a6a6;
   background: #a6a6a6 url('../../../../modules/core/client/img/buttons/arrow.png') no-repeat;
   background-size: 10px;
-  background-position: right 0px center;
+  background-position: right 30px center;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+.my-pagination {
+  font-family: Helvetica, FontAwesome;
+}
+
+.back_on_sngle_prdct_view {
+  font-size: 20px;
+  color: #a6a6a6;
+}
+
+.back_on_sngle_prdct_view:hover {
+  color: #4d4dff;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.new_list_prdct_view_box {
+  margin: 20px;
+  margin-top: 20px;
+  background-color: white;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
+  transition: all 0.4s ease;
+}
+
+.new_list_prdct_view_desc {
+  padding: 15px;
+  padding-top: 0px;
+}
+
+.new_list_prdct_view_name {
+  margin-top: -15px;
+  margin-left: 0px;
+}
+
+.new_list_prdct_view_img {
+  padding: 0px;
+  margin-bottom: -10px;
+}
+
+.new_list_prdct_view_body {
+  min-height: 148px;
+}
+
+.new_list_prdct_view_footer_icons {
+  font-size: 17px;
+  color: #a6a6a6;
+}
+
+.new_list_prdct_view_footer_icons:hover {
+  color: #4d4dff;
+  cursor: pointer;
+}
+
+.listclr {
+  color: #4d4dff;
+  cursor: default !important;
 }

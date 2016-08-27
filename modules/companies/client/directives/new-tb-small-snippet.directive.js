@@ -9,7 +9,6 @@ angular.module('companies').directive('tbSmallSnippet', function (dataShare, $st
     link: function (scope, elem, attr) {
       console.log("coming to small snippet");
       scope.smallDescription = attr.desc;
-      console.log(attr.prodId);
 
     }
   }

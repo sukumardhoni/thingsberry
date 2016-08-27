@@ -1,6 +1,6 @@
-'use strict';
+/*'use strict';
 
-angular.module('companies').directive('tbHeaderImage', function () {
+angular.module('core').directive('tbHeaderImage', function () {
   return {
     restrict: 'E',
     replace: true,
@@ -14,7 +14,7 @@ angular.module('companies').directive('tbHeaderImage', function () {
       scope.ImgSubTtl = attr.subtitle;
       elem.css({
         background: 'url(' + scope.backImage + ')',
-        /*width: '100%',*/
+        width: '100%',
         height: '250px',
         opacity: ImageOpcty,
         position: 'relative',
@@ -23,4 +23,4 @@ angular.module('companies').directive('tbHeaderImage', function () {
       });
     }
   }
-});
+});*/

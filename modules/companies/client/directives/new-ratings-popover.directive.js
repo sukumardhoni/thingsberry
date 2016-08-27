@@ -8,7 +8,6 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
     transclude: true,
     link: function (scope, elem, attr) {
       console.log("coming to ratings container");
-      console.log(attr.prodId);
       scope.rate = 4;
       scope.isReadonly = true;
       scope.hoveringOver = function (value) {

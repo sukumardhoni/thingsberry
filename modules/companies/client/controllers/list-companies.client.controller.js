@@ -20,7 +20,7 @@
 
     $scope.getSearchedProductsList = function () {
 
-        console.log("Entering into getsearchproductslists");
+      console.log("Entering into getsearchproductslists");
 
       // var pageId = 0;
 
@@ -48,6 +48,16 @@
       $scope.itemsPerPage = 12;
       $scope.maxSize = 2;
 
+      $scope.gridView = true;
+      $scope.grdView = function () {
+        $scope.gridView = true;
+        console.log("coming to div1 funct");
+      }
+
+      $scope.listView = function () {
+        $scope.gridView = false;
+      }
+      $scope.date = new Date();
 
       //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
 
@@ -77,7 +87,9 @@
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
+
           pageId++;
+
         }, function (err) {
           console.log('Failed to fetch the product details : ' + err);
         });

@@ -42,3 +42,13 @@ angular.module('core')
     }
   });
 })
+
+.factory('ourClients', function ($resource) {
+  return $resource('api/clients', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+})

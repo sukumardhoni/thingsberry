@@ -66,7 +66,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
                 {
 
                     link:'ALLPRODUCTS',
-                    route: 'not-found'
+                    route: 'not - found'
 
 
                 },

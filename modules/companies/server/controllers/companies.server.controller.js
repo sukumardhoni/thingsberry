@@ -231,7 +231,7 @@ exports.list = function (req, res) {
 
   //console.log('Products count is : ' + JSON.stringify(count));
 
-  Company.find().skip(req.params.pageId * 9).limit(9).sort('-created').exec(function (err, companies) {
+  Company.find().skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -410,7 +410,7 @@ exports.searchedProductsList = function (req, res) {
   console.log('Mongo find Query is : ' + JSON.stringify(mongoQuery));
 
 
-  Company.find(mongoQuery).skip(req.params.pageId * 9).limit(9).sort('-created').exec(function (err, companies) {
+  Company.find(mongoQuery).skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
     if (err) {
 
       console.log('Error on search result is : ' + err);

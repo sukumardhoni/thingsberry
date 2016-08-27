@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients) {
 
     var vm = this;
 
     $scope.myInterval = 0;
-//    $scope.myInter = 2000;
+    //    $scope.myInter = 2000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
 
@@ -24,7 +24,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.getSearchedProducts = function (details) {
 
-      console.log("entering into getsearchproducts :" +details);
+      console.log("entering into getsearchproducts :" + details);
 
       console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
       console.log('details is : ' + JSON.stringify(details));
@@ -150,7 +150,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
      };*/
 
 
+    $scope.getClients = function () {
+      ourClients.query({}, function (res) {
+        // console.log(res);
+        $scope.client = res;
 
+        /*for (var i = 0; i < $scope.client; i++) {
+  $scope.test = $scope.client[i];
+  console.log('final obj' + JSON.stringify($scope.test));
+}*/
+      })
+
+    }
 
 
 
@@ -350,7 +361,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-      $scope.slidesarray = [
+    $scope.slidesarray = [
                    [
 
         {
@@ -484,17 +495,17 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-   $scope.activeTab = false;
-
-  $scope.selectTab1 = function() {
-    $scope.activeTab = true;
-  }
-  $scope.clickTab1 = function() {
-    $scope.activeTab = true;
-  }
-  $scope.clickTab2 = function() {
     $scope.activeTab = false;
-  }
+
+    $scope.selectTab1 = function () {
+      $scope.activeTab = true;
+    }
+    $scope.clickTab1 = function () {
+      $scope.activeTab = true;
+    }
+    $scope.clickTab2 = function () {
+      $scope.activeTab = false;
+    }
 
 
 
