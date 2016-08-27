@@ -10,21 +10,42 @@
     </div>
     <div class="row col-md-offset-1 col-md-8" style="margin-top:40px;">
       <form role="form ">
-        <div class="row col-md-4 col-sm-6">
-          <input type="text " class="form-control " id="name " placeholder="Name ">
+        <div class="row col-md-4 col-sm-6" style="margin-right: 10px;">
+          <md-input-container>
+            <label class="label-styles">Product Name*</label>
+            <input class="input-styles" class="form-control " type="text" ng-model="user.firstName">
+          </md-input-container>
         </div>
-        <div class="row col-md-4 col-sm-6">
-          <input type="email " class="form-control " id="email " placeholder="Email ">
+        <div class="row col-md-4 col-sm-6" style="margin-right: 10px;">
+          <md-input-container>
+            <label class="label-styles">Email*</label>
+            <input class="input-styles" type="email" class="form-control " ng-model="user.firstName">
+          </md-input-container>
         </div>
-        <div class="row col-md-4 hidden-sm hidden-xs">
-          <input type="number " class="form-control " id="phone " placeholder="Phone ">
+
+        <div class="row col-md-4  hidden-sm hidden-xs">
+          <md-input-container>
+            <label class="label-styles">Phone*</label>
+            <input class="input-styles" class="form-control " type="tel" ng-model="user.firstName">
+          </md-input-container>
         </div>
+
+        <div style="width: 97%;">
+          <md-input-container class="row col-md-12">
+            <label class="label-styles-msg">Message</label>
+            <input class="input-styles" class="form-control " type="tezt" ng-model="user.firstName">
+          </md-input-container>
+        </div>
+
+
         <div class="row col-md-12">
-          <input type="number " class="form-control " id="message " placeholder="Message ">
+          <md-button class="md-raised md-primary btn-styles-contact">SEND MESSAGE <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+
         </div>
-        <div class=" row col-md-12">
-          <button type="submit" class="btn btn-primary col-md-3" style="background-image:none;background-color:#4D4DB4;padding: 15px;">SEND MESSAGE <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></button>
-        </div>
+        <!--<div class="row col-md-12">
+          <button type="submit" class="btn btn-primary col-md-3" style="background-image:none;background-color:#4D4DB4;padding: 15px;">SEND MESSAGE <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i>
+          </button>
+        </div>-->
       </form>
     </div>
     <div class="row col-md-offset-1 col-md-8 contactUs_footer_text">
