@@ -1254,9 +1254,19 @@ tags-input .tags {
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
 
+/*.nav-tabs > li.active > a,.nav-tabs > li.active > a:focus{*/
+
   border-top: 6px solid blue;
 
 }
+
+
+
+.nav-tabs > li > a:hover {
+
+    border-bottom: none;
+}
+
 
 /*This is for giving height to the search tabs*/
 
@@ -1319,6 +1329,7 @@ tags-input .tags {
 }
 
 
+
 .label-styles{
 margin-left: 13px;
   margin-bottom: -1px;
@@ -1342,4 +1353,26 @@ margin-left: 13px;
 .btn-styles-contact{
     width: 185px;
     height: 47px;
+
+
+
+.premium-product-img{
+
+    width: 208px;
+    margin-top: 110px;
+    height: 135px;
+    /*margin-left: -74px;*/
+    margin-left: -70px
+}
+
+.firstcarouselP{
+
+    width:430px;color:white;font-size:24px;height:20px;
+}
+
+.btn btn-default{
+
+    text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: 249px;width: 148px;border:none;background: #3b5998;height: 37px;
+    border-radius: 4px;
+>>>>>>> companiesPagesUpdated
 }

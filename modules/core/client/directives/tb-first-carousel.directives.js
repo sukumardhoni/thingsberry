@@ -12,7 +12,7 @@
                 templateUrl:'modules/core/client/views/new-tb-first-carousel.html',
 
 
-                link:function(scope,elem,attrs){
+              /*  link:function(scope,elem,attrs){
 
 
                     console.log("entering into tbFirstCarousel link function");
@@ -37,7 +37,7 @@
                         scope.showMeF = true;
                     }
 
-                }
+                }*/
 
 
 
