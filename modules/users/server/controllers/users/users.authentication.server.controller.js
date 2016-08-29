@@ -29,8 +29,9 @@ var noReturnUrls = [
 exports.contactUs = function (req, res) {
   var details = req.body;
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
+
   agenda.now('User_ContactUS_Info_To_ThingsBerry_Team', {
-    ContactedDetails: '\n First Name : ' + details.firstName + '\n , Last Name : ' + details.lastName + '\n , Email : ' + details.email + '\n , Subject : ' + details.subject + '\n , Message: ' + details.message + '.'
+    ContactedDetails: '\n Name : ' + details.name + '\n , Email : ' + details.email + '\n , Phone : ' + details.phone + '\n , Message: ' + details.message + '.'
   });
   res.json(details);
 };
@@ -40,9 +41,10 @@ exports.contactUs = function (req, res) {
  */
 exports.getListed = function (req, res) {
   var details = req.body;
+  // console.log(details);
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
   agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
-    GetListedDetails: '\n Product Name : ' + details.productName + '\n Is Product Premium ? : ' + details.isPremium + '\n , Product URL : ' + details.productURL + '\n , Description : ' + details.description + '\n , Contact Name : ' + details.contactName + '\n , Email : ' + details.email + '\n , Contact Phone: ' + details.contactPhone + '.'
+    GetListedDetails: '\n Product Name : ' + details.productName + '\n Is Product Premium ? : ' + details.isPremium + '\n , Product URL : ' + details.productURL + '\n , Description : ' + details.description + '\n , Email : ' + details.email + '\n , Contact Name : ' + details.contactName + '\n , Contact Phone: ' + details.contactPhone + '.'
   });
   res.json(details);
 };

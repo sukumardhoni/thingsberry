@@ -6,7 +6,7 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     $scope.authentication = Authentication;
 
     $scope.contactUs = function () {
-      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+      console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);
 
       function successCallback(res) {
@@ -24,7 +24,7 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 
     $scope.getListedEmail = function () {
-      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+      // console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
 
       if ($stateParams.isPremium == 'isPremium')
         $scope.getListed.isPremium = true;

@@ -14,58 +14,61 @@
     <div class=" col-md-8">
       <p>Many consumers use thingsberry.com everyday to make purchase decisions.if you would like to get your product listed,please submit the detailsusing below form .we will review the details and add to the product listing.</p>
     </div>
-
-
     <div>
       <div class="row">
         <div class="col-md-6">
           <div class="md-inline-form">
 
             <div>
-              <form>
+              <form name="getListedForm" ng-submit="getListedEmail(getListedForm.$valid)" novalidate autocomplete="off">
                 <div class="row">
 
                   <md-input-container class="col-md-6">
-                    <label class="label-styles">Product Name*</label>
-                    <input class="input-styles" type="text" ng-model="user.firstName">
+                    <label class="label-styles">Product Name</label>
+                    <input class="input-styles" type="text" id="productName" ng-model="getListed.productName" required>
                   </md-input-container>
 
 
                   <md-input-container class="col-md-6">
-                    <label class="label-styles">Email*</label>
-                    <input class="input-styles" type="email" ng-model="user.firstNam">
+                    <label class="label-styles">Email</label>
+                    <input class="input-styles" type="email" id="email" ng-model="getListed.email" required>
                   </md-input-container>
                 </div>
 
                 <div class="row">
 
                   <md-input-container class="col-md-6">
-                    <label class="label-styles">Contact Name*</label>
-                    <input class="input-styles" type="text" ng-model="user.firstNa">
+                    <label class="label-styles">Contact Name</label>
+                    <input class="input-styles" type="text" id="contact_name" ng-model="getListed.contactName" required>
                   </md-input-container>
 
                   <md-input-container class="col-md-6">
-                    <label class="label-styles">Contact Phone*</label>
-                    <input class="input-styles" type="tel" ng-model="user.first">
+                    <label class="label-styles">Contact Phone</label>
+                    <input class="input-styles" type="tel" id="contact phone" ng-model="getListed.contactPhone" required>
                   </md-input-container>
 
                 </div>
 
                 <div class="row">
                   <md-input-container class="col-md-12">
-                    <label class="label-styles">Product URL*</label>
-                    <input class="input-styles" type="url" ng-model="user.firsName">
+                    <label class="label-styles">Product URL</label>
+                    <input class="input-styles" type="url" id="productURL" ng-model="getListed.productURL" required>
                   </md-input-container>
                 </div>
 
                 <div class="row">
                   <md-input-container class="col-md-12">
                     <label class="label-styles">Description*</label>
-                    <input class="input-styles" type="text" ng-model="user.frstName">
+                    <input class="input-styles" type="text" id="Description" ng-model="getListed.description" required>
                   </md-input-container>
                 </div>
                 <div class="row">
-                  <md-button class="md-raised md-primary btn-styles">SUBMIT</md-button>
+                  <div>
+                    <md-button type="submit" class="md-raised md-primary btn-styles" ng-disabled="getListedForm.$invalid">SUBMIT <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+                  </div>
+                  <div ng-show="vm.error" class="text-danger">
+                    <strong ng-bind="error"></strong>
+                  </div>
                 </div>
               </form>
             </div>
@@ -80,6 +83,69 @@
         </div>
       </div>
 
+
+
+      <!-- <form name="getListedForm" ng-submit="getListedEmail(getListedForm.$valid)" novalidate autocomplete="off">-->
+      <!--<div class="row">
+      <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12">
+        <div class="form-group floating-label-form-group" style="margin:0 15px">
+          <label>Product Name&#42;</label>
+          <input type="text" class="form-control" id="productName" placeholder="Product Name&#42;" ng-model="getListed.productName" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12">
+        <div class="form-group floating-label-form-group" style="margin:0 15px">
+          <label>Product URL&#42;</label>
+          <input type="text" class="form-control" id="productURL" placeholder="Product URL&#42;" ng-model="getListed.productURL" required>
+        </div>-->
+      <!-- </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12">
+        <div class="form-group floating-label-form-group" style="margin:0 15px">
+          <label>Description&#42;</label>
+          <textarea class="form-control" rows="6" id="Description" placeholder="Description&#42;" ng-model="getListed.description" required></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12">
+        <div class="form-group floating-label-form-group" style="margin:0 15px">
+          <label>Contact Name&#42;</label>
+          <input type="text" class=" form-control" id="contact_name" placeholder="Contact Name&#42;" ng-model="getListed.contactName" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-10 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+          <label>Email&#42;</label>
+          <input type="email" class=" form-control" id="email" placeholder="Email&#42;" ng-model="getListed.email" required>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 floating-label-form-group">
+          <label>Contact Phone</label>
+          <input type="text" class="form-control" id="contact phone" placeholder="Contact Phone" ng-model="getListed.contactPhone">
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+      <div class="form-group">
+        <div class="text-center col-md-offset-5 col-md-2">
+          <div class="text-center form-group">
+            <button type="submit" class="btn btn-custom-style" ng-disabled="getListedForm.$invalid">SUBMIT</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="error"></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+-->
 
 
       <!--<div class="visible-xs col-xs-12" style="background-color:white;">
@@ -222,4 +288,3 @@
 
 
 </div>
-

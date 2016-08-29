@@ -24,6 +24,9 @@ module.exports = function (app) {
   app.route('/api/premiumProducts')
     .get(companies.premiumProductsList);
 
+  app.route('/api/featuredProducts')
+    .get(companies.featuredProductsList);
+
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
 
 

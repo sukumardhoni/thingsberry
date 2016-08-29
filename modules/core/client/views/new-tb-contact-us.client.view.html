@@ -5,53 +5,59 @@
     <div class="row col-md-offset-1 col-md-8" style="margin-top:40px;font-size: xx-large;">
       <p>Leave a Message :::</p>
     </div>
-    <div class="row col-md-offset-1 col-md-8">
+    <div class="row col-md-offset-1 col-md-9">
       <p>The following example places the vertical pill menu inside the last column. So, on a large screen the menu will be displayed to the right. But on a small screen, the content will automatically adjust itself into a single-column layout:</p>
     </div>
-    <div class="row col-md-offset-1 col-md-8" style="margin-top:40px;">
-      <form role="form ">
-        <div class="row col-md-4 col-sm-6" style="margin-right: 10px;">
-          <md-input-container>
-            <label class="label-styles">Product Name*</label>
-            <input class="input-styles" class="form-control " type="text" ng-model="user.firstName">
-          </md-input-container>
-        </div>
-        <div class="row col-md-4 col-sm-6" style="margin-right: 10px;">
-          <md-input-container>
-            <label class="label-styles">Email*</label>
-            <input class="input-styles" type="email" class="form-control " ng-model="user.firstName">
-          </md-input-container>
+    <div class="row col-md-offset-1 col-md-9" style="margin-top:40px;">
+      <form name="contactUsForm" ng-submit="contactUs(contactUsForm.$valid)" novalidate autocomplete="off">
+        <div class="row">
+          <div class="" style="margin-right: 10px;">
+            <md-input-container class=" col-md-4 col-sm-6 col-xs-12">
+              <label class="label-styles">Name</label>
+              <input class="input-styles" class="form-control " type="text" id="name" ng-model="contact.name">
+            </md-input-container>
+          </div>
+          <div class="" style="margin-right: 10px;">
+            <md-input-container class="col-md-4 col-sm-6 col-xs-12 ">
+              <label class="label-styles">Email</label>
+              <input class="input-styles" type="email" id="email" class="form-control " ng-model="contact.email" required>
+            </md-input-container>
+          </div>
+
+          <div class="  hidden-sm hidden-xs">
+            <md-input-container class="col-md-4">
+              <label class="label-styles">Phone</label>
+              <input class="input-styles" class="form-control " id="phone" type="tel" ng-model="contact.phone">
+            </md-input-container>
+          </div>
         </div>
 
-        <div class="row col-md-4  hidden-sm hidden-xs">
-          <md-input-container>
-            <label class="label-styles">Phone*</label>
-            <input class="input-styles" class="form-control " type="tel" ng-model="user.firstName">
-          </md-input-container>
-        </div>
-
-        <div style="width: 97%;">
-          <md-input-container class="row col-md-12">
+        <div class="row">
+          <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
             <label class="label-styles-msg">Message</label>
-            <input class="input-styles" class="form-control " type="tezt" ng-model="user.firstName">
+            <input class="input-styles" class="form-control " id="message" type="text" ng-model="contact.message" required>
           </md-input-container>
         </div>
 
-
-        <div class="row col-md-12">
-          <md-button class="md-raised md-primary btn-styles-contact">SEND MESSAGE <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
-
+        <div class="row">
+          <div class=" col-md-12">
+            <md-button type="submit" class="md-raised md-primary btn-styles-contact" ng-disabled="contactUsForm.$invalid">SEND MESSAGE <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="error"></strong>
+          </div>
         </div>
+
         <!--<div class="row col-md-12">
           <button type="submit" class="btn btn-primary col-md-3" style="background-image:none;background-color:#4D4DB4;padding: 15px;">SEND MESSAGE <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i>
           </button>
         </div>-->
       </form>
     </div>
-    <div class="row col-md-offset-1 col-md-8 contactUs_footer_text">
+    <div class="row col-md-offset-1 col-md-9 contactUs_footer_text">
 
       <p>If you would like to list your products in thingsberry.com, please use the
-        <a href="#" class="get_list_link_bttn">Get Listed</a> link.
+        <a ui-sref="getListed" class="get_list_link_bttn">Get Listed</a> link.
       </p>
     </div>
   </div>

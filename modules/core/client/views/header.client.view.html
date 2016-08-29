@@ -1,67 +1,32 @@
-
-
-
 <nav id="myNavbar" class=" navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderController">
-
-    
-    
-    
-    
-                 
-             <div class="hidden-xs" style="background-color:#3b5998;">
-                 
-                 <div class="container">
-
-                     
-                     
-                      <nav id="myNavbar" role="navigation">
-    
-            <div class="collapse navbar-collapse" id="navbarCollapse" uib-collapse="!isCollapsed" style="background-color:#3b5998;color:white;height:30px;">
-                
-                <a href="https://www.w3school.com">
-                
+  <div class=" row hidden-xs" style="background-color:#3b5998;">
+    <div class="container">
+      <nav id="myNavbar" role="navigation">
+        <div class="collapse navbar-collapse" id="navbarCollapse" uib-collapse="!isCollapsed" style="background-color:#3b5998;color:white;height:30px;">
+          <a href="#">
             <div class=" hidden-sm col-lg-8 col-md-6  col-xs-6" style="padding-top:7px;padding-bottom:4px;padding-left: 3px;color: white;">&nbsp;&nbsp;
-                      <span class="fa fa-phone" aria-hidden="true">&nbsp;&nbsp;&nbsp; (619)-876-9822  &nbsp; |  &nbsp;&nbsp; <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;&nbsp; info@thingsberry.com</span>
-                      </div>
-                    
-                    
-                    
-                       <div class="visible-sm" style="padding-top:7px;padding-bottom:4px;padding-left: 47px;color: white;">&nbsp;&nbsp;
-                      <span class="fa fa-phone" aria-hidden="true">&nbsp;&nbsp;&nbsp; (619)-876-9822  &nbsp; |  &nbsp;&nbsp; <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;&nbsp; info@thingsberry.com</span>
-                      </div>
-                    
-                    
-                    
-                    
-                </a>
-                
-                
-            <div class="hidden-sm col-lg-4 col-md-6 col-xs-6" style="padding-top:15px;padding-bottom:4px;">
-                <a href="#" style="color:white;text-decoration: none;float:right;margin-right: 63px;">Login &nbsp;/&nbsp; Signup </a>
-                  
-
-                </div>
-                
-                
-                
-                <div class="visible-sm" style="">
-                <a href="#" style="color:white;text-decoration: none;float:right;margin-right: 17px;    margin-top: -21px;">Login &nbsp;/&nbsp; Signup &nbsp; <i class="fa fa-sign-in" aria-hidden="true" style="margin"></i></a>
-                   
-                  
+              <span class="fa fa-phone" aria-hidden="true">&nbsp;&nbsp;&nbsp; (619)-876-9822  &nbsp; |  &nbsp;&nbsp; <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;&nbsp; info@thingsberry.com</span>
+            </div>
+            <div class="visible-sm" style="padding-top:7px;padding-bottom:4px;padding-left: 47px;color: white;">&nbsp;&nbsp;
+              <span class="fa fa-phone" aria-hidden="true">&nbsp;&nbsp;&nbsp; (619)-876-9822  &nbsp; |  &nbsp;&nbsp; <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;&nbsp; info@thingsberry.com</span>
+            </div>
+          </a>
 
 
-                </div>
-               </div>
-                 
-             </nav>
-                     
-                 </div>
-        
-             </div>
-    
-    
-      
+          <div class="hidden-sm col-lg-4 col-md-6 col-xs-6" style="padding-top:15px;padding-bottom:4px;">
+            <a href="#" style="color:white;text-decoration: none;float:right;margin-right: 63px;">Login &nbsp;/&nbsp; Signup </a>
 
+          </div>
+          <div class="visible-sm" style="">
+            <a href="#" style="color:white;text-decoration: none;float:right;margin-right: 17px;    margin-top: -21px;">Login &nbsp;/&nbsp; Signup &nbsp; <i class="fa fa-sign-in" aria-hidden="true" style="margin"></i></a>
+          </div>
+        </div>
+
+      </nav>
+
+    </div>
+
+  </div>
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse" ng-click="toggleCollapsibleMenu()" style="float:left;">
@@ -72,30 +37,31 @@
       </button>
 
 
-       <div class="col-xs-offset-2">
-      <a ui-sref="home" class="navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo">
-        <u style="left: -999999px;position: absolute;">thingsberry.com A list of all internet of things</u>
-      </a>
+      <div class="col-xs-offset-2">
+        <a ui-sref="home" class="navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo">
+          <u style="left: -999999px;position: absolute;">thingsberry.com A list of all internet of things</u>
+        </a>
       </div>
 
-        <div class="visible-xs">
+      <div class="visible-xs">
 
-         <i class="fa fa-search" ng-click="test.showBoxOne = !test.showBoxOne" style="font-size: 20px;
+        <i class="fa fa-search" ng-click="test.showBoxOne = !test.showBoxOne" style="font-size: 20px;
     opacity: 0.3;cursor:pointer;float: right; margin-left: 34px;position: absolute;margin-top: 19px;"></i>
 
-        </div>
+      </div>
 
 
 
-        <!-- Search icon hidden part -->
+      <!-- Search icon hidden part -->
 
 
-       <div class="box-one" ng-show="test.showBoxOne">
+      <div class="box-one" ng-show="test.showBoxOne">
 
 
-      <input type="text" placeholder="search" style="width:220px;">
-      <br> <br>
-      <button type="submit" value="submit">submit</button>
+        <input type="text" placeholder="search" style="width:220px;">
+        <br>
+        <br>
+        <button type="submit" value="submit">submit</button>
 
       </div>
 
@@ -108,30 +74,19 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapse" uib-collapse="!isCollapsed">
       <ul class="nav navbar-nav navbar-right text-center" id="tb_top_menu">
-          
-          
-          
-          
-<!--
-        <li ng-repeat="foo in content" ui-sref-active="active">
-          <a ui-sref="{{foo.route}}"class="header-title-names" style="background-color:white;">{{foo.link}}</a>
-        </li>
-       
--->
 
 
-
-         <li ui-sref-active="active">
+        <li ui-sref-active="active">
           <a ui-sref="home" class="header-title-names">HOME</a>
         </li>
 
 
-          <li ui-sref-active="active">
+        <li ui-sref-active="active">
           <a ui-sref="companies.list({isSearch:false})" class="header-title-names">ALLPRODUCTS</a>
 
-          </li>
-          
-           <li ui-sref-active="active">
+        </li>
+
+        <li ui-sref-active="active">
           <a href="http://blog.thingsberry.com" class="header-title-names">BLOG</a>
         </li>
 
@@ -145,94 +100,7 @@
 
 
 
-        </ul>
+      </ul>
     </div>
   </div>
 </nav>
-
-
-
-
-
-<!--
-        <li ui-sref-active="active">
-          <a ui-sref="home" class="header-title-names">HOME</a>
-        </li>
-        <li ui-sref-active="active" ng-show="authentication.user.roles.indexOf('admin') > -1">
-          <a ui-sref="companies.add" class="header-title-names">ADD NEW</a>
-        </li>
-
-        <li ui-sref-active="active" ng-hide="authentication.user.roles.indexOf('admin') > -1">
-          <a ui-sref="getListed" class="header-title-names">GET LISTED</a>
-        </li>
-
-        <li ui-sref-active="active">
-          <a ui-sref="contactus" class="header-title-names">CONTACT US</a>
-        </li>
-
-        <li>
-          <a href="http://blog.thingsberry.com" class="header-title-names">BLOG</a>
-        </li>
-
-
-        <li ui-sref-active="active" ng-hide="authentication.user">
-          <a ui-sref="authentication.signin" class="header-title-names"><img src="modules/core/client/img/user icon.png" class="user-icon hidden-xs">&nbsp;LOG IN</a>
-        </li>
-        <li class="divider-vertical" ng-hide="authentication.user"></li>
-        <li ui-sref-active="active" ng-hide="authentication.user">
-          <a ui-sref="authentication.signup" class="header-title-names">SIGN UP</a>
-        </li>
-        <li class="dropdown" uib-dropdown ng-show="authentication.user">
-          <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
-            <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
-            <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu" role="menu">
-            <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
-              <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'||
-
-authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
-            </li>
-            <li class="divider hidden-xs"></li>
-            <li>
-              <a ng-click="signout()" style="cursor:pointer;">Signout</a>
-            </li>
--->
-              
-              
-              
-              
-              
-              
-
-
-    
-
-        
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

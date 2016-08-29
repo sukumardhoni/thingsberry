@@ -43,8 +43,29 @@ angular.module('core')
   });
 })
 
+.factory('featuredProducts', function ($resource) {
+  return $resource('api/featuredProducts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+})
+
+
 .factory('ourClients', function ($resource) {
   return $resource('api/clients', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+})
+
+.factory('quotes', function ($resource) {
+  return $resource('api/quotes', {}, {
     'query': {
       method: 'GET',
       timeout: 20000,
