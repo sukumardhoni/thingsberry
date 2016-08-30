@@ -24,17 +24,19 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 
     $scope.getListedEmail = function () {
-      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
 
-      if ($stateParams.isPremium == 'isPremium')
+    console.log("entering into getlisted function");
+/*      console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));*/
+
+  /*    if ($stateParams.isPremium == 'isPremium')
         $scope.getListed.isPremium = true;
 
-      $scope.getListed.isPremium = false;
+      $scope.getListed.isPremium = false;*/
 
       GetListedService.send($scope.getListed, successCallback, errorCallback);
 
       function successCallback(res) {
-        //console.log('Success while sending the Contactus details : ' + res);
+        console.log('Success while sending the Contactus details : ' + res);
         NotificationFactory.success('Thankyou for Contacting ThingsBerry', res.contactName);
         $scope.getListed = '';
       }

@@ -1,319 +1,9 @@
 
-<!--
-<div class="product-square-logo" ng-click="ProductDetails()">
-    <p>
-      <a ng-href="{{details.proAddress}}" target="_blank"> <img class="product-square-img" ng-src="{{proImgUrl()}}"> </a>
-    </p>
-  </div>
--->
-<!--
-
-            <div ng-show="showMeP" ng-init="getPremiumProducts()">
-
-                <div   class="hidden-sm hidden-xs col-md-5 col-lg-5  col-md-offset-1">
-                    <div class="custom" style="background-color:grey;">
-
-
-
-                      <div class="carousel-inner" role="listbox">
-
-                          <div class="item active">
-
-               <uib-carousel interval="myInter" active="active">
-                   <uib-slide ng-repeat="slide in slides1"  index="$index">
-
-
-                       <premium-products-display details="slide"></premium-products-display>
-
-
-
-            </uib-slide>
-        </uib-carousel>
-
-            </div>
-
-    </div>
-
-
-               <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-
-                                 <button type="button" class="btn btn-default" style="text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -134px;width: 148px;border:none;background: #3b5998;    height: 37px;
-    border-radius: 4px;">READ MORE</button>
-
-
-
-
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;border-radius: 4px;">
-                            </a>
-          </div>
-
-
-
-
-                        </div>
-                </div>
-
-
-
-                 <div class="visible-sm  col-sm-8 col-sm-offset-2">
-                    <div class="custom" style="background-color:grey;margin-top: 10px;min-height:370px;">
-
-
-
-                      <div class="carousel-inner" role="listbox" >
-
-                          <div class="item active">
-
-               <uib-carousel interval="myInter" active="active">
-                   <uib-slide ng-repeat="slide in slides" index="$index">
-
-                     <p style="width:430px;color:white;font-size:24px;padding-top:12px;height:20px;margin-left: 18px;"> {{slide.title}} <br> <span style="font-size:15px;padding-left:17px;"> {{slide.description}} </span> </p>
-
-
-                        <img ng-src="{{slide.image}}">
-
-            </uib-slide>
-        </uib-carousel>
-
-            </div>
-
-    </div>
-
-
-
-
-
-               <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-
-
-                                 <button type="button" class="btn btn-default" style="text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -134px;width: 148px;border:none;background: #3b5998;    height: 37px;
-    border-radius: 4px;">READ MORE</button>
-
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;border-radius: 4px;">
-                            </a>
-          </div>
-
-
-                        </div>
-                </div>
-
-
-                 <div class="visible-xs  col-xs-12">
-                    <div class="custom" style="background-color:grey;margin-top: 10px;margin-left: -28px;">
-
-
-
-                      <div class="carousel-inner" role="listbox" >
-
-                          <div class="item active">
-
-               <uib-carousel interval="myInter" active="active">
-                   <uib-slide ng-repeat="slide in slides" index="$index">
-
-                     <p style="width:430px;color:white;font-size:18px;padding-top:12px;height:20px;margin-left: -42px;"> {{slide.title}} <br> <span style="font-size:16px;padding-left:17px;"> {{slide.description}} </span> </p>
-
-
-                        <img ng-src="{{slide.image}}" style="    margin-left: 38px;">
-
-            </uib-slide>
-        </uib-carousel>
-
-            </div>
-
-    </div>
-
-
-
-
-
-               <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="READ MORE" class="form-control"   style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:-12px;margin-top: -71px;width: 148px;border-color:none;">
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:152px;margin-top: -71px;width: 148px;border-color:white;">
-                            </a>
-          </div>
-
-
-                        </div>
-                </div>
-
-</div>
-
-
-
-
-            <div ng-show="showMeF">
-
-                <div   class="hidden-sm hidden-xs col-md-5 col-lg-5   col-sm-offset-2 col-md-offset-1">
-                    <div class="custom" style="background-color:grey;">
-
-
-
-                      <div class="carousel-inner" role="listbox">
-
-                          <div class="item active">
-
-               <uib-carousel interval="myInter" active="active">
-                   <uib-slide ng-repeat="slide in slides1" index="$index">
-
-                     <p style="width:430px;color:white;font-size:24px;padding-top:12px;height:20px;margin-left: 18px;"> {{slide.title}} <br> <span style="font-size:15px;padding-left:17px;"> {{slide.description}} </span> </p>
-
-
-                        <img ng-src="{{slide.image}}">
-
-
-
-            </uib-slide>
-        </uib-carousel>
-
-            </div>
-
-    </div>
-
-
-               <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="READ MORE" class="form-control"   style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -71px;width: 148px;border-color:none;">
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;">
-                            </a>
-          </div>
-
-
-
-
-                        </div>
-                </div>
-
-
-
-                 <div class="visible-sm  col-sm-8 col-sm-offset-2">
-                    <div class="custom" style="background-color:grey;margin-top: 10px;">
-
-
-
-                      <div class="carousel-inner" role="listbox" >
-
-                          <div class="item active">
-
-               <uib-carousel interval="myInter" active="active">
-                   <uib-slide ng-repeat="slide in slides1" index="$index">
-
-                     <p style="width:430px;color:white;font-size:24px;padding-top:12px;height:20px;margin-left: 18px;"> {{slide.title}} <br> <span style="font-size:15px;padding-left:17px;"> {{slide.description}} </span> </p>
-
-
-                        <img ng-src="{{slide.image}}">
-
-            </uib-slide>
-        </uib-carousel>
-
-            </div>
-
-    </div>
-
-
-
-
-
-               <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="READ MORE" class="form-control"   style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -71px;width: 148px;border-color:none;">
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;">
-                            </a>
-          </div>
-
-
-                        </div>
-                </div>
-
-
-
-
-                        <div class="visible-xs  col-xs-12">
-                    <div class="custom" style="background-color:grey;margin-top: 10px;    margin-left: -28px;">
-
-
-
-                      <div class="carousel-inner" role="listbox" >
-
-                          <div class="item active">
-
-               <uib-carousel interval="myInter" active="active">
-                   <uib-slide ng-repeat="slide in slides" index="$index">
-
-                     <p style="width:430px;color:white;font-size:18px;padding-top:12px;height:20px;margin-left: -42px;"> {{slide.title}} <br> <span style="font-size:16px;padding-left:17px;"> {{slide.description}} </span> </p>
-
-
-                        <img ng-src="{{slide.image}}" style="    margin-left: 38px;">
-
-            </uib-slide>
-        </uib-carousel>
-
-            </div>
-
-    </div>
-
-
-
-
-
-               <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="READ MORE" class="form-control"   style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:-12px;margin-top: -71px;width: 148px;border-color:none;">
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:152px;margin-top: -71px;width: 148px;border-color:white;">
-                            </a>
-          </div>
-
-
-                        </div>
-                </div>
-
-</div>
--->
-
-
 <div ng-init="getPremiumProducts()">
 
 
    <div  class="hidden-sm hidden-xs col-md-5 col-lg-5  col-md-offset-1">
-                    <div class="custom" style="background-color:grey;">
+                    <div class="custom" style="background-color:transparent;">
 
 
 
@@ -342,7 +32,7 @@
 
 
               <div class="visible-sm  col-sm-8 col-sm-offset-2">
-                    <div class="custom" style="background-color:grey;margin-top: 10px;min-height:370px;">
+                    <div class="custom" style="background-color:transparent;margin-top: 10px;min-height:386px;">
 
 
 
@@ -365,31 +55,13 @@
 
 
 
+        </div>
+    </div>
 
-            <!--   <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-
-
-                                 <button type="button" class="btn btn-default" style="text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:32px;margin-top: -134px;width: 148px;border:none;background: #3b5998;    height: 37px;
-    border-radius: 4px;">READ MORE</button>
-
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:219px;margin-top: -71px;width: 148px;border-color:white;border-radius: 4px;">
-                            </a>
-          </div>-->
-
-
-                        </div>
-                </div>
 
 
                  <div class="visible-xs  col-xs-12">
-                    <div class="custom" style="background-color:grey;margin-top: 10px;margin-left: -28px;">
+                    <div class="custom" style="background-color:transparent;margin-top: 10px;margin-left: -28px;">
 
 
 
@@ -400,10 +72,6 @@
                <uib-carousel interval="myInter" active="active">
                    <uib-slide ng-repeat="slide in slides1" index="$index">
 
-                     <!--<p style="width:430px;color:white;font-size:18px;padding-top:12px;height:20px;margin-left: -42px;"> {{slide.title}} <br> <span style="font-size:16px;padding-left:17px;"> {{slide.description}} </span> </p>
-
-
-                        <img ng-src="{{slide.image}}" style="    margin-left: 38px;">-->
 
                         <premium-products-display details="slide"></premium-products-display>
 
@@ -414,44 +82,10 @@
 
     </div>
 
-
-
-
-<!--
-
-               <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="READ MORE" class="form-control"   style="background-color:#3b5998;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:-12px;margin-top: -71px;width: 148px;border-color:none;">
-                            </a>
-          </div>
-             <div class="col-xs-1" style="padding-right: 2px;">
-                       <label for="ex1"></label>
-                            <a href="https://www.cloudmedia.com/?product=stack-box-package">
-                                <input type="button" value="VISIT WEBSITE" class="form-control"  placeholder="VISIT WEBSITE" style="background-color:grey;text-align:center;color:white;cursor:pointer;border-radius: 1%;margin-left:152px;margin-top: -71px;width: 148px;border-color:white;">
-                            </a>
-          </div>
--->
-
-
-                        </div>
+                       </div>
                 </div>
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
