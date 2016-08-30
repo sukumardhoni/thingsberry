@@ -1,0 +1,164 @@
+         <div class="col-xs-12">
+                          <div class="custom" style="background-color:white;width: 330px;margin-left: -33px;height: 115%;min-height: 465px;" ng-init="indextab = 1">
+
+
+
+
+
+
+    <uib-tabset active="indextab">
+      <uib-tab heading="Search" active="activeTab==true" ng-click="clickTab1()" style="    width: 155px;background: #f2f2f2;height: 46px;    font-size: 17px;">
+
+         <span style="font-size: 13px;padding-left: 6px;">
+
+             <p style="margin-top:14px">
+                 Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+
+                    </span>
+
+
+
+                    <img ng-src="modules/core/client/img/men.jpg" style="width: 112px;height: 74px;margin-top: 8px;">
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+                            <div class="form-group" style="margin-top: 54px;font-size: 12px;">
+
+                                <p style="margin-left: -250px">CATEGORY</p>
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 310px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+                                </div>
+
+
+
+                <div class=" col-sm-12 col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1"></label>
+
+
+
+                    <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+
+
+                </div>
+
+                <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                 </form>
+
+
+
+
+      </uib-tab>
+
+              <uib-tab heading="Advanced search" active="activeTab==false" ng-click="clickTab2()" style="width: 173px;background: #f2f2f2;    height: 46px;    font-size: 17px;">
+
+
+
+                        <span ng-hide="showme" style="font-size: 13px;padding-left: 6px;">
+
+
+                            <p style="margin-top:14px">
+                                Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
+                        <br>
+
+
+                        <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
+
+
+
+
+                            <div class="form-group" style="margin-top: 8px;font-size: 12px;">
+
+
+
+                                  <p style="margin-left: -250px">CATEGORY</p>
+
+
+
+
+                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="border-radius:1px;margin-top: 3px;margin-left: 10px; width: 310px;">
+                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                    </tags-input>
+
+
+
+
+                                </div>
+
+
+
+
+                  <!--      <input type="checkbox"style="margin-top: 0px;margin-left: -179px">&nbsp; Advanced Search -->  <br>
+
+
+
+
+                          <div class="col-xs-12" style="padding-left:11px;">
+                       <label for="ex1" style="margin-left: -216px">COMPANY</label>
+                        <input type="text" class="form-control"  placeholder="Company" ng-model="homeSearchDetails.Company" style="border-radius:1px;height: 42px;">
+                             </div>
+                         <div class="col-xs-12" style="padding-right: 12px;">
+                       <label for="ex1" style="margin-left: -216px;margin-top: 14px;">PRODUCT</label>
+                        <input type="text" class="form-control"  placeholder="Product" ng-model="homeSearchDetails.Product" style="border-radius:1px;height: 42px;">
+                             </div>
+
+                        &nbsp;
+
+
+
+                        <div class=" col-sm-12 " style="padding-right: 12px;    margin-top: -7px;" >
+                       <label for="ex1"></label>
+
+
+
+
+                            <input type="submit"  class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white;background-color:#3b5998">
+
+                             </div>
+
+
+
+            <div class="hidden-md hidden-xs hidden-sm hidden-lg">
+                <div class="form-group">
+                  <div class="col-xs-12 home_input_tags">
+                   <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </form>
+
+    </span>
+
+
+      </uib-tab>
+                              </uib-tabset>
+
+
+
+
+
+
+
+
+
+                          </div>
+                    </div>

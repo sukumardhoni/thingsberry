@@ -158,7 +158,7 @@ navbar-inverse .navbar-nav > .open > a,
 
 #tb_top_menu {
   padding-top: 15px;
-  margin-right: 77px;
+  /*margin-right: 77px;*/
 }
 
 
@@ -1021,15 +1021,40 @@ a:hover#backTop {
 
 .carousel-inner {
   height: 367px;
+
 }
 
 .carousel-indicators {
-  margin-bottom: -27px;
+  /*margin-bottom: -27px;*/
+    margin-bottom: -19px;
+
 }
 
-.carousel-indicatiors li {
+/*.carousel-indicators li {
   margin-left: -133px;
+
+
+}*/
+.carousel-indicators li{
+
+    background: white;
 }
+
+.carousel-indicators .active {
+
+    background: #3b5998;
+
+}
+
+
+
+/*.carousel-indicatiors li a.active {
+    background-color: red;
+    color: pink;
+
+}*/
+
+
 
 .carousel-control.left,
 .carousel-control.right {
@@ -1061,21 +1086,22 @@ div#services_block:hover {
   position: relative;
   overflow: hidden;
   height: 363px;
+
 }
 
 .carousel-control .glyphicon-chevron-right,
 .carousel-control .icon-next {
   font-size: 17px;
-  margin-top: -224px;
-  margin-right: 23px;
+      margin-top: -228px;
+    margin-right: 15px;
   color: black;
 }
 
 .carousel-control .glyphicon-chevron-left,
 .carousel-control .icon-next {
   font-size: 17px;
-  margin-top: -224px;
-  padding-left: 679px;
+      margin-top: -228px;
+    padding-left: 687px;
   position: absolute;
   padding-right: -17px;
   color: black;
@@ -1181,6 +1207,13 @@ div#services_block:hover {
   background: white;
 }
 
+/*#billgates-container{
+
+    background:url(modules/core/client/img/billgates-img.jpg);
+    height:359px;
+    margin-bottom:-19px;
+}*/
+
 .jumbotron p {
   font-size: 29px;
   margin-top: 30px;
@@ -1227,6 +1260,7 @@ div#services_block:hover {
   color: white;
   font-size: 24px;
   height: 20px;
+  margin-left: 40px;
 }
 
 .btn btn-default {
@@ -1269,4 +1303,126 @@ div#services_block:hover {
 .label-styles {
   margin-left: 13px;
   margin-bottom: -1px;
+}
+
+.advancesearch-img{
+
+    width: 112px;
+    height: 74px;
+    margin-top: 8px;
+}
+#firstcontainer{
+
+    background-color:grey;
+    padding-top: 35px;
+}
+
+#firstcontainer-row{
+    background-color:grey;
+    height:414px;
+    margin-left: -4px;
+    margin-top: 64px;
+}
+
+.tab1{
+
+    width: 221px;
+    background: #f2f2f2;
+    height: 46px;
+}
+#searchBtn{
+
+    color:white;
+    background-color:#3b5998;
+}
+
+#feautured-products{
+
+    background-color: #f2f2f2;
+    text-align:center;
+}
+
+#feautured-products-container{
+
+    background-color: #f2f2f2;
+    margin-top: -21px;
+}
+
+#feautured-buttons{
+
+    margin-left: 742px;
+    margin-top: -11px;
+}
+
+#left-btn{
+
+    border-radius: 50%;
+    background-color:white;
+    margin-top: -18px;
+    color:white;color:black;margin-left: -20px;border-color:black;
+}
+
+#right-btn{
+
+    border-radius: 50%;
+    background-color:white;
+    margin-top: -18px;
+    color:black;
+    border-color:black;
+}
+
+#fea{
+
+    text-align:center;
+    color:black;
+    font-size:23px;
+}
+#fea1{
+
+    text-align:center;
+    color:black;
+    font-size:29px;
+}
+
+#view-button{
+
+    text-align:center;
+    color:black;
+    cursor:pointer;
+    width: 175px;
+    margin-left: 323px;
+    border-color: black;
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+}
+
+#view-button1{
+
+    text-align:center;
+    color:black;
+    cursor:pointer;
+    width: 175px;
+    margin-left: 105px;
+    border-color: black;
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+}
+
+#ourclients-container{
+
+    background-color: #f2f2f2;
+    text-align:center;
+}
+
+.ourclients{
+
+    text-align:center;
+    color:black;
+    font-size:23px;
+}
+
+.ourclients1{
+
+    text-align:center;
+    color:black;
 }
