@@ -45,13 +45,13 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
 
 
-      $scope.content = [
+    $scope.content = [
 
-        {
+      {
 
-          link: 'HoMe',
+        link: 'HoMe',
 
-          route: 'home'
+        route: 'home'
 
 
 
@@ -59,30 +59,30 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
       {
 
-          link: 'ALLPRODUCTS',
-          route: 'not-found'
+        link: 'ALLPRODUCTS',
+        route: 'not-found'
 
 
                   },
 
-        {
+      {
 
-          link: 'BLOG',
-          route: 'blog'
-
-                  },
-
-        {
-
-          link: 'GETLISTED',
-          route: 'getListed'
+        link: 'BLOG',
+        route: 'blog'
 
                   },
 
-       {
+      {
 
-          link: 'CONTACTUS',
-          route: 'contactus'
+        link: 'GETLISTED',
+        route: 'getListed'
+
+                  },
+
+      {
+
+        link: 'CONTACTUS',
+        route: 'contactus'
 
                   }
 

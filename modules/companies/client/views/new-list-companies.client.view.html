@@ -1,10 +1,11 @@
-<tb-header-image image="../../../../modules/core/client/img/products.jpg" opacity="1" maintitle="Product Listing" subtitle="Loeriem ispium will show all the text in image Loeriem ispium will show all the text in image">
+<tb-header-image image="../../../../modules/core/client/img/products.jpg" opacity="1" maintitle="Product Listing::" subtitle="Loeriem ispium will show all the text in image Loeriem ispium will show all the text in image::">
 </tb-header-image>
+
 
 
 <div class="container" ng-init="getSearchedProductsList()">
   <div class="row  prdcts-list-box">
-    <div class="col-md-9 col-md-offset-1 col-xs-12 ">
+    <div class="col-md-10 col-xs-12 ">
       <div ng-hide="vm.companys.length == 0">
         <div class="row prdcts-sorting hidden-sm">
           <div class="col-md-5 prdct_showing_item">
@@ -20,7 +21,7 @@
               </select>
             </div>
             <div class="col-xs-offset-1 visible-xs prdcts_sorting_item">
-              <select class="  col-xs-12 sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+              <select class="  col-xs-11 col-xs-offset-1 sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
               </select>
             </div>
           </div>

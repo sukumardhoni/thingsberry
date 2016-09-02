@@ -12,6 +12,9 @@ angular.module('companies').directive('tbHeaderImage', function () {
       var ImageOpcty = attr.opacity;
       scope.ImgMainTtl = attr.maintitle;
       scope.ImgSubTtl = attr.subtitle;
+      /*scope.state = attr.state;
+      console.log(scope.state);*/
+      elem.addClass('mobileImage');
       elem.css({
         background: 'url(' + scope.backImage + ')',
         /*width: '100%',*/
@@ -19,8 +22,17 @@ angular.module('companies').directive('tbHeaderImage', function () {
         opacity: ImageOpcty,
         position: 'relative',
         backgroundPosition: '0px',
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        backgroundColor: '#929292'
       });
+
+      if (attr.state == 'contactUs' || attr.state == 'getListed') {
+        console.log('coming from contactUs');
+        scope.contactStyles = {
+          top: '135px',
+          left: '30px'
+        }
+      }
     }
   }
 });

@@ -1,14 +1,19 @@
 <div ng-controller="ContactUsController">
-  <tb-header-image image="../../../../modules/core/client/img/contact.jpg" opacity="1" maintitle="Contact US" subtitle="">
+  <tb-header-image image="../../../../modules/core/client/img/contact.jpg" opacity="1" state="contactUs" maintitle="Contact US :::" subtitle="">
   </tb-header-image>
   <div class="container">
-    <div class="row col-md-offset-1 col-md-8" style="margin-top:40px;font-size: xx-large;">
-      <p>Leave a Message :::</p>
+    <div class="row" style="margin-top:40px;">
+      <div class="col-md-12">
+        <h2>Leave a Message :::</h2>
+      </div>
     </div>
-    <div class="row col-md-offset-1 col-md-9">
-      <p>The following example places the vertical pill menu inside the last column. So, on a large screen the menu will be displayed to the right. But on a small screen, the content will automatically adjust itself into a single-column layout:</p>
+    <div class="row">
+      <div class="col-md-12">
+        <p>The following example places the vertical pill menu inside the last column. So, on a large screen the menu will be displayed to the right. But on a small screen, the content will automatically adjust itself into a single-column layout:</p>
+      </div>
+
     </div>
-    <div class="row col-md-offset-1 col-md-9" style="margin-top:40px;">
+    <div class="row col-md-12" style="margin-top:40px;">
       <form name="contactUsForm" ng-submit="contactUs(contactUsForm.$valid)" novalidate autocomplete="off">
         <div class="row">
           <div class="" style="margin-right: 10px;">
@@ -54,7 +59,7 @@
         </div>-->
       </form>
     </div>
-    <div class="row col-md-offset-1 col-md-9 contactUs_footer_text">
+    <div class="row col-md-12 contactUs_footer_text">
 
       <p>If you would like to list your products in thingsberry.com, please use the
         <a ui-sref="getListed" class="get_list_link_bttn">Get Listed</a> link.

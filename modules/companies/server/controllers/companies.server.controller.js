@@ -271,7 +271,7 @@ exports.featuredProductsList = function (req, res) {
 
   Company.find({
     featuredFlag: true
-  }).limit(10).exec(function (err, companies) {
+  }).limit(12).exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

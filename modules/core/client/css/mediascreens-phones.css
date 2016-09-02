@@ -76,17 +76,70 @@
 /*-----------------Midhun media screens styles----------------------------*/
 
 @media (min-width: 992px) {
-  .col-md-offset-3 {
-   margin-left: 28%;
- }
+  /* .col-md-offset-3 {
+    margin-left: 28%;
+  }*/
 }
 
 @media (max-width: 991px) {
-  .container {
+  /*.container {
     width: 95%;
     padding-right: 0;
     padding-left: 20px;
+  }*/
+  .navbar-default .navbar-nav>.active>a,
+  .navbar-default .navbar-nav>.active>a:focus {
+    margin: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
+  .navbar-header {
+    float: none;
+  }
+  .navbar-toggle {
+    display: block;
+    margin-top: 15px;
+  }
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .navbar-collapse.collapse {
+    display: none!important;
+  }
+  .navbar-nav {
+    float: none!important;
+    margin: 7.5px -15px;
+  }
+  .navbar-nav>li {
+    float: none;
+  }
+  .navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .dropdown-menu {
+    padding: 0px;
+  }
+  .navbar-collapse.collapse.in {
+    display: block!important;
+  }
+  .navbar-default .navbar-nav>.active>a {
+    text-align: center;
+  }
+  .navbar-inverse .navbar-nav > li > a {
+    text-align: center;
+    font-family: sans-serif;
+  }
+  .quotes_imges {
+    width: 40px;
+    height: 35px;
+  }
+  .quotes_bg_image {
+    padding: 10px;
+    padding-bottom: 60px;
+  }
+  .quotes_In_Xs {}
   .header_carousel_box {
     position: relative;
     top: 30px !important;
@@ -102,6 +155,16 @@
     left: 0px;
     top: 60px;
   }
+  .quotes_body {
+    padding: 0px;
+    margin: 50px;
+  }
+  .header_img {
+    left: 10px;
+  }
+  .prdct-tile {
+    margin-left: 36px;
+  }
 }
 
 @media (max-width: 765px) {
@@ -110,6 +173,18 @@
   }
   .prdct_srt_view_icons {
     margin-left: -45px;
+  }
+  .prdct-tile {
+    margin-left: 5px;
+  }
+  /* .mobileImage {
+    background-position: -185px !important;
+  }*/
+}
+
+@media (max-width:530px) {
+  .featured_in_mobile {
+    font-size: 25px;
   }
 }
 

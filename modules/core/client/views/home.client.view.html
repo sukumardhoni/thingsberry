@@ -1,56 +1,137 @@
-
 <section ng-controller="HomeController">
-
-    <div style="background-color:grey;">
-
-              <div class="container" id="firstcontainer">
-
-             <div class="row" id="firstcontainer-row">
-
-                  <div class="hidden-xs hidden-sm col-md-6 col-lg-5 ">
-
-
-                      <tb-tabs></tb-tabs>
-
-                  </div>
-
-
-
-                <div class="visible-sm  text-center col-sm-12 " style="font-size:20px;">
-
-                    <tb-sm-tabs></tb-sm-tabs>
-
-
-                </div>
-
-
-                <div class="visible-xs text-center col-sm-12 col-xs-12" style="font-size:20px;">
-
-
-                    <tb-xs-tabs></tb-xs-tabs>
-
-
-                </div>
-
-
-                 <tb-first-carousel></tb-first-carousel>
-
-
+  <div>
+    <div class="row" style="background-color:#a3a3a3;">
+      <div class="container" style="margin-top:30px;">
+        <div class="row">
+          <div class="col-md-6">
+            <tb-search></tb-search>
+          </div>
+          <div class="col-md-6" ng-init="premiumProducts()">
+            <div class="row" style="margin-top:5px;margin-bottom:35px;">
+              <div class="col-md-12 featured_prdct_carousel">
+                <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+                  <uib-slide ng-repeat="slide in premiumPrdcts" index="$index">
+                    <div ng-repeat="sarray in slide" class="col-md-12 " data-wrap="false">
+                      <tb-premium-products details=sarray></tb-premium-products>
+                    </div>
+                  </uib-slide>
+                </uib-carousel>
+              </div>
             </div>
-
+          </div>
         </div>
-
-
+      </div>
     </div>
 
 
+  </div>
 
-<!--  ::: Our Feautured Products ::: -->
+  <!-- <div style="background-color:grey;">
+
+      <div class="container" id="firstcontainer">
+        <div class="row" id="firstcontainer-row">
+          <div class="hidden-xs hidden-sm col-md-6 col-lg-5 ">
+            <tb-tabs></tb-tabs>
+          </div>
+          <div class="visible-sm  text-center col-sm-12 " style="font-size:20px;">
+            <tb-sm-tabs></tb-sm-tabs>
+          </div>
+          <div class="visible-xs text-center col-sm-12 col-xs-12" style="font-size:20px;">
+            <tb-xs-tabs></tb-xs-tabs>
+          </div>
+          <tb-first-carousel></tb-first-carousel>
+        </div>
+      </div>
+    </div>-->
 
 
 
+  <!--  ::: Our Feautured Products ::: -->
 
-            <div id="feautured-products">
+  <div class="container" ng-init="featuredProducts()">
+    <div class="row text-center featured_text">
+      <h1 class="featured_in_mobile">::: Our Feautured Products :::</h1>
+      <p>Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
+    </div>
+
+    <div class="row hidden-sm hidden-xs ">
+      <div class="col-md-12 featured_prdct_carousel">
+        <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slide in sample" index="$index">
+            <div ng-repeat="sarray in slide" class="col-md-3 feature_prdcts" data-wrap="false">
+              <tb-featured-products details=sarray></tb-featured-products>
+            </div>
+          </uib-slide>
+        </uib-carousel>
+      </div>
+    </div>
+    <div class="row hidden-md hidden-xs visible-sm-block">
+      <div class="col-sm-12 featured_prdct_carousel">
+        <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slide in sampleInSm" index="$index">
+            <div ng-repeat="sarray in slide" class="col-sm-5 feature_prdcts" data-wrap="false">
+              <tb-featured-products details=sarray></tb-featured-products>
+            </div>
+          </uib-slide>
+        </uib-carousel>
+      </div>
+    </div>
+    <div class="row hidden-md hidden-sm visible-xs-block">
+      <div class="col-xs-12  featured_prdct_carousel">
+        <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slide in sampleInXs" index="$index">
+            <div ng-repeat="sarray in slide" class="col-xs-10 feature_prdcts" data-wrap="false">
+              <tb-featured-products details=sarray></tb-featured-products>
+            </div>
+          </uib-slide>
+        </uib-carousel>
+      </div>
+    </div>
+    <div class="row text-center" style="padding:35px;">
+      <button class="btn btn-default view_all_prdcts_bttn" ng-click="getSearchedProducts(homeSearchDetails)">VIEW ALL PRODUCTS</button>
+    </div>
+  </div>
+
+  <!--  ::: Our Feautured Products closed ::: -->
+
+  <!------------::: quotes :::--------------->
+
+  <div ng-init="tbQuotes()">
+    <div class="row quotes_bg_image">
+      <div class="container">
+        <div ng-repeat="quote in quotes | limitTo: 1 ">
+          <tb-quotes tbquote="quote"></tb-quotes>
+        </div>
+        <div class="row  text-center ">
+          <span ng-repeat="quotes in quotes |limitTo: 3 ">
+          <img ng-src="{{quotes.personImageUrl}}" class="quotes_imges">
+            </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------::: quotes closed :::--------------->
+
+  <!----------------  ::: Our Clients :::-------------->
+  <div ng-init="tbClients()">
+    <div class="row" style="background-color:#ebebeb;">
+      <div class="container">
+        <div class="row text-center client_text">
+          <h1 class="featured_in_mobile">::: Our Clients :::</h1>
+          <h5>Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</h5>
+        </div>
+        <div class="row text-center client_body">
+          <div ng-repeat="client in clients | limitTo: 6">
+            <tb-clients clients="client" class="text-center"></tb-clients>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!----------------  ::: Our Clients close :::-------------->
+
+
+  <!--    <div id="feautured-products">
 
             <div class="container" id="feautured-products-container">
 
@@ -109,7 +190,7 @@
 
 
 
-              <!--  Button visible only in sm devices-->
+
 
 
                <div class="visible-sm col-sm-offset-1" style="padding-left: 131px;">
@@ -136,127 +217,127 @@
 
 
         </div>
+        </div>-->
+
+
+
+
+  <!------------quotes--------------->
+
+  <!-- <div class="jumbotron text-center" ng-init="show='a'" style="background:url(modules/core/client/img/billgates-img.jpg);height:359px;margin-bottom:-19px;);height:359px;margin-bottom:-19px;">
+
+
+    <br>
+
+
+    <div class="row" ng-show="show=='a'">
+
+      <div class="container">
+
+        <span style="color: white;">BILL GATES, founder of Microsoft</span>
+
+        <br>
+
+
+        <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3">
+
+          <p>Bill gates is a lousy teacher. It seduces
+            <br> smart people into thinking they can't lose</p>
+
+        </div>
+
+        <div class="visible-xs col-xs-12 ">
+
+          <p style="font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;">Bill gates is a lousy teacher. It seduces
+            <br> smart people into thinking they can't lose</p>
+
         </div>
 
 
+      </div>
+
+    </div>
+
+    <div class="row" ng-show="show=='b'">
+
+      <div class="container">
+
+        <span style="color: white;">STEVE JOBS, founder of Apple.</span>
+
+        <br>
+
+
+        <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3">
+
+          <p>steve jobs Lorem ipsum dolor sit seduces
+            <br> consectetur adipiscing aelit,sed do eiusmod.</p>
+
+        </div>
+
+        <div class="visible-xs col-xs-12 ">
+
+          <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;">steve jobs Lorem ipsum dolor sit seduces
+            <br> consectetur adipiscing aelit,sed do eiusmod.</p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="row" ng-show="show=='c'">
+
+      <div class="container">
+
+        <span style="color: white;">MARK ZUCKERBERG, founder of Facebook.</span>
+
+        <br>
+
+
+        <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3">
+
+          <p> Zuckerberg launched Facebook from his Harv
+            <br> An earlier inspiration for Facebook do eiusm</p>
+
+        </div>
+
+        <div class="visible-xs col-xs-12 ">
+
+          <p style="    font-size: 18px;    margin-left: -4px;
+    margin-top: 26px;"> Zuckerberg launched Facebook from his Harv
+            <br> An earlier inspiration for Facebook do eiusm</p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <a href="#" ng-click="show='a'">
+      <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" class="img1"></a>
+
+
+    <a href="#" ng-click="show='b'">
+      <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" class="img2"></a>
+
+    <a href="#" ng-click="show='c'">
+
+      <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" alt="miss" class="img3">
+    </a>
+  </div>-->
+
+
+  <!------------quotes close--------------->
 
 
 
 
-       <div class="jumbotron text-center" ng-init="show='a'" style="background:url(modules/core/client/img/billgates-img.jpg);height:359px;margin-bottom:-19px;);height:359px;margin-bottom:-19px;">
-
-
-          <br>
-
-
-     <div class="row" ng-show="show=='a'">
-
-         <div class="container">
-
-               <span style="color: white;">BILL GATES, founder of Microsoft</span>
-
-          <br>
-
-
-             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
-
-                 <p >Bill gates is a lousy teacher. It seduces<br>
-          smart people into thinking they can't lose</p>
-
-             </div>
-
-                <div class="visible-xs col-xs-12 ">
-
-                 <p style="font-size: 18px;    margin-left: -4px;
-    margin-top: 26px;">Bill gates is a lousy teacher. It seduces<br>
-          smart people into thinking they can't lose</p>
-
-             </div>
-
-
-         </div>
-
-     </div>
-
-     <div class="row" ng-show="show=='b'">
-
-         <div class="container">
-
-               <span style="color: white;">STEVE JOBS, founder of Apple.</span>
-
-          <br>
-
-
-             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
-
-                 <p >steve jobs  Lorem ipsum dolor sit seduces<br>
-         consectetur adipiscing aelit,sed do eiusmod.</p>
-
-             </div>
-
-                <div class="visible-xs col-xs-12 ">
-
-                 <p style="    font-size: 18px;    margin-left: -4px;
-    margin-top: 26px;">steve jobs  Lorem ipsum dolor sit seduces<br>
-         consectetur adipiscing aelit,sed do eiusmod.</p>
-
-             </div>
-
-
-         </div>
-
-     </div>
-
-     <div class="row" ng-show="show=='c'">
-
-         <div class="container">
-
-               <span style="color: white;">MARK ZUCKERBERG, founder of Facebook.</span>
-
-          <br>
-
-
-             <div class="hidden-xs col-lg-7 col-md-8 col-sm-8 col-md-offset- col-sm-offset-3" >
-
-                 <p> Zuckerberg launched Facebook from his Harv<br>
-         An earlier inspiration for Facebook do eiusm</p>
-
-             </div>
-
-                <div class="visible-xs col-xs-12 ">
-
-                 <p style="    font-size: 18px;    margin-left: -4px;
-    margin-top: 26px;"> Zuckerberg launched Facebook from his Harv<br>
-         An earlier inspiration for Facebook do eiusm</p>
-
-             </div>
-
-
-         </div>
-
-     </div>
-
-
-<a href="#" ng-click="show='a'">
-    <img src="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" class="img1"></a>
-
-
-<a href="#" ng-click="show='b'">
-    <img src="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" class="img2"></a>
-
-     <a href="#" ng-click="show='c'">
-
-        <img src="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg" alt="miss" class="img3">
-     </a>
-     </div>
-
-
-
-
-
-
-
-<!--
+  <!--
 <tb-billgates title="BILL GATES, founder of Microsoft" description="Success is a lousy teacher. It seduces
 smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multimedia/archive/03249/archetypal-male-fa_3249635c.jpg" img2="http://images.huffingtonpost.com/2011-04-11-gaspardfarbe5003.jpg" img3="http://www.my-hairstyles.com/wp-content/uploads/2013/08/male-hairstyles-by-face-shape.jpg">
 
@@ -270,40 +351,40 @@ smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multi
   <!--  ::: Our Clients :::-->
 
 
-        <div id="ourclients-container">
+  <!-- <div id="ourclients-container">
 
-        <div class="container" style="background-color: #f2f2f2;">
-
-
- <!--This will be visible only in sm and xs devices-->
-
-<div class="visible-xs visible-sm text-center col-xs-12" style="font-size:20px;">
- <h1 class="ourclients">::: Our Clients :::</h1>
-
-</div>
+    <div class="container" style="background-color: #f2f2f2;">
 
 
-            <br>
+      This will be visible only in sm and xs devices
+
+      <div class="visible-xs visible-sm text-center col-xs-12" style="font-size:20px;">
+        <h1 class="ourclients">::: Our Clients :::</h1>
+
+      </div>
 
 
-             <div class="hidden-sm hidden-xs">
-                <h1 class="ourclients1">::: Our Clients :::</h1>
-
-            </div>
-
-            <br>
-
-                    <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
+      <br>
 
 
+      <div class="hidden-sm hidden-xs">
+        <h1 class="ourclients1">::: Our Clients :::</h1>
 
-            <tb-ourclients  ourclients="['STATON','Genuine','SOUTHBEACH','Hand craft','CUBANESE']">
-            </tb-ourclients>
+      </div>
+
+      <br>
+
+      <p style="text-align: center;">Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
 
 
-        </div>
-        </div>
 
+      <tb-ourclients ourclients="['STATON','Genuine','SOUTHBEACH','Hand craft','CUBANESE']">
+      </tb-ourclients>
+
+
+    </div>
+  </div>-->
+  <!--  ::: Our Clients close :::-->
 
 
 
@@ -330,23 +411,7 @@ smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multi
       return false;
     })
   });
-
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -544,6 +609,3 @@ smart people into thinking they can't lose" img1="http://i.telegraph.co.uk/multi
 </section>
 
 -->
-
-
-

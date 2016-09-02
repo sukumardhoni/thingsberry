@@ -1,0 +1,43 @@
+<div class="">
+
+  <div class="row">
+    <img src="{{details.image}}" class="prdct-img">
+  </div>
+
+  <div class="row">
+    <div class="col-md-5 col-sm-5 col-xs-5">
+      date
+    </div>
+    <div class="col-md-7 col-sm-7 col-xs-7">
+      <tb-ratings-container style="float:right;"></tb-ratings-container>
+    </div>
+  </div>
+  <div class="row featured_prdct_body">
+    <div class="row" style="margin:10px;">
+      <h4 class="">{{details.text}}</h4>
+    </div>
+    <div class="row" style="margin:10px;">
+      <p class="">{{ details.desc | limitTo: 150 }}</p>
+    </div>
+  </div>
+  <div class="row" style="margin:10px;">
+    <div class="col-md-4 col-sm-4 col-xs-4">
+      <button class="btn btn-primary f_link_btn">Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></button>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6" style="float:right;">
+      <span class="col-md-4 col-sm-4 col-xs-4 text-center"><a ui-sref="companies.view({ companyId: details._id })"><i class="fa fa-expand  featured_prdct_footer_icons  "></i></a>
+      </span>
+
+
+      <span class="col-md-4 col-sm-4 col-xs-4 text-center"><i class="fa fa-heart-o  featured_prdct_footer_icons "></i></span>
+
+
+      <span class="col-md-4 col-sm-4 col-xs-4 text-center"><i class="fa fa-share-alt  featured_prdct_footer_icons" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+
+
+
+
+</div>
