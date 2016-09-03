@@ -10,7 +10,9 @@ angular.module('core')
       },
       templateUrl: 'modules/core/client/views/directive-partials/new-featured-products-display.html',
       link: function (scope, elem, attrs) {
-        console.log("entering into the featurred products link furnctions");
+        // console.log("entering into the featurred products link furnctions");
+
+        scope.date1 = attrs.dateOnProduct;
       }
     };
   });

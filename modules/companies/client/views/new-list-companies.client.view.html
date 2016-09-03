@@ -21,7 +21,7 @@
               </select>
             </div>
             <div class="col-xs-offset-1 visible-xs prdcts_sorting_item">
-              <select class="  col-xs-11 col-xs-offset-1 sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+              <select class="  col-xs-11 col-xs-offset- sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
               </select>
             </div>
           </div>
@@ -32,27 +32,24 @@
           <div class="col-sm-2"><span class="glyphicon glyphicon-th  prdcts_sorting_item" ng-click="grdView()"></span> </div>
           <div class="col-sm-1"><span class="glyphicon glyphicon-th-list  col-sm-2 prdcts_sorting_item" ng-click="listView()"></span> </div>
           <div class=" hidden-xs prdcts_sorting_item">
-            <select class="col-sm-3 col-sm-offset-1  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+            <select class="col-sm-3 col-sm-offset-2  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
             </select>
           </div>
         </div>
       </div>
       <div ng-show="gridView">
-        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
+        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
           <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
           <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
             <tb-products-grid details=val></tb-products-grid>
           </div>
-          <!--   <div class=" " ng-hide="div1show">
-            <tb-products-list details=val></tb-products-list>
-          </div>-->
         </div>
         <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
         </div>
       </div>
 
       <div ng-hide="gridView">
-        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0">
+        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
           <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-products-list>
         </div>
         <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">

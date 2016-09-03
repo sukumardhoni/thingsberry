@@ -59,7 +59,7 @@
         <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sample" index="$index">
             <div ng-repeat="sarray in slide" class="col-md-3 feature_prdcts" data-wrap="false">
-              <tb-featured-products details=sarray></tb-featured-products>
+              <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-featured-products>
             </div>
           </uib-slide>
         </uib-carousel>
@@ -69,8 +69,8 @@
       <div class="col-sm-12 featured_prdct_carousel">
         <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInSm" index="$index">
-            <div ng-repeat="sarray in slide" class="col-sm-5 feature_prdcts" data-wrap="false">
-              <tb-featured-products details=sarray></tb-featured-products>
+            <div ng-repeat="sarray in slide" class="col-sm-5 col-sm-offset-1 feature_prdcts" data-wrap="false">
+              <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-featured-products>
             </div>
           </uib-slide>
         </uib-carousel>
@@ -81,7 +81,7 @@
         <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInXs" index="$index">
             <div ng-repeat="sarray in slide" class="col-xs-10 feature_prdcts" data-wrap="false">
-              <tb-featured-products details=sarray></tb-featured-products>
+              <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-featured-products>
             </div>
           </uib-slide>
         </uib-carousel>
@@ -100,13 +100,23 @@
     <div class="row quotes_bg_image">
       <div class="container">
         <div ng-repeat="quote in quotes | limitTo: 1 ">
-          <tb-quotes tbquote="quote"></tb-quotes>
+          <div class="featured_prdct_carousel quotes_carousel col-md-12">
+            <uib-carousel interval="5000" active=0 no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slide in quotes" index="$index">
+                <!--<div ng-repeat="sarray in slide" class="col-md-10 " data-wrap="false">-->
+                <tb-quotes tbquote="slide"></tb-quotes>
+                <!--  </div>-->
+              </uib-slide>
+            </uib-carousel>
+          </div>
+
+          <!--<tb-quotes tbquote="quote"></tb-quotes>-->
         </div>
-        <div class="row  text-center ">
+        <!--<div class="row  text-center ">
           <span ng-repeat="quotes in quotes |limitTo: 3 ">
           <img ng-src="{{quotes.personImageUrl}}" class="quotes_imges">
             </span>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>

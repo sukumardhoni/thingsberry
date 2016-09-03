@@ -110,113 +110,110 @@
 </div>-->
 
 <div ng-controller="ContactUsController" style="background:#f2f2f2">
+  <!--
+  <tb-header-image image="../../../../modules/core/client/img/contact.jpg" opacity="1" state="getListed" maintitle="Get Listed :::" subtitle="" class="col-xs-12 hidden-xs visible-sm visible-md">
+  </tb-header-image>-->
 
-  <!-- <div class="row">
-    <img src="modules/core/client/img/getlisted copy.jpg" class="getlisting_img">
 
-    <div class="row  contactUs_text col-sm-offset-1 col-xs-8   col-lg-6 col-lg-offset-1" style="    left: 7px;">
-      <h1 style="font-size: 38px;">Get Listed :::</h1>
-    </div>
-  </div>-->
-  <tb-header-image image="../../../../modules/core/client/img/getlisted-copy.jpg" opacity=".8" state="getListed" maintitle="Get Listed :::" subtitle="">
+
+  <tb-header-image image="../../../../modules/core/client/img/scndGetlist.jpg" opacity="1" state="getListed" maintitle="Get Listed :::" subtitle="">
   </tb-header-image>
+  <!--class="col-xs-12 visbile-xs hidden-sm hidden-md"-->
 
-  <div class=" row container  col-xs-offset-5 col-sm-offset-3 col-xs-12 col-lg-10 col-lg-offset-2  col-sm-10" style="left: 6px;">
 
 
-    <div class="row  col-md-8 col-lg-offset-1  col-xs-offset-1 col-xs-12" style="margin-top:40px;font-size: xx-large;    left: -227px;">
+  <div class="container">
+
+
+    <div class="row  col-md-12" style="margin-top:40px;font-size: xx-large;">
       <p>Become our partner :::</p>
     </div>
 
-    <div class="row  col-md-9  col-sm-offset-1 col-xs-offset-1 col-xs-12 col-sm-6" style="left: -223px;width:100%">
+    <div class="row  col-md-12 col-lg-12" style="width:103%">
       <p>Many consumers use thingsberry.com everyday to make purchase decisions.if you would like to get your product listed,please submit the detailsusing below form .we will review the details and add to the product listing</p>
     </div>
-  </div>
 
+    <div class="row" style="margin-top:40px;">
 
-  <div class="row container col-xs-offset-5 col-md-offset-2 col-sm-offset-2 " style=" width: 100%;">
-    <div class="col-md-6 col-sm-12 " style="    left: -164px;">
-      <div class="md-inline-form col-sm-offset-1">
+      <div class=" row col-md-8 col-sm-12">
 
-        <div>
-
-
-          <form name="getListedForm" ng-submit="getListedEmail(getListedForm.$valid)" novalidate autocomplete="off">
+        <form name="getListedForm" ng-submit="getListedEmail(getListedForm.$valid)" novalidate autocomplete="off">
 
 
 
-            <div class="row">
+          <div class="row getList_In_Xs">
 
-              <md-input-container class="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                <label class="label-styles">Product Name</label>
-                <input class="input-styles" type="text" id="productName" ng-model="getListed.productName" required>
-              </md-input-container>
+            <md-input-container class=" col-md-6 col-xs-12  col-sm-6 col-lg-6">
+              <label class="label-styles">Product Name</label>
+              <input class="input-styles" type="text" id="productName" ng-model="getListed.productName" required>
+            </md-input-container>
 
 
-              <md-input-container class="col-md-6 col-xs-12 col-sm-6 col-lg-6">
-                <label class="label-styles">Email</label>
-                <input class="input-styles" type="email" id="email" ng-model="getListed.email" required>
-              </md-input-container>
+            <md-input-container class="col-md-6 col-xs-12  col-sm-6 col-lg-6">
+              <label class="label-styles">Email</label>
+              <input class="input-styles" type="email" id="email" ng-model="getListed.email" required>
+            </md-input-container>
+          </div>
+
+          <div class="row getList_In_Xs">
+
+            <md-input-container class="col-md-6 col-xs-12 col-sm-6 ">
+              <label class="label-styles">Contact Name</label>
+              <input class="input-styles" type="text" id="contact_name" ng-model="getListed.contactName" required>
+            </md-input-container>
+
+            <md-input-container class="col-md-6 col-xs-12 col-sm-6">
+              <label class="label-styles">Contact Phone</label>
+              <input class="input-styles" type="tel" id="contact phone" ng-model="getListed.contactPhone" required>
+            </md-input-container>
+
+          </div>
+
+          <div class="row getList_In_Xs">
+            <md-input-container class="col-md-12 col-sm-12 col-xs-12 ">
+              <label class="label-styles">Product URL</label>
+              <input class="input-styles" type="url" id="productURL" ng-model="getListed.productURL" required>
+            </md-input-container>
+          </div>
+
+          <div class="row getList_In_Xs">
+            <md-input-container class="col-md-12 col-sm-12 col-xs-12">
+              <label class="label-styles">Description</label>
+              <input class="input-styles" type="text" id="Description" ng-model="getListed.description" required style="">
+            </md-input-container>
+          </div>
+          <div class="row getList_In_Xs">
+
+            <div class=" col-md-3 col-sm-4">
+
+              <md-button class="md-raised md-primary material-cust-large-button col-xs-12" ng-disabled="getListedForm.$invalid">SUBMIT <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+
             </div>
 
-            <div class="row">
+            <!--<div class="row  hidden-lg hidden-md visible-xs-sm  col-xs-12 col-sm-12 ">
 
-              <md-input-container class="col-md-6 col-xs-12 col-sm-6 ">
-                <label class="label-styles">Contact Name</label>
-                <input class="input-styles" type="text" id="contact_name" ng-model="getListed.contactName" required>
-              </md-input-container>
-
-              <md-input-container class="col-md-6 col-xs-12 col-sm-6">
-                <label class="label-styles">Contact Phone</label>
-                <input class="input-styles" type="tel" id="contact phone" ng-model="getListed.contactPhone" required>
-              </md-input-container>
-
-            </div>
-
-            <div class="row">
-              <md-input-container class="col-md-12 col-sm-12 col-xs-12 ">
-                <label class="label-styles">Product URL</label>
-                <input class="input-styles" type="url" id="productURL" ng-model="getListed.productURL" required>
-              </md-input-container>
-            </div>
-
-            <div class="row">
-              <md-input-container class="col-md-12 col-sm-12 col-xs-12">
-                <label class="label-styles">Description</label>
-                <input class="input-styles" type="text" id="Description" ng-model="getListed.description" required style="">
-              </md-input-container>
-            </div>
-            <div class="row">
-
-              <div class="hidden-xs hidden-sm col-lg-6    col-md-8">
-
-                <md-button class="md-raised md-primary material-cust-large-button" style="width:196px;border-radius:2px;text-align-center;font-size:15px;height: 48px;" ng-disabled="getListedForm.$invalid">SUBMIT</md-button>
-
-              </div>
-
-              <div class="row  hidden-lg hidden-md visible-xs-sm  col-xs-12 col-sm-12 " style="left: 23px;">
-
-                <md-button class="md-raised md-primary material-cust-large-button" style="width:353px;border-radius:2px;text-align-center;font-size:15px;height: 48px;margin-left: -8px;" ng-disabled="getListedForm.$invalid">SEND MESSAGES</md-button>
-              </div>
-            </div>
+              <md-button class="md-raised md-primary col-xs-12 text-center" ng-disabled="getListedForm.$invalid">SEND MESSAGES <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+            </div>-->
+          </div>
 
 
-          </form>
+        </form>
 
-
-        </div>
       </div>
-    </div>
 
 
-    <div class="container">
-      <div class=" col-md-4  hidden-xs col-sm-12 col-lg-5  col-md-6" style="left: -141px;">
+      <div class=" col-md-4  hidden-xs col-sm-12 ">
 
-        <img ng-src="modules/core/client/img/getlist-side-img.jpg" style="height: 329px;width:100%;margin-top: 30px;">
+        <img ng-src="modules/core/client/img/getlist-side-img.jpg" class="getlist_img">
 
 
       </div>
 
     </div>
+
+
+
+
   </div>
+
 </div>

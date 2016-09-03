@@ -1,45 +1,17 @@
 <div>
-  <!--  <div class="row new_list_prdct_box">
-    <div class="col-md-4 col-sm-5" style="padding:0px;">
-      <p>
-        <a ng-href="{{details.webAddress}}" target="_blank"> <img class="" ng-src="{{details.productImageURL}}" style="width:100%;height:300px;"> </a>
-      </p>
-    </div>
-    <div class="col-md-7 col-sm-7 ">
-      <div class="row">
-        <div class="col-md-3">
-          <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date | date:'yyyy-MM-dd'}}</span>
-        </div>
-        <div class="col-md-2">
-          <i class="fa fa-heart-o "></i>
-        </div>
-        <div class="col-md-2">
-          <i class="fa fa-share-alt prodIcons " aria-hidden="true"></i>
-        </div>
-        <tb-ratings-container prod-id={{prodId}} style="float:right;"></tb-ratings-container>
-      </div>
-      <div class="row">
-        <h2 style="margin: 12px;">{{details.Proname}}</h2>
-      </div>
-      <div class="row ">
-        <p class="">{{ details.description | limitTo: 100 }}</p>
-      </div>
-    </div>
-  </div>-->
-
   <div class="row new_list_prdct_view_box">
-    <div class="col-md-4 col-sm-4 new_list_prdct_view_img ">
+    <div class="col-md-4 col-sm-4 col-xs-12 new_list_prdct_view_img ">
       <p>
         <a ng-href="{{details.webAddress}}" target="_blank"> <img class="" ng-src="{{details.productImageURL}}" style="width:100%;height:225px;"> </a>
       </p>
     </div>
-    <div class="col-md-8 col-sm-8">
+    <div class="col-md-8 col-sm-8 col-xs-12">
       <div class="row" style="padding:15px;padding-left:5px;">
-        <div class="col-md-3 col-sm-4">
+        <div class="col-md-3 col-sm-4 col-xs-6">
           <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar date_icon_in_sngle_prdct" aria-hidden="true" ></i>
             {{date1}}</span>
         </div>
-        <tb-ratings-container prod-id={{prodId}} style="float:right;"></tb-ratings-container>
+        <tb-ratings-container prod-id={{prodId}} state="productListView" products="details" style="float:right;"></tb-ratings-container>
       </div>
       <div class="new_list_prdct_view_body">
         <div class="row new_list_prdct_view_name">
@@ -50,13 +22,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-1 col-sm-1">
+        <div class="col-md-1 col-sm-1 col-xs-4">
           <a ui-sref="companies.view({ companyId: details._id })"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
         </div>
-        <div class="col-md-1 col-sm-1">
+        <div class="col-md-1 col-sm-1 col-xs-4">
           <i class="fa fa-heart-o new_list_prdct_view_footer_icons"></i>
         </div>
-        <div class="col-md-1 col-sm-1">
+        <div class="col-md-1 col-sm-1 col-xs-4">
           <i class="fa fa-share-alt  new_list_prdct_view_footer_icons" aria-hidden="true"></i>
         </div>
       </div>

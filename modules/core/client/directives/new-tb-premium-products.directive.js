@@ -10,8 +10,8 @@ angular.module('core')
       },
       templateUrl: 'modules/core/client/views/directive-partials/new-premium-products-display.html',
       link: function (scope, elem, attrs) {
-        console.log("entering into the tbPremiumProducts products link furnctions");
-        console.log(scope.details);
+        //  console.log("entering into the tbPremiumProducts products link furnctions");
+        // console.log(scope.details);
       }
     };
   });

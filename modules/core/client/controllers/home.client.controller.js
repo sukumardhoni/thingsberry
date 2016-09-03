@@ -168,17 +168,17 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
     $scope.featuredProducts = function () {
-
+      $scope.date = new Date();
 
       featuredProducts.query({}, function (res) {
         // console.log(res);
         $scope.featuredProducts = res;
-        console.log('the length:' + JSON.stringify($scope.featuredProducts.length));
+        // console.log('the length:' + JSON.stringify($scope.featuredProducts.length));
         for (var i = 0; i < ($scope.featuredProducts.length); i++) {
           $scope.addSlide2($scope.featuredProducts[i]);
         }
         $scope.sample = $scope.listToMatrix($scope.slides2, 3);
-        //console.log('the resultant matrix' + JSON.stringify($scope.sample));
+        // console.log('the resultant matrix' + JSON.stringify($scope.sample));
 
         for (var j = 0; j < ($scope.featuredProducts.length); j++) {
           $scope.addSlide3($scope.featuredProducts[j]);
@@ -253,7 +253,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           $scope.addSlide1($scope.premiumProducts[i]);
         }
         $scope.premiumPrdcts = $scope.listToMatrix($scope.slides1, 1);
-        console.log($scope.premiumPrdcts);
+        // console.log($scope.premiumPrdcts);
 
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
@@ -318,40 +318,48 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         desc: details.description,
         web: details.companyWebsite,
         text: details.Proname,
-        id: currIndex++
+        id: currIndex++,
+        _id: details._id
       });
     };
 
     $scope.addSlide2 = function (details) {
-      slides2.push({
-        image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++
-      });
+      slides2.push(details
+        /*  image: details.productImageURL,
+          proAddress: details.webAddress,
+          desc: details.description,
+          web: details.companyWebsite,
+          text: details.Proname,
+          id: currIndex++,
+          _id: details._id*/
+      );
     };
 
     $scope.addSlide3 = function (details) {
-      slides3.push({
-        image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++
-      });
+      slides3.push(details
+        /*{
+                image: details.productImageURL,
+                proAddress: details.webAddress,
+                desc: details.description,
+                web: details.companyWebsite,
+                text: details.Proname,
+                id: currIndex++,
+                _id: details._id
+              }*/
+      );
     };
     $scope.addSlide4 = function (details) {
-      slides4.push({
-        image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++
-      });
+      slides4.push(details
+        /*{
+                image: details.productImageURL,
+                proAddress: details.webAddress,
+                desc: details.description,
+                web: details.companyWebsite,
+                text: details.Proname,
+                id: currIndex++,
+                _id: details._id
+              }*/
+      );
     };
 
 

@@ -517,6 +517,40 @@ BEFORE THIS ALREDY STYLES
 -------------------------
 }*/
 
+.product-listing.ng-enter,
+.product-listing.ng-leave,
+.product-listing.ng-move {
+  -webkit-transition: 0.5s ease-in all;
+  -moz-transition: 0.5s ease-in all;
+  -o-transition: 0.5s ease-in all;
+  transition: 0.5s ease-in all;
+}
+
+.product-listing.ng-enter,
+.product-listing.ng-move {
+  opacity: 0;
+  height: 0;
+}
+
+.product-listing.ng-move.ng-move-active,
+.product-listing.ng-enter.ng-enter-active {
+  opacity: 1;
+  height: 5px;
+}
+
+.product-listing.ng-leave {
+  opacity: 1;
+}
+
+.product-listing.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+
 .prdct-tile {
   border-radius: 4px;
   margin-top: 20px;
@@ -624,8 +658,8 @@ BEFORE THIS ALREDY STYLES
 .initialStars .hover_box {
   visibility: hidden;
   opacity: 0;
-  right: 0px;
-  /* bottom: 45px;*/
+  right: 15px;
+  /*bottom: 50px;*/
   border: 1px solid;
   position: absolute;
   background-color: white;

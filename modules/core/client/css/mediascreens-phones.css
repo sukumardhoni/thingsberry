@@ -139,7 +139,9 @@
     padding: 10px;
     padding-bottom: 60px;
   }
-  .quotes_In_Xs {}
+  .quotes_In_Xs {
+    font-size: 30px;
+  }
   .header_carousel_box {
     position: relative;
     top: 30px !important;
@@ -156,8 +158,12 @@
     top: 60px;
   }
   .quotes_body {
-    padding: 0px;
+    padding: 15px;
     margin: 50px;
+    min-height: 260px;
+  }
+  .feature_prdcts {
+    margin-left: 40px;
   }
   .header_img {
     left: 10px;
@@ -175,7 +181,11 @@
     margin-left: -45px;
   }
   .prdct-tile {
-    margin-left: 5px;
+    margin-left: 0px;
+  }
+  .getList_In_Xs {
+    margin-right: 10px;
+    margin-left: 10px;
   }
   /* .mobileImage {
     background-position: -185px !important;
@@ -185,6 +195,9 @@
 @media (max-width:530px) {
   .featured_in_mobile {
     font-size: 25px;
+  }
+  .prdcts_sorting_item select {
+    margin-left: 30px;
   }
 }
 
