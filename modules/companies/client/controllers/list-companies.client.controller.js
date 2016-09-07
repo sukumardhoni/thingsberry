@@ -64,16 +64,16 @@
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
       $scope.searchOrder.Lists = [
-        {
+        /*{
           'name': 'Sort by',
           'value': ''
-        },
+        },*/
         {
-          'name': 'Sort by Newest',
+          'name': 'Sort by Ratings',
           'value': '-created'
         },
         {
-          'name': 'Sort by Ratings',
+          'name': 'Sort by Newest',
           'value': 'created'
         }
   ];

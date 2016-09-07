@@ -104,7 +104,26 @@
           </div>
         </div>
         <div class="col-md-6  col-lg-4 col-lg-offset-2 col-xs-4">
-          <a ui-sref="authentication.signin" style="color:#b2b9e1;text-decoration: none;float:right;margin-top: 10px; ">Login &nbsp;/&nbsp;Signup &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i> </a>
+          <a ui-sref="authentication.signin" style="color:#b2b9e1;text-decoration: none;float:right;margin-top: 10px; " ng-hide="authentication.user">Login &nbsp;/&nbsp;Signup &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i> </a>
+
+
+          <div class="dropdown header_Login" uib-dropdown ng-show="authentication.user" style="float:right;">
+            <a class="dropdown-toggle user-header-dropdown-toggle header_title" uib-dropdown-toggle role="button">
+              <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
+              <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
+                <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'|| authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
+              </li>
+              <li class="divider hidden-xs"></li>
+              <li>
+                <a ng-click="signout()" style="cursor:pointer;">Signout</a>
+              </li>
+            </ul>
+          </div>
+
+
         </div>
       </div>
     </div>
@@ -147,7 +166,7 @@
           </div>
           <div class="collapse navbar-collapse" id="myNavbar" uib-collapse="!isCollapsed">
 
-            <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;">
+            <ul class="nav navbar-nav navbar-right " style="margin-top: 10px;">
 
 
               <li ui-sref-active="active">
@@ -170,6 +189,25 @@
 
               <li ui-sref-active="active">
                 <a ui-sref="contactus" class="header-title-names" style="margin-right: 13px;">CONTACT US</a>
+              </li>
+              <li ui-sref-active="active" ng-hide="authentication.user" class="visible-xs">
+                <a ui-sref="authentication.signin" class="header-title-names"><!--<img src="modules/core/client/img/user icon.png" class="user-icon hidden-xs">-->LOG IN</a>
+              </li>
+
+              <li class="dropdown visible-xs" uib-dropdown ng-show="authentication.user">
+                <a class="dropdown-toggle user-header-dropdown-toggle " uib-dropdown-toggle role="button">
+                  <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
+                  <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
+                    <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'|| authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
+                  </li>
+                  <li class="divider hidden-xs"></li>
+                  <li>
+                    <a ng-click="signout()" style="cursor:pointer;">Signout</a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>

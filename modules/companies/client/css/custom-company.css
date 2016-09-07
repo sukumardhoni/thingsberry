@@ -549,8 +549,6 @@ BEFORE THIS ALREDY STYLES
   padding-bottom: 0;
 }
 
-
-
 .prdct-tile {
   border-radius: 4px;
   margin-top: 20px;
@@ -918,6 +916,11 @@ select:focus {
 }
 
 .back_on_sngle_prdct_view:hover {
+  background: url('../../../../modules/core/client/img/buttons/back2.png') no-repeat;
+  background-size: 30px;
+  background-position: left 0px center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   color: #4d4dff;
   text-decoration: none !important;
   cursor: pointer;
@@ -963,4 +966,21 @@ select:focus {
 .listclr {
   color: #4d4dff;
   cursor: default !important;
+}
+
+.grid_sytle:focus {
+  outline: none;
+}
+
+.backBtn {
+  background: url('../../../../modules/core/client/img/buttons/back1.png') no-repeat;
+  background-size: 30px;
+  background-position: left 0px center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.back_to_prdcts {
+  margin-left: 40px;
+  font-weight: bold;
 }

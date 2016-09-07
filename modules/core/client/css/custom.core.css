@@ -61,10 +61,16 @@ footer {
   z-index: 1;
 }*/
 
+@font-face {
+  font-family: roboto;
+  src: url('../../../../modules/core/client/tb_fonts/Roboto-Light.ttf');
+}
+
 html,
 body {
   height: 100%;
   background-color: #f5f5f5;
+  font-family: roboto;
 }
 
 
@@ -97,17 +103,19 @@ body {
   right: 29px;
   bottom: 62px;
   background: white url('../../../../modules/core/client/img/up-arrow2.png') no-repeat center 40%;
-  border-radius: 23px;
+  border-radius: 40px;
   margin-bottom: 8px;
   margin-right: 10px;
   border: 1px solid gray;
+  cursor: pointer;
 }
 
 a:hover#backTop {
-  background: pink url('../../../../modules/core/client/img/up-arrow2.png') no-repeat center 40%;
+  background: #3f51b5 url('../../../../modules/core/client/img/up-arrow1.png') no-repeat center 40%;
   text-decoration: none;
   border-bottom: none;
-  border: 1px solid black;
+  border: 1px solid white;
+  cursor: pointer;
 }
 
 
@@ -155,6 +163,36 @@ a:hover#backTop {
   text-align: center;
 }*/
 
+.header_title {
+  color: white;
+  float: right;
+}
+
+.header_title:hover {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.header_Login .dropdown-menu {
+  margin: 0px 0 0;
+  background-color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .active > a {
+  background-image: none !important;
+  box-shadow: none;
+  background-color: transparent;
+  color: none !important;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: none !important;
+  color: none !important;
+}
+
 .feature_prdcts {
   border-radius: 4px;
   margin-top: 20px;
@@ -189,7 +227,9 @@ a:hover#backTop {
 }
 
 .f_link_btn:hover,
-.f_link_btn:active {
+.f_link_btn:active,
+.f_link_btn:focus,
+.f_link_btn:active:focus {
   background-color: #3f51b5;
 }
 
@@ -197,11 +237,18 @@ a:hover#backTop {
 .featured_prdct_carousel .carousel-control.right {
   background-image: none;
   width: 0px;
+  color: white !important;
   ;
 }
 
+.featured_prdct_carousel .carousel-control:hover,
+.featured_prdct_carousel .carousel-control:active,
+.featured_prdct_carousel .carousel-control:focus {
+  color: white !important;
+}
+
 .featured_text {
-  padding: 60px;
+  padding: 40px;
   padding-left: 17px;
   padding-right: 17px;
 }
@@ -213,12 +260,17 @@ a:hover#backTop {
   background-position: 0px;
   background-size: cover;
   padding: 100px;
+  opacity: .8;
+}
+
+.quotes_In_Xs {
+  font-size: 45px;
 }
 
 .quotes_body {
   color: white;
   padding: 40px;
-  min-height: 275px;
+  min-height: 300px;
 }
 
 .quotes_imges {
@@ -268,13 +320,19 @@ a:hover#backTop {
 }
 
 .search_inpt tags-input .tags {
-  padding: 10px;
+  padding: 8px;
   margin-top: -10px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .advSearch_inpt tags-input .tags {
-  padding: 10px;
+  padding: 8px;
   margin-top: -5px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .carousel-indicators {
@@ -292,21 +350,23 @@ a:hover#backTop {
 .premium_view_btn {
   background-image: none;
   background-color: #3f51b5;
-  padding: 15px;
-  border-radius: 0px;
+  padding: 12px;
+  border-radius: 3px;
 }
 
-.premium_view_btn:hover {
+.premium_view_btn:hover,
+.premium_view_btn:focus,
+.premium_view_btn:active {
   background-color: #3f51b5;
 }
 
 .premium_visit_btn {
   background-image: none;
   background-color: transparent;
-  padding: 15px;
+  padding: 12px;
   border-color: white !important;
   color: white;
-  border-radius: 0px;
+  border-radius: 3px;
 }
 
 .advSearch_company {
@@ -314,20 +374,26 @@ a:hover#backTop {
   margin-top: 20px;
 }
 
+.advSearch_company label {
+  font-size: 13px;
+  font-weight: bold;
+}
+
 .advSearch_company_inpt {
-  border-radius: 0px;
+  border-radius: 3px;
   height: 45px;
 }
 
 .advSearch_content {
   margin: 30px;
-  min-height: 320px;
+  min-height: 310px;
 }
 
 .search_tabs .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  border-top: 6px solid blue;
+  border-top: 6px solid #3f51b5;
+  border-radius: 0px;
 }
 
 .search_tabs .nav > li > a:hover,
@@ -337,6 +403,7 @@ a:hover#backTop {
 
 .search_tabs .nav-tabs > li > a {
   margin-right: 0px;
+  color: #333333;
 }
 
 .carousel_spinner {
@@ -763,6 +830,7 @@ div#services_block:hover {
 
 .input-styles {
   font-weight: bold;
+  padding-left: 3px !important;
 }
 
 .btn-styles {
@@ -777,6 +845,8 @@ div#services_block:hover {
 .btn-styles-contact {
   width: 185px;
   height: 47px;
+  border-radius: 0px;
+  margin-left: 0px;
 }
 
 .label-styles {

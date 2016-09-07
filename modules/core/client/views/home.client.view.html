@@ -1,13 +1,13 @@
 <section ng-controller="HomeController">
   <div>
-    <div class="row" style="background-color:#a3a3a3;">
+    <div class="row" style="background-color:#a3a3a3;min-height:570px;">
       <div class="container" style="margin-top:30px;">
         <div class="row">
           <div class="col-md-6">
             <tb-search></tb-search>
           </div>
           <div class="col-md-6" ng-init="premiumProducts()">
-            <div class="row" style="margin-top:5px;margin-bottom:35px;">
+            <div class="row" style="margin-top:25px !important;margin:25px;">
               <div class="col-md-12 featured_prdct_carousel">
                 <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
                   <uib-slide ng-repeat="slide in premiumPrdcts" index="$index">
@@ -100,8 +100,8 @@
     <div class="row quotes_bg_image">
       <div class="container">
         <div ng-repeat="quote in quotes | limitTo: 1 ">
-          <div class="featured_prdct_carousel quotes_carousel col-md-12">
-            <uib-carousel interval="5000" active=0 no-wrap="noWrapSlides">
+          <div class="featured_prdct_carousel quotes_carousel col-md-12 col-xs-12">
+            <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slide in quotes" index="$index">
                 <!--<div ng-repeat="sarray in slide" class="col-md-10 " data-wrap="false">-->
                 <tb-quotes tbquote="slide"></tb-quotes>
