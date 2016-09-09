@@ -7,8 +7,8 @@
             <tb-search></tb-search>
           </div>
           <div class="col-md-6" ng-init="premiumProducts()">
-            <div class="row" style="margin-top:25px !important;margin:25px;">
-              <div class="col-md-12 featured_prdct_carousel">
+            <div class="row" style="margin-top:55px !important;margin:25px;">
+              <div class=" featured_prdct_carousel">
                 <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
                   <uib-slide ng-repeat="slide in premiumPrdcts" index="$index">
                     <div ng-repeat="sarray in slide" class="col-md-12 " data-wrap="false">
@@ -22,29 +22,7 @@
         </div>
       </div>
     </div>
-
-
   </div>
-
-  <!-- <div style="background-color:grey;">
-
-      <div class="container" id="firstcontainer">
-        <div class="row" id="firstcontainer-row">
-          <div class="hidden-xs hidden-sm col-md-6 col-lg-5 ">
-            <tb-tabs></tb-tabs>
-          </div>
-          <div class="visible-sm  text-center col-sm-12 " style="font-size:20px;">
-            <tb-sm-tabs></tb-sm-tabs>
-          </div>
-          <div class="visible-xs text-center col-sm-12 col-xs-12" style="font-size:20px;">
-            <tb-xs-tabs></tb-xs-tabs>
-          </div>
-          <tb-first-carousel></tb-first-carousel>
-        </div>
-      </div>
-    </div>-->
-
-
 
   <!--  ::: Our Feautured Products ::: -->
 
@@ -102,7 +80,7 @@
         <div ng-repeat="quote in quotes | limitTo: 1 ">
           <div class="featured_prdct_carousel quotes_carousel col-md-12 col-xs-12">
             <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in quotes" index="$index">
+              <uib-slide ng-repeat="slide in quotes |limitTo:3" index="$index">
                 <!--<div ng-repeat="sarray in slide" class="col-md-10 " data-wrap="false">-->
                 <tb-quotes tbquote="slide"></tb-quotes>
                 <!--  </div>-->

@@ -263,6 +263,10 @@ a:hover#backTop {
   opacity: .8;
 }
 
+.quotes_personName {
+  text-transform: uppercase;
+}
+
 .quotes_In_Xs {
   font-size: 45px;
 }
@@ -319,6 +323,10 @@ a:hover#backTop {
   padding-bottom: 0px;
 }
 
+.search_text {
+  color: #535353;
+}
+
 .search_inpt tags-input .tags {
   padding: 8px;
   margin-top: -10px;
@@ -339,6 +347,16 @@ a:hover#backTop {
   display: none;
 }
 
+.premium_prdct_header {
+  text-transform: uppercase;
+  line-height: 28px;
+  font-size: 29px;
+}
+
+.premium_prdct_desc {
+  margin-top: 0px;
+}
+
 .premium_img {
   width: 100%;
   height: 275px;
@@ -348,16 +366,8 @@ a:hover#backTop {
 }
 
 .premium_view_btn {
-  background-image: none;
   background-color: #3f51b5;
-  padding: 12px;
-  border-radius: 3px;
-}
-
-.premium_view_btn:hover,
-.premium_view_btn:focus,
-.premium_view_btn:active {
-  background-color: #3f51b5;
+  padding: 7px;
 }
 
 .premium_visit_btn {
@@ -367,10 +377,11 @@ a:hover#backTop {
   border-color: white !important;
   color: white;
   border-radius: 3px;
+  margin-top: 9px;
 }
 
 .advSearch_company {
-  padding: 0px;
+  padding-left: 0px;
   margin-top: 20px;
 }
 
@@ -382,11 +393,13 @@ a:hover#backTop {
 .advSearch_company_inpt {
   border-radius: 3px;
   height: 45px;
+  padding-left: 15px !important;
 }
 
 .advSearch_content {
-  margin: 30px;
+  margin: 40px;
   min-height: 310px;
+  margin-top: 15px;
 }
 
 .search_tabs .nav-tabs > li.active > a,
@@ -394,6 +407,7 @@ a:hover#backTop {
 .nav-tabs > li.active > a:focus {
   border-top: 6px solid #3f51b5;
   border-radius: 0px;
+  color: #6c727a;
 }
 
 .search_tabs .nav > li > a:hover,
@@ -401,9 +415,14 @@ a:hover#backTop {
   border-bottom: none;
 }
 
+.search_tabs .nav > li > a {
+  border-bottom: none;
+}
+
 .search_tabs .nav-tabs > li > a {
   margin-right: 0px;
-  color: #333333;
+  color: #434b56;
+  padding: 15px;
 }
 
 .carousel_spinner {

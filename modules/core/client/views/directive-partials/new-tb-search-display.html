@@ -1,9 +1,9 @@
-<div style="margin:25px;margin-top:50px;">
+<div style="margin:25px;margin-top:75px;">
   <div class="row search_tabs">
     <uib-tabset active="activeForm" style="background-color:white;border:1px solid #666666;border-radius:3px;">
       <uib-tab index="0" heading="Search" class="col-md-6 col-sm-6 col-xs-6 text-center" style="padding:0px;font-weight:bold;font-size:16px; ">
-        <div class="row" style="margin:30px;">
-          <div class="row">
+        <div class="row" style="margin:40px;margin-top:15px;">
+          <div class="row search_text">
             <p> Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
           </div>
           <div class="row text-center" style="margin-top:-10px;">
@@ -15,13 +15,14 @@
                 <h5>CATEGORY</h5>
               </div>-->
               <div class="col-md-12 search_inpt" style="padding-right:0px;margin-top:-25px;">
-                <label style="margin-left:-12px;font-weight:bold;font-size:13px;">CATEGORY</label>
-                <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products" style="margin-left:-15px;padding-right:0px;">
+                <label class="search_text" style="margin-left:-12px;font-weight:bold;font-size:13px;">CATEGORY</label>
+                <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="margin-left:-15px;padding-right:0px;">
                   <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                 </tags-input>
               </div>
-              <div class="col-md-12" style="padding:0px;margin-top:10px;">
-                <button type="submit" class="btn btn-primary col-md-12 col-sm-12 col-xs-12 premium_view_btn">SEARCH</button>
+              <div class="col-md-12" style="padding:0px;margin-top:10px;margin-left:-8px;">
+                <!-- <button type="submit" class="btn btn-primary col-md-12 col-sm-12 col-xs-12 premium_view_btn ">SEARCH</button>-->
+                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-12 col-sm-12 col-xs-12"><b>SEARCH</b></md-button>
               </div>
               <div class="hidden-md hidden-xs hidden-sm hidden-lg">
                 <div class="form-group">
@@ -40,14 +41,14 @@
 
       <uib-tab index="1" heading="Advanced Search" class="col-md-6 col-sm-6 col-xs-6 text-center" style="padding:0px;font-weight:bold;font-size:16px;">
         <div class="row advSearch_content">
-          <div class="row ">
+          <div class="row search_text">
             <p> Find the comprehensive list of internet of Things(IoT)products and ratings in the areas of Home Automation,Wearable,Health Care,Utileties and more...</p>
           </div>
           <div class="row">
             <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
 
               <div class="row " style="margin:0px;">
-                <h5 style="font-size:13px;"><b>CATEGORY</b></h5>
+                <h5 class="search_text" style="font-size:13px;"><b>CATEGORY</b></h5>
               </div>
               <div class="row advSearch_inpt" style="margin:0px;">
                 <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products">
@@ -55,17 +56,17 @@
                 </tags-input>
               </div>
               <div class="row" style="margin:0px;">
-                <div class="col-md-5 col-xs-12 advSearch_company">
-                  <label for="ex1">COMPANY</label>
+                <div class="col-md-6 col-xs-12 advSearch_company ">
+                  <label class="search_text" for="ex1">COMPANY</label>
                   <input type="text" class="form-control advSearch_company_inpt" placeholder="Company" ng-model="homeSearchDetails.Company">
                 </div>
-                <div class="col-md-5 col-md-offset-2 col-xs-12 advSearch_company">
-                  <label for="ex1">PRODUCT</label>
+                <div class="col-md-6  col-xs-12 advSearch_company" style="padding-right:0px;">
+                  <label class="search_text" for="ex1">PRODUCT</label>
                   <input type="text" class="form-control advSearch_company_inpt" placeholder="Product" ng-model="homeSearchDetails.Product">
                 </div>
               </div>
-              <div class=" col-md-12" style="padding:0px;margin-top:30px;">
-                <button type="submit" class="btn btn-primary col-md-12 col-sm-12 col-xs-12 premium_view_btn">SEARCH</button>
+              <div class=" col-md-12" style="padding:0px;margin-top:30px;margin-left:-8px;">
+                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-12 col-sm-12 col-xs-12"><b>SEARCH</b></md-button>
               </div>
               <div class="hidden-md hidden-xs hidden-sm hidden-lg">
                 <div class="form-group">
