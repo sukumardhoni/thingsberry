@@ -7,9 +7,9 @@
             <tb-search></tb-search>
           </div>
           <div class="col-md-6" ng-init="premiumProducts()">
-            <div class="row" style="margin-top:55px !important;margin:25px;">
+            <div class="row premium_box">
               <div class=" featured_prdct_carousel">
-                <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+                <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
                   <uib-slide ng-repeat="slide in premiumPrdcts" index="$index">
                     <div ng-repeat="sarray in slide" class="col-md-12 " data-wrap="false">
                       <tb-premium-products details=sarray></tb-premium-products>
@@ -34,7 +34,7 @@
 
     <div class="row hidden-sm hidden-xs ">
       <div class="col-md-12 featured_prdct_carousel">
-        <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+        <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sample" index="$index">
             <div ng-repeat="sarray in slide" class="col-md-3 feature_prdcts" data-wrap="false">
               <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-featured-products>
@@ -45,7 +45,7 @@
     </div>
     <div class="row hidden-md hidden-xs visible-sm-block">
       <div class="col-sm-12 featured_prdct_carousel">
-        <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+        <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInSm" index="$index">
             <div ng-repeat="sarray in slide" class="col-sm-5 col-sm-offset-1 feature_prdcts" data-wrap="false">
               <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-featured-products>
@@ -56,7 +56,7 @@
     </div>
     <div class="row hidden-md hidden-sm visible-xs-block">
       <div class="col-xs-12  featured_prdct_carousel">
-        <uib-carousel interval="myInterval" active=0 no-wrap="noWrapSlides">
+        <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInXs" index="$index">
             <div ng-repeat="sarray in slide" class="col-xs-10 feature_prdcts" data-wrap="false">
               <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-featured-products>

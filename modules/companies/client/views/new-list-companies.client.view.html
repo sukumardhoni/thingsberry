@@ -14,9 +14,9 @@
             <div class="col-md-9 ">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
           </div>
 
-          <div class="col-md-3 col-md-offset-3">
+          <div class="col-md-3 col-md-offset-3" style="float:right;">
             <div class="prdcts_sorting_item">
-              <select class="col-md-9  hidden-xs  sort_on_search" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+              <select class="col-md-9 selectpicker  hidden-xs  sort_on_search" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
               </select>
             </div>
             <div class="col-xs-offset- visible-xs prdcts_sorting_item">

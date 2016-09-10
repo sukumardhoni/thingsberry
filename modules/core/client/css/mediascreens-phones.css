@@ -131,6 +131,26 @@
     text-align: center;
     font-family: sans-serif;
   }
+  .searchtab_search_btn {
+    padding: 9px;
+    margin-left: -16px;
+  }
+  .advSearch_company {
+    padding-right: 0px;
+  }
+  .advncSearchTab_search_tab {
+    padding: 9px;
+    margin-left: -16px
+  }
+  .premium_box {
+    margin: 110px;
+  }
+  .premium_prdct_header {
+    text-align: center;
+  }
+  .premium_prdct_desc {
+    text-align: center;
+  }
   .quotes_imges {
     width: 40px;
     height: 35px;
@@ -157,6 +177,9 @@
     left: 0px;
     top: 60px;
   }
+  .client_body {
+    padding-left: 60px;
+  }
   .quotes_body {
     padding: 15px;
     margin: 0px;
@@ -175,6 +198,26 @@
 }
 
 @media (max-width: 765px) {
+  .client_body {
+    padding-left: 15px;
+  }
+  .feature_prdcts {
+    margin-left: 29px;
+  }
+  .premium_box {
+    margin: 15px;
+  }
+  .premium_prdct_header {
+    font-size: 25px;
+  }
+  .premium_img {
+    /* margin-right: 10px;
+    margin-left: 10px;*/
+    padding: 30px;
+    /* padding-left: 20px;
+    padding-right: 88px;*/
+    padding-bottom: 10px;
+  }
   .smple_desc {
     margin-top: 5px;
   }

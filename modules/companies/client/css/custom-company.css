@@ -879,7 +879,15 @@ BEFORE THIS ALREDY STYLES
 
 .prdcts_sorting_item select {
   border: 0px !important;
-  background-color: transparent;
+  background-color: transparent !important;
+}
+
+.prdcts_sorting_item select option {
+  background-color: transparent !important;
+}
+
+.prdcts_sorting_item option:hover {
+  background-color: red !important;
 }
 
 .prdcts_sorting_item input:focus,
@@ -887,10 +895,6 @@ textarea:focus,
 keygen:focus,
 select:focus {
   outline: none;
-}
-
-.prdcts_sorting_item select option {
-  background-color: transparent;
 }
 
 .prdcts_sorting_item select:hover {
