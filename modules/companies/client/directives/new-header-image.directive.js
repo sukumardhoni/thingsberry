@@ -6,9 +6,9 @@ angular.module('companies').directive('tbHeaderImage', function () {
     replace: true,
     templateUrl: 'modules/companies/client/views/directive-partials/new-header-image.client.view.html',
     link: function (scope, elem, attr) {
-      console.log("coming to directive");
+      //  console.log("coming to directive");
       scope.backImage = attr.image;
-      console.log(scope.backImage);
+      //  console.log(scope.backImage);
       var ImageOpcty = attr.opacity;
       scope.ImgMainTtl = attr.maintitle;
       scope.ImgSubTtl = attr.subtitle;
@@ -27,7 +27,7 @@ angular.module('companies').directive('tbHeaderImage', function () {
       });
 
       if (attr.state == 'contactUs' || attr.state == 'getListed') {
-        console.log('coming from contactUs');
+        // console.log('coming from contactUs');
         scope.contactStyles = {
           top: '135px',
           left: '20px'

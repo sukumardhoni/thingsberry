@@ -70,11 +70,11 @@
         },*/
         {
           'name': 'Sort by Ratings',
-          'value': '-created'
+          'value': 'created'
         },
         {
           'name': 'Sort by Newest',
-          'value': 'created'
+          'value': '-created'
         }
   ];
       $scope.searchOrder.List = $scope.searchOrder.Lists[1].value;

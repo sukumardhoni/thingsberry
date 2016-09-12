@@ -204,8 +204,12 @@
   .feature_prdcts {
     margin-left: 29px;
   }
+  .featured_prdct_carousel {
+    min-height: 600px;
+  }
   .premium_box {
     margin: 15px;
+    min-height: 485px;
   }
   .premium_prdct_header {
     font-size: 25px;

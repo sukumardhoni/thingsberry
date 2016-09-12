@@ -13,7 +13,7 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
       //  console.log("coming to ratings container");
       //  console.log("before if cond:" + attr.state);
       if (attr.state == 'featurePrdct') {
-        console.log("before if cond:" + attr.state);
+        // console.log("before if cond:" + attr.state);
         scope.ratingStyle = {
           top: '-72px',
           right: '-15px',
@@ -21,14 +21,14 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
         }
       }
       if (attr.state == 'productGridView') {
-        console.log("before if cond:" + attr.state);
+        // console.log("before if cond:" + attr.state);
         scope.ratingStyle = {
           bottom: '50px'
         }
       }
 
       if (attr.state == 'productListView' || attr.state == 'singlePrdct') {
-        console.log("before if cond:" + attr.state);
+        //  console.log("before if cond:" + attr.state);
         scope.ratingStyle = {
           top: '-55px',
           right: '-15px',

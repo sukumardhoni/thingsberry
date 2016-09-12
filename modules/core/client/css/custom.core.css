@@ -198,7 +198,7 @@ a:hover#backTop {
   margin-top: 20px;
   margin-left: 25px;
   min-width: 30%;
-  /* min-height: 426px;*/
+  min-height: 457px;
   background-color: white;
   /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
@@ -206,8 +206,13 @@ a:hover#backTop {
   margin-bottom: 20px;
 }
 
+.feature_prdcts:hover {
+  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0.2);
+}
+
 .featured_prdct_body {
   min-height: 175px;
+  margin: 0px;
 }
 
 .featured_prdct_footer_icons {
@@ -238,7 +243,7 @@ a:hover#backTop {
   background-image: none;
   width: 0px;
   color: white !important;
-  ;
+  transition: 1s ease;
 }
 
 .featured_prdct_carousel .carousel-control:hover,
@@ -441,6 +446,7 @@ a:hover#backTop {
   border-top: 6px solid #3f51b5;
   border-radius: 0px;
   color: #6c727a;
+  background-color: #ffffff;
 }
 
 .search_tabs .nav > li > a:hover,
@@ -456,6 +462,8 @@ a:hover#backTop {
   margin-right: 0px;
   color: #434b56;
   padding: 15px;
+  border-top: 5px solid transparent;
+  background-color: #f2f2f2;
 }
 
 .carousel_spinner {

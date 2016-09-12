@@ -573,6 +573,7 @@ BEFORE THIS ALREDY STYLES
 .prdct_desc {
   font-style: italic;
   margin: 13px;
+  color: #9c9c9c;
 }
 
 .prdct_body {
@@ -674,6 +675,34 @@ BEFORE THIS ALREDY STYLES
   transition: 0.2s ease-out;
 }
 
+.share:hover .hover_tile {
+  visibility: visible;
+  opacity: 1;
+}
+
+.share .hover_tile {
+  visibility: hidden;
+  opacity: 0;
+  width: 150px;
+  right: -75px;
+  bottom: 35px;
+  border: 1px solid;
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 1;
+  -webkit-transition-property: opacity, padding, visibility;
+  -moz-transition-property: opacity, padding, visibility;
+  -ms-transition-property: opacity, padding, visibility;
+  -o-transition-property: opacity, padding, visibility;
+  transition-property: opacity, padding, visibility;
+  -webkit-transition: 0.2s ease-out;
+  -moz-transition: 0.2s ease-out;
+  -ms-transition: 0.2s ease-out;
+  -o-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+
 .ratingName {
   font-family: Calisto MT;
   background-color: #f2f2f2;
@@ -691,6 +720,20 @@ BEFORE THIS ALREDY STYLES
 
 .prodct-stars {
   text-align: center;
+}
+
+.share_icons {
+  font-size: 30px;
+  color: #cccccc;
+  cursor: pointer;
+}
+
+.share_icons_fb:hover {
+  color: #3f51b5;
+}
+
+.share_icons_gplus:hover {
+  color: #dd4b39;
 }
 
 .prdct_footer {
@@ -825,6 +868,7 @@ BEFORE THIS ALREDY STYLES
   background-image: none;
   background-color: #f2f2f2;
   border-color: black;
+  border-radius: 2px;
 }
 
 
@@ -854,7 +898,7 @@ BEFORE THIS ALREDY STYLES
 }
 
 .date_icon_in_sngle_prdct {
-  color: #cccccc;
+  color: #959595;
   font-style: italic;
 }
 
@@ -941,6 +985,7 @@ select:focus {
 .new_list_prdct_view_desc {
   padding: 15px;
   padding-top: 0px;
+  color: #9c9c9c;
 }
 
 .new_list_prdct_view_name {
@@ -980,6 +1025,7 @@ select:focus {
   background: url('../../../../modules/core/client/img/buttons/back1.png') no-repeat;
   background-size: 30px;
   background-position: left 0px center;
+  transition: 0.7s ease;
   -webkit-appearance: none;
   -moz-appearance: none;
 }

@@ -14,13 +14,14 @@
         <div class="col-md-7 col-sm-7 prdct_rightSide_desc">
           <div class="row">
             <div class="col-md-3 col-sm-4 col-xs-5">
-              <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date | date:'yyyy-MM-dd'}}</span>
+              <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date |date:'MMM d, yyyy'}}</span>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-1">
               <i class="fa fa-heart-o icons_in_sngle_prdct"></i>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-1">
-              <i class="fa fa-share-alt prodIcons icons_in_sngle_prdct" aria-hidden="true"></i>
+              <tb-share state="singlePrdct"></tb-share>
+              <!--<i class="fa fa-share-alt prodIcons icons_in_sngle_prdct" aria-hidden="true"></i>-->
             </div>
             <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="vm.company" style="float:right;"></tb-ratings-container>
           </div>
