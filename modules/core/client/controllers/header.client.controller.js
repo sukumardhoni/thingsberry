@@ -1,10 +1,20 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
-  function ($scope, $state, Authentication, Menus, $http, $localStorage) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav',
+  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
+
+    /* $scope.toggleLeft = buildToggler('left');
+     $scope.toggleRight = buildToggler('right');
+
+     function buildToggler(componentId) {
+       return function () {
+         $mdSidenav(componentId).toggle();
+       }
+     }*/
+
 
     // Get the topbar menu
     $scope.menu = Menus.getMenu('topbar');
