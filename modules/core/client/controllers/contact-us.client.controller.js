@@ -11,7 +11,7 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
       function successCallback(res) {
         //console.log('Success while sending the Contactus details : ' + res);
-        NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.firstName);
+        NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.name);
         $scope.contact = '';
       }
 
@@ -31,16 +31,16 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
       console.log("entering into getlisted function");
       /*   console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));*/
 
-      /*    if ($stateParams.isPremium == 'isPremium')
-            $scope.getListed.isPremium = true;
+      /*if ($stateParams.isPremium == 'isPremium')
+        $scope.getListed.isPremium = true;*/
 
-          $scope.getListed.isPremium = false;*/
+      $scope.getListed.isPremium = false;
 
       GetListedService.send($scope.getListed, successCallback, errorCallback);
 
       function successCallback(res) {
         console.log('Success while sending the Contactus details : ' + res);
-        NotificationFactory.success('Thankyou for Contacting ThingsBerry', res.contactName);
+        NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.contactName);
         $scope.getListed = '';
       }
 

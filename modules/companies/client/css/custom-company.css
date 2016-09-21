@@ -720,12 +720,15 @@ BEFORE THIS ALREDY STYLES
 
 .prodct-stars {
   text-align: center;
+  float: right;
 }
 
 .share_icons {
   font-size: 30px;
   color: #cccccc;
   cursor: pointer;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .share_icons_fb:hover {
@@ -738,6 +741,8 @@ BEFORE THIS ALREDY STYLES
 
 .prdct_footer {
   margin-bottom: 15px;
+  padding-left: 5px;
+  padding-right: 25px;
 }
 
 .prdct_srt_view_icons {

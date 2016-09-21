@@ -11,7 +11,7 @@
           <div class="col-md-5 prdct_showing_item">
             <div class="glyphicon glyphicon-th col-md-1 grid_sytle hidden-xs prdcts_sorting_item" ng-click="grdView()" ng-class="{'listclr':(gridView===true)}"></div>
             <div class="glyphicon glyphicon-th-list col-md-1 grid_sytle hidden-xs prdcts_sorting_item" ng-click="listView()" ng-class="{'listclr':(gridView===false)}"></div>
-            <div class="col-md-9 ">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
+            <div class="col-md-9 col-xs-12 showing_In_Xs">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
           </div>
 
           <div class="col-md-3 col-md-offset-3 col-xs-12" style="float:right;">
@@ -19,19 +19,19 @@
               <select class="col-md-9 selectpicker  hidden-xs  sort_on_search" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
               </select>
             </div>
-            <div class="col-xs-offset- visible-xs prdcts_sorting_item">
-              <select class="  col-xs-12 col-xs-offset- sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+            <div class=" visible-xs prdcts_sorting_item">
+              <select class="  col-xs-12 col-xs-offset- sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists" style="padding-left: 5px;">
               </select>
             </div>
           </div>
         </div>
 
         <div class="row prdcts-sorting visible-sm">
-          <div class="col-sm-4  " style="text-align:center;">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
-          <div class="col-sm-2"><span class="glyphicon glyphicon-th  prdcts_sorting_item" ng-click="grdView()"></span> </div>
+          <div class="col-sm-4 col-sm-offset-1  text-left">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
+          <div class="col-sm-1"><span class="glyphicon glyphicon-th  prdcts_sorting_item" ng-click="grdView()"></span> </div>
           <div class="col-sm-1"><span class="glyphicon glyphicon-th-list  col-sm-2 prdcts_sorting_item" ng-click="listView()"></span> </div>
           <div class=" hidden-xs prdcts_sorting_item">
-            <select class="col-sm-3 col-sm-offset-2  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
+            <select class="col-sm-3 col-sm-offset-1  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
             </select>
           </div>
         </div>

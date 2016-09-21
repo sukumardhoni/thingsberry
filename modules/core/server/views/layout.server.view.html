@@ -42,14 +42,18 @@
   <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
   <!--<ui-breadcrumbs displayname-property="data.displayName" abstract-proxy-property="data.breadcrumbProxy"></ui-breadcrumbs>-->
   <section class="content" id="wrap">
-    <section class="" >
+    <section class="">
       {% block content %}{% endblock %}
     </section>
   </section>
 
   <!--Embedding The User Object-->
   <script type="text/javascript">
-    var user = {{ user | json | safe }};
+    var user = {
+      {
+        user | json | safe
+      }
+    };
   </script>
 
   <!--Load The Socket.io File-->

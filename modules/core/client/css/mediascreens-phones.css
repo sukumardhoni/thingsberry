@@ -131,6 +131,9 @@
     text-align: center;
     font-family: sans-serif;
   }
+  .search_text {
+    text-align: center;
+  }
   .searchtab_search_btn {
     padding: 9px;
     margin-left: -16px;
@@ -177,9 +180,6 @@
     left: 0px;
     top: 60px;
   }
-  .client_body {
-    padding-left: 60px;
-  }
   .quotes_body {
     padding: 15px;
     margin: 0px;
@@ -198,14 +198,26 @@
 }
 
 @media (max-width: 765px) {
-  .client_body {
-    padding-left: 15px;
+  .advSearch_and_premium_box {
+    margin-top: -35px;
+  }
+  .logo {
+    margin-left: -41px;
+  }
+  .showing_In_Xs {
+    padding: 0px;
+  }
+  .get_list_link_bttn {
+    padding: 2px;
   }
   .feature_prdcts {
-    margin-left: 29px;
+    margin-left: 16px;
+  }
+  .featured_footer {
+    padding-left: 70px;
   }
   .featured_prdct_carousel {
-    min-height: 600px;
+    min-height: 400px;
   }
   .premium_box {
     margin: 15px;
@@ -232,8 +244,7 @@
     margin-left: 0px;
   }
   .getList_In_Xs {
-    margin-right: 0px;
-    margin-left: 0px;
+    font-size: 29px;
   }
   .image_In_mobile {
     background-position: -45px !important;
@@ -275,9 +286,63 @@
   .featured_in_mobile {
     font-size: 25px;
   }
+  .premium_prdct_header {
+    font-size: 23px;
+  }
   /*.prdcts_sorting_item select {
     margin-left: 30px;
   }*/
+}
+
+@media (max-width:380px) {
+  .search_tabs .nav-tabs > li > a {
+    padding: 10px;
+  }
+  .logo {
+    margin-left: -50px;
+  }
+  .image_In_mobile {
+    background-position: -80px !important;
+  }
+  .date_icon_in_sngle_prdct {
+    font-size: 10px;
+  }
+  .readOnlyRating {
+    font-size: 13px;
+  }
+  .search_tabs .nav-tabs > li > a {
+    font-size: 15px;
+  }
+  .feature_prdcts {
+    margin-left: 12px;
+    min-width: 90%;
+  }
+  .featured_prdct_body {
+    min-height: 200px;
+  }
+  .featured_prdct_carousel_In_Xs {
+    min-height: 529px;
+  }
+  .featured_footer {
+    padding-left: 20px;
+    padding-right: 0px;
+  }
+  .featured_in_mobile {
+    font-size: 23px;
+  }
+  .featured_text {
+    /*padding-left: 7px;*/
+  }
+  .quotes_title_In_Xs {
+    font-size: 15px;
+  }
+  .quotes_In_Xs {
+    font-size: 27px;
+  }
+  .footer_logo {
+    width: 140px;
+    padding-top: 16px;
+  }
 }
 
 

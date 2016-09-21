@@ -53,9 +53,10 @@
             <br>
             <br>
             <div class="text-center form-group">
-              <button type="submit" class="btn btn-custom-style" ng-disabled="userForm.$invalid">SIGN UP</button>
+              <!--<button type="submit" class="btn btn-custom-style" ng-disabled="userForm.$invalid">SIGN UP</button>-->
+              <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-12 col-sm-12 col-xs-12" ng-disabled="userForm.$invalid" style="color:white;left:-7px;"><b>SIGN UP</b></md-button>
             </div>
-            <uib-alert type="danger" ng-show="error" class="text-center text-danger">
+            <uib-alert type="danger" ng-show="error" class="text-center text-danger" style="margin-top:75px;">
               <span ng-bind="error"></span>
             </uib-alert>
           </fieldset>

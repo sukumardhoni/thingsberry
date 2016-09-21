@@ -11,19 +11,19 @@
             <a ng-href="{{vm.company.webAddress}}" target="_blank"> <img class="" ng-src="{{vm.company.productImageURL}}" style="width:100%;height:300px;"> </a>
           </p>
         </div>
-        <div class="col-md-7 col-sm-7 prdct_rightSide_desc">
+        <div class="col-md-7 col-sm-7 col-xs-12 prdct_rightSide_desc">
+          <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="vm.company" style="float:right;" class="visible-xs"></tb-ratings-container>
           <div class="row">
-            <div class="col-md-3 col-sm-4 col-xs-5">
+            <div class="col-md-4 col-sm-4 col-xs-7">
               <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date |date:'MMM d, yyyy'}}</span>
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-1">
+            <!--<div class="col-md-1 col-sm-2 col-xs-1">
               <i class="fa fa-heart-o icons_in_sngle_prdct"></i>
+            </div>-->
+            <div class="col-md-1 col-sm-2 col-xs-1">
+              <tb-share state="singlePrdct" products="vm.company"></tb-share>
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-1">
-              <tb-share state="singlePrdct"></tb-share>
-              <!--<i class="fa fa-share-alt prodIcons icons_in_sngle_prdct" aria-hidden="true"></i>-->
-            </div>
-            <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="vm.company" style="float:right;"></tb-ratings-container>
+            <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="vm.company" style="float:right;" class="hidden-xs"></tb-ratings-container>
           </div>
           <div class="row">
             <h2 style="margin: 12px;">{{vm.company.Proname}}</h2>

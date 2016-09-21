@@ -6,14 +6,22 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     $scope.$state = $state;
     $scope.authentication = Authentication;
 
-    /* $scope.toggleLeft = buildToggler('left');
-     $scope.toggleRight = buildToggler('right');
+    /*$scope.toggleLeft = buildToggler('left');
 
-     function buildToggler(componentId) {
-       return function () {
-         $mdSidenav(componentId).toggle();
-       }
-     }*/
+
+    function buildToggler(componentId) {
+      return function () {
+        $mdSidenav(componentId).toggle();
+      }
+    }*/
+    $scope.toggleLeft = function () {
+      $mdSidenav('left').toggle();
+    };
+
+
+
+
+
 
 
     // Get the topbar menu

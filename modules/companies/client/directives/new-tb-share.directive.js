@@ -3,9 +3,9 @@
 angular.module('companies').directive('tbShare', function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
   return {
     restrict: 'E',
-    /*scope: {
+    scope: {
       products: '='
-    },*/
+    },
     templateUrl: 'modules/companies/client/views/directive-partials/new-tb-share.display.client.view.html',
     transclude: true,
     link: function (scope, elem, attr) {
@@ -24,9 +24,17 @@ angular.module('companies').directive('tbShare', function (dataShare, $state, $l
       }
       if (attr.state == 'singlePrdct') {
         scope.shareStyles = {
-          right: '-18px'
+          right: '-60px'
         }
       }
+
+
+
+      // console.log(scope.products);
+
+
+
+
 
     }
   }

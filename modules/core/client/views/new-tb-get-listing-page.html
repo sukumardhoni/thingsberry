@@ -15,7 +15,7 @@
 
 
     <div class="row" style="margin-top:40px;font-size: xx-large;">
-      <div class="col-md-12">
+      <div class="col-md-12 getList_In_Xs">
         <p>Become our partner :::</p>
       </div>
 
@@ -31,7 +31,7 @@
 
         <form name="getListedForm" ng-submit="getListedEmail(getListedForm.$valid)" novalidate autocomplete="off">
 
-          <div class="row getList_In_Xs">
+          <div class="row ">
 
             <md-input-container class=" col-md-6 col-xs-12  col-sm-6 col-lg-6">
               <label class="label-styles">Product Name</label>
@@ -45,7 +45,7 @@
             </md-input-container>
           </div>
 
-          <div class="row getList_In_Xs">
+          <div class="row ">
 
             <md-input-container class="col-md-6 col-xs-12 col-sm-6 ">
               <label class="label-styles">Contact Name</label>
@@ -59,24 +59,24 @@
 
           </div>
 
-          <div class="row getList_In_Xs">
+          <div class="row ">
             <md-input-container class="col-md-12 col-sm-12 col-xs-12 ">
               <label class="label-styles">Product URL</label>
               <input class="input-styles" type="url" id="productURL" ng-model="getListed.productURL" required>
             </md-input-container>
           </div>
 
-          <div class="row getList_In_Xs">
+          <div class="row ">
             <md-input-container class="col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles">Description</label>
               <input class="input-styles" type="text" id="Description" ng-model="getListed.description" required style="">
             </md-input-container>
           </div>
-          <div class="row getList_In_Xs">
+          <div class="row ">
 
             <div class=" col-md-3 col-sm-4">
 
-              <md-button class="md-raised md-primary btn-styles-contact col-xs-12" ng-disabled="getListedForm.$invalid">SUBMIT <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+              <md-button type="submit" class="md-raised md-primary btn-styles-contact col-xs-12" ng-disabled="getListedForm.$invalid">SUBMIT <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
 
             </div>
 

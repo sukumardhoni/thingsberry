@@ -27,7 +27,8 @@
     "owl.carousel": "^2.1.6",
     "angular-material": "^1.1.0",
     "angular-aria": "^1.5.8",
-    "bootstrap-select": "^1.11.2"
+    "bootstrap-select": "^1.11.2",
+    "angular-socialshare": "angularjs-socialshare#^2.2.8"
   },
   "resolutions": {
     "angular": "~1.5",
