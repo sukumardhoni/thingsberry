@@ -6,20 +6,13 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     $scope.$state = $state;
     $scope.authentication = Authentication;
 
-    /*$scope.toggleLeft = buildToggler('left');
 
-
-    function buildToggler(componentId) {
-      return function () {
-        $mdSidenav(componentId).toggle();
-      }
-    }*/
     $scope.toggleLeft = function () {
       $mdSidenav('left').toggle();
     };
 
 
-
+    $scope.showBoxOne = false;
 
 
 

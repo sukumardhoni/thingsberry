@@ -8,11 +8,16 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     $scope.contactUs = function () {
       console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);
+      /*ContactUsService.send($scope.contact);*/
+
+
 
       function successCallback(res) {
         //console.log('Success while sending the Contactus details : ' + res);
         NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.name);
-        $scope.contact = '';
+        $scope.contactUsForm.$setPristine();
+        $scope.contactUsForm.$setUntouched();
+        $scope.contact = {};
       }
 
       function errorCallback(res) {
@@ -41,6 +46,8 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
       function successCallback(res) {
         console.log('Success while sending the Contactus details : ' + res);
         NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.contactName);
+        $scope.getListedForm.$setPristine();
+        $scope.getListedForm.$setUntouched();
         $scope.getListed = '';
       }
 

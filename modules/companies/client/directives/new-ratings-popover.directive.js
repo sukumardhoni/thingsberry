@@ -23,7 +23,9 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
       if (attr.state == 'productGridView') {
         // console.log("before if cond:" + attr.state);
         scope.ratingStyle = {
-          bottom: '50px'
+          bottom: '32px',
+          right:'0px'
+
         }
       }
 

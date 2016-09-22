@@ -65,13 +65,16 @@ footer {
   font-family: roboto;
   src: url('../../../../modules/core/client/tb_fonts/Roboto-Light.ttf');
 }
+html{
+  overflow-x: hidden;
+}
 
 html,
 body {
   height: 100%;
   background-color: #f5f5f5;
   font-family: roboto;
-  overflow-x: hidden;
+
 }
 
 
@@ -83,6 +86,7 @@ body {
   height: auto !important;
   height: 100%;
   margin: 50px auto 0px;
+  /*margin: -25px auto 0px;*/
   overflow: hidden;
 }
 
@@ -109,7 +113,7 @@ body {
   margin-right: 10px;
   border: 1px solid gray;
   cursor: pointer;
-  transition:
+  /*transition:1s all ease;*/
 }
 
 a:hover#backTop {
@@ -122,6 +126,36 @@ a:hover#backTop {
 
 
 /*-------------MIdhun contactUs page Styles------------------*/
+.animate-show {
+  opacity: 1;
+  height: 20px;
+}
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+  transition: all linear 0.75s;
+}
+
+.animate-show.ng-hide {
+  opacity: 0;
+  height: 0px;
+}
+
+/*.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  background: white;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 1s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+
+}*/
 
 .contactUs_img {
   width: 100%;
@@ -219,6 +253,7 @@ a:hover#backTop {
 
 .featured_footer {
   float: right;
+  padding-left: 34px;
 }
 
 .featured_prdct_footer_icons {
@@ -508,6 +543,8 @@ a:hover#backTop {
 
 .footer_names {
   color: #969696;
+  cursor: pointer;
+  font-size: 10px;
 }
 
 .socialIcons {
@@ -540,7 +577,7 @@ a:hover#backTop {
 .navbar-inverse {
   background-color: transparent;
   border-color: transparent;
-  position: fixed;
+  height: 0px;
 }
 
 .navbar-toggle {
@@ -721,7 +758,7 @@ a:hover#backTop {
 md-backdrop.md-opaque {
   min-height: 570px;
   /* background-color: rgba(33, 33, 33, 1.0) !important;*/
-  background-color: #333333 !important;
+  background-color: transparent !important;
 }
 
 
@@ -749,10 +786,6 @@ md-backdrop.md-opaque {
 
 md-backdrop.md-opaque {
   background: transparent;
-}
-
-md-content {
-  height: 377px;
 }
 
 
@@ -947,7 +980,7 @@ div#services_block:hover {
   text-transform: uppercase;
 }*/
 
-#box-one {
+.box-one {
   border-radius: 4px;
   background-color: #ffffff;
   position: relative;

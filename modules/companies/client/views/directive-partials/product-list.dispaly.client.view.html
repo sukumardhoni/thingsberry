@@ -22,15 +22,19 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-1 col-sm-1 col-xs-4">
+        <div class="col-md-4" style="bottom:6px;">
+        <a ng-href="{{details.webAddress}}" target="_blank"> <md-button class="md-raised md-primary col-md-4 col-sm-3 col-xs-3" style="margin:0px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button></a>
+        </div>
+        <div class="col-md-1 col-sm-2 col-xs-4 pull-right">
+          <tb-share state="listview" products="details"></tb-share>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
           <a ui-sref="companies.view({ companyId: details._id })"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
         </div>
         <!--<div class="col-md-1 col-sm-1 col-xs-4">
           <i class="fa fa-heart-o new_list_prdct_view_footer_icons"></i>
         </div>-->
-        <div class="col-md-1 col-sm-1 col-xs-4">
-          <tb-share state="listview" products="details"></tb-share>
-        </div>
+
       </div>
     </div>
   </div>

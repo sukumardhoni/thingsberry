@@ -2,50 +2,46 @@
   <div class="container">
     <div class="row ">
       <br>
-      <div class=" col-xs-10 col-xs-offset-1 col-md-offset-3 col-sm-offset-1 col-md-6 text-center login-signup-styles">
+      <div class=" col-xs-10 col-xs-offset-1 col-md-offset-4 col-sm-offset-1 col-md-4 text-center login-signup-styles">
         <br>
         <br>
         <h3>Log In</h3>
         <br>
-        <br>
+
         <h5>Don't have an account?  <a ui-sref="authentication.signup">Sign Up</a></h5>
         <div>
           <br>
           <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
-            <fieldset>
-              <div class="form-group floating-label-form-group" show-errors>
-                <label for="email ">Email Address</label>
-                <input type="email" id="email" name="email" ng-model="credentials.email" placeholder="Email Address" required>
-                <div ng-messages="userForm.email.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Email is required.</p>
-                </div>
+            <div class="row" show-errors>
+              <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
+                <label class="label-styles-msg">Email Address</label>
+                <input class="input-styles" class="form-control " type="email" id="email" name="email" ng-model="credentials.email" required>
+              </md-input-container>
+              <div ng-messages="userForm.email.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Email is required.</p>
               </div>
-              <div class="form-group floating-label-form-group" show-errors>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" ng-model="credentials.password" placeholder="Password" required>
-                <div ng-messages="userForm.password.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Password is required.</p>
-                </div>
+            </div>
+            <div class="row" show-errors>
+              <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
+                <label class="label-styles-msg">Password</label>
+                <input class="input-styles" class="form-control " type="password" id="password" name="password" ng-model="credentials.password" required>
+              </md-input-container>
+              <div ng-messages="userForm.password.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Password is required.</p>
               </div>
-              <div class="text-center forgot-password" style="float:right">
-                <a ui-sref="password.forgot">Forgot your password?</a>
-              </div>
-              <br>
-              <!--<div class="text-center invisible_checkbox" style="float:left">
-  <input type="checkbox" ng-model="userForm.rememberme" id="rememberme">
-  <label for="rememberme"> Remember me</label>
-</div>-->
+            </div>
+            <div class="text-center forgot-password" style="float:right;margin-top:-30px;">
+              <a ui-sref="password.forgot">Forgot your password?</a>
+            </div>
 
-              <br>
-              <br>
+            <div class="row">
               <div class="text-center form-group">
-                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-12 col-sm-12 col-xs-12" style="left:-7px;"><b>LOG IN</b></md-button>
-                <!--<button type="submit" class="btn btn-custom-style">LOG IN</button>-->
+                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-11  col-sm-11 col-xs-11" style="left:7px;"><b>LOG IN</b></md-button>
               </div>
-              <uib-alert type="danger" ng-show="error" class="text-center text-danger">
+              <uib-alert type="danger" ng-show="error" class="text-center text-danger" style="margin-top:75px;">
                 <span ng-bind="error"></span>
               </uib-alert>
-            </fieldset>
+            </div>
           </form>
 
           <!--<div class="divider">

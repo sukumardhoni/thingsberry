@@ -9,6 +9,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
     templateUrl: 'modules/companies/client/views/directive-partials/product-grid.dispaly.client.view.html',
     link: function (scope, elem, attr) {
       // console.log("coming to tb productsList");
+      scope.date1 = attr.dateOnProduct;
       // console.log(scope.details);
       /* scope.productImageUrl = attr.productImage;
        scope.productName = attr.productName;

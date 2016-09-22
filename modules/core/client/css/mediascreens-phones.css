@@ -198,6 +198,11 @@
 }
 
 @media (max-width: 765px) {
+  .sort_on_search{
+    background-position: right 5px center;
+    font-size: 13px;
+    background-size: 8px;
+  }
   .advSearch_and_premium_box {
     margin-top: -35px;
   }
@@ -206,6 +211,8 @@
   }
   .showing_In_Xs {
     padding: 0px;
+    padding-bottom: 15px;
+    font-size: 13px;
   }
   .get_list_link_bttn {
     padding: 2px;
@@ -214,7 +221,7 @@
     margin-left: 16px;
   }
   .featured_footer {
-    padding-left: 40px;
+    padding-left: 50px;
   }
   .featured_prdct_carousel {
     min-height: 400px;
@@ -324,7 +331,7 @@
     min-height: 529px;
   }
   .featured_footer {
-    padding-left: 20px;
+    padding-left: 24px;
     padding-right: 0px;
   }
   .featured_in_mobile {
