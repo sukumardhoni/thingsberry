@@ -4,7 +4,11 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
+<<<<<<< HEAD
   var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select', 'ngMaterial', '720kb.socialshare'];
+=======
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select','ngMaterial'];
+>>>>>>> origin/master
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -1062,11 +1066,19 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         },*/
         {
           'name': 'Sort by Ratings',
+<<<<<<< HEAD
           'value': 'created'
         },
         {
           'name': 'Sort by Newest',
           'value': '-created'
+=======
+          'value': '-created'
+        },
+        {
+          'name': 'Sort by Newest',
+          'value': 'created'
+>>>>>>> origin/master
         }
   ];
       $scope.searchOrder.List = $scope.searchOrder.Lists[1].value;
@@ -1229,6 +1241,7 @@ angular.module('companies').directive('tbHeaderCarousel', ["dataShare", "$state"
     }
   };
 });
+<<<<<<< HEAD
 
 'use strict';
 
@@ -1614,6 +1627,560 @@ angular.module('companies').directive('tbShare', ["dataShare", "$state", "$local
 
 
 
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbSmallSnippet', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'modules/companies/client/views/directive-partials/new-tb-small-snippet.client.view.html',
+    transclude: true,
+    link: function (scope, elem, attr) {
+      console.log("coming to small snippet");
+      scope.smallDescription = attr.desc;
+
+    }
+  }
+}]);
+
+'use strict';
+
+
+angular.module('companies')
+  .directive('productDisplay', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/companies/client/views/directive-partials/product-display.client.view.html',
+      link: function (scope, elem, attrs) {
+
+        var previousRatingValue;
+        var localStorageRatingKey;
+
+        scope.user = $localStorage.user;
+        console.log("---->:" + JSON.stringify(scope.user));
+
+        var productname = scope.details.Proname;
+        var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
+=======
+
+'use strict';
+
+angular.module('companies').directive('tbHeaderImage', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'modules/companies/client/views/directive-partials/new-header-image.client.view.html',
+    link: function (scope, elem, attr) {
+      console.log("coming to directive");
+      scope.backImage = attr.image;
+      console.log(scope.backImage);
+      var ImageOpcty = attr.opacity;
+      scope.ImgMainTtl = attr.maintitle;
+      scope.ImgSubTtl = attr.subtitle;
+      /*scope.state = attr.state;
+      console.log(scope.state);*/
+      elem.addClass('mobileImage');
+      elem.css({
+        background: 'url(' + scope.backImage + ')',
+        /*width: '100%',*/
+        height: '250px',
+        opacity: ImageOpcty,
+        position: 'relative',
+        backgroundPosition: '0px',
+        backgroundSize: 'cover',
+        backgroundColor: '#929292'
+      });
+>>>>>>> origin/master
+
+      if (attr.state == 'contactUs' || attr.state == 'getListed') {
+        console.log('coming from contactUs');
+        scope.contactStyles = {
+          top: '135px',
+          left: '20px'
+        }
+      }
+    }
+  }
+});
+
+<<<<<<< HEAD
+        if (scope.user == undefined) {
+
+          localStorageRatingKey = "guest" + productNameLowerCase;
+          //console.log("userId:" + localStorageRatingKey);
+
+        } else {
+
+          localStorageRatingKey = scope.user._id + productNameLowerCase;
+          // console.log("userId:" + localStorageRatingKey);
+
+        }
+
+        scope.rating = function (rate) {
+
+
+          scope.ratevalue = rate;
+          console.log("ratevalue:" + scope.ratevalue);
+
+
+
+          if ($localStorage[localStorageRatingKey] == undefined) {
+
+            previousRatingValue = 0;
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+          } else {
+
+            previousRatingValue = $localStorage[localStorageRatingKey];
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+          }
+
+
+          ratingService.update({
+            companyId: scope.details._id,
+            userRating: scope.ratevalue,
+            previousRatingValue: previousRatingValue
+          }, scope.details, successCallback, errorCallback);
+
+
+          function successCallback(res) {
+            // console.log("coming from callback");
+            scope.rate = res.avgRatings;
+            scope.reviewsCount = res.totalRatingsCount;
+          }
+
+
+          function errorCallback(res) {
+            //  console.log("coming from callback");
+            NotificationFactory.error('Failed to update the product rating...', res.data.message);
+          }
+
+        };
+
+
+        scope.showMe = function () {
+
+          scope.showRatings = !scope.showRatings;
+          scope.ratevalue = false;
+          console.log("showme :" + scope.showRatings);
+          //  console.log("---->" + scope.ratevalue);
+        }
+
+        scope.mouseOut = function () {
+            scope.showRatings = !scope.showRatings;
+          }
+          // scope.ratevalue = true;
+          /*if (scope.ratevalue == true) {
+            scope.showRatings = false;
+          } else {
+            scope.showRatings = false;
+          }*/
+
+        /*
+                  if ($localStorage[localStorageRatingKey]) {
+                    scope.ratevalue = true;
+                  } else {
+                    scope.ratevalue = false;
+
+                  }*/
+
+
+
+
+        scope.hoverOut = function () {
+
+          if ($localStorage[localStorageRatingKey]) {
+
+            scope.showRatings = !scope.showRatings;
+
+          } else {
+
+            scope.showRatings = true;
+          }
+          console.log("hoverOut ShowRatings:" + scope.showRatings);
+        }
+
+
+        if ($localStorage[localStorageRatingKey]) {
+
+          scope.showRatings = false;
+
+        } else {
+
+          scope.showRatings = true;
+        }
+        console.log("showRatings :" + scope.showRatings);
+
+        scope.rate1 = $localStorage[localStorageRatingKey];
+        scope.isReadonly1 = false;
+        scope.rate = scope.details.avgRatings;
+        scope.reviewsCount = scope.details.totalRatingsCount;
+
+        scope.max = 5;
+        scope.isReadonly = true;
+=======
+ 'use strict';
+
+ angular.module('companies').directive('myTabs', function () {
+     return {
+       restrict: 'E',
+       transclude: true,
+       scope: {},
+       controller: ["$scope", function ($scope) {
+         var panes = $scope.panes = [];
+
+         $scope.select = function (pane) {
+           angular.forEach(panes, function (pane) {
+             pane.selected = false;
+           });
+           pane.selected = true;
+         };
+
+         this.addPane = function (pane) {
+           if (panes.length === 0) {
+             $scope.select(pane);
+           }
+           panes.push(pane);
+         };
+       }],
+       templateUrl: 'modules/companies/client/views/directive-partials/new-tabs.client.view.html'
+     };
+   })
+   .directive('myPane', function () {
+     return {
+       require: '^^myTabs',
+       restrict: 'E',
+       transclude: true,
+       scope: {
+         title: '@'
+       },
+       link: function (scope, element, attrs, tabsCtrl) {
+         tabsCtrl.addPane(scope);
+       },
+       templateUrl: 'modules/companies/client/views/directive-partials/new-panes.client.view.html'
+     };
+   });
+
+'use strict';
+>>>>>>> origin/master
+
+angular.module('companies').directive('tbProductsGrid', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    scope: {
+      details: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/product-grid.dispaly.client.view.html',
+    link: function (scope, elem, attr) {
+      console.log("coming to tb productsList");
+      // console.log(scope.details);
+      /* scope.productImageUrl = attr.productImage;
+       scope.productName = attr.productName;
+       scope.productUrl = attr.productUrl;
+       scope.productDescription = attr.productDesc;*/
+      // console.log(scope.productName);
+
+    }
+  }
+}]).directive('tbProductsList', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    scope: {
+      details: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/product-list.dispaly.client.view.html',
+    link: function (scope, elem, attr) {
+      console.log("coming to tb productsList");
+      scope.date1 = attr.dateOnProduct;
+      console.log("date in directive" + scope.date1);
+      // console.log(scope.details);
+      /* scope.productImageUrl = attr.productImage;
+       scope.productName = attr.productName;
+       scope.productUrl = attr.productUrl;
+       scope.productDescription = attr.productDesc;*/
+      // console.log(scope.productName);
+
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbRatingsContainer', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      products: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-ratins-popover.display.client.view.html',
+    transclude: true,
+    link: function (scope, elem, attr) {
+      //  console.log("coming to ratings container");
+      //  console.log("before if cond:" + attr.state);
+      if (attr.state == 'featurePrdct') {
+        console.log("before if cond:" + attr.state);
+        scope.ratingStyle = {
+          top: '-72px',
+          right: '-15px',
+
+        }
+      }
+      if (attr.state == 'productGridView') {
+        console.log("before if cond:" + attr.state);
+        scope.ratingStyle = {
+          bottom: '50px'
+        }
+      }
+
+      if (attr.state == 'productListView' || attr.state == 'singlePrdct') {
+        console.log("before if cond:" + attr.state);
+        scope.ratingStyle = {
+          top: '-55px',
+          right: '-15px',
+        }
+      }
+
+
+<<<<<<< HEAD
+        /* scope.dynamicPopover = {
+          templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+        };
+*/
+
+        scope.hoveringOver = function (value) {
+          //console.log('hoveringOver is called');
+          scope.overStar = value;
+          // console.log('hoveringOver is called:' + scope.overStar);
+          if (scope.overStar == 1) {
+            scope.productReviewLabel = 'Unusable Product';
+            // console.log('hoveringOver is called:' + scope.percent);
+          } else if (scope.overStar == 2) {
+            scope.productReviewLabel = 'Poor Product';
+          } else if (scope.overStar == 3) {
+            scope.productReviewLabel = 'Ok Product';
+          } else if (scope.overStar == 4) {
+            scope.productReviewLabel = 'Good Product';
+          } else {
+            scope.productReviewLabel = 'Excellect Product';
+          }
+          // scope.percent = 100 * (value / scope.max);
+        };
+=======
+
+      var previousRatingValue;
+      var localStorageRatingKey;
+
+      scope.user = $localStorage.user;
+      /* console.log("---->:" + JSON.stringify(scope.user));*/
+>>>>>>> origin/master
+
+      // console.log(scope.products);
+
+      var productname = scope.products.Proname;
+      /* console.log(productname);*/
+      var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
+      // console.log(productNameLowerCase);
+      if (scope.user == undefined) {
+        localStorageRatingKey = "guest" + productNameLowerCase;
+        //  console.log("userId:" + localStorageRatingKey);
+      } else {
+        localStorageRatingKey = scope.user._id + productNameLowerCase;
+        // console.log("userId:" + localStorageRatingKey);
+      }
+
+<<<<<<< HEAD
+  dataShare.$inject = ["$rootScope", "$timeout"];
+  angular
+    .module('companies.services')
+    .factory('CompanyService', CompanyService)
+    .factory('CategoryService', CategoryService)
+    .factory('dataShare', dataShare)
+    .factory('ratingService', ratingService)
+=======
+      scope.rating = function (rate) {
+>>>>>>> origin/master
+
+
+        scope.ratevalue = rate;
+        console.log("ratevalue:" + scope.ratevalue);
+
+
+
+        if ($localStorage[localStorageRatingKey] == undefined) {
+
+          previousRatingValue = 0;
+          $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+        } else {
+
+          previousRatingValue = $localStorage[localStorageRatingKey];
+          $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+        }
+        console.log(previousRatingValue);
+        console.log($localStorage[localStorageRatingKey]);
+
+        ratingService.update({
+          companyId: scope.products._id,
+          userRating: scope.ratevalue,
+          previousRatingValue: previousRatingValue
+        }, scope.products, successCallback, errorCallback);
+
+
+        function successCallback(res) {
+          console.log("coming from callback");
+          scope.rate = res.avgRatings;
+          scope.reviewsCount = res.totalRatingsCount;
+          console.log(scope.rate);
+          console.log(scope.reviewsCount);
+        }
+
+
+        function errorCallback(res) {
+          console.log("coming from callback");
+          NotificationFactory.error('Failed to update the product rating...', res.data.message);
+        }
+
+      };
+
+
+      scope.rate1 = $localStorage[localStorageRatingKey];
+      scope.isReadonly1 = false;
+      scope.rate = scope.products.avgRatings;
+      scope.reviewsCount = scope.products.totalRatingsCount;
+
+      scope.max = 5;
+      scope.isReadonly = true;
+
+      /*scope.rate = 4;
+           scope.isReadonly = true;*/
+      scope.hoveringOver = function (value) {
+        scope.overStar = value;
+        scope.percent = 100 * (value / scope.max);
+      };
+
+  ratingService.$inject = ['$resource'];
+
+  function ratingService($resource) {
+
+    return $resource('api/updateRating/:companyId/:previousRatingValue/:userRating', {
+      previousRatingValue: '@previousRatingValue',
+      companyId: '@companyId'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+
+  };
+
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbHeaderCarouselOptions', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      images: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-carosel-options.client.view.html',
+    link: function (scope, elem, attr) {
+      console.log("coming to carousel options ");
+      console.log(" carousel Options images" + scope.images);
+      var options = attr.options;
+      console.log(options);
+      if (options.indexOf("z") !== -1) {
+        scope.showMeZ = true;
+      }
+      if (options.indexOf("f") !== -1) {
+        scope.showMeF = true;
+      }
+      if (options.indexOf("s") !== -1) {
+        scope.showMeS = true;
+      }
+
+    }
+  }
+}]).directive('fullScreen', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: ' <span><span class="glyphicon glyphicon-fullscreen"></span>&nbsp;VIEW FULL SCREEN</span>',
+    link: function (scope, elem, attr) {
+      console.log("coming to view full screen directive");
+
+    }
+  }
+}).directive('share', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: '<span><i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;SHARE</span>',
+    link: function (scope, elem, attr) {
+      console.log("coming to Share directive");
+    }
+  }
+});
+
+'use strict';
+
+angular.module('companies').directive('tbFullDesc', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      text: '='
+    },
+    template: '<div ><h4>Description</h4><p>{{text}}</p></div>',
+    link: function (scope, elem, attr) {
+      elem.css({
+        border: '.5px solid lightgray',
+        boxShadow: ' 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)',
+        backgroundColor: 'white',
+        margin: '10px',
+        padding: '20px'
+
+      });
+    }
+  }
+});
+
+'use strict';
+
+angular.module('companies').directive('tbLinkButton', ["$location", function ($location) {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: '<button class="btn btn-primary">LINK SITE&nbsp;&nbsp;<i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></button>',
+    link: function (scope, elem, attr) {
+      console.log("coming to link button");
+      var newLink = attr.prodLink;
+      var newColor = attr.btnColor;
+      console.log(newColor);
+      elem.css({
+        backgroundColor: newColor,
+        borderRadius: '0px',
+        borderBottomColor: 'none',
+        backgroundImage: 'none',
+        marginTop: '10px'
+
+      });
+      elem.bind('click', function () {
+        window.location.href = newLink;
+      });
     }
   }
 }]);
@@ -2106,6 +2673,7 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     $scope.getListedEmail = function () {
 
       console.log('getlisted form details on controller : ' + JSON.stringify($scope.getListed));
+<<<<<<< HEAD
 
 
       console.log("entering into getlisted function");
@@ -2113,14 +2681,27 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
       /*if ($stateParams.isPremium == 'isPremium')
         $scope.getListed.isPremium = true;*/
+=======
+>>>>>>> origin/master
 
-      $scope.getListed.isPremium = false;
+
+      console.log("entering into getlisted function");
+      /*   console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));*/
+
+      /*    if ($stateParams.isPremium == 'isPremium')
+            $scope.getListed.isPremium = true;
+
+          $scope.getListed.isPremium = false;*/
 
       GetListedService.send($scope.getListed, successCallback, errorCallback);
 
       function successCallback(res) {
         console.log('Success while sending the Contactus details : ' + res);
+<<<<<<< HEAD
         NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.contactName);
+=======
+        NotificationFactory.success('Thankyou for Contacting ThingsBerry', res.contactName);
+>>>>>>> origin/master
         $scope.getListed = '';
       }
 
@@ -2141,6 +2722,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     $scope.$state = $state;
     $scope.authentication = Authentication;
 
+<<<<<<< HEAD
     /*$scope.toggleLeft = buildToggler('left');
 
 
@@ -2157,6 +2739,16 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 
 
+=======
+    /* $scope.toggleLeft = buildToggler('left');
+     $scope.toggleRight = buildToggler('right');
+
+     function buildToggler(componentId) {
+       return function () {
+         $mdSidenav(componentId).toggle();
+       }
+     }*/
+>>>>>>> origin/master
 
 
     // Get the topbar menu
@@ -2251,8 +2843,21 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes',
   function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes) {
+<<<<<<< HEAD
 
     var vm = this;
+
+
+
+
+    $scope.myInterval = 0;
+
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+    $scope.spinnerLoading = true;
+=======
+>>>>>>> origin/master
+
 
 
 
@@ -2503,6 +3108,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         }
         $scope.premiumPrdcts = $scope.listToMatrix($scope.slides1, 1);
         // console.log($scope.premiumPrdcts);
+<<<<<<< HEAD
+=======
 
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
@@ -2773,6 +3380,7 @@ angular.module('core')
           element.text(title);
         }, 0, false);
       }
+>>>>>>> origin/master
 
       function getTitle(currentState) {
         var applicationCoreTitle = 'thingsberry.com';
@@ -2863,6 +3471,473 @@ angular.module('core')
       }
     };
   }]);
+
+
+'use strict';
+ angular.module('core').directive("tbBillgates",function(){
+
+
+            console.log("entering into tbBillgates directive");
+
+
+            var linkfunction=function(scope,element,attrs){
+
+                scope.title=attrs.title;
+                scope.description=attrs.description;
+
+                scope.img1=attrs.img1;
+                scope.img2=attrs.img2;
+                scope.img3=attrs.img3;
+
+
+            }
+
+
+
+
+            return{
+
+                restrict:'E',
+
+                templateUrl:'modules/core/client/views/billgates.html',
+
+                link: linkfunction
+
+            };
+
+        });
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbFeaturedProducts', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-featured-products-display.html',
+      link: function (scope, elem, attrs) {
+        // console.log("entering into the featurred products link furnctions");
+
+        scope.date1 = attrs.dateOnProduct;
+      }
+    };
+  }]);
+
+'use strict';
+ angular.module('core').directive("tbFirstCarousel",function(){
+
+
+            console.log("entering into tbFirstCarousel directive");
+
+
+            return{
+
+                restrict:'E',
+
+                templateUrl:'modules/core/client/views/new-tb-first-carousel.html',
+
+
+              /*  link:function(scope,elem,attrs){
+
+
+                    console.log("entering into tbFirstCarousel link function");
+
+                    var options=attrs.options;
+
+                    console.log("option choice is.." +options);
+
+
+                    if(options.indexOf("p") !== -1) {
+
+                        console.log("entering into premium products");
+
+                        scope.showMeP = true;
+                    }
+
+
+                    if(options.indexOf("f") !== -1){
+
+                        console.log("entering into feautured products");
+
+                        scope.showMeF = true;
+                    }
+
+                }*/
+
+
+
+            };
+
+        })
+
+'use strict';
+ angular.module('core').directive("tbOurclients",function(){
+
+            console.log("entering into tbOurclients directive1");
+
+
+            return{
+
+                restrict:'E',
+
+                scope:{
+
+                    ourclients:'='
+                },
+
+                templateUrl:'modules/core/client/views/new-tb-our-clients.html'
+
+
+            };
+
+
+        });
+
+'use strict';
+
+
+angular.module('core')
+  .directive('premiumProductsDisplay', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+
+    // console.log("entering into premiumProductsDisplay directive1");
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/core/client/views/tb-premium-products-display.html',
+
+
+      link: function (scope, elem, attrs) {
+
+
+        //  console.log("entering into the premium products link furnctions");
+        scope.user = $localStorage.user;
+        scope.proImgUrl = function () {
+          if (scope.details.image) {
+            return scope.details.image
+          } else if (scope.details.logo != undefined) {
+            // console.log('Detaisl of product getting eroor : ' + JSON.stringify(scope.details));
+            return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+          }
+        };
+
+
+        // console.log('Product details are : ' + JSON.stringify(scope.details));
+
+
+        scope.ProductDetails = function () {
+          //   console.log('ProductDetails is triggred');
+        }
+
+
+      }
+    };
+  }]);
+
+ 'use strict';
+ angular.module('core')
+         .directive("tbSecondCarousel",function(){
+
+
+            console.log("entering into tbSecondCarousel directive");
+
+
+
+            return{
+
+                restrict:'E',
+
+                templateUrl:'modules/core/client/views/new-tb-second-carousel.html',
+
+                  link:function(scope,elem,attrs){
+
+
+                    console.log("entering into tbSecondCarousel link function");
+
+                    var options=attrs.options;
+
+                    console.log("option choice is.." +options);
+
+
+<<<<<<< HEAD
+
+
+    //
+    //    $scope.getPremiumProducts = function () {
+    //      $scope.carouselBg.push('carousel_spinner');
+    //      PremiumProducts.query({}, function (res) {
+    //        $scope.premiumProducts = res;
+    //
+    //        //console.log('the length:'+JSON.stringify($scope.premiumProducts));
+    //        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
+    //          $scope.addSlide1($scope.premiumProducts[i]);
+    //        }
+    //
+    //        $scope.sample = $scope.listToMatrix($scope.slides1, 2);
+    //        // console.log('the resultant matrix'+JSON.stringify($scope.sample));
+    //
+    //        for (var k = 0; k < $scope.premiumProducts.length; k++) {
+    //          $scope.addSlide3($scope.premiumProducts[k]);
+    //        }
+    //        $timeout(function () {
+    //          $scope.carouselBg.pop('carousel_spinner');
+    //        }, 1000);
+    //
+    //      }, function (err) {
+    //        console.log('Failed to fetch the product details : ' + err);
+    //      });
+    //    };
+
+
+    $scope.listToMatrix = function (list, elementsPerSubArray) {
+      //console.log('calling to listtomatrix function');
+      var matrix = [],
+        i, k;
+
+      for (i = 0, k = -1; i < list.length; i++) {
+        if (i % elementsPerSubArray === 0) {
+          k++;
+          matrix[k] = [];
+        }
+
+        matrix[k].push(list[i]);
+      }
+
+      return matrix;
+      //console.log('the resultant matrix:'+matrix);
+    }
+
+
+
+    $scope.addSlide1 = function (details) {
+      slides1.push({
+        image: details.productImageURL,
+        proAddress: details.webAddress,
+        desc: details.description,
+        web: details.companyWebsite,
+        text: details.Proname,
+        id: currIndex++,
+        _id: details._id
+      });
+    };
+
+    $scope.addSlide2 = function (details) {
+      slides2.push(details
+        /*  image: details.productImageURL,
+          proAddress: details.webAddress,
+          desc: details.description,
+          web: details.companyWebsite,
+          text: details.Proname,
+          id: currIndex++,
+          _id: details._id*/
+      );
+    };
+
+    $scope.addSlide3 = function (details) {
+      slides3.push(details
+        /*{
+                image: details.productImageURL,
+                proAddress: details.webAddress,
+                desc: details.description,
+                web: details.companyWebsite,
+                text: details.Proname,
+                id: currIndex++,
+                _id: details._id
+              }*/
+      );
+    };
+    $scope.addSlide4 = function (details) {
+      slides4.push(details
+        /*{
+                image: details.productImageURL,
+                proAddress: details.webAddress,
+                desc: details.description,
+                web: details.companyWebsite,
+                text: details.Proname,
+                id: currIndex++,
+                _id: details._id
+              }*/
+      );
+    };
+
+=======
+                    if(options.indexOf("p") !== -1) {
+
+                        console.log("entering into premium products");
+
+                        scope.showMeM = true;
+                    }
+>>>>>>> origin/master
+
+
+                    if(options.indexOf("f") !== -1){
+
+                        console.log("entering into feautured products");
+
+                        scope.showMeB = true;
+                    }
+
+                }
+
+
+
+            };
+
+        })
+
+ 'use strict';
+ angular.module('core')
+         .directive("tbTabs",function(){
+
+
+            console.log("entering into tbTabs directive");
+
+        return{
+
+<<<<<<< HEAD
+}
+]);
+
+'use strict';
+=======
+            restrict:"E",
+>>>>>>> origin/master
+
+            templateUrl:'modules/core/client/views/new-tb-tabs.html',
+        }
+
+<<<<<<< HEAD
+angular.module('core')
+  .directive('tbClients', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        clients: '='
+
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-tb-clients-display.html',
+      link: function (scope, elem, attrs) {
+        // console.log("entering into the clients link furnctions");
+        // console.log(scope.clients);
+
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbPremiumProducts', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-premium-products-display.html',
+      link: function (scope, elem, attrs) {
+        //  console.log("entering into the tbPremiumProducts products link furnctions");
+        // console.log(scope.details);
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbQuotes', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        tbquote: '='
+
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-tb-quotes-display.html',
+      link: function (scope, elem, attrs) {
+        //  console.log("entering into the quotes link furnctions");
+        //  console.log(scope.tbquote);
+
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbSearch', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: 'modules/core/client/views/directive-partials/new-tb-search-display.html',
+      link: function (scope, elem, attrs) {
+        // console.log("entering into the tbSearch link furnctions");
+      }
+    };
+  }]);
+=======
+ })   .directive("tbSmTabs",function(){
+>>>>>>> origin/master
+
+
+            console.log("entering into tbSmTabs directive");
+
+        return{
+
+            restrict:"E",
+
+            templateUrl:'modules/core/client/views/new-tb-sm-tabs.html',
+        }
+
+ }) .directive("tbXsTabs",function(){
+
+
+            console.log("entering into tbXsTabs directive");
+
+        return{
+
+            restrict:"E",
+
+            templateUrl:'modules/core/client/views/new-tb-xs-tabs.html',
+        }
+
+ });
+
+       /* featured products module expand toggle popover*/
+
+/*'use strict';
+ angular.module('core')
+
+        .directive('toggle', function(){
+
+            console.log("entering into toggle directive");
+
+           return {
+
+         restrict: 'A',
+        link: function(scope, element, attrs){
+
+         if (attrs.toggle=="tooltip"){
+          $(element).tooltip();
+        }
+         if (attrs.toggle=="popover"){
+          $(element).popover();
+        }
+
+
+
+
+
+    }
+  };
+})*/
 
 'use strict';
 
