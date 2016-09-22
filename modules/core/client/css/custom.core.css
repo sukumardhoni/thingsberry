@@ -712,6 +712,12 @@ a:hover#backTop {
   height: 14px;
 }
 
+.sideNav_details {
+  margin: 15px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
 md-backdrop.md-opaque {
   min-height: 570px;
   /* background-color: rgba(33, 33, 33, 1.0) !important;*/
