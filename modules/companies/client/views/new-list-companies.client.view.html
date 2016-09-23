@@ -28,8 +28,8 @@
 
         <div class="row prdcts-sorting visible-sm">
           <div class="col-sm-4 col-sm-offset-1  text-left">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
-          <div class="col-sm-1"><span class="glyphicon glyphicon-th  prdcts_sorting_item" ng-click="grdView()"></span> </div>
-          <div class="col-sm-1"><span class="glyphicon glyphicon-th-list  col-sm-2 prdcts_sorting_item" ng-click="listView()"></span> </div>
+          <div class="col-sm-1"><span class="glyphicon glyphicon-th grid_sytle  prdcts_sorting_item" ng-click="grdView()" ng-class="{'listclr':(gridView===true)}"></span> </div>
+          <div class="col-sm-1"><span class="glyphicon glyphicon-th-list grid_sytle col-sm-2 prdcts_sorting_item" ng-click="listView()" ng-class="{'listclr':(gridView===false)}"></span> </div>
           <div class=" hidden-xs prdcts_sorting_item">
             <select class="col-sm-3 col-sm-offset-1  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
             </select>

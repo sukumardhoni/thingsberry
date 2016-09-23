@@ -19,15 +19,24 @@
             <!--<div class="col-md-1 col-sm-2 col-xs-1">
               <i class="fa fa-heart-o icons_in_sngle_prdct"></i>
             </div>-->
+            <!--<div class="col-md-3 col-sm-3" style="bottom:6px;">
+        <a ng-href="{{details.webAddress}}" target="_blank"> <md-button class="md-raised md-primary col-md-4 col-sm-3 col-xs-3" style="margin:0px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button></a>
+        </div>-->
             <div class="col-md-1 col-sm-2 col-xs-1 ">
               <tb-share state="singlePrdct" products="vm.company" class="text-left"></tb-share>
             </div>
             <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="vm.company" style="float:right;"></tb-ratings-container>
           </div>
           <div class="row">
-            <h2 style="margin: 12px;">{{vm.company.Proname}}</h2>
+            <h2 class="single_product_Name">{{vm.company.Proname}}</h2>
           </div>
           <tb-small-snippet desc={{vm.company.description}} prod-id={{prodId}}></tb-small-snippet>
+          <div class="row ">
+          <div class="col-md-4" style="bottom:6px;">
+        <a ng-href="{{vm.company.webAddress}}" target="_blank"> <md-button class="md-raised md-primary col-md-4 col-sm-3 col-xs-3" style="margin:0px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button></a>
+        </div>
+          </div>
+
         </div>
       </div>
       <div class="row new_sngle_prdct_box">

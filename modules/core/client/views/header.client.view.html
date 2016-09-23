@@ -37,7 +37,7 @@
 
       <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" style="height:530px;">
         <md-toolbar class="md-theme-indigo" style="background:white;padding-left: 41px;">
-          <a ui-sref="home" class="navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo" style="  "></a>
+          <a ui-sref="home" class="navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo" ng-click="toggleLeft()"></a>
         </md-toolbar>
         <hr>
         <md-content>
@@ -63,7 +63,7 @@
             </li>
 
             <li ui-sref-active="active" ng-hide="authentication.user" class="visible-sm visible-xs">
-              <a ui-sref="authentication.signin" class="header-title-names" style="float:left;" ng-click="toggleLeft()"><!--<img src="modules/core/client/img/user icon.png" class="user-icon hidden-xs">-->LOG IN &nbsp;/&nbsp;SIGN UP &nbsp;</a>
+              <a ui-sref="authentication.signin" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()"><!--<img src="modules/core/client/img/user icon.png" class="user-icon hidden-xs">-->LOG IN &nbsp;/&nbsp;SIGN UP &nbsp;  <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
             </li>
 
             <li class="dropdown visible-xs visible-sm" uib-dropdown ng-show="authentication.user" style="float:left;">
@@ -131,8 +131,8 @@
             <div class="visible-xs visible-sm pull-right">
               <a ><i class="fa fa-search header_search_icon" ng-click="showBoxOne = !showBoxOne"></i></a>
             </div>
-            <div class="visible-xs visible-sm box-one " ng-show="showBoxOne">
-              <tb-search search-in-header='showBoxOne' class=""></tb-search>
+            <div class="visible-xs visible-sm box-one animate-show" ng-show="showBoxOne">
+              <tb-search headersearch="showBoxOne" state="headerSearchInput" class=""></tb-search>
             </div>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar" uib-collapse="!isCollapsed">
@@ -182,8 +182,8 @@
             <div class="col-md-1 pull-right" >
               <a ><i class="fa fa-search header_search_icon " ng-click="showBoxOne = !showBoxOne"></i></a>
             </div>
-            <div class="col-md-10 col-md-offset-1 box-one " ng-show="showBoxOne">
-              <tb-search search-in-header='showBoxOne' class=""></tb-search>
+            <div class="col-md-10 col-md-offset-1 box-one animate-show" ng-show="showBoxOne" >
+              <tb-search headersearch="showBoxOne" state="headerSearchInput" class=""></tb-search>
             </div>
           </div>
         </div>

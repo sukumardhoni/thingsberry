@@ -13,6 +13,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.noWrapSlides = false;
     $scope.active = 0;
     $scope.spinnerLoading = true;
+   // $scope.headersearch=false;
 
 
     // This provides Authentication context.

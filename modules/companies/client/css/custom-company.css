@@ -1044,3 +1044,11 @@ select:focus {
   margin-left: 40px;
   font-weight: bold;
 }
+.single_product_Name{
+  margin: 12px;
+}
+.sngl_prdct_smallSnippet{
+  text-align:justify;
+  margin-top:10px;
+  min-height:134px;
+}

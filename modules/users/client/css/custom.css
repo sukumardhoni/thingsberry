@@ -112,3 +112,6 @@ input[type="checkbox"]:checked + label:before {
   border-radius: 4px;
   margin-bottom: 15px;
 }
+.forgot_btn{
+  left: 70px;
+}

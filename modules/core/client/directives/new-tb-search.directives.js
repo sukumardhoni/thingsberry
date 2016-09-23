@@ -6,15 +6,22 @@ angular.module('core')
     return {
       restrict: 'E',
       replace: true,
-      scope:{
-        searchInHeader:'='
+      scope: {
+        headersearch: '='
       },
       templateUrl: 'modules/core/client/views/directive-partials/new-tb-search-display.html',
       controller: 'HomeController',
       link: function (scope, elem, attrs) {
         // console.log("entering into the tbSearch link furnctions");
-      //  var searchInHeader=attrs.searchInHeader;
-        console.log(scope.searchInHeader);
+        // console.log("directive:" + scope.headersearch);
+
+        if (attrs.state == 'headerSearchInput') {
+          scope.headerSearch = function (value) {
+            console.log("befor return incontroler");
+            scope.headersearch = value;
+            console.log("after return incontroler");
+          }
+        }
       }
     };
   });

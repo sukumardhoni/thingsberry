@@ -72,7 +72,6 @@
   }
 }*/
 
-
 /*-----------------Midhun media screens styles----------------------------*/
 
 @media (min-width: 992px) {
@@ -198,6 +197,12 @@
 }
 
 @media (max-width: 765px) {
+  .forgot_btn{
+    left: 50px !important;
+  }
+  .single_product_Name{
+    font-size: 25px;
+  }
   .sort_on_search{
     background-position: right 5px center;
     font-size: 13px;
@@ -302,6 +307,12 @@
 }
 
 @media (max-width:380px) {
+  .forgot_btn{
+    left: 42px !important;
+  }
+  .single_product_Name{
+    font-size: 20px;
+  }
   .search_tabs .nav-tabs > li > a {
     padding: 10px;
   }
