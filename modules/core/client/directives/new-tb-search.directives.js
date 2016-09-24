@@ -17,9 +17,9 @@ angular.module('core')
 
         if (attrs.state == 'headerSearchInput') {
           scope.headerSearch = function (value) {
-            console.log("befor return incontroler");
+          //  console.log("befor return incontroler");
             scope.headersearch = value;
-            console.log("after return incontroler");
+           // console.log("after return incontroler");
           }
         }
       }

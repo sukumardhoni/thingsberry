@@ -19,9 +19,11 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 
         return false;
       }
-
+console.log("forgot password:"+JSON.stringify($scope.credentials));
       $http.post('/api/auth/jwtForgot', $scope.credentials).success(function (response) {
         // Show user success message and clear form
+         $scope.forgotPasswordForm.$setPristine();
+        $scope.forgotPasswordForm.$setUntouched();
         $scope.credentials = null;
         $scope.success = response.message;
 

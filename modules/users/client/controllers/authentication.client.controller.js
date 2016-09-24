@@ -142,14 +142,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             Users.Signup.create($scope.fUser).$promise.then(function (res) {
               // console.log('##users.signup.create response :'+JSON.stringify(res));
               if (res.type === false) {
-                //console.log('@@ res.type is :'+res.type);
+              //  console.log('@@ res.type is :'+res.type);
                 $scope.errMsg = res.data;
-                //console.log('@@ res.data is :'+res.data);
+              //  console.log('@@ res.data is :'+res.data);
                 $scope.populateUserLocally(res.user);
-                //console.log('@@ res.user is :'+res.user);
+              //  console.log('@@ res.user is :'+JSON.stringify(res.user));
               } else {
                 $scope.errMsg = false;
                 $scope.populateUserLocally(res);
+              //  console.log('@@ response in fb')
               }
             }).catch(function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
@@ -186,8 +187,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             };
             Users.Signup.create($scope.gUser).$promise.then(function (res) {
               if (res.type === false) {
+                 console.log('@@ res.type is :'+res.type);
                 $scope.errMsg = res.data;
+                console.log('@@ res.data is :'+res.data);
                 $scope.populateUserLocally(res.user);
+                console.log('@@ res.user is :'+JSON.stringify(res.user));
               } else {
                 $scope.errMsg = false;
                 $scope.populateUserLocally(res);

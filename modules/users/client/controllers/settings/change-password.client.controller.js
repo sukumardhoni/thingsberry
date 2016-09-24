@@ -19,6 +19,9 @@ angular.module('users').controller('ChangePasswordController', ['$scope', '$http
         // If successful show success message and clear form
         $scope.$broadcast('show-errors-reset', 'passwordForm');
         $scope.success = true;
+         $scope.passwordForm.$setPristine();
+        $scope.passwordForm.$setUntouched();
+
         $scope.passwordDetails = null;
       }).error(function (response) {
         $scope.error = response.message;

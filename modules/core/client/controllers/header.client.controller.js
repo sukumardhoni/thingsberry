@@ -42,10 +42,10 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
     $scope.signout = function () {
       //console.log('signout is called');
-      //console.log('@@# in $http'+JSON.stringify($localStorage));
+      // console.log('@@# in $http'+JSON.stringify($localStorage));
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
       $http.get('/api/auth/jwtSignout').success(function (response) {
-        //console.log('Signout callback : ' + JSON.stringify(response));
+        console.log('Signout callback : ' + JSON.stringify(response));
         $scope.authentication.user = '';
         delete $localStorage.token;
         delete $localStorage.user;
@@ -56,7 +56,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
 
 
-    $scope.content = [
+   /* $scope.content = [
 
       {
 
@@ -97,7 +97,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
                   }
 
-                  ];
+                  ];*/
 
 
 

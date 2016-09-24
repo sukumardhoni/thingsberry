@@ -63,7 +63,7 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
 
 
         scope.ratevalue = rate;
-        console.log("ratevalue:" + scope.ratevalue);
+      //  console.log("ratevalue:" + scope.ratevalue);
 
 
 
@@ -78,8 +78,8 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
           $localStorage[localStorageRatingKey] = scope.ratevalue;
 
         }
-        console.log(previousRatingValue);
-        console.log($localStorage[localStorageRatingKey]);
+      //  console.log(previousRatingValue);
+     //   console.log($localStorage[localStorageRatingKey]);
 
         ratingService.update({
           companyId: scope.products._id,
@@ -89,16 +89,16 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
 
 
         function successCallback(res) {
-          console.log("coming from callback");
+        //  console.log("coming from callback");
           scope.rate = res.avgRatings;
           scope.reviewsCount = res.totalRatingsCount;
-          console.log(scope.rate);
-          console.log(scope.reviewsCount);
+       //   console.log(scope.rate);
+       //   console.log(scope.reviewsCount);
         }
 
 
         function errorCallback(res) {
-          console.log("coming from callback");
+       //   console.log("coming from callback");
           NotificationFactory.error('Failed to update the product rating...', res.data.message);
         }
 

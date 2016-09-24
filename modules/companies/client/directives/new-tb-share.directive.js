@@ -10,9 +10,9 @@ angular.module('companies').directive('tbShare', function (dataShare, $state, $l
     transclude: true,
     link: function (scope, elem, attr) {
 
-      console.log("coming to share directive link function");
+     // console.log("coming to share directive link function");
 
-      if (attr.state == 'featured') {
+  /*    if (attr.state == 'featured') {
         scope.shareStyles = {
           right: '-65px'
         }
@@ -26,6 +26,15 @@ angular.module('companies').directive('tbShare', function (dataShare, $state, $l
         scope.shareStyles = {
           right: '-60px'
         }
+      } */
+      if (attr.state == 'featured') {
+        scope.featured = true;
+      }
+      if (attr.state == 'listview') {
+        scope.listview = true
+      }
+      if (attr.state == 'singlePrdct') {
+        scope.singlePrdct = true;
       }
 
 

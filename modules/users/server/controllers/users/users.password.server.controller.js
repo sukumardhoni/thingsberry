@@ -165,6 +165,7 @@ exports.forgot = function (req, res, next) {
     },
     // Lookup user by username
     function (token, done) {
+      console.log('@##@@@# USERNAME :'+req.body.username);
       if (req.body.username) {
         User.findOne({
           username: req.body.username.toLowerCase()

@@ -613,6 +613,37 @@ BEFORE THIS ALREDY STYLES
   max-width: 740px;
 }
 
+.arrow_box1 {
+  position: relative;
+  background: white !important;
+  border: 1px solid #101314;
+}
+
+.arrow_box1:after,
+.arrow_box1:before {
+  top: 100%;
+  left: 63%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrow_box1:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-top-color: white;
+  border-width: 8px;
+  margin-left: -30px;
+}
+
+.arrow_box1:before {
+  border-color: rgba(16, 19, 20, 0);
+  border-top-color: black;
+  border-width: 9px;
+  margin-left: -31px;
+}
 .arrow_box {
   position: relative;
   background: white !important;
@@ -715,7 +746,7 @@ BEFORE THIS ALREDY STYLES
   font-size: 14px;
   color: #e9ce18;
   cursor: pointer;
-  padding-top: 30px;
+  padding-top: 15px;
 }
 
 .prodct-stars {
@@ -737,6 +768,15 @@ BEFORE THIS ALREDY STYLES
 
 .share_icons_gplus:hover {
   color: #dd4b39;
+}
+.featuredShareStyle{
+  right: -65px;
+}
+.listShareStyle{
+  right: -55px !important;
+}
+.singlePrdctShareStyle{
+  right: -60px !important;
 }
 
 .prdct_footer {
@@ -811,6 +851,9 @@ BEFORE THIS ALREDY STYLES
 .carousel_footer_options:hover {
   color: black;
   cursor: pointer;
+}
+.snglPrdctPage{
+  margin-top: 75px;
 }
 
 .sngle_prdct_desc_comments .tab-pane {

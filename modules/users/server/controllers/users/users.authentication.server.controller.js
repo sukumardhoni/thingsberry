@@ -73,6 +73,7 @@ exports.jwtSignup = function (req, res, next) {
       if (user) {
         if (user.token === '') {
           token = jwt.encode(payload, secret);
+         // console.log("@@@@@ JWT SIGNUP"+token);
           user.token = token;
           user.save(function (err) {
             if (err) {
@@ -108,6 +109,7 @@ exports.jwtSignup = function (req, res, next) {
         //console.log('User details on signup : ' + JSON.stringify(req.body));
 
         userModel.provider = req.body.provider || 'local';
+       // console.log('@@@@ PROVIDER:'+userModel.provider);
         userModel.displayName = userModel.firstName + ' ' + userModel.lastName;
         userModel.username = userModel.email;
         var jwtToken = jwt.encode(payload, secret);

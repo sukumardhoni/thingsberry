@@ -20,7 +20,7 @@
 
     $scope.getSearchedProductsList = function () {
 
-      console.log("Entering into getsearchproductslists");
+    //  console.log("Entering into getsearchproductslists");
 
       // var pageId = 0;
 

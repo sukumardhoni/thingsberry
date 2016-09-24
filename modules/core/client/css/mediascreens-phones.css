@@ -81,6 +81,21 @@
 }
 
 @media (max-width: 991px) {
+  .share .hover_tile{
+    right: -45px;
+  }
+  .arrow_box:after, .arrow_box:before{
+    left: 70%;
+  }
+  .featuredShareStyle{
+  right: -65px !important;
+}
+.listShareStyle{
+  right: -15px !important;
+}
+.singlePrdctShareStyle{
+  right: -35px !important;
+}
   /*.container {
     width: 95%;
     padding-right: 0;
@@ -197,6 +212,36 @@
 }
 
 @media (max-width: 765px) {
+  .editProfile_view{
+  margin-top: 10px !important;
+}
+  .page-header{
+    font-size: 25px;
+    text-align: center
+  }
+  .saveProfile_btn{
+    left: 0px !important;
+        height: 40px !important;
+    padding: 0px !important;
+  }
+  .snglPrdctPage{
+    margin-top: 35px !important;
+  }
+  .share .hover_tile{
+    right: -30px;
+  }
+  .arrow_box:after, .arrow_box:before{
+    left: 80%;
+  }
+    .featuredShareStyle{
+  right: -48px !important;
+}
+/*.listShareStyle{
+  right: -55px !important;
+}*/
+.singlePrdctShareStyle{
+  right: -50px !important;
+}
   .forgot_btn{
     left: 50px !important;
   }
@@ -295,6 +340,7 @@
 }
 
 @media (max-width:530px) {
+
   .featured_in_mobile {
     font-size: 25px;
   }
@@ -307,6 +353,21 @@
 }
 
 @media (max-width:380px) {
+  .share .hover_tile{
+    right: -20px;
+  }
+  .arrow_box:after, .arrow_box:before{
+    left: 92%;
+  }
+     .featuredShareStyle{
+  right: -30px !important;
+}
+  /*.listShareStyle{
+  right: -20px !important;
+}*/
+.singlePrdctShareStyle{
+  right: -30px !important;
+}
   .forgot_btn{
     left: 42px !important;
   }
