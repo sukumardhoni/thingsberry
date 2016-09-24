@@ -14,6 +14,15 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
     $scope.showBoxOne = false;
 
+ $scope.showSearchDirective=function(){
+      if($state.current.name==='home'){
+        $scope.showBoxOne;
+      }else{
+        $scope.showBoxOne=!$scope.showBoxOne;
+      }
+
+      console.log($state.current.name)
+    }
 
 
 
