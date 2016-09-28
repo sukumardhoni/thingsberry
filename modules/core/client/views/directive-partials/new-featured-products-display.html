@@ -1,4 +1,8 @@
 <div>
+  <div class="row">
+  <div ng-show="editProduct" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProductFunc(details)"></i>
+  </div>
+  </div>
 
   <div class="row">
     <a ng-href="{{details.webAddress}}" target="_blank"><img src="{{details.productImageURL}}" class="prdct-img"></a>
@@ -26,7 +30,7 @@
   <div class="row" style="margin:10px;">
     <div class="col-xs-4 text-left" style="padding:0px;">
 
-      <span class=" text-center"><a ui-sref="companies.view({ companyId:details._id })"><i class="fa fa-expand  featured_prdct_footer_expand_icon"></i></a>
+      <span class=" text-center"><a ui-sref="companies.view({ companyId:details.productId })"><i class="fa fa-expand  featured_prdct_footer_expand_icon"></i></a>
       </span>
     </div>
 

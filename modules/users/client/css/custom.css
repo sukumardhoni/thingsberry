@@ -37,8 +37,8 @@ input[type=password],
 
 .btn-custom-style {
   color: #fff;
-  border-radius: 5px;
-  background-color: rgb(2, 168, 243) !important;
+  border-radius: 2px;
+  background-color: #3f51b5 !important;
   font-size: 16px;
   font-family: "OpenSans";
   width: 150px;

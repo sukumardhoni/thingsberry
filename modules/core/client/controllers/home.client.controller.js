@@ -6,18 +6,19 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var vm = this;
 
 
-
+    $scope.spinnerLoading = true;
 
     $scope.myInterval = 0;
 
     $scope.noWrapSlides = false;
     $scope.active = 0;
-    $scope.spinnerLoading = true;
-   // $scope.headersearch=false;
+
+    // $scope.headersearch=false;
 
 
     // This provides Authentication context.
     $scope.authentication = Authentication;
+    //  console.log($scope.authentication);
 
 
     $scope.Advanced_Search_Fields = false;
@@ -244,8 +245,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var currIndex = 0;
     $scope.carouselBg = [];
 
-    $scope.premiumProducts = function () {
 
+    $scope.premiumProducts = function () {
+      // $scope.spinnerLoading = true;
+      $scope.carouselBg.push('carousel_spinner');
       PremiumProducts.query({}, function (res) {
 
         $scope.premiumProducts = res;
@@ -255,7 +258,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         }
         $scope.premiumPrdcts = $scope.listToMatrix($scope.slides1, 1);
         // console.log($scope.premiumPrdcts);
-
+        $timeout(function () {
+          $scope.carouselBg.pop('carousel_spinner');
+        }, 1000);
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
       });

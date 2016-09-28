@@ -40,7 +40,8 @@ module.exports = {
         'public/lib/owl.carousel/dist/owl.carousel.min.js',
         'public/lib/angular-material/angular-material.js',
         'public/lib/angular-aria/angular-aria.js',
-        'public/lib/angular-socialshare/dist/angular-socialshare.min.js'
+        'public/lib/angular-socialshare/dist/angular-socialshare.min.js',
+        'public/lib/angular-update-meta/dist/update-meta.min.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

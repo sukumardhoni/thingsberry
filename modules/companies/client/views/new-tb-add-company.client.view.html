@@ -26,6 +26,7 @@
       <br>
       <br>
     </div>
+
     <form name="vm.form.companyForm" ng-submit="vm.addCompanyDetails(vm.form.companyForm.$valid)" novalidate autocomplete="off">
       <div class="row">
         <div class="text col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
@@ -70,19 +71,7 @@
           <span ng-show="vm.form.companyForm.Product_Image_URL.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
 ">( Valid urls are like http://www.google.com )</span></span>
         </div>
-
-
-
       </div>
-
-      <!-- <div class="row">
-        <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-          <label>Category</label>
-          <select class="form-control add_new_fields" ng-model="vm.company.ProCat" ng-init="vm.company.ProCat = categoriesList[0]" ng-selected="vm.company.ProCat" ng-options="cats for cats in categoriesList" ng-change="SelectedCat(vm.company.ProCat)" required>
-          </select>
-        </div>
-      </div>-->
-
 
       <div class="row">
         <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
@@ -92,13 +81,6 @@
           </tags-input>
         </div>
       </div>
-
-
-
-
-
-
-
       <div class="row">
         <div class="form-group text-center col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 floating-label-form-group">
           <label>Description&#42;</label>
@@ -186,33 +168,6 @@
           </div>
         </div>
       </div>
-      <!--<h4 class="heading_Text text-center">Choose Business Sectors</h4>
-<div class="row">
-  <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4  col-xs-10">
-    <i class="fa fa-briefcase briefCase_Cog"></i>
-    <div ng-dropdown-multiselect="" options="businessSectorList" selected-model="businessSectorSelectedArray" checkboxes="true" extra-settings="businessSectorSettings" class="business_sector_select11" translation-texts="businessSectorTexts"></div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
-    <span class="col-sd-4" ng-repeat="val in businessSectorSelectedArray">
-            <span class="business_sector_selected_vals">{{val.id}} &nbsp;<i class="fa fa-times" ng-click="removebusinessSectorSelectedVal($index)"></i></span>
-    </span>
-  </div>
-</div>
-<div class="row">
-  <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4 col-xs-10">
-    <i class="fa fa-cog briefCase_Cog"></i>
-    <div ng-dropdown-multiselect="" options="serviceOfferedList" selected-model="serviceOfferedSelectedArray" checkboxes="true" extra-settings="serviceOfferedSettings" class="business_sector_select11" translation-texts="serviceOfferedTexts"></div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
-    <span class="col-sd-4" ng-repeat="val in serviceOfferedSelectedArray">
-            <span class="business_sector_selected_vals">{{val.id}} &nbsp;<i class="fa fa-times" ng-click="removeserviceOfferedSelectedVal($index)"></i></span>
-    </span>
-  </div>
-</div>-->
       <br>
       <h5 class="heading_Text text-center">Choose Operational Regions</h5>
       <div class="row">
@@ -242,5 +197,82 @@
         <strong ng-bind="vm.error"></strong>
       </div>
     </form>
+
+
+
+     <form name="vm.form.companyForm" ng-submit="vm.addCompanyDetails(vm.form.companyForm.$valid)" novalidate autocomplete="off">
+            <div class="row">
+              <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" show-errors>
+                <label class="label-styles-msg"><b>Product Name</b></label>
+                <input class="input-styles" class="form-control " type="text" class="form-control add_new_fields" ng-model="vm.company.Proname" required>
+                <div ng-messages="userForm.email.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Email is required.</p>
+              </div>
+              </md-input-container>
+            </div>
+
+        <div class="row">
+        <div class="text">
+          <label class="col-md-offset-4 col-md-3  col-sm-offset-3 col-sm-4 col-xs-offset-1 col-xs-5 isPremium">Is this Premium Product ?&#42;
+          </label>
+          <span class="col-md-4 col-sm-4 col-xs-6 isPremium"><input type="radio" ng-model="vm.company.premiumFlag" ng-value=true>Yes
+            <input type="radio" ng-model="vm.company.premiumFlag" ng-value=false>No</span>
+        </div>
+      </div>
+       <div class="row text-center">
+        <br>
+        <h4 class="heading_Text">Product Image</h4>
+        <h5>&nbsp;&nbsp;<small>(jpg,png,gif)</small></h5>
+        <br ng-show="productImg">
+        <button class="file-upload btn-custom-style" ng-hide="productImg">
+          <input type="file" name="productPic" accept="image/png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input ng-change="previewImg(productImg)" class="file-input" ng-required="!(productImg || vm.company.productImageURL)">Choose File</button>
+
+        <span ng-show="productImg"><img alt="productImg" ng-src="{{imgUrl}}" class="photo" width="15%" /><i class="fa fa-times" ng-click="productImg = ''" style="position: absolute;margin-top:-50px;font-size: 25px;"></i></span>
+        <br ng-show="productImg">
+        <p ng-show="vm.form.companyForm.productPic.$error.maxsize && productImg">Files must not exceed 1000 KB</p>
+        <button ng-show="productImg" class="btn btn-custom-style" ng-click="uploadProImg()" ng-disabled="vm.form.companyForm.productPic.$invalid || vm.form.companyForm.productName.$invalid">UPLOAD IMAGE</button>
+        <br>
+        <small ng-hide="productImg">No file selected</small>
+        <br>
+
+
+        <h5>Or</h5>
+        <h4 class="heading_Text">Product Image URL</h4>
+        <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group">
+          <label class="label-styles-msg"><b>Product Image URL</b></label>
+           <input class="input-styles" class="form-control " type="url" class="form-control add_new_fields" name="Product_Image_URL" id="Product_Image_URL" ng-model="vm.company.productImageURL" ng-required="!(productImg || vm.company.productImageURL)">
+        </md-input-container>
+        <span ng-show="vm.form.companyForm.Product_Image_URL.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
+">( Valid urls are like http://www.google.com )</span></span>
+      </div>
+
+        <div class="row">
+              <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group">
+                <label class="label-styles-msg"><b>Category</b></label>
+                <input class="input-styles" class="form-control " type="text" class="form-control add_new_fields" ng-model="vm.company.Proname" required>
+                <div ng-messages="userForm.email.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Email is required.</p>
+              </div>
+              </md-input-container>
+            </div>
+
+
+
+
+
+
+
+            <div class="row">
+              <div class="text-center form-group">
+                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-11  col-sm-11 col-xs-11" style="left:7px;"><b>LOG IN</b></md-button>
+              </div>
+              <uib-alert type="danger" ng-show="error" class="text-center text-danger" style="margin-top:75px;">
+                <span ng-bind="error"></span>
+              </uib-alert>
+            </div>
+          </form>
+
+
+
   </div>
 </div>

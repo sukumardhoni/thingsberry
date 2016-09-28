@@ -31,6 +31,12 @@ module.exports = function (app) {
 
 
 
+  /* app.route('/api/companies/:productId')
+    .get(companies.read)
+      .put(companies.update)
+      .delete(companies.delete);
+     app.param('productId', companies.productByID);*/
+
   // Single company routes
   app.route('/api/companies/:companyId') /*.all(companiesPolicy.isAllowed)*/
     .get(companies.read)

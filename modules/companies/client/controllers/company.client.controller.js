@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location'];
 
-  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location) {
     var vm = this;
 
     vm.company = company;
@@ -46,16 +46,30 @@
     //vm.remove = remove;
     //vm.save = save;
     vm.addCompanyDetails = addCompanyDetails;
+    $scope.path = $location.absUrl();
 
     $scope.addBtnText = 'SUBMIT';
-
+    // console.log("USER :" + JSON.stringify($localStorage.user));
     // console.log(vm.company);
     /*$scope.user = $localStorage.user;*/
+    if ($localStorage.user) {
+      if ($localStorage.user.roles.indexOf('admin') !== -1) {
+        // console.log("coming to true");
+        $scope.editIcon = true;
+      } else {
+        // console.log("coming to true");
+        $scope.editIcon = false;
+      }
+    }
+    $scope.editProductFunc = function (productDetails) {
+        // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
+        dataShare.setData(productDetails);
+        $state.go('companies.add');
+      }
+      /* var previousRatingValue;
+       var localStorageRatingKey;
 
-    /* var previousRatingValue;
-     var localStorageRatingKey;
-
-     $scope.user = $localStorage.user;*/
+       $scope.user = $localStorage.user;*/
 
     /* var productname = vm.company.Proname;
     //  console.log("company details:" + vm.company.Proname);
@@ -181,11 +195,11 @@
       return defObj.promise;
     };
 
-    $scope.BackgroundImage = "https://www.sleekcover.com/covers/citizen-watch-facebook-cover.jpg";
-    /*$scope.headerImgMainTitle = "Withings Activite Activity tracker";
-    $scope.headerImgSubTitle = "ID 123456";*/
-    $scope.prodImages = ['https://www.sleekcover.com/covers/independent-girl-facebook-cover.jpg', 'http://d2rfsfyh2505gh.cloudfront.net/wp-content/uploads/2015/07/Prabhas.jpg', 'http://www.latesthdwallpapers.in/photos/Allu-Arjun-facebook-best-hd-photos-free-for-mobile.jpg'];
-    $scope.sampleDesc = "In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since. 'Whenever you feel like criticizing anyone,' he told me, 'just remember that all the people in this world haven't had the advantages that you've had.Only then, with the reader’s attention hooked,  ";
+    /*    $scope.BackgroundImage = "https://www.sleekcover.com/covers/citizen-watch-facebook-cover.jpg";
+        $scope.headerImgMainTitle = "Withings Activite Activity tracker";
+        $scope.headerImgSubTitle = "ID 123456";
+        $scope.prodImages = ['https://www.sleekcover.com/covers/independent-girl-facebook-cover.jpg', 'http://d2rfsfyh2505gh.cloudfront.net/wp-content/uploads/2015/07/Prabhas.jpg', 'http://www.latesthdwallpapers.in/photos/Allu-Arjun-facebook-best-hd-photos-free-for-mobile.jpg'];
+        $scope.sampleDesc = "In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since. 'Whenever you feel like criticizing anyone,' he told me, 'just remember that all the people in this world haven't had the advantages that you've had.Only then, with the reader’s attention hooked,  ";*/
 
     $scope.date = new Date();
     //$scope.sName = "$state.current.name==='companies.view'"
@@ -203,11 +217,11 @@
     /*$scope.dynamicPopover = {
       templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
     };*/
-    $scope.hoveringOver = function (value) {
+    /*$scope.hoveringOver = function (value) {
       //  console.log('hoveringOver is called');
       $scope.overStar = value;
       $scope.percent = 100 * (value / $scope.max);
-    };
+    };*/
 
 
     $scope.removeProduct = function () {
@@ -227,7 +241,7 @@
         if (product) {
           //console.log('remove func. on if condition : ');
           CompanyServiceUpdate.DeleteProduct.remove({
-            companyId: product._id
+            companyId: product.productId
           }, function (res) {
             //console.log('Res details on remove success cb : ' + JSON.stringify(res));
             $state.go('companies.list', {
@@ -273,9 +287,9 @@
       }
 
       // TODO: move create/update logic to service
-      if (vm.company._id) {
+      if (vm.company.productId) {
         //console.log('Update product is called : ' + JSON.stringify(vm.company));
-        //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
+        console.log('Update product is called : ' + JSON.stringify(vm.company.productId));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
@@ -293,7 +307,7 @@
 
 
         CompanyServiceUpdate.UpdateProduct.update({
-          companyId: vm.company._id
+          companyId: vm.company.productId
         }, vm.company, successUpdateCallback, errorUpdateCallback);
 
 
@@ -304,8 +318,12 @@
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
+        /*var replacedTitle = doc.Proname.replace(/\s/g, "-");
+        productId: replacedTitle*/
+        var productName = vm.company.Proname.replace(/\s/g, "-");
+        console.log("company productId :" + productName);
 
-
+        vm.company.productId = productName;
 
         if (vm.company.productImageURL) {
 
@@ -525,6 +543,7 @@
         $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
       //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
+
 
   }
 })();

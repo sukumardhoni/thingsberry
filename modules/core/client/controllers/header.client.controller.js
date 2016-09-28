@@ -14,14 +14,14 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
     $scope.showBoxOne = false;
 
- $scope.showSearchDirective=function(){
-      if($state.current.name==='home'){
+    $scope.showSearchDirective = function () {
+      if ($state.current.name === 'home') {
         $scope.showBoxOne;
-      }else{
-        $scope.showBoxOne=!$scope.showBoxOne;
+      } else {
+        $scope.showBoxOne = !$scope.showBoxOne;
       }
 
-      console.log($state.current.name)
+      // console.log($state.current.name)
     }
 
 
@@ -65,48 +65,48 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     };
 
 
-   /* $scope.content = [
+    /* $scope.content = [
 
-      {
+       {
 
-        link: 'HoMe',
+         link: 'HoMe',
 
-        route: 'home'
-
-
-
-                  },
-
-      {
-
-        link: 'ALLPRODUCTS',
-        route: 'not-found'
+         route: 'home'
 
 
-                  },
 
-      {
+                   },
 
-        link: 'BLOG',
-        route: 'blog'
+       {
 
-                  },
+         link: 'ALLPRODUCTS',
+         route: 'not-found'
 
-      {
 
-        link: 'GETLISTED',
-        route: 'getListed'
+                   },
 
-                  },
+       {
 
-      {
+         link: 'BLOG',
+         route: 'blog'
 
-        link: 'CONTACTUS',
-        route: 'contactus'
+                   },
 
-                  }
+       {
 
-                  ];*/
+         link: 'GETLISTED',
+         route: 'getListed'
+
+                   },
+
+       {
+
+         link: 'CONTACTUS',
+         route: 'contactus'
+
+                   }
+
+                   ];*/
 
 
 

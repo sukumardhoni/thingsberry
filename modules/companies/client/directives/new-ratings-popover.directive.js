@@ -82,7 +82,7 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
      //   console.log($localStorage[localStorageRatingKey]);
 
         ratingService.update({
-          companyId: scope.products._id,
+          companyId: scope.products.productId,
           userRating: scope.ratevalue,
           previousRatingValue: previousRatingValue
         }, scope.products, successCallback, errorCallback);

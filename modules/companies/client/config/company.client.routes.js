@@ -47,6 +47,7 @@
       .state('companies.add', {
         url: '/add_your_product',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',
+        /*   templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
         controller: 'CompanyController',
         controllerAs: 'vm',
         resolve: {
@@ -60,6 +61,7 @@
       .state('companies.edit', {
         url: '/:companyId/edit',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',
+        /*templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
         controller: 'CompanyController',
         controllerAs: 'vm',
         resolve: {
@@ -73,6 +75,7 @@
 
     .state('companies.view', {
       url: '/:companyId',
+      /* url: '/:productId',*/
       /*templateUrl: 'modules/companies/client/views/view-company.client.view.html',*/
       /*templateUrl: 'modules/companies/client/views/new-single-product.client.view.html',*/
       templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',

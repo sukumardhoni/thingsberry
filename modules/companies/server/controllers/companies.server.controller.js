@@ -67,6 +67,7 @@ exports.catsCheck = function (cats) {
  */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
+  console.log('### MIDHUN :'+ req.company)
   var company = req.company ? req.company.toJSON() : {};
 
   // Add a custom field to the Company, for determining if the current User is the "owner".
@@ -453,7 +454,7 @@ exports.searchedProductsList = function (req, res) {
 /**
  * Company middleware
  */
-exports.companyByID = function (req, res, next, id) {
+/*exports.companyByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -469,7 +470,31 @@ exports.companyByID = function (req, res, next, id) {
         message: 'No company with that identifier has been found'
       });
     }
+     console.log('@@## MIDHUN1 :'+ company);
     req.company = company;
+
+    next();
+  });
+};*/
+exports.companyByID = function (req, res, next, id) {
+
+ /* if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'Company is invalid'
+    });
+  }*/
+
+  Company.findOne({productId:id}).populate('user', 'displayName').exec(function (err, company) {
+    if (err) {
+      return next(err);
+    } else if (!company) {
+      return res.status(404).send({
+        message: 'No company with that identifier has been found'
+      });
+    }
+     console.log('@@## MIDHUN1 :'+ company);
+    req.company = company;
+
     next();
   });
 };

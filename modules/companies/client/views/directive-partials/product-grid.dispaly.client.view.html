@@ -1,5 +1,9 @@
 <div class="">
   <div class="row">
+    <div ng-show="editProduct" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProductFunc(details)" style="outline:none;"></i>
+    </div>
+  </div>
+  <div class="row">
     <a ng-href="{{details.webAddress}}" target="_blank"><img src="{{details.productImageURL}}" class="prdct-img"></a>
   </div>
   <div class="row prdct_body">
@@ -7,11 +11,11 @@
       <h4 class="prdct-name">{{details.Proname}}</h4>
     </div>
     <div class="row" style="margin-top:10px;">
-    <div class="col-md-5 colsm-5 col-xs-5">
-      <span class="date_icon_in_grid_prdct"><i class="fa fa-calendar date_icon_in_sngle_prdct" aria-hidden="true" ></i>  &nbsp;{{date1 |date:'MMM d, yyyy'}}</span>
+      <div class="col-md-5 colsm-5 col-xs-5">
+        <span class="date_icon_in_grid_prdct"><i class="fa fa-calendar date_icon_in_sngle_prdct" aria-hidden="true" ></i>  &nbsp;{{date1 |date:'MMM d, yyyy'}}</span>
       </div>
       <div class="col-md-7 col-sm-7 col-xs-7">
-      <span class="prodct-stars">
+        <span class="prodct-stars">
         <tb-ratings-container prod-id={{prodId}} state="productGridView" products="details"></tb-ratings-container>
       </span>
       </div>
@@ -23,13 +27,15 @@
 
   <div class="row prdct_footer ">
     <div class="">
-      <a ng-href="{{details.webAddress}}" target="_blank"><md-button class="md-raised md-primary col-md-3 col-sm-3 col-xs-4" style="bottom:10px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button></a>
+      <a ng-href="{{details.webAddress}}" target="_blank">
+        <md-button class="md-raised md-primary col-md-3 col-sm-3 col-xs-4" style="bottom:10px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
+      </a>
     </div>
-     <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right">
+    <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right">
       <tb-share state="gridview" products="details"></tb-share>
     </div>
-    <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right"><a ui-sref="companies.view({ companyId: details._id })"><i class="fa fa-expand   icons_on_prdct_footer "></i></a>
-      </div>
+    <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right"><a ui-sref="companies.view({ companyId: details.productId })"><i class="fa fa-expand   icons_on_prdct_footer "></i></a>
+    </div>
     <!--<span class=" col-md-1 col-sm-2 col-xs-2 text-center">
         <i class="fa fa-heart-o   icons_on_prdct_footer "></i>
       </span>-->

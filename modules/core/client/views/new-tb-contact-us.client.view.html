@@ -1,9 +1,24 @@
 <div ng-controller="ContactUsController">
-  <tb-header-image image="../../../../modules/core/client/img/finalcont.jpg" opacity="1" state="contactUs" maintitle="Contact US :::" subtitle="" class="img-responsive image_In_mobile">
+  <tb-header-image image="../../../../modules/core/client/img/finalcont.jpg" opacity="1" state="contactUs" maintitle="Contact Us :::" subtitle="" class="img-responsive image_In_mobile">
   </tb-header-image>
+
   <div class="container">
+    <update-title title="Thingsberry ContactUs"></update-title>
+    <update-meta name="description" content="Get in touch with thingsberry.com"></update-meta>
+    <update-meta property="og:title" content="Thingsberry ContactUs"></update-meta>
+    <update-meta property="og:description" content="Get in touch with thingsberry.com"></update-meta>
+    <update-meta property="og:image" content="../../../../modules/core/client/img/shareFinalcont.jpg"></update-meta>
+    <update-meta property="og:url" content="{{path}}"></update-meta>
+
+    <!--  <update-meta property="twitter:title" content="Thingsberry ContactUs"></update-meta>
+    <update-meta property="twitter:description" content="Get in touch with thingsberry.com"></update-meta>
+    <update-meta property="twitter:url" content="{{path}}"></update-meta>-->
+
+
     <div class="row" style="margin-top:40px;">
       <div class="col-md-12">
+        {{path}}
+
         <h2>Leave a Message :::</h2>
       </div>
     </div>

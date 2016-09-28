@@ -5,12 +5,12 @@
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', '$stateParams', 'SearchProducts', 'ListOfProducts'];
+  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location'];
 
-  function CompanyListController(CompanyService, $scope, $stateParams, SearchProducts, ListOfProducts) {
+  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location) {
     var vm = this;
     var pageId = 0;
-
+    $scope.path = $location.absUrl();
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
     /*CompanyService.query(function (res) {
   //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
@@ -18,9 +18,17 @@
 });*/
     // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
+    /* if($localStorage.user.roles.indexOf('admin')!==-1){
+       console.log("admin is there");
+     }else{
+       console.log("admin not there");
+     }*/
+    $scope.userDetails = $localStorage.user;
+    // console.log("USER :"+ JSON.stringify(Authentication));
+    // console.log("USER :"+ JSON.stringify($localStorage.user));
     $scope.getSearchedProductsList = function () {
 
-    //  console.log("Entering into getsearchproductslists");
+      //  console.log("Entering into getsearchproductslists");
 
       // var pageId = 0;
 

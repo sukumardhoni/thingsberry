@@ -15,12 +15,12 @@ angular.module('core')
         // console.log("entering into the tbSearch link furnctions");
         // console.log("directive:" + scope.headersearch);
 
-        if (attrs.state == 'headerSearchInput') {
+        if (attrs.state === 'headerSearchInput') {
           scope.headerSearch = function (value) {
-          //  console.log("befor return incontroler");
+            //  console.log("befor return incontroler");
             scope.headersearch = value;
-           // console.log("after return incontroler");
-          }
+            // console.log("after return incontroler");
+          };
         }
       }
     };

@@ -14,6 +14,11 @@ var CompanySchema = new Schema({
     type: Date,
     default: Date.now
   },
+  productId:{
+    type:String,
+    default:'',
+    trim:true
+  },
   Proname: {
     type: String,
     default: '',

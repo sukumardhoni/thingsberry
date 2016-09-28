@@ -7,6 +7,7 @@
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
     .factory('ratingService', ratingService)
+    /*  .factory('productService', productService)*/
 
 
 
@@ -57,6 +58,17 @@
       }
     });
   };
+
+
+  /* function CompanyService($resource) {
+     return $resource('api/companies/:productId', {
+       productId: '@productId'
+     }, {
+       update: {
+         method: 'PUT'
+       }
+     });
+   };*/
 
 
 

@@ -1,9 +1,20 @@
 <tb-header-image image="../../../../modules/core/client/img/products.jpg" opacity="1" maintitle="Product Listing::" subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt::">
 </tb-header-image>
-
-
-
 <div class="container" ng-init="getSearchedProductsList()">
+
+  <update-title title="Thingsberry Products List"></update-title>
+  <update-meta name="description" content="A List of IOT Products"></update-meta>
+  <update-meta property="og:title" content="Thingsberry Products List"></update-meta>
+  <update-meta property="og:description" content="A List of IOT Products"></update-meta>
+  <update-meta property="og:image" content="../../../../modules/core/client/img/shareProducts.jpg"></update-meta>
+  <update-meta property="og:url" content="{{path}}"></update-meta>
+
+  <!-- <update-meta property="twitter:title" content="Thingsberry Products List"></update-meta>
+  <update-meta property="twitter:description" content="A List of IOT Products"></update-meta>
+  <update-meta property="twitter:url" content="{{path}}"></update-meta>-->
+
+
+
   <div class="row  prdcts-list-box">
     <div class="col-md-10 col-xs-12 ">
       <div ng-hide="vm.companys.length == 0">
@@ -40,7 +51,7 @@
         <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
           <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
           <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
-            <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-products-grid>
+            <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
           </div>
         </div>
         <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
@@ -49,7 +60,7 @@
 
       <div ng-hide="gridView">
         <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-          <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-products-list>
+          <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-list>
         </div>
         <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
         </div>

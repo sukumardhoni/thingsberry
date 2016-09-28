@@ -29,8 +29,12 @@
           <tb-share state="listview" products="details"></tb-share>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
-          <a ui-sref="companies.view({ companyId: details._id })"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
+          <a ui-sref="companies.view({ companyId: details.productId })"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
         </div>
+        <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
+  <div ng-show="editProduct"> <i class="fa fa-pencil pencilIcon new_list_prdct_view_footer_icons" ng-click="editProductFunc(details)"></i>
+  </div>
+  </div>
         <!--<div class="col-md-1 col-sm-1 col-xs-4">
           <i class="fa fa-heart-o new_list_prdct_view_footer_icons"></i>
         </div>-->

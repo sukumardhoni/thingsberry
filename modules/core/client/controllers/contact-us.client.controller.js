@@ -1,12 +1,15 @@
 'use strict';
 
-angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService',
-  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService) {
+angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService', '$location',
+  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService, $location) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
+    $scope.path = $location.absUrl();
+    //console.log(path);
     $scope.contactUs = function () {
-      console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
+
+      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);
       /*ContactUsService.send($scope.contact);*/
 
