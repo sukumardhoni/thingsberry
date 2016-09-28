@@ -171,6 +171,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.featuredProducts = function () {
       $scope.date = new Date();
+      $scope.carouselBg1.push('carousel_spinner_featured');
 
       featuredProducts.query({}, function (res) {
         // console.log(res);
@@ -194,7 +195,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         }
         $scope.sampleInXs = $scope.listToMatrix($scope.slides4, 1);
         // console.log('the resultant matrix' + JSON.stringify($scope.sampleInXs));
-
+        $timeout(function () {
+          $scope.carouselBg1.pop('carousel_spinner_featured');
+        }, 1000);
 
 
       }, function (err) {
@@ -244,6 +247,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var slides4 = $scope.slides4 = [];
     var currIndex = 0;
     $scope.carouselBg = [];
+    $scope.carouselBg1 = [];
 
 
     $scope.premiumProducts = function () {

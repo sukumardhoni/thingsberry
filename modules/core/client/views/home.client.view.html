@@ -7,8 +7,8 @@
             <tb-search></tb-search>
           </div>
           <div class="col-md-6" ng-init="premiumProducts()">
-            <div class="row premium_box" ng-hide="premiumPrdcts.length == 0" ng-class="carouselBg">
-              <div class=" featured_prdct_carousel">
+            <div class="row premium_box featured-listing" ng-hide="premiumPrdcts.length == 0" ng-class="carouselBg">
+              <div class=" featured_prdct_carousel ">
                 <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
                   <uib-slide ng-repeat="slide in premiumPrdcts" index="$index">
                     <div ng-repeat="sarray in slide" class="col-md-12 " data-wrap="false">
@@ -30,15 +30,15 @@
 
   <div class="container" ng-init="featuredProducts()">
     <div class="row text-center featured_text">
-      <h1 class="featured_in_mobile">::: Our Featured Products :::</h1>
-      <p>Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>
+      <h1 class="featured_in_mobile">::: Featured Products :::</h1>
+      <!-- <p>Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>-->
     </div>
 
     <div class="row hidden-sm hidden-xs ">
-      <div class="col-md-12 featured_prdct_carousel" ng-class="carouselBg">
-        <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
+      <div class="col-md-12 featured_prdct_carousel featured-listing">
+        <uib-carousel interval="" active=0 no-wrap="noWrapSlides" ng-class="carouselBg1">
           <uib-slide ng-repeat="slide in sample" index="$index">
-            <div ng-repeat="sarray in slide" class="col-md-3 feature_prdcts" data-wrap="false">
+            <div ng-repeat="sarray in slide" class="col-md-3 feature_prdcts " data-wrap="false">
               <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="authentication"></tb-featured-products>
             </div>
           </uib-slide>
@@ -46,8 +46,8 @@
       </div>
     </div>
     <div class="row hidden-md hidden-xs visible-sm-block">
-      <div class="col-sm-12 featured_prdct_carousel" ng-class="carouselBg">
-        <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
+      <div class="col-sm-12 featured_prdct_carousel product-listing" ng-class="carouselBg1">
+        <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInSm" index="$index">
             <div ng-repeat="sarray in slide" class="col-sm-5 col-sm-offset-1 feature_prdcts" data-wrap="false">
               <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="authentication"></tb-featured-products>
@@ -57,8 +57,8 @@
       </div>
     </div>
     <div class="row hidden-md hidden-sm visible-xs-block ">
-      <div class="col-xs-12  featured_prdct_carousel featured_prdct_carousel_In_Xs" ng-class="carouselBg">
-        <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
+      <div class="col-xs-12  featured_prdct_carousel featured_prdct_carousel_In_Xs product-listing" ng-class="carouselBg1">
+        <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInXs" index="$index">
             <div ng-repeat="sarray in slide" class="col-xs-11 feature_prdcts" data-wrap="false">
               <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="authentication"></tb-featured-products>
@@ -107,8 +107,8 @@
     <div class="row" style="background-color:#ebebeb;">
       <div class="container">
         <div class="row text-center client_text">
-          <h1 class="featured_in_mobile">::: Featured Clients :::</h1>
-          <h5>Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</h5>
+          <h1 class="featured_in_mobile">::: Featured Companies :::</h1>
+          <!--<h5>Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</h5>-->
         </div>
         <div class="row text-center client_body">
           <div ng-repeat="client in clients | limitTo: 6" class="col-md-2 col-sm-6 col-xs-6">
