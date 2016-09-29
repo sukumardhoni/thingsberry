@@ -168,11 +168,11 @@ a:hover#backTop {
 .carousel_spinner {
   z-index: 999999;
   display: block;
-  top: 50px;
+  top: 70px;
   left: 300px !important;
   width: 70%;
   height: 500px;
-  background: url('../../../../modules/core/client/img/loaders/spinner.gif') 40% 40% no-repeat;
+  background: url('../../../../modules/core/client/img/spinnerPremium2.gif') 50% 50% no-repeat;
 }
 
 .carousel_spinner_featured {
@@ -589,12 +589,13 @@ a:hover#backTop {
   margin-top: -25px;
 }
 
-.carousel_spinner {
+
+/*.carousel_spinner {
   background-image: url(../../../../modules/core/client/img/loaders/spinner.gif);
   background-repeat: no-repeat;
   background-size: 20%;
   background-position: 50%;
-}
+}*/
 
 .getlist_img {
   width: 100%;
