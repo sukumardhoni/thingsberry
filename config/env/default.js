@@ -5,7 +5,8 @@ module.exports = {
     title: 'thingsberry.com',
     description: 'A comprehensive listing of All Internet Of Things',
     keywords: 'All Internet Of Things, iot, internet, things',
-    googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
+    googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID',
+    facebookAppId: '239001833102223'
   },
   port: process.env.PORT || 3000,
   host: process.env.HOST || '0.0.0.0',

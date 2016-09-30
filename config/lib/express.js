@@ -65,6 +65,9 @@ module.exports.initMiddleware = function (app) {
     level: 9
   }));
 
+  //prerender
+  app.use(require('prerender-node').set('prerenderToken', 'hZTLOLQEvz4KuImHGCz4'));
+
   // Initialize favicon middleware
   app.use(favicon(app.locals.favicon));
 

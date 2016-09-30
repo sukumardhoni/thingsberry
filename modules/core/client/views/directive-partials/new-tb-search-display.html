@@ -4,7 +4,7 @@
       <uib-tab index="0" heading="Search" class="col-md-6 col-sm-6 col-xs-6 text-center" style="padding:0px;font-weight:bold;font-size:16px; ">
         <div class="row" style="margin:40px;margin-top:15px;margin-bottom:15px;">
           <div class="row search_text">
-            <p> Find the comprehensive list of Internet of Things(IoT) products and ratings in the areas of Home, Automation, Wearable, Health Care, Utilities and more...</p>
+            <p> Find the comprehensive list of Internet of Things(IoT) or connected products and their ratings in the areas of Smart Home, Wearable's, Health Care, Utilities and more...</p>
           </div>
           <div class="row text-center hidden-xs" style="margin-top:-10px;">
             <img ng-src="modules/core/client/img/search_img.jpg" style="height:166px;">
@@ -16,7 +16,7 @@
               </div>-->
               <div class="col-md-12 search_inpt">
                 <label class="search_text" style="margin-left:-12px;font-weight:bold;font-size:13px;">CATEGORY</label>
-                <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products" style="margin-left:-15px;padding-right:0px;">
+                <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Eg: Home, Wearable's, Health Care, Utilities etc" style="margin-left:-15px;padding-right:0px;">
                   <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                 </tags-input>
               </div>
@@ -42,7 +42,7 @@
       <uib-tab index="1" heading="Advanced Search" class="col-md-6 col-sm-6 col-xs-6 text-center" style="padding:0px;font-weight:bold;font-size:16px;">
         <div class="row advSearch_content">
           <div class="row search_text">
-            <p> Find the comprehensive list of Internet of Things(IoT) products and ratings in the areas of Home, Automation, Wearable, Health Care, Utilities and more...</p>
+            <p> Find the comprehensive list of Internet of Things(IoT) or connected products and their ratings in the areas of Smart Home, Wearable's, Health Care, Utilities and more...</p>
           </div>
           <div class="row">
             <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
@@ -51,7 +51,7 @@
                 <h5 class="text-left" style="font-size:13px;"><b>CATEGORY</b></h5>
               </div>
               <div class="row advSearch_inpt" style="margin:0px;">
-                <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, or Baby-Products">
+                <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Eg: Home, Wearable's, Health Care, Utilities etc">
                   <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                 </tags-input>
               </div>
