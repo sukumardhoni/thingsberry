@@ -20,7 +20,7 @@ exports.create = function (req, res) {
       });
     } else {
       res.json(client);
-      console.log(client);
+     // console.log(client);
     }
   });
 }
@@ -35,7 +35,7 @@ exports.list = function (req, res) {
     } else {
       //console.log('Server side List of products : ' + JSON.stringify(companies));
       res.json(clients);
-      console.log(clients);
+     // console.log(clients);
     }
   });
 

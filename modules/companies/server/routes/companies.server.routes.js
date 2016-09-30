@@ -4,28 +4,32 @@
  * Module dependencies
  */
 var companiesPolicy = require('../policies/companies.server.policy'),
-  companies = require('../controllers/companies.server.controller');
+  companies = require('../controllers/companies.server.controller'),
+config = require('../../../../config/config'),
+  cache = require('express-redis-cache')({
+    client: require('redis').createClient(config.redis.uri)
+  });;
 
 module.exports = function (app) {
   // Companies collection routes
   app.route('/api/companies') /*.all(companiesPolicy.isAllowed)*/
-    .get(companies.list)
+    .get(cache.route(),companies.list)
     .post(companies.create);
 
 
   app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?/:ProRegions?/:pageId')
-    .get(companies.searchedProductsList);
+    .get(cache.route(),companies.searchedProductsList);
 
 
   app.route('/api/listOfProducts/:pageId')
-    .get(companies.list);
+    .get(cache.route(),companies.list);
 
 
   app.route('/api/premiumProducts')
-    .get(companies.premiumProductsList);
+    .get(cache.route(),companies.premiumProductsList);
 
   app.route('/api/featuredProducts')
-    .get(companies.featuredProductsList);
+    .get(cache.route(),companies.featuredProductsList);
 
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
 

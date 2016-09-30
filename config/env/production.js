@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = {
+   redis: {
+    uri: process.env.REDIS_URL || 'redis://127.0.0.1:6379'
+  },
   secure: {
     ssl: true,
     privateKey: './config/sslcerts/key.pem',

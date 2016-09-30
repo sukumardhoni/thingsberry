@@ -9,7 +9,7 @@ var path = require('path'),
   Quotes = mongoose.model('Quotes');
 
 exports.create = function (req, res) {
-  console.log(req.body);
+ // console.log(req.body);
   var quotes = new Quotes(req.body);
   // console.log(client);
   quotes.save(function (err) {
@@ -20,7 +20,7 @@ exports.create = function (req, res) {
       });
     } else {
       res.json(quotes);
-      console.log(quotes);
+     // console.log(quotes);
     }
   });
 }
@@ -35,7 +35,7 @@ exports.list = function (req, res) {
     } else {
       //console.log('Server side List of products : ' + JSON.stringify(companies));
       res.json(quotes);
-      console.log(quotes);
+     // console.log(quotes);
     }
   });
 
