@@ -36,8 +36,9 @@
     <div class="hidden-md hidden-lg">
 
       <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" style="height:530px;">
-        <md-toolbar class="md-theme-indigo" style="background:white;padding-left: 41px;">
-          <a ui-sref="home" class="navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo" ng-click="toggleLeft()"></a>
+        <md-toolbar class="md-theme-indigo row" style="background:white;padding-left: 41px;">
+          <a ui-sref="home" class=" navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo col-xs-6" ng-click="toggleLeft()"><span class="glyphicon glyphicon-chevron-left side_nav_header_arrow" ng-click="toggleLeft()"></span> </a>
+
         </md-toolbar>
         <hr>
         <md-content>
@@ -112,11 +113,11 @@
 
     <div class="container">
       <!--      <div class="row" style="height: 53px;">-->
-      <div class="row"   style="height: 62px;">
+      <div class="row" style="height: 62px;">
         <!--<nav class="navbar navbar-default  navbar-static-top">-->
         <div class="navbar nav" style="border:none;background-color:#ffffff;">
 
-          <div class=" navbar-header" >
+          <div class=" navbar-header">
             <button type="button" class="navbar-toggle pull-left hidden-md hidden-lg" data-toggle="collapse" data-target=".navbar-ex1-collapse" ng-click="toggleLeft()">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
@@ -129,7 +130,7 @@
               </a>
             </div>
             <div class="visible-xs visible-sm pull-right">
-              <a ><i class="fa fa-search header_search_icon" ng-click="showSearchDirective()"></i></a>
+              <a><i class="fa fa-search header_search_icon" ng-click="showSearchDirective()"></i></a>
             </div>
             <div class="visible-xs visible-sm box-one animate-show" ng-show="showBoxOne">
               <tb-search headersearch="showBoxOne" state="headerSearchInput" class=""></tb-search>
@@ -179,10 +180,10 @@
                 </li>
               </ul>
             </div>
-            <div class="col-md-1 pull-right" >
-              <a ><i class="fa fa-search header_search_icon " ng-click="showSearchDirective()"></i></a>
+            <div class="col-md-1 pull-right">
+              <a><i class="fa fa-search header_search_icon " ng-click="showSearchDirective()"></i></a>
             </div>
-            <div class="col-md-10 col-md-offset-1 box-one animate-show" ng-show="showBoxOne" >
+            <div class="col-md-10 col-md-offset-1 box-one animate-show" ng-show="showBoxOne">
               <tb-search headersearch="showBoxOne" state="headerSearchInput" class=""></tb-search>
             </div>
           </div>

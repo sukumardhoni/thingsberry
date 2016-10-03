@@ -84,12 +84,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
-    $scope.homePageProductDetails = {
+    /*$scope.homePageProductDetails = {
       title: 'SONY',
       logoURL: '../../../../modules/core/client/img/brand/sony logo.png',
       description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       webAddress: 'http://www.sonos.com/shop/play5'
-    };
+    };*/
 
     $scope.loadCategories = function () {
       var catsList = CategoryService.query(),

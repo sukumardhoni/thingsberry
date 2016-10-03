@@ -36,7 +36,7 @@ exports.create = function (req, res) {
 
 exports.catsCheck = function (cats) {
   var ProCatsArray = cats;
-  console.log('catsCheck function is called : ' + JSON.stringify(cats));
+//  console.log('catsCheck function is called : ' + JSON.stringify(cats));
   Category.distinct("title").exec(function (err, categories) {
     if (err) {
       return res.status(400).send({

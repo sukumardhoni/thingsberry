@@ -5,8 +5,8 @@
   <div class="row text-left">
     <h5 class="premium_prdct_desc">{{details.desc | limitTo: 146}}</h5>
   </div>
-  <div class="row premium_prdct_img" style="min-height:250px;">
-    <img src="{{details.image}}" class="premium_img img-responsive">
+  <div class="row premium_prdct_img">
+    <img src="{{details.image}}" class="premium_img img-responsive" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';">
   </div>
   <div class="row">
     <a ui-sref="companies.view({ companyId:details._id })">

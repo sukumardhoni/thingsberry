@@ -148,8 +148,8 @@
     font-family: sans-serif;
   }
   .search_text {
-  text-align: center;
-}
+    text-align: center;
+  }
   .searchtab_search_btn {
     padding: 9px;
     margin-left: -16px;
@@ -284,7 +284,7 @@
   }
   .premium_box {
     margin: 15px;
-    min-height: 485px;
+    min-height: 490px;
   }
   .premium_prdct_header {
     font-size: 25px;

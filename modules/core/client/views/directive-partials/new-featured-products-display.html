@@ -1,11 +1,11 @@
 <div>
   <div class="row">
-  <div ng-show="editProduct" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProductFunc(details)"></i>
-  </div>
+    <div ng-show="editProduct" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProductFunc(details)"></i>
+    </div>
   </div>
 
   <div class="row">
-    <a ng-href="{{details.webAddress}}" target="_blank"><img src="{{details.productImageURL}}" class="prdct-img"></a>
+    <a ng-href="{{details.webAddress}}" target="_blank"><img src="{{details.productImageURL}}" class="prdct-img" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';"></a>
   </div>
 
   <div class="row">

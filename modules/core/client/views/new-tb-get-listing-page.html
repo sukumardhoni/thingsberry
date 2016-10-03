@@ -10,7 +10,7 @@
   <update-meta property="og:image" content="http://qa.thingsberry.com/modules/core/client/img/shareFinalget4.jpg"></update-meta>
   <update-meta property="og:url" content="{{path}}"></update-meta>
 
- <!-- <update-meta property="twitter:title" content="Thingsberry Get-Listing"></update-meta>
+  <!-- <update-meta property="twitter:title" content="Thingsberry Get-Listing"></update-meta>
   <update-meta property="twitter:description" content="Add your Products on thingsberry.com"></update-meta>
   <update-meta property="twitter:url" content="{{path}}"></update-meta>-->
 
@@ -72,7 +72,14 @@
           <div class="row ">
             <md-input-container class="col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles"><b>Description</b></label>
-              <input class="input-styles" type="text" id="Description" ng-model="getListed.description" required style="">
+              <input class="input-styles" type="text" id="Description" ng-model="getListed.description" required>
+            </md-input-container>
+          </div>
+          <div class="row ">
+            <md-input-container class="col-md-12 col-sm-12 col-xs-12">
+              <label class="label-styles"><b>Message</b></label>
+              <input class="input-styles" type="text" id="Message" ng-model="getListed.message" required>
+              <div class="hint">Enter any notes to admin to help list this product</div>
             </md-input-container>
           </div>
           <div class="row ">
