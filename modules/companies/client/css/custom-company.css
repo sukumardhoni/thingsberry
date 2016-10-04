@@ -1073,6 +1073,10 @@ select:focus {
   transition: all 0.4s ease;
 }
 
+.new_list_prdct_view_box:hover {
+  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
+}
+
 .new_list_prdct_view_desc {
   padding: 15px;
   padding-top: 0px;

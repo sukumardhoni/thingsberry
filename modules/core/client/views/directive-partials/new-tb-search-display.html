@@ -17,12 +17,12 @@
               <div class="col-md-12 search_inpt">
                 <label class="search_text" style="margin-left:-12px;font-weight:bold;font-size:13px;">CATEGORY</label>
                 <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Eg: Home, Wearable's, Health Care etc" style="margin-left:-15px;padding-right:0px;">
-                  <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                  <auto-complete source="loadCategories($query)" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                 </tags-input>
               </div>
               <div class="col-md-12 searchtab_search_btn">
                 <!-- <button type="submit" class="btn btn-primary col-md-12 col-sm-12 col-xs-12 premium_view_btn ">SEARCH</button>-->
-                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-12 col-sm-12 col-xs-12" ng-click="headerSearch(false)"><b>SEARCH</b></md-button>
+                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-12 col-sm-12 col-xs-12"><b>SEARCH</b></md-button>
               </div>
               <div class="hidden-md hidden-xs hidden-sm hidden-lg">
                 <div class="form-group">
@@ -47,12 +47,12 @@
           <div class="row">
             <form role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
 
-              <div class="row " style="margin:0px;">
+              <div class="row " style="margin:0px;margin-top:-2px;">
                 <h5 class="text-left" style="font-size:13px;"><b>CATEGORY</b></h5>
               </div>
               <div class="row advSearch_inpt" style="margin:0px;">
                 <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Eg: Home, Wearable's, Health Care etc">
-                  <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                  <auto-complete source="loadCategories($query)" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                 </tags-input>
               </div>
               <div class="row" style="margin:0px;">

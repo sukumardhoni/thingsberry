@@ -91,17 +91,29 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       webAddress: 'http://www.sonos.com/shop/play5'
     };*/
 
-    $scope.loadCategories = function () {
+    $scope.loadCategories = function ($query) {
+      //  var catsList = CategoryService.query()
+      /* return catsList.filter(function (catLists) {
+         return catLists.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+       });*/
+
       var catsList = CategoryService.query(),
         defObj = $q.defer();
-      catsList.$promise.then(function (result) {
+      console.log($query);
+      return catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
+        return result.filter(function (catList) {
+          return catList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+        });
         // console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
 
       //console.log('defferes1111 obj : ' + JSON.stringify(defObj));
       return defObj.promise;
+      /*return catsList.filter(function (catsList) {
+        return catsList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+      });*/
     };
 
 
