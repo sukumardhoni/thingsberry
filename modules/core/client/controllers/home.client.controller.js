@@ -99,7 +99,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
       var catsList = CategoryService.query(),
         defObj = $q.defer();
-      console.log($query);
+      //  console.log($query);
       return catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
