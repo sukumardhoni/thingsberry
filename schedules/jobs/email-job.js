@@ -23,7 +23,7 @@ exports.sendUserInfoToThingsBerryTeam = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/new-user-email-to-thingsberry';
     //mailData.to = 'support@thingsberry.com';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'midhunsai.111@gmail.com';
     mailData.subject = 'New User To ThingsBerry';
     mailData.userData = job.attrs.data.userData;
     mailData.appEnv = config.app.title;
@@ -38,7 +38,7 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
     var mailData = {};
     mailData.templateName = 'emailtemplates/contact-us-email-to-thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'midhunsai.111@gmail.com';
     mailData.subject = 'ContactUs Info To ThingsBerry';
     mailData.contactedDetails = job.attrs.data.ContactedDetails;
     mailData.appEnv = config.app.title;
@@ -54,7 +54,7 @@ exports.sendUserGetListedInfoToThingsBerryAdmin = function (agenda) {
     //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
     var mailData = {};
     mailData.templateName = 'emailtemplates/get-listed-email-to-thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'midhunsai.111@gmail.com';
     mailData.subject = 'Get Listed Product Info To ThingsBerry';
     mailData.getListedDetails = job.attrs.data.GetListedDetails;
     mailData.appEnv = config.app.title;

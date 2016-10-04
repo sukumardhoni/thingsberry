@@ -836,7 +836,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
                   <tr>
                     <td align="center" valign="top" class="headerContent">
-                      <img src="http://qa.thingsberry.com/modules/core/client/img/contactEmail.jpg" style="max-width:600px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                      <img src="http://qa.thingsberry.com/modules/core/client/img/contactEmail.jpg" style="width:100%;height:30%" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
                     </td>
                   </tr>
                 </table>
@@ -874,7 +874,7 @@ You can access the movie videos through mobile app or at <a href="http://www.tve
                     <tr>
                       <td valign="top" style="width:1%;background-color:#959595;color:white;padding-top:10px; padding-right:0px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
                         Follow us on :</td>
-                      <td style="width:8%;background-color:#959595;"><img src="https://qa.thingsberry.com/modules/core/client/img/fb_icon.png" style="width:6%;" mc:allowdesigner mc:allowtext /><img src="https://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="width:6%;margin-left:7px;" mc:allowdesigner mc:allowtext /><img src="https://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="width:6%;margin-left:7px;" mc:allowdesigner mc:allowtext /></td>
+                      <td style="width:8%;background-color:#959595;"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" style="width:6%;" mc:allowdesigner mc:allowtext /><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="width:6%;margin-left:7px;" mc:allowdesigner mc:allowtext /><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="width:6%;margin-left:7px;" mc:allowdesigner mc:allowtext /></td>
                     </tr>
                   </table>
 
