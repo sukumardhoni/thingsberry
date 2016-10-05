@@ -1,4 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -94,7 +96,9 @@
     /**
 			* @tab Page
 			* @section background style
-			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			* @tip Set the background color and top border for your email. 
+
+You may want to choose colors that match your company's branding.
 			* @theme page
 			*/
     
@@ -106,7 +110,9 @@
     /**
 			* @tab Page
 			* @section background style
-			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			* @tip Set the background color and top border for your email. 
+
+You may want to choose colors that match your company's branding.
 			* @theme page
 			*/
     
@@ -127,7 +133,9 @@
     /**
 			* @tab Page
 			* @section heading 1
-			* @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+			* @tip Set the styling for all first-level headings in your emails. 
+
+These should be the largest of your headings.
 			* @style heading 1
 			*/
     
@@ -217,7 +225,9 @@
     /**
 			* @tab Page
 			* @section heading 4
-			* @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+			* @tip Set the styling for all fourth-level headings in your emails. 
+
+These should be the smallest of your headings.
 			* @style heading 4
 			*/
     
@@ -248,7 +258,9 @@
     /**
 			* @tab Header
 			* @section preheader style
-			* @tip Set the background color and bottom border for your email's preheader area.
+			* @tip Set the background color and bottom border for your 
+
+email's preheader area.
 			* @theme header
 			*/
     
@@ -261,7 +273,9 @@
     /**
 			* @tab Header
 			* @section preheader text
-			* @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+			* @tip Set the styling for your email's preheader text. Choose a 
+
+size and color that is easy to read.
 			*/
     
     .preheaderContent {
@@ -280,7 +294,9 @@
     /**
 			* @tab Header
 			* @section preheader link
-			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+			* @tip Set the styling for your email's preheader links. Choose a 
+
+color that helps them stand out from your text.
 			*/
     
     .preheaderContent a:link,
@@ -301,7 +317,9 @@
     /**
 			* @tab Header
 			* @section header style
-			* @tip Set the background color and borders for your email's header area.
+			* @tip Set the background color and borders for your email's 
+
+header area.
 			* @theme header
 			*/
     
@@ -316,7 +334,9 @@
     /**
 			* @tab Header
 			* @section header text
-			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+			* @tip Set the styling for your email's header text. Choose a size 
+
+and color that is easy to read.
 			*/
     
     .headerContent {
@@ -346,7 +366,9 @@
     /**
 			* @tab Header
 			* @section header link
-			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+			* @tip Set the styling for your email's header links. Choose a color 
+
+that helps them stand out from your text.
 			*/
     
     .headerContent a:link,
@@ -373,7 +395,9 @@
     /**
 			* @tab Body
 			* @section body style
-			* @tip Set the background color and borders for your email's body area.
+			* @tip Set the background color and borders for your email's 
+
+body area.
 			*/
     
     #templateBody {
@@ -387,7 +411,9 @@
     /**
 			* @tab Body
 			* @section body text
-			* @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
+			* @tip Set the styling for your email's main content text. Choose a 
+
+size and color that is easy to read.
 			* @theme main
 			*/
     
@@ -410,7 +436,9 @@
     /**
 			* @tab Body
 			* @section body link
-			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
+			* @tip Set the styling for your email's main content links. Choose 
+
+a color that helps them stand out from your text.
 			*/
     
     .bodyContent a:link,
@@ -443,7 +471,9 @@
     /**
 			* @tab Columns
 			* @section column style
-			* @tip Set the background color and borders for your email's column area.
+			* @tip Set the background color and borders for your email's 
+
+column area.
 			*/
     
     #templateColumns {
@@ -457,7 +487,9 @@
     /**
 			* @tab Columns
 			* @section left column text
-			* @tip Set the styling for your email's left column content text. Choose a size and color that is easy to read.
+			* @tip Set the styling for your email's left column content text. 
+
+Choose a size and color that is easy to read.
 			*/
     
     .leftColumnContent {
@@ -479,7 +511,9 @@
     /**
 			* @tab Columns
 			* @section left column link
-			* @tip Set the styling for your email's left column content links. Choose a color that helps them stand out from your text.
+			* @tip Set the styling for your email's left column content links. 
+
+Choose a color that helps them stand out from your text.
 			*/
     
     .leftColumnContent a:link,
@@ -500,7 +534,9 @@
     /**
 			* @tab Columns
 			* @section right column text
-			* @tip Set the styling for your email's right column content text. Choose a size and color that is easy to read.
+			* @tip Set the styling for your email's right column content text. 
+
+Choose a size and color that is easy to read.
 			*/
     
     .rightColumnContent {
@@ -522,7 +558,9 @@
     /**
 			* @tab Columns
 			* @section right column link
-			* @tip Set the styling for your email's right column content links. Choose a color that helps them stand out from your text.
+			* @tip Set the styling for your email's right column content links. 
+
+Choose a color that helps them stand out from your text.
 			*/
     
     .rightColumnContent a:link,
@@ -551,7 +589,9 @@
     /**
 			* @tab Footer
 			* @section footer style
-			* @tip Set the background color and borders for your email's footer area.
+			* @tip Set the background color and borders for your email's 
+
+footer area.
 			* @theme footer
 			*/
     
@@ -564,7 +604,9 @@
     /**
 			* @tab Footer
 			* @section footer text
-			* @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
+			* @tip Set the styling for your email's footer text. Choose a size 
+
+and color that is easy to read.
 			* @theme footer
 			*/
     
@@ -587,7 +629,9 @@
     /**
 			* @tab Footer
 			* @section footer link
-			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
+			* @tip Set the styling for your email's footer links. Choose a color 
+
+that helps them stand out from your text.
 			*/
     
     .footerContent a:link,
@@ -634,7 +678,9 @@
       /**
 				* @tab Mobile Styles
 				* @section template width
-				* @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
+				* @tip Make the template fluid for portrait or landscape 
+
+view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
 				*/
       #templateContainer {
         max-width: 600px !important;
@@ -644,7 +690,9 @@
       /**
 				* @tab Mobile Styles
 				* @section heading 1
-				* @tip Make the first-level headings larger in size for better readability on small screens.
+				* @tip Make the first-level headings larger in size for 
+
+better readability on small screens.
 				*/
       h1 {
         /*@editable*/
@@ -655,7 +703,9 @@
       /**
 				* @tab Mobile Styles
 				* @section heading 2
-				* @tip Make the second-level headings larger in size for better readability on small screens.
+				* @tip Make the second-level headings larger in size for 
+
+better readability on small screens.
 				*/
       h2 {
         /*@editable*/
@@ -666,7 +716,9 @@
       /**
 				* @tab Mobile Styles
 				* @section heading 3
-				* @tip Make the third-level headings larger in size for better readability on small screens.
+				* @tip Make the third-level headings larger in size for 
+
+better readability on small screens.
 				*/
       h3 {
         /*@editable*/
@@ -677,7 +729,9 @@
       /**
 				* @tab Mobile Styles
 				* @section heading 4
-				* @tip Make the fourth-level headings larger in size for better readability on small screens.
+				* @tip Make the fourth-level headings larger in size for 
+
+better readability on small screens.
 				*/
       h4 {
         /*@editable*/
@@ -693,7 +747,11 @@
       /**
 				* @tab Mobile Styles
 				* @section header image
-				* @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				* @tip Make the main header image fluid for portrait or 
+
+landscape view adaptability, and set the image's original width as the max-width. If a fluid setting 
+
+doesn't work, set the image width to half its original size instead.
 				*/
       #headerImage {
         height: auto !important;
@@ -705,7 +763,9 @@
       /**
 				* @tab Mobile Styles
 				* @section header text
-				* @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				* @tip Make the header content text larger in size for 
+
+better readability on small screens. We recommend a font size of at least 16px.
 				*/
       .headerContent {
         /*@editable*/
@@ -717,7 +777,11 @@
       /**
 				* @tab Mobile Styles
 				* @section body image
-				* @tip Make the main body image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				* @tip Make the main body image fluid for portrait or 
+
+landscape view adaptability, and set the image's original width as the max-width. If a fluid setting 
+
+doesn't work, set the image width to half its original size instead.
 				*/
       #bodyImage {
         height: auto !important;
@@ -729,7 +793,9 @@
       /**
 				* @tab Mobile Styles
 				* @section body text
-				* @tip Make the body content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				* @tip Make the body content text larger in size for 
+
+better readability on small screens. We recommend a font size of at least 16px.
 				*/
       .bodyContent {
         /*@editable*/
@@ -745,7 +811,11 @@
       /**
 				* @tab Mobile Styles
 				* @section column image
-				* @tip Make the column image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				* @tip Make the column image fluid for portrait or 
+
+landscape view adaptability, and set the image's original width as the max-width. If a fluid setting 
+
+doesn't work, set the image width to half its original size instead.
 				*/
       .columnImage {
         height: auto !important;
@@ -757,7 +827,9 @@
       /**
 				* @tab Mobile Styles
 				* @section left column text
-				* @tip Make the left column content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				* @tip Make the left column content text larger in size 
+
+for better readability on small screens. We recommend a font size of at least 16px.
 				*/
       .leftColumnContent {
         /*@editable*/
@@ -768,7 +840,9 @@
       /**
 				* @tab Mobile Styles
 				* @section right column text
-				* @tip Make the right column content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				* @tip Make the right column content text larger in size 
+
+for better readability on small screens. We recommend a font size of at least 16px.
 				*/
       .rightColumnContent {
         /*@editable*/
@@ -780,7 +854,9 @@
       /**
 				* @tab Mobile Styles
 				* @section footer text
-				* @tip Make the body content text larger in size for better readability on small screens.
+				* @tip Make the body content text larger in size for 
+
+better readability on small screens.
 				*/
       .footerContent {
         /*@editable*/
@@ -802,13 +878,17 @@
       <tr>
         <td align="center" valign="top" id="bodyCell">
           <!-- BEGIN TEMPLATE // -->
-          <table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
+          <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="border:1px 
+
+solid black !important;">
             <tr>
               <td align="center" valign="top">
                 <!-- BEGIN PREHEADER // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
                   <tr>
-                    <td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
+                    <td valign="top" class="preheaderContent" style="padding-top:10px; padding-
+
+right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
                       Welcome to ThingsBerry, a web application to add, view and share popular IOT things. </td>
                   </tr>
                 </table>
@@ -819,7 +899,7 @@
             <tr>
               <td align="center" valign="top">
                 <!-- BEGIN HEADER // -->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader" style="border-bottom:1px solid #cccccc !important;">
                   <tr>
                     <td align="center" valign="top" class="headerContent">
                       <img src="http://qa.thingsberry.com/modules/core/client/img/brand/Thingsberry_em.png" style="padding-left:120px;padding-right:120px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
@@ -830,19 +910,21 @@
               </td>
             </tr>
 
-            <tr>
-              <td align="center" valign="top">
-                <!-- BEGIN HEADER // -->
+            <!-- <tr>
+              <td align="center" valign="top">               
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
                   <tr>
                     <td align="center" valign="top" class="headerContent">
-                      <img src="http://qa.thingsberry.com/modules/core/client/img/contactEmail.jpg" style="width:100%;height:30%" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                      <img src="http://qa.thingsberry.com/modules/core/client/img/contactEmail.jpg" 
+
+style="width:100%;height:30%" id="headerImage" mc:label="header_image" 
+
+mc:edit="header_image" mc:allowdesigner mc:allowtext />
                     </td>
                   </tr>
-                </table>
-                <!-- // END HEADER -->
+                </table>               
               </td>
-            </tr>
+            </tr>-->
 
             <tr>
               <td align="center" valign="top">
@@ -852,15 +934,20 @@
                     <td valign="top" class="bodyContent" mc:edit="body_content00">
                       Hi ThingsBerry Team,
                       <br/>
-                      <br/> This is the notification mail of User Contacted us just now from thingsberry.com.
+                      <br/> This is the notification mail came from thingsberry.com.
                       <br/> Contacted details are :
-                      <br/> {{contactedDetails}}
+                      <br/>Name : {{ContactedDetails.name}}
+                      <br/>Email : {{ContactedDetails.email}}
+                      <br/>Phone : {{ContactedDetails.phone}}
+                      <br/>Message : {{ContactedDetails.message}}
                     </td>
                   </tr>
 
                   <!-- <tr>
                                             <td valign="top" class="bodyContent" mc:edit="body_content01">
-You can access the movie videos through mobile app or at <a href="http://www.tveeler.com">www.tveeler.com</a> after signing in to your account.
+You can access the movie videos through mobile app or at <a 
+
+href="http://www.tveeler.com">www.tveeler.com</a> after signing in to your account.
 </td>
                                         </tr>   -->
                   <tr>
@@ -872,9 +959,15 @@ You can access the movie videos through mobile app or at <a href="http://www.tve
 
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
                     <tr>
-                      <td valign="top" style="width:1%;background-color:#959595;color:white;padding-top:10px; padding-right:0px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
+                      <td valign="top" style="width:1%;background-color:#959595;color:white;padding-
+
+top:10px; padding-right:0px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
                         Follow us on :</td>
-                      <td style="width:8%;background-color:#959595;"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" style="width:6%;" mc:allowdesigner mc:allowtext /><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="width:6%;margin-left:7px;" mc:allowdesigner mc:allowtext /><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="width:6%;margin-left:7px;" mc:allowdesigner mc:allowtext /></td>
+                      <td style="width:8%;background-color:#959595;">
+                        <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" style="width:5%;" mc:allowdesigner mc:allowtext /></a>
+                        <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="width:5%;margin-left:7px;" mc:allowdesigner mc:allowtext /></a>
+                        <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="width:5%;margin-left:7px;" mc:allowdesigner mc:allowtext /></a>
+                      </td>
                     </tr>
                   </table>
 
@@ -888,17 +981,29 @@ You can access the movie videos through mobile app or at <a href="http://www.tve
               <td align="center" valign="top">
                 <!-- BEGIN FOOTER // -->
                 <!--
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" 
+
+id="templateFooter">
                                         <tr>
                                             <td valign="top" class="footerContent" mc:edit="footer_content00">
-                                                <a href="https://twitter.com/reciflix">Follow us on Twitter</a>&nbsp;&nbsp;&nbsp;<a href="https://www.facebook.com/reciflix">Follow us on Facebook</a>&nbsp;&nbsp;&nbsp;<a href="*|FORWARD|*">Forward to Friend</a>&nbsp;
+                                                <a href="https://twitter.com/reciflix">Follow us on 
+
+Twitter</a>&nbsp;&nbsp;&nbsp;<a href="https://www.facebook.com/reciflix">Follow us on 
+
+Facebook</a>&nbsp;&nbsp;&nbsp;<a href="*|FORWARD|*">Forward to Friend</a>&nbsp;
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01">
-                                                <em>Copyright &copy; 2016 ThingsBerry&trade;, All rights reserved.</em>
+                                            <td valign="top" class="footerContent" style="padding-top:0;" 
+
+mc:edit="footer_content01">
+                                                <em>Copyright &copy; 2016 ThingsBerry&trade;, All rights 
+
+reserved.</em>
                                                                                                 <br />
-                                                <strong>reach us at:</strong>                                 support@thingsberry.com 
+                                                <strong>reach us at:</strong>                                 
+
+support@thingsberry.com 
                                             </td>
                                         </tr>
                                         
