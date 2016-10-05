@@ -878,17 +878,13 @@ better readability on small screens.
       <tr>
         <td align="center" valign="top" id="bodyCell">
           <!-- BEGIN TEMPLATE // -->
-          <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="border:1px 
-
-solid black !important;">
-            <tr>
+          <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="border:1px solid black !important;">
+            <tr style="background-color:#3f51b5;color:white;">
               <td align="center" valign="top">
                 <!-- BEGIN PREHEADER // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
                   <tr>
-                    <td valign="top" class="preheaderContent" style="padding-top:10px; padding-
-
-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
+                    <td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px;padding-left:20px;" mc:edit="preheader_content00">
                       Welcome to ThingsBerry, a web application to add, view and share popular IOT things. </td>
                   </tr>
                 </table>
@@ -955,17 +951,16 @@ href="http://www.tveeler.com">www.tveeler.com</a> after signing in to your accou
                       <br/> ThingsBerry support
                     </td>
                   </tr>
-                  <tr>
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
-                      <tr>
-                        <td valign="top" style="width:2%;background-color:#959595;color:white;padding-
 
-top:10px; padding-right:0px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
+                  <tr style="background-color:#959595">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader" style="background-color:#959595">
+                      <tr>
+                        <td valign="top" style="color:white;padding-left:20px;width:20%;" mc:edit="preheader_content00">
                           Follow us on :</td>
-                        <td style="width:8%;background-color:#959595;">
+                        <td valign="bottom" align="left">
                           <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" mc:allowdesigner mc:allowtext /></a>
-                          <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="margin-left:7px !important;" mc:allowdesigner mc:allowtext /></a>
-                          <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="margin-left:7px !important;" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" mc:allowdesigner mc:allowtext /></a>
                         </td>
                       </tr>
                     </table>
