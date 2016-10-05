@@ -54,7 +54,7 @@ exports.sendUserGetListedInfoToThingsBerryAdmin = function (agenda) {
     console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.GetListedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/get-listed-email-to-thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'midhunsai.111@gmail.com';
     mailData.subject = 'Get Listed Product Info To ThingsBerry';
     mailData.getListedDetails = job.attrs.data.GetListedDetails;
     mailData.appEnv = config.app.title;
