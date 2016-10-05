@@ -280,7 +280,7 @@ size and color that is easy to read.
     
     .preheaderContent {
       /*@editable*/
-      color: #808080;
+      color: white;
       /*@editable*/
       font-family: Helvetica;
       /*@editable*/
@@ -289,6 +289,7 @@ size and color that is easy to read.
       line-height: 125%;
       /*@editable*/
       text-align: left;
+      background-color: #3f51b5;
     }
     /**
 			* @tab Header
@@ -883,30 +884,48 @@ solid black !important;">
             <tr>
               <td align="center" valign="top">
                 <!-- BEGIN PREHEADER // -->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader" style="background-color:#3f51b5 !important;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
                   <tr>
                     <td valign="top" class="preheaderContent" style="padding-top:10px; padding-
 
-right:20px; padding-bottom:10px; padding-left:20px;color:white;" mc:edit="preheader_content00">
+right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
                       Welcome to ThingsBerry, a web application to add, view and share popular IOT things. </td>
                   </tr>
                 </table>
                 <!-- // END PREHEADER -->
               </td>
             </tr>
+
             <tr>
               <td align="center" valign="top">
                 <!-- BEGIN HEADER // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader" style="border-bottom:1px solid #cccccc !important;">
                   <tr>
                     <td align="center" valign="top" class="headerContent">
-                      <img src="http://qa.thingsberry.com/modules/core/client/img/brand/Thingsberry_em.png" style="padding-left:120px;padding-right:120px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                      <img src="http://qa.thingsberry.com/modules/core/client/img/brand/Thingsberry_em.png" style="padding-left:120px !important;padding-right:120px !important;" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
                     </td>
                   </tr>
                 </table>
                 <!-- // END HEADER -->
               </td>
             </tr>
+
+            <!-- <tr>
+              <td align="center" valign="top">               
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
+                  <tr>
+                    <td align="center" valign="top" class="headerContent">
+                      <img src="http://qa.thingsberry.com/modules/core/client/img/contactEmail.jpg" 
+
+style="width:100%;height:30%" id="headerImage" mc:label="header_image" 
+
+mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                    </td>
+                  </tr>
+                </table>               
+              </td>
+            </tr>-->
+
             <tr>
               <td align="center" valign="top">
                 <!-- BEGIN BODY // -->
@@ -932,10 +951,15 @@ right:20px; padding-bottom:10px; padding-left:20px;color:white;" mc:edit="prehea
             </tr>
 
             <tr>
+
               <td align="center" valign="top">
                 <!-- BEGIN FOOTER // -->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
-                  <!--
+
+                <tr>
+                  <td align="center" valign="top">
+                    <!-- BEGIN FOOTER // -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
+                      <!-- 
                                         <tr>
                                             <td valign="top" class="footerContent" mc:edit="footer_content00">
                                                 <a href="https://twitter.com/reciflix">Follow us on 
@@ -946,28 +970,67 @@ Facebook</a>&nbsp;&nbsp;&nbsp;<a href="*|FORWARD|*">Forward to Friend</a>&nbsp;
                                             </td>
                                         </tr>
                                         -->
-                  <tr>
-                    <td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01">
-                      <em>Copyright &copy; 2016 ThingsBerry&trade;, All rights reserved.</em>
-                      <br />
-                      <strong>reach us at:</strong> support@thingsberry.com
-                    </td>
-                  </tr>
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
-                    <tr>
-                      <td valign="top" style="width:1%;background-color:#959595;color:white;padding-
+                      <tr>
+                        <td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01">
+                          <em>Copyright &copy; 2016 ThingsBerry&trade;, All rights reserved.</em>
+                          <br />
+                          <strong>reach us at:</strong> support@thingsberry.com
+                        </td>
+                      </tr>
+                      <tr>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
+                          <tr>
+                            <td valign="top" style="width:2%;background-color:#959595;color:white;padding-
 
 top:10px; padding-right:0px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
-                        Follow us on :</td>
-                      <td style="width:8%;background-color:#959595;">
-                        <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" style="width:5%;" mc:allowdesigner mc:allowtext /></a>
-                        <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="width:5%;margin-left:7px;" mc:allowdesigner mc:allowtext /></a>
-                        <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="width:5%;margin-left:7px;" mc:allowdesigner mc:allowtext /></a>
-                      </td>
-                    </tr>
-                  </table>
+                              Follow us on :</td>
+                            <td style="width:8%;background-color:#959595;">
+                              <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" mc:allowdesigner mc:allowtext /></a>
+                              <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="margin-left:7px !important;" mc:allowdesigner mc:allowtext /></a>
+                              <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="margin-left:7px !important;" mc:allowdesigner mc:allowtext /></a>
+                            </td>
+                          </tr>
+                        </table>
+                      </tr>
 
-                </table>
+
+                    </table>
+                    <!-- // END FOOTER -->
+                  </td>
+                </tr>
+
+
+
+
+                <!--
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" 
+
+id="templateFooter">
+                                        <tr>
+                                            <td valign="top" class="footerContent" mc:edit="footer_content00">
+                                                <a href="https://twitter.com/reciflix">Follow us on 
+
+Twitter</a>&nbsp;&nbsp;&nbsp;<a href="https://www.facebook.com/reciflix">Follow us on 
+
+Facebook</a>&nbsp;&nbsp;&nbsp;<a href="*|FORWARD|*">Forward to Friend</a>&nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" class="footerContent" style="padding-top:0;" 
+
+mc:edit="footer_content01">
+                                                <em>Copyright &copy; 2016 ThingsBerry&trade;, All rights 
+
+reserved.</em>
+                                                                                                <br />
+                                                <strong>reach us at:</strong>                                 
+
+support@thingsberry.com 
+                                            </td>
+                                        </tr>
+                                        
+                                    </table>
+                                    -->
                 <!-- // END FOOTER -->
               </td>
             </tr>

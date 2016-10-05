@@ -19,7 +19,7 @@ exports.sendNewUserWelcomeEmail = function (agenda) {
 
 exports.sendUserInfoToThingsBerryTeam = function (agenda) {
   agenda.define('User_Info_To_ThingsBerry_Team', function (job, done) {
-    //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
+    console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
     var mailData = {};
     mailData.templateName = 'emailtemplates/new-user-email-to-thingsberry';
     //mailData.to = 'support@thingsberry.com';
@@ -35,14 +35,14 @@ exports.sendUserInfoToThingsBerryTeam = function (agenda) {
 
 exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
   agenda.define('User_ContactUS_Info_To_ThingsBerry_Team', function (job, done) {
-    //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
+    console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.ContactedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/contact-us-email-to-thingsberry';
     mailData.to = 'midhunsai@globaltechminds.com';
     mailData.subject = 'ContactUs Info To ThingsBerry';
     mailData.contactedDetails = job.attrs.data.ContactedDetails;
     mailData.appEnv = config.app.title;
-    //console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);
     done();
   })
@@ -51,7 +51,7 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
 
 exports.sendUserGetListedInfoToThingsBerryAdmin = function (agenda) {
   agenda.define('User_GetListed_Info_To_ThingsBerry_Admin', function (job, done) {
-    //console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.userData));
+    console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.GetListedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/get-listed-email-to-thingsberry';
     mailData.to = 'midhunsai@globaltechminds.com';

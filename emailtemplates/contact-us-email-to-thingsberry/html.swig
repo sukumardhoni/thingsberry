@@ -902,7 +902,7 @@ right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content0
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader" style="border-bottom:1px solid #cccccc !important;">
                   <tr>
                     <td align="center" valign="top" class="headerContent">
-                      <img src="http://qa.thingsberry.com/modules/core/client/img/brand/Thingsberry_em.png" style="padding-left:120px;padding-right:120px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                      <img src="http://qa.thingsberry.com/modules/core/client/img/brand/Thingsberry_em.png" style="padding-left:120px !important;padding-right:120px !important;" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
                     </td>
                   </tr>
                 </table>
@@ -936,10 +936,10 @@ mc:edit="header_image" mc:allowdesigner mc:allowtext />
                       <br/>
                       <br/> This is the notification mail came from thingsberry.com.
                       <br/> Contacted details are :
-                      <br/>Name : {{ContactedDetails.name}}
-                      <br/>Email : {{ContactedDetails.email}}
-                      <br/>Phone : {{ContactedDetails.phone}}
-                      <br/>Message : {{ContactedDetails.message}}
+                      <br/>Name : {{contactedDetails.name}}
+                      <br/>Email : {{contactedDetails.email}}
+                      <br/>Phone : {{contactedDetails.phone}}
+                      <br/>Message : {{contactedDetails.message}}
                     </td>
                   </tr>
 
@@ -956,21 +956,21 @@ href="http://www.tveeler.com">www.tveeler.com</a> after signing in to your accou
                       <br/> ThingsBerry support
                     </td>
                   </tr>
-
+                  <tr>
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
                     <tr>
-                      <td valign="top" style="width:1%;background-color:#959595;color:white;padding-
+                      <td valign="top" style="width:2%;background-color:#959595;color:white;padding-
 
 top:10px; padding-right:0px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
                         Follow us on :</td>
                       <td style="width:8%;background-color:#959595;">
-                        <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" style="width:5%;" mc:allowdesigner mc:allowtext /></a>
-                        <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="width:5%;margin-left:7px;" mc:allowdesigner mc:allowtext /></a>
-                        <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="width:5%;margin-left:7px;" mc:allowdesigner mc:allowtext /></a>
+                        <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" mc:allowdesigner mc:allowtext /></a>
+                        <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" style="margin-left:7px !important;" mc:allowdesigner mc:allowtext /></a>
+                        <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" style="margin-left:7px !important;" mc:allowdesigner mc:allowtext /></a>
                       </td>
                     </tr>
                   </table>
-
+                  </tr>
                 </table>
                 <!-- // END BODY -->
               </td>
