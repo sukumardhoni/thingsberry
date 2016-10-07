@@ -28,7 +28,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
 
     $scope.signup = function (isValid) {
-      //console.log('In the controller function from signup page');
+      console.log('In the controller function from signup page');
       $scope.buttonTextSignUp = 'Signing Up...';
 
 
@@ -39,9 +39,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-
+      console.log($scope.credentials);
       $http.post('/api/auth/jwtSignup', $scope.credentials).success(function (response) {
         //console.log('proving the route to go to server side routes');
+        console.log("to signup:" + JSON.stringify(response));
         if (response.type === false) {
           $scope.error = response.data;
           //$scope.isDisabled = false;
@@ -142,15 +143,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             Users.Signup.create($scope.fUser).$promise.then(function (res) {
               // console.log('##users.signup.create response :'+JSON.stringify(res));
               if (res.type === false) {
-              //  console.log('@@ res.type is :'+res.type);
+                //  console.log('@@ res.type is :'+res.type);
                 $scope.errMsg = res.data;
-              //  console.log('@@ res.data is :'+res.data);
+                //  console.log('@@ res.data is :'+res.data);
                 $scope.populateUserLocally(res.user);
-              //  console.log('@@ res.user is :'+JSON.stringify(res.user));
+                //  console.log('@@ res.user is :'+JSON.stringify(res.user));
               } else {
                 $scope.errMsg = false;
                 $scope.populateUserLocally(res);
-              //  console.log('@@ response in fb')
+                //  console.log('@@ response in fb')
               }
             }).catch(function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
@@ -187,11 +188,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             };
             Users.Signup.create($scope.gUser).$promise.then(function (res) {
               if (res.type === false) {
-                 console.log('@@ res.type is :'+res.type);
+                console.log('@@ res.type is :' + res.type);
                 $scope.errMsg = res.data;
-                console.log('@@ res.data is :'+res.data);
+                console.log('@@ res.data is :' + res.data);
                 $scope.populateUserLocally(res.user);
-                console.log('@@ res.user is :'+JSON.stringify(res.user));
+                console.log('@@ res.user is :' + JSON.stringify(res.user));
               } else {
                 $scope.errMsg = false;
                 $scope.populateUserLocally(res);

@@ -334,15 +334,16 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
     $scope.addSlide1 = function (details) {
-      slides1.push({
-        image: details.productImageURL,
+      slides1.push(
+        details
+        /*image: details.productImageURL,
         proAddress: details.webAddress,
         desc: details.description,
         web: details.companyWebsite,
         text: details.Proname,
         id: currIndex++,
-        _id: details._id
-      });
+        _id: details._id*/
+      );
     };
 
     $scope.addSlide2 = function (details) {

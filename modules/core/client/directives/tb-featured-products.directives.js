@@ -27,11 +27,12 @@ angular.module('core')
         }
 
 
-        scope.editProductFunc = function (productDetails) {
-          // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
-          dataShare.setData(productDetails);
-          $state.go('companies.add');
-        }
+        /*  scope.editProductFunc = function (productDetails) {
+            console.log($state.current.name);
+            // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
+            dataShare.setData(productDetails, $state.current.name);
+            $state.go('companies.add');
+          }*/
       }
     };
   });

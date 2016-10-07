@@ -27,6 +27,13 @@
         remove: {
           method: 'DELETE'
         }
+      }),
+      getProduct: $resource('api/companies/:companyId', {
+        companyId: '@companyId'
+      }, {
+        query: {
+          method: 'GET'
+        }
       })
     }
 }]);
@@ -75,7 +82,11 @@
   function dataShare($rootScope, $timeout) {
     var service = {};
     service.data = false;
-    service.setData = function (data) {
+    service.setData = function (proDetails, proDetailsState) {
+      var data = {
+        data: proDetails,
+        detailsState: proDetailsState
+      }
       this.data = data;
       $timeout(function () {
         $rootScope.$broadcast('data_shared');

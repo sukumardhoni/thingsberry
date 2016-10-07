@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams'];
 
-  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams) {
     var vm = this;
 
     vm.company = company;
@@ -62,110 +62,11 @@
       }
     }
     $scope.editProductFunc = function (productDetails) {
-        // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
-        dataShare.setData(productDetails);
-        $state.go('companies.add');
-      }
-      /* var previousRatingValue;
-       var localStorageRatingKey;
+      // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
 
-       $scope.user = $localStorage.user;*/
-
-    /* var productname = vm.company.Proname;
-    //  console.log("company details:" + vm.company.Proname);
-    var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
-*/
-
-    /* if ($scope.user == undefined) {
-
-       localStorageRatingKey = "guest" + productNameLowerCase;
-       //console.log("userId:" + localStorageRatingKey);
-
-     } else {
-
-       localStorageRatingKey = $scope.user._id + productNameLowerCase;
-       // console.log("userId:" + localStorageRatingKey);
-
-     }*/
-
-    /*  $scope.rating = function (userRateValue) {
-
-
-        $scope.ratevalue = userRateValue;
-
-
-        if ($localStorage[localStorageRatingKey] == undefined) {
-
-          previousRatingValue = 0;
-          $localStorage[localStorageRatingKey] = $scope.ratevalue;
-
-        } else {
-
-          previousRatingValue = $localStorage[localStorageRatingKey];
-          $localStorage[localStorageRatingKey] = $scope.ratevalue;
-
-        }
-
-
-        ratingService.update({
-          companyId: vm.company._id,
-          userRating: $scope.ratevalue,
-          previousRatingValue: previousRatingValue
-        }, vm.company, successCallback, errorCallback);
-
-
-        function successCallback(res) {
-          // console.log("coming from callback");
-          $scope.rate = res.avgRatings;
-          $scope.reviewsCount = res.totalRatingsCount;
-        }
-
-
-        function errorCallback(res) {
-          console.log("coming from callback");
-          NotificationFactory.error('Failed to update the product rating...', res.data.message);
-        }
-
-      };*/
-
-
-    /* $scope.rate1 = $localStorage[localStorageRatingKey];
-
-     $scope.isReadonly1 = false;
-
-     $scope.rate = vm.company.avgRatings;
-     $scope.reviewsCount = vm.company.totalRatingsCount;
-
-     $scope.isReadonly = true;
-
-     $scope.showMe = function () {
-
-       $scope.showRatings = !$scope.showRatings;
-
-     }*/
-
-    /*   $scope.hoverOut = function () {
-
-        if ($localStorage[localStorageRatingKey]) {
-
-          $scope.showRatings = !$scope.showRatings;
-
-        } else {
-
-          $scope.showRatings = true;
-        }
-      }
-
-
-      if ($localStorage[localStorageRatingKey]) {
-
-        $scope.showRatings = false;
-
-      } else {
-
-        $scope.showRatings = true;
-      }*/
-
+      dataShare.setData(productDetails);
+      $state.go('companies.add');
+    }
 
     /*   $scope.userValidation = function () {
          if (vm.authentication.user) {} else {
@@ -183,14 +84,56 @@
          }
        }*/
 
+    // console.log("product id there:" + $stateParams.companyId);
 
-    $scope.loadCategories = function () {
+
+    if ($stateParams.companyId) {
+      console.log("coming to correct list");
+      console.log("coming to correct list@@@@:" + $stateParams.companyId);
+      $scope.productIdIs = $stateParams.companyId;
+      console.log("coming to correct list@@@@:" + $scope.productIdIs);
+      CompanyServiceUpdate.getProduct.query({
+        companyId: $scope.productIdIs
+      }, vm.company, successgetProductCallback, errorgetProductCallback);
+
+      function successgetProductCallback(res) {
+        vm.company = res;
+        console.log("succes callback from get productdetails:" + JSON.stringify(res));
+      }
+
+      function errorgetProductCallback(res) {
+        vm.error = res.data.message;
+        console.log("error callback from get productdetails");
+        NotificationFactory.error('Failed to get Product details...', res.data.message);
+      }
+
+    }
+
+    /* $scope.loadCategories = function ($query) {
+         var catsList = CategoryService.query(),
+           defObj = $q.defer();
+         return catsList.$promise.then(function (result) {
+           defObj.resolve(result);
+           return result.filter(function (catList) {
+             return catList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+           });
+         });
+         return defObj.promise;
+
+       };*/
+
+
+
+
+
+    $scope.loadCategories = function ($query) {
       var catsList = CategoryService.query(),
         defObj = $q.defer();
-      catsList.$promise.then(function (result) {
-        //$scope.catsList = result;
+      return catsList.$promise.then(function (result) {
         defObj.resolve(result);
-        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        return result.filter(function (catList) {
+          return catList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+        });
       });
       return defObj.promise;
     };
@@ -288,7 +231,7 @@
 
       // TODO: move create/update logic to service
       if (vm.company.productId) {
-        //console.log('Update product is called : ' + JSON.stringify(vm.company));
+        console.log('Update product is called : ' + JSON.stringify(vm.company));
         console.log('Update product is called : ' + JSON.stringify(vm.company.productId));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
@@ -305,7 +248,7 @@
         console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
         vm.company.operationalRegions = $scope.operationalRegionsList;
 
-
+        // console.log('adproduct1');
         CompanyServiceUpdate.UpdateProduct.update({
           companyId: vm.company.productId
         }, vm.company, successUpdateCallback, errorUpdateCallback);
@@ -368,22 +311,30 @@
         vm.error = res.data.message;
         NotificationFactory.error('Failed to save Product details...', res.data.message);
       }
-
-
-
     }
 
-    $scope.$on('data_shared', function () {
-      var proDetails = dataShare.getData();
 
-      if (proDetails.logo)
-        $scope.previewImg(proDetails.logo);
-      $scope.productImg = proDetails.logo;
+    /*
+        $scope.$on('data_shared', function () {
+          var proDetails = dataShare.getData();
+          //  console.log("datashare localstorage");
+          //  $localStorage.editProductDetails = proDetails;
+          console.log(JSON.stringify(proDetails.detailsState));
 
-      $scope.operationalRegionsList = (proDetails.operationalRegions.length != 0) ? proDetails.operationalRegions : $scope.operationalRegionsList;
 
-      vm.company = proDetails;
-    });
+          if (proDetails.data.logo)
+            $scope.previewImg(proDetails.data.logo);
+          $scope.productImg = proDetails.data.logo;
+
+          $scope.operationalRegionsList = (proDetails.data.operationalRegions.length != 0) ? proDetails.operationalRegions : $scope.data.operationalRegionsList;
+
+          vm.company = proDetails.data;
+          console.log('datashare last: ' + JSON.stringify(vm.company));
+        });*/
+
+
+
+
 
     $scope.businessSectorSelectedArray = [];
 

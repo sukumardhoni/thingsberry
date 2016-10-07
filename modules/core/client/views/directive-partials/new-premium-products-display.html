@@ -1,19 +1,20 @@
 <div style="color:white">
   <div class="row text-left">
-    <h2 class="premium_prdct_header">{{details.text}}</h2>
+    <h2 class="premium_prdct_header">{{details.Proname}}</h2>
+
   </div>
   <div class="row text-left">
-    <h5 class="premium_prdct_desc">{{details.desc | limitTo: 146}}</h5>
+    <h5 class="premium_prdct_desc">{{details.description | limitTo: 146}}</h5>
   </div>
   <div class="row premium_prdct_img">
-    <img src="{{details.image}}" class="premium_img img-responsive" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';">
+    <img src="{{details.productImageURL}}" class="premium_img img-responsive" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';">
   </div>
   <div class="row">
-    <a ui-sref="companies.view({ companyId:details._id })">
+    <a ui-sref="companies.view({ companyId:details.productId })">
 
       <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-5 col-sm-5 col-xs-5  "><b>READ MORE</b></md-button>
     </a>
-    <a href="{{details.web}}" target="_blank">
+    <a href="{{details.webAddress}}" target="_blank">
       <button class="col-md-5 col-sm-5 col-xs-5 col-xs-offset-1 col-md-offset-1 col-sm-offset-1 btn btn-default premium_visit_btn">VISIT WEBSITE</button>
       <!-- <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-4 col-sm-4 col-xs-5 col-xs-offset-2 col-md-offset-4 col-sm-offset-3 "><b>READ MORE</b></md-button>-->
     </a>

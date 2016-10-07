@@ -1,5 +1,5 @@
 <section ng-controller="HomeController">
-   <update-title title="Thingsberry.com"></update-title>
+  <update-title title="Thingsberry.com"></update-title>
   <update-meta name="description" content="A comprehensive listing of All Internet Of Things"></update-meta>
   <update-meta property="og:title" content="Thingsberry.com"></update-meta>
   <update-meta itemprop="description" content="A comprehensive listing of All Internet Of Things"></update-meta>
@@ -132,48 +132,48 @@
 
 <a id='backTop'>Back To Top</a>
 <script>
-  $(document).ready(function () {
+  /* $(document).ready(function () {
 
-    $(window).scroll(function () {
-      //if you hard code, then use console
-      //.log to determine when you want the
-      //nav bar to stick.
-      // console.log($(window).scrollTop())
-      if ($(window).scrollTop() > 100) {
-        $("#backTop").fadeIn();
-      } else {
-        $("#backTop").fadeOut();
-      }
-    });
-    $("#backTop").click(function () {
-      $("body").animate({
-        scrollTop: 0
-      }, 800);
-      return false;
-    })
-
-  });
-
-
-
-  /*
-    $(document).ready(function () {
       $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
+        //if you hard code, then use console
+        //.log to determine when you want the
+        //nav bar to stick.
+        // console.log($(window).scrollTop())
+        if ($(window).scrollTop() > 100) {
           $("#backTop").fadeIn();
         } else {
           $("#backTop").fadeOut();
         }
       });
-
-      // scroll body to 0px on click
       $("#backTop").click(function () {
-        $("html, body").animate({
+        $("body").animate({
           scrollTop: 0
         }, 800);
         return false;
       })
-    });*/
+
+    });
+  */
+
+
+
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 100) {
+        $("#backTop").fadeIn();
+      } else {
+        $("#backTop").fadeOut();
+      }
+    });
+
+    // scroll body to 0px on click
+    $("#backTop").click(function () {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 800);
+      return false;
+    })
+  });
 </script>
 
 

@@ -88,7 +88,7 @@
         <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
           <label>Category&#42;</label>
           <tags-input ng-model="vm.company.ProCat" class="form-control-tags-input" display-property="title" placeholder="Add a Category&#42;">
-            <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+            <auto-complete source="loadCategories($query)" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
           </tags-input>
         </div>
       </div>

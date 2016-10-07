@@ -36,7 +36,7 @@ exports.create = function (req, res) {
 
 exports.catsCheck = function (cats) {
   var ProCatsArray = cats;
-//  console.log('catsCheck function is called : ' + JSON.stringify(cats));
+  //  console.log('catsCheck function is called : ' + JSON.stringify(cats));
   Category.distinct("title").exec(function (err, categories) {
     if (err) {
       return res.status(400).send({
@@ -67,7 +67,7 @@ exports.catsCheck = function (cats) {
  */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
-  console.log('### MIDHUN :'+ req.company)
+  console.log('### MIDHUN :' + req.company)
   var company = req.company ? req.company.toJSON() : {};
 
   // Add a custom field to the Company, for determining if the current User is the "owner".
@@ -85,7 +85,7 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var company = req.company;
 
-  console.log('Company details are : ' + JSON.stringify(req.body.Proname));
+  console.log('Company details are : ' + JSON.stringify(req.body));
   company = _.extend(company, req.body);
   /*company.title = req.body.title;
   company.content = req.body.content;*/
@@ -99,6 +99,7 @@ exports.update = function (req, res) {
       });
     } else {
       res.json(company);
+      console.log(company);
     }
   });
 };
@@ -241,6 +242,7 @@ exports.list = function (req, res) {
       ProObj.products = companies;
       //console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
       res.json(ProObj);
+      console.log("@@@@:" + JSON.stringify(ProObj));
     }
   });
 };
@@ -478,13 +480,15 @@ exports.searchedProductsList = function (req, res) {
 };*/
 exports.companyByID = function (req, res, next, id) {
 
- /* if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Company is invalid'
-    });
-  }*/
+  /* if (!mongoose.Types.ObjectId.isValid(id)) {
+     return res.status(400).send({
+       message: 'Company is invalid'
+     });
+   }*/
 
-  Company.findOne({productId:id}).populate('user', 'displayName').exec(function (err, company) {
+  Company.findOne({
+    productId: id
+  }).populate('user', 'displayName').exec(function (err, company) {
     if (err) {
       return next(err);
     } else if (!company) {
@@ -492,7 +496,7 @@ exports.companyByID = function (req, res, next, id) {
         message: 'No company with that identifier has been found'
       });
     }
-     console.log('@@## MIDHUN1 :'+ company);
+    console.log('@@## MIDHUN1 :' + company);
     req.company = company;
 
     next();

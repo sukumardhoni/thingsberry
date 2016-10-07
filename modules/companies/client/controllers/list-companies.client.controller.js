@@ -5,12 +5,21 @@
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location'];
+  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state'];
 
-  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location) {
+  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state) {
     var vm = this;
     var pageId = 0;
     $scope.path = $location.absUrl();
+
+    $scope.editProductFunc = function (productDetails) {
+      /*console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));*/
+      console.log('Edit Product details on Direc. : ');
+      console.log($state.current.name);
+      dataShare.setData(productDetails, $state.current.name);
+      $state.go('companies.add');
+    }
+
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
     /*CompanyService.query(function (res) {
   //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
@@ -27,6 +36,7 @@
     // console.log("USER :"+ JSON.stringify(Authentication));
     // console.log("USER :"+ JSON.stringify($localStorage.user));
     $scope.getSearchedProductsList = function () {
+
 
       //  console.log("Entering into getsearchproductslists");
 
@@ -59,7 +69,7 @@
       $scope.gridView = true;
       $scope.grdView = function () {
         $scope.gridView = true;
-        console.log("coming to div1 funct");
+        //  console.log("coming to div1 funct");
       }
 
       $scope.listView = function () {

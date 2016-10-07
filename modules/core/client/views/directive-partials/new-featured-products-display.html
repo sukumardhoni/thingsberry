@@ -1,6 +1,7 @@
 <div>
   <div class="row">
-    <div ng-show="editProduct" class="editIon"> <i class="fa fa-pencil pencilIcon" ng-click="editProductFunc(details)"></i>
+    <div ng-show="editProduct" class="editIon">
+      <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-pencil pencilIcon"></i></a>
     </div>
   </div>
 

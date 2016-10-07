@@ -22,18 +22,25 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         }
       }
       scope.date1 = attr.dateOnProduct;
+      /* scope.editProductFunc = function (productDetails) {
+         console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
 
-      scope.editProductFunc = function (productDetails) {
-          // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
-          dataShare.setData(productDetails);
-          $state.go('companies.add');
-        }
-        // console.log(scope.details);
-        /* scope.productImageUrl = attr.productImage;
-         scope.productName = attr.productName;
-         scope.productUrl = attr.productUrl;
-         scope.productDescription = attr.productDesc;*/
-        // console.log(scope.productName);
+         dataShare.setData(productDetails);
+         $state.go('companies.add');
+       }*/
+
+      /*  scope.editProductFunc = function (productDetails) {
+            // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
+
+            dataShare.setData(productDetails);
+            $state.go('companies.add');
+          }*/
+      // console.log(scope.details);
+      /* scope.productImageUrl = attr.productImage;
+       scope.productName = attr.productName;
+       scope.productUrl = attr.productUrl;
+       scope.productDescription = attr.productDesc;*/
+      // console.log(scope.productName);
 
     }
   }
@@ -58,18 +65,40 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           scope.editProduct = false;
         }
       }
-      scope.editProductFunc = function (productDetails) {
-          // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
-          dataShare.setData(productDetails);
-          $state.go('companies.add');
-        }
-        //  console.log("date in directive" + scope.date1);
-        // console.log(scope.details);
-        /* scope.productImageUrl = attr.productImage;
-         scope.productName = attr.productName;
-         scope.productUrl = attr.productUrl;
-         scope.productDescription = attr.productDesc;*/
-        // console.log(scope.productName);
+      /* scope.editProductFunc = function (productDetails) {
+         // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
+         dataShare.setData(productDetails);
+         $state.go('companies.add');
+       }*/
+
+      /* var proDetails = '';
+       scope.$on('data_shared', function () {
+         var proDetails = dataShare.getData();
+         console.log("datashare localstorage");
+         $localStorage.editProductDetails = proDetails;
+         console.log(JSON.stringify($localStorage.editProductDetails));
+
+         if (proDetails.logo)
+           scope.previewImg(proDetails.logo);
+         scope.productImg = proDetails.logo;
+
+         scope.operationalRegionsList = (proDetails.operationalRegions.length != 0) ? proDetails.operationalRegions : scope.operationalRegionsList;
+
+         vm.company = proDetails;
+       });
+       if (proDetails) {
+         vm.company = proDetails;
+       } else {
+         vm.company = $localStorage.editProductDetails;
+       }*/
+
+      //  console.log("date in directive" + scope.date1);
+      // console.log(scope.details);
+      /* scope.productImageUrl = attr.productImage;
+       scope.productName = attr.productName;
+       scope.productUrl = attr.productUrl;
+       scope.productDescription = attr.productDesc;*/
+      // console.log(scope.productName);
 
     }
   }

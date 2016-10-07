@@ -6,16 +6,20 @@
       </p>
     </div>
     <div class="col-md-8 col-sm-8 col-xs-12">
-      <div class="row" style="padding:15px;padding-left:5px;">
-        <div class="col-md-3 col-sm-4 col-xs-6">
-          <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar date_icon_in_sngle_prdct" aria-hidden="true" ></i>
-            {{date1 |date:'MMM d, yyyy'}}</span>
-        </div>
-        <tb-ratings-container prod-id={{prodId}} state="productListView" products="details" style="float:right;"></tb-ratings-container>
+      <div class="row new_list_prdct_view_name">
+        <h3>{{details.Proname}}</h3>
       </div>
+      <hr style="margin-top:0px;margin-bottom:15px;">
       <div class="new_list_prdct_view_body">
-        <div class="row new_list_prdct_view_name">
+        <!--<div class="row new_list_prdct_view_name">
           <h3>{{details.Proname}}</h3>
+        </div>-->
+        <div class="row new_prdct_list_date_rating">
+          <div class="col-md-3 col-sm-4 col-xs-6">
+            <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar date_icon_in_sngle_prdct" aria-hidden="true" ></i>
+            {{date1 |date:'MMM d, yyyy'}}</span>
+          </div>
+          <tb-ratings-container prod-id={{prodId}} state="productListView" products="details" style="float:right;"></tb-ratings-container>
         </div>
         <div class="row new_list_prdct_view_desc">
           <p>{{ details.description |limitTo: 150}}</p>
@@ -34,7 +38,8 @@
           <a ui-sref="companies.view({ companyId: details.productId })"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
-          <div ng-show="editProduct"> <i class="fa fa-pencil pencilIcon new_list_prdct_view_footer_icons" ng-click="editProductFunc(details)"></i>
+          <div ng-show="editProduct">
+            <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-pencil pencilIcon new_list_prdct_view_footer_icons"></i></a>
           </div>
         </div>
         <!--<div class="col-md-1 col-sm-1 col-xs-4">

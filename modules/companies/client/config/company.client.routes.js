@@ -45,7 +45,7 @@
         }
       })
       .state('companies.add', {
-        url: '/add_your_product',
+        url: '/your_product/:companyId',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',
         /*   templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
         controller: 'CompanyController',
@@ -58,20 +58,7 @@
           pageTitle: 'Add Product'
         }
       })
-      .state('companies.edit', {
-        url: '/:companyId/edit',
-        templateUrl: 'modules/companies/client/views/add-company.client.view.html',
-        /*templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
-        controller: 'CompanyController',
-        controllerAs: 'vm',
-        resolve: {
-          companyResolve: getCompany
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Company {{ companyResolve.Proname }}'
-        }
-      })
+
 
     .state('companies.view', {
       url: '/:companyId',

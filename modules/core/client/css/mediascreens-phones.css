@@ -82,6 +82,18 @@
 }
 
 @media (max-width: 991px) {
+  @-moz-document url-prefix() {
+    .logo {
+      margin-left: -15px!important;
+    }
+  }
+  .logo {
+    margin-left: -20px;
+  }
+  .header_search_icon {
+    margin-right: 20px;
+    margin-top: 19px;
+  }
   .share .hover_tile {
     right: -45px;
   }

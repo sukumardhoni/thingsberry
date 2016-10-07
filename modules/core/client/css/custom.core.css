@@ -120,6 +120,15 @@ a:hover#backTop {
   cursor: pointer;
 }
 
+@-moz-document url-prefix() {
+  .logo {
+    margin-left: -72px!important;
+  }
+  .navbar_List {
+    margin-left: 72px !important;
+  }
+}
+
 
 /*-------------MIdhun contactUs page Styles------------------*/
 
@@ -132,6 +141,10 @@ a:hover#backTop {
 		transform: translateY(2%);
   }
 }*/
+
+.navbar_List {
+  margin-left: 155px;
+}
 
 .featured-listing.ng-enter,
 .featured-listing.ng-leave,
@@ -792,7 +805,7 @@ a:hover#backTop {
 .logo {
   margin-top: -14px;
   width: 221px;
-  margin-left: -70px;
+  margin-left: -55px;
 }
 
 .header_search_icon {
@@ -800,8 +813,8 @@ a:hover#backTop {
   color: #959595;
   cursor: pointer;
   float: right;
-  margin-right: 15px;
-  margin-top: 19px;
+  margin-right: 33px;
+  margin-top: 22px;
   outline: none;
 }
 

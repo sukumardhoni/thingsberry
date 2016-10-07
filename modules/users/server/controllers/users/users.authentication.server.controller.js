@@ -58,7 +58,7 @@ exports.getListed = function (req, res) {
 /* JWT Signup */
 
 exports.jwtSignup = function (req, res, next) {
-  //console.log(' in the Authentication server controller(jwtsignup)');
+  // console.log(' in the Authentication server controller(jwtsignup)');
   var secret = 'www';
   var payload = {
     email: req.body.email
@@ -72,21 +72,28 @@ exports.jwtSignup = function (req, res, next) {
         type: false,
         data: 'Error occured: ' + err
       });
+      //  console.log("##Coming to 1st if error");
     } else {
+      // console.log("##Coming to 1st else");
       if (user) {
+        //  console.log("##Coming to 2st if user");
         if (user.token === '') {
           token = jwt.encode(payload, secret);
           // console.log("@@@@@ JWT SIGNUP"+token);
           user.token = token;
           user.save(function (err) {
+            console.log("##Coming to user save");
             if (err) {
+              //  console.log("##Coming to user save error");
               return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
               });
             } else {
+              //  console.log("##Coming to user save else");
               req.login(user, function (err) {
+                // console.log("##Coming to user login error");
                 if (err) {
-                  console.log('Error while Login user : ' + err);
+                  // console.log('Error while Login user : ' + err);
                   res.status(400).send(err);
                 } else {
                   res.json({
@@ -106,10 +113,11 @@ exports.jwtSignup = function (req, res, next) {
           });
         }
       } else {
+        // console.log("##Coming to new user save func");
         //delete req.body.roles;
         var userModel = new User(req.body);
 
-        //console.log('User details on signup : ' + JSON.stringify(req.body));
+        // console.log('User details on signup : ' + JSON.stringify(userModel));
 
         userModel.provider = req.body.provider || 'local';
         // console.log('@@@@ PROVIDER:'+userModel.provider);
@@ -118,15 +126,17 @@ exports.jwtSignup = function (req, res, next) {
         var jwtToken = jwt.encode(payload, secret);
         userModel.token = jwtToken;
         userModel.save(function (err) {
+          //  console.log("###$$ userModel.save func");
           if (err) {
             //console.log('Error while saving user 111111: ' + err.errors.email.message);
-            //console.log('Error while saving user 111: ' + err);
+            // console.log('Error while saving user 111: ' + err);
             var errData;
             if (err.code === 11000) {
               errData = 'User already exists with email : ' + userModel.email;
             } else {
               //errData = err.errors.email.message;
               errData = err.errors.password.message;
+              // console.log("else in paswoord msg");
             }
             /*
             return res.status(400).send({
@@ -138,20 +148,31 @@ exports.jwtSignup = function (req, res, next) {
               user: user
             });
           } else {
+            // console.log("userModel.save func else");
             req.login(userModel, function (err) {
+              // console.log("userModel.save login func");
               if (err) {
-                //console.log('Error while saving user 2222222: ' + err);
+                // console.log('Error while saving user 2222222: ' + err);
                 res.status(400).send(err);
               } else {
+                // console.log("agenda jobs else part:" + userModel.email);
+                // console.log("agenda jobs else part:" + JSON.stringify(userModel));
                 //send a welcome mail notification using agenda
                 agenda.now('New_User_Welcome', {
                   email: userModel.email,
                   displayName: userModel.displayName
                 });
-                //send a User_Info_To_ThingsBerry_Team mail notification using agenda
+                //  console.log("agenda jobs else part:" + JSON.stringify(userModel));
+                var userSignupMailDetails = {
+                    email: userModel.email,
+                    displayname: userModel.displayName,
+                    provider: userModel.provider
+                  }
+                  //  console.log("##@@@ userSIGNUP DETAILS:" + JSON.stringify(userSignupMailDetails));
+                  //send a User_Info_To_ThingsBerry_Team mail notification using agenda
                 agenda.now('User_Info_To_ThingsBerry_Team', {
                   /*  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider*/
-                  userData: userModel
+                  userData: userSignupMailDetails
                 });
                 res.jsonp(userModel);
               }

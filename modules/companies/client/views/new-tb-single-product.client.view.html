@@ -54,7 +54,8 @@
               </a>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
-              <div ng-show="editIcon"> <i class="fa fa-pencil pencilIcon new_list_prdct_view_footer_icons" ng-click="editProductFunc(vm.company)"></i>
+              <div ng-show="editIcon">
+                <a ui-sref="companies.add({ companyId: vm.company.productId })"> <i class="fa fa-pencil pencilIcon new_list_prdct_view_footer_icons"></i></a>
               </div>
             </div>
           </div>
@@ -63,7 +64,7 @@
       </div>
       <div class="row new_sngle_prdct_box">
         <h3 class="text-center">Comments</h3>
-        <div id="disqus_thread"></div>
+        <!-- <div id="disqus_thread"></div>
         <script>
           var disqus_config = function () {
             this.experiment.enable_scroll_container = true;
@@ -92,7 +93,51 @@
           };
         </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Things.</a>
-        </noscript>
+        </noscript>-->
+
+        <!-- <div id="disqus_thread"></div>
+        <script>
+          /**
+           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables */
+
+          var disqus_config = function () {
+            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document,
+              s = d.createElement('script');
+            s.src = '//thingsberry-com-1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>-->
+
+        <div id="disqus_thread"></div>
+        <script>
+          /**
+           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables */
+
+          var disqus_config = function () {
+            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document,
+              s = d.createElement('script');
+            s.src = '//qa-thingsberry-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
       </div>
     </div>
 
