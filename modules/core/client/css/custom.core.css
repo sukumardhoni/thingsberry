@@ -109,7 +109,7 @@ body {
   margin-right: 10px;
   border: 1px solid gray;
   cursor: pointer;
-  /*transition:1s all ease;*/
+  transition: 1s all ease;
 }
 
 a:hover#backTop {
@@ -176,6 +176,11 @@ a:hover#backTop {
   height: 0;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.videoBox {
+  height: 350px;
+  width: 100%;
 }
 
 .carousel_spinner {
@@ -410,7 +415,8 @@ a:hover#backTop {
 }
 
 .quotes_carousel .glyphicon {
-  display: none;
+  /*display: none;*/
+  top: 60%;
 }
 
 

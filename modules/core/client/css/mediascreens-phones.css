@@ -189,6 +189,7 @@
   .quotes_bg_image {
     padding: 10px;
     padding-bottom: 0px;
+    min-height: 500px;
   }
   .quotes_In_Xs {
     font-size: 30px;
@@ -226,6 +227,16 @@
 }
 
 @media (max-width: 765px) {
+  .quotes_carousel .glyphicon {
+    top: 65%;
+  }
+  .quotes_bg_image {
+    min-height: 0px;
+  }
+  .videoBox {
+    width: 100%;
+    height: 100% !important;
+  }
   .search_inpt {
     margin-top: 0px;
   }
@@ -292,7 +303,7 @@
     padding-left: 50px;
   }
   .featured_prdct_carousel {
-    min-height: 400px;
+    min-height: 345px;
   }
   .premium_box {
     margin: 15px;
@@ -370,6 +381,9 @@
 }
 
 @media (max-width:380px) {
+  .header_img {
+    font-size: 20px;
+  }
   .share .hover_tile {
     right: -20px;
   }

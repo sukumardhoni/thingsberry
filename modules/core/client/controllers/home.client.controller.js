@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce) {
 
     var vm = this;
 
@@ -36,7 +36,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
             console.log('details is : ' + JSON.stringify(details));
             details.regions = $scope.outputBrowsers;*/
-
+      console.log('details is : ' + JSON.stringify(details));
       if (details != undefined) {
         if (details.Category || details.Company || details.Product || details.outputBrowsers) {
           var catsArray = [];
@@ -179,6 +179,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         });
     };
 
+    $scope.tbVideos = function () {
+      $scope.carouselBg2.push('carousel_spinner_featured');
+      videos.query({}, function (res) {
+          $scope.videos = res;
+          $timeout(function () {
+            $scope.carouselBg2.pop('carousel_spinner_featured');
+          }, 1000);
+        },
+        function (err) {
+          console.log('Failed to fetch the product details : ' + err);
+        });
+    };
 
 
     $scope.featuredProducts = function () {
@@ -260,6 +272,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var currIndex = 0;
     $scope.carouselBg = [];
     $scope.carouselBg1 = [];
+    $scope.carouselBg2 = [];
 
 
     $scope.premiumProducts = function () {
@@ -446,3 +459,29 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 }
 ]);
+angular.module('core').directive('myYoutube', function ($sce) {
+  return {
+    restrict: 'EA',
+    scope: {
+      code: '='
+    },
+    replace: true,
+    template: '<div class="videoBox"><iframe style="overflow:hidden;height:100%;width:90%" controls="0" src="{{url}}" frameborder="0" allowfullscreen></iframe></div>',
+    link: function (scope) {
+      //  console.log('here');
+      scope.$watch('code', function (newVal) {
+        if (newVal) {
+          scope.url = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + newVal);
+        }
+      });
+    }
+  };
+});
+
+
+/*.filter('trusted', ['$sce', function ($sce) {
+  return function (url) {
+    var video_id = url.split('v=')[1].split('&')[0];
+    return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + video_id);
+  };
+}]);*/

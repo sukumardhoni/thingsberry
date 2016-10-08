@@ -80,16 +80,24 @@
 
   <!------------::: quotes :::--------------->
 
-  <div ng-init="tbQuotes()">
+  <div ng-init="tbVideos()">
     <div class="row quotes_bg_image">
       <div class="container">
         <div>
-          <div class="featured_prdct_carousel quotes_carousel col-md-12 col-xs-12">
+          <!--<div class="featured_prdct_carousel quotes_carousel col-md-12 col-xs-12">
             <uib-carousel interval="5000" active=0 no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slide in quotes " index="$index">
-                <!--<div ng-repeat="sarray in slide" class="col-md-10 " data-wrap="false">-->
                 <tb-quotes tbquote="slide"></tb-quotes>
-                <!--  </div>-->
+              </uib-slide>
+            </uib-carousel>
+          </div>-->
+          <div class="featured_prdct_carousel quotes_carousel col-md-12 col-xs-12" ng-class="carouselBg2">
+            <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slide in videos " index="$index">
+                <div class="row" style="min-height:100px;">
+                  <h2 class="quotes_title_In_Xs" style="color:white;">{{slide.title}}</h2>
+                </div>
+                <div class=" video-frame" my-youtube code="slide.videoId"></div>
               </uib-slide>
             </uib-carousel>
           </div>
@@ -134,26 +142,26 @@
 <script>
   /* $(document).ready(function () {
 
-      $(window).scroll(function () {
-        //if you hard code, then use console
-        //.log to determine when you want the
-        //nav bar to stick.
-        // console.log($(window).scrollTop())
-        if ($(window).scrollTop() > 100) {
-          $("#backTop").fadeIn();
-        } else {
-          $("#backTop").fadeOut();
-        }
-      });
-      $("#backTop").click(function () {
-        $("body").animate({
-          scrollTop: 0
-        }, 800);
-        return false;
-      })
+                                                  $(window).scroll(function () {
+                                                    //if you hard code, then use console
+                                                    //.log to determine when you want the
+                                                    //nav bar to stick.
+                                                    // console.log($(window).scrollTop())
+                                                    if ($(window).scrollTop() > 100) {
+                                                      $("#backTop").fadeIn();
+                                                    } else {
+                                                      $("#backTop").fadeOut();
+                                                    }
+                                                  });
+                                                  $("#backTop").click(function () {
+                                                    $("body").animate({
+                                                      scrollTop: 0
+                                                    }, 800);
+                                                    return false;
+                                                  })
 
-    });
-  */
+                                                });
+                                              */
 
 
 

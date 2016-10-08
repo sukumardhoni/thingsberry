@@ -82,10 +82,7 @@
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
       $scope.searchOrder.Lists = [
-        /*{
-          'name': 'Sort by',
-          'value': ''
-        },*/
+
         {
           'name': 'Sort by Ratings',
           'value': 'created'
@@ -101,7 +98,7 @@
         ListOfProducts.query({
           pageId: pageId
         }, function (res) {
-          //console.log('response is : ' + JSON.stringify(res));
+          // console.log('response is : ' + JSON.stringify(res));
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;

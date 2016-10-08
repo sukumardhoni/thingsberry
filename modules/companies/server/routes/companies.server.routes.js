@@ -28,9 +28,7 @@ module.exports = function (app) {
 
 
   app.route('/api/premiumProducts')
-    .get(cache.route({
-      expire: 10
-    }), companies.premiumProductsList);
+    .get(cache.route(), companies.premiumProductsList);
 
   app.route('/api/featuredProducts')
     .get(cache.route({

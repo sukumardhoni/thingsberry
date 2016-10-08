@@ -73,3 +73,13 @@ angular.module('core')
     }
   });
 })
+
+.factory('videos', function ($resource) {
+  return $resource('api/videos', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+})
