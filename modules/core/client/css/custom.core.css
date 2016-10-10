@@ -496,6 +496,16 @@ a:hover#backTop {
   display: inline-table;
 }
 
+.icon_on_premiumPrdct {
+  position: absolute;
+  background-color: white;
+  padding: 4px;
+  padding-left: 5px;
+  margin-top: 10px;
+  right: 15px;
+  margin-right: 10px;
+}
+
 .premium_prdct_img {
   min-height: 268px;
 }

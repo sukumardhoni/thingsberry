@@ -242,7 +242,7 @@ exports.list = function (req, res) {
       ProObj.products = companies;
       //console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
       res.json(ProObj);
-      console.log("@@@@:" + JSON.stringify(ProObj));
+      //  console.log("@@@@:" + JSON.stringify(ProObj));
     }
   });
 };
@@ -333,7 +333,7 @@ exports.searchedProductsList = function (req, res) {
   if (req.params.ProCategory != 'Category') {
     var CatsArray = req.params.ProCategory.split(',');
 
-    console.log('CatsArray  array is : ' + JSON.stringify(CatsArray));
+    //  console.log('CatsArray  array is : ' + JSON.stringify(CatsArray));
 
 
     for (var i = 0; i < CatsArray.length; i++) {
@@ -341,7 +341,7 @@ exports.searchedProductsList = function (req, res) {
         title: CatsArray[i]
       });
     }
-    console.log('proCats  array is : ' + JSON.stringify(proCats));
+    //  console.log('proCats  array is : ' + JSON.stringify(proCats));
   }
 
 

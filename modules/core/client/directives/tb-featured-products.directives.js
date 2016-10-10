@@ -25,6 +25,9 @@ angular.module('core')
             scope.editProduct = false;
           }
         }
+        scope.dynamicPopover = {
+          templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+        };
 
 
         /*  scope.editProductFunc = function (productDetails) {

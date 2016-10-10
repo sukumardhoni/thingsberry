@@ -625,18 +625,66 @@ BEFORE THIS ALREDY STYLES
 
 .editIon {
   position: absolute;
-  left: 85%;
+  left: 84%;
   top: 0%;
   z-index: 1000;
   padding: 15px;
   background-color: white;
   outline: none;
-  /*color: #cccccc;*/
+  cursor: pointer;
+  /*color: #3f51b5;*/
 }
 
-.editIon:hover {
-  color: #3f51b5;
+.popover > .arrow {
+  display: none;
 }
+
+.popover {
+  border: 2px solid #7f919e;
+  left: -57px !important;
+  border-radius: 3px;
+}
+
+.popoverEditTemplate {
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.popoverEditTemplate:hover {
+  background-color: #2e9fff;
+  color: white;
+}
+
+.popoverEditTemplate a:hover {
+  color: white;
+  text-decoration: none !important;
+}
+
+.popoverEditTemplate a {
+  color: black;
+}
+
+.popover-content {
+  padding: 0px 15px;
+}
+
+
+/*.editIon:hover {
+  color: #3f51b5;
+}*/
+
+.pencilIcon {
+  color: #3f51b5;
+  font-size: 15px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+
+/*.pencilIcon:hover {
+  color: #3f51b5;
+}*/
 
 .header_img {
   position: absolute;

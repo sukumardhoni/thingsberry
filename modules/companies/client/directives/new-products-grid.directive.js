@@ -22,6 +22,10 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         }
       }
       scope.date1 = attr.dateOnProduct;
+
+      scope.dynamicPopover = {
+        templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+      };
       /* scope.editProductFunc = function (productDetails) {
          console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
 
@@ -65,6 +69,10 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           scope.editProduct = false;
         }
       }
+
+      scope.dynamicPopover = {
+        templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+      };
       /* scope.editProductFunc = function (productDetails) {
          // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
          dataShare.setData(productDetails);

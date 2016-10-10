@@ -8,7 +8,16 @@ var companiesPolicy = require('../policies/companies.server.policy'),
   config = require('../../../../config/config'),
   cache = require('express-redis-cache')({
     client: require('redis').createClient(config.redis.uri)
-  });;
+  });
+
+var cli = require('redis').createClient(config.redis.uri);
+cli.keys('*', function (err, keys) {
+  if (err) return console.log(err);
+
+  for (var i = 0, len = keys.length; i < len; i++) {
+    console.log(keys[i]);
+  }
+});
 
 module.exports = function (app) {
   // Companies collection routes

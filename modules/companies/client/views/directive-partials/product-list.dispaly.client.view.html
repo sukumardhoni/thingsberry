@@ -7,7 +7,16 @@
     </div>
     <div class="col-md-8 col-sm-8 col-xs-12">
       <div class="row new_list_prdct_view_name">
-        <h3>{{details.Proname}}</h3>
+        <div class="col-md-11 col-sm-11">
+          <h3>{{details.Proname}}</h3>
+        </div>
+        <div class="col-md-1 col-sm-1">
+          <div ng-show="editProduct">
+            <i class="fa fa-chevron-down pencilIcon" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i>
+            <!-- <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-chevron-down pencilIcon" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i></a>-->
+          </div>
+        </div>
+
       </div>
       <hr style="margin-top:0px;margin-bottom:15px;">
       <div class="new_list_prdct_view_body">
@@ -36,11 +45,6 @@
         </div>
         <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
           <a ui-sref="companies.view({ companyId: details.productId })"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
-        </div>
-        <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
-          <div ng-show="editProduct">
-            <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-pencil pencilIcon new_list_prdct_view_footer_icons"></i></a>
-          </div>
         </div>
         <!--<div class="col-md-1 col-sm-1 col-xs-4">
           <i class="fa fa-heart-o new_list_prdct_view_footer_icons"></i>

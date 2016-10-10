@@ -1,14 +1,23 @@
 <div style="color:white">
   <div class="row text-left">
     <h2 class="premium_prdct_header">{{details.Proname}}</h2>
-
   </div>
+
   <div class="row text-left">
     <h5 class="premium_prdct_desc">{{details.description | limitTo: 146}}</h5>
   </div>
+
   <div class="row premium_prdct_img">
-    <img src="{{details.productImageURL}}" class="premium_img img-responsive" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';">
+    <!--<div ng-show="editProduct" class=" icon_on_premiumPrdct col-xs-1 row">
+      <i class="fa fa-chevron-down editIon" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i>
+       <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-chevron-down"></i></a>
+    </div>-->
+    <div class="row">
+      <img src="{{details.productImageURL}}" class="premium_img img-responsive" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';">
+    </div>
+
   </div>
+
   <div class="row">
     <a ui-sref="companies.view({ companyId:details.productId })">
 

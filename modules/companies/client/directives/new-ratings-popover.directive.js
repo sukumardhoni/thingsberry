@@ -39,7 +39,7 @@ angular.module('companies').directive('tbRatingsContainer', function (dataShare,
       if (attr.state == 'singlePrdct') {
         //  console.log("before if cond:" + attr.state);
         scope.ratingStyle = {
-          top: '-50px',
+          top: '5px',
           right: '-15px',
         }
       }

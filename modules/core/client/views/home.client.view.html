@@ -13,7 +13,7 @@
           <div class="col-md-6" ng-init="premiumProducts()">
             <div class="row premium_box featured-listing" ng-hide="premiumPrdcts.length == 0" ng-class="carouselBg">
               <div class=" featured_prdct_carousel ">
-                <uib-carousel interval="3000" active=0 no-wrap="noWrapSlides">
+                <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
                   <uib-slide ng-repeat="slide in premiumPrdcts" index="$index">
                     <div ng-repeat="sarray in slide" class="col-md-12 " data-wrap="false">
                       <tb-premium-products details=sarray></tb-premium-products>
@@ -142,26 +142,26 @@
 <script>
   /* $(document).ready(function () {
 
-                                                  $(window).scroll(function () {
-                                                    //if you hard code, then use console
-                                                    //.log to determine when you want the
-                                                    //nav bar to stick.
-                                                    // console.log($(window).scrollTop())
-                                                    if ($(window).scrollTop() > 100) {
-                                                      $("#backTop").fadeIn();
-                                                    } else {
-                                                      $("#backTop").fadeOut();
-                                                    }
-                                                  });
-                                                  $("#backTop").click(function () {
-                                                    $("body").animate({
-                                                      scrollTop: 0
-                                                    }, 800);
-                                                    return false;
-                                                  })
+                                                    $(window).scroll(function () {
+                                                      //if you hard code, then use console
+                                                      //.log to determine when you want the
+                                                      //nav bar to stick.
+                                                      // console.log($(window).scrollTop())
+                                                      if ($(window).scrollTop() > 100) {
+                                                        $("#backTop").fadeIn();
+                                                      } else {
+                                                        $("#backTop").fadeOut();
+                                                      }
+                                                    });
+                                                    $("#backTop").click(function () {
+                                                      $("body").animate({
+                                                        scrollTop: 0
+                                                      }, 800);
+                                                      return false;
+                                                    })
 
-                                                });
-                                              */
+                                                  });
+                                                */
 
 
 

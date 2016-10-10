@@ -61,12 +61,12 @@
         $scope.editIcon = false;
       }
     }
-    $scope.editProductFunc = function (productDetails) {
-      // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
+    /* $scope.editProductFunc = function (productDetails) {
+       // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
 
-      dataShare.setData(productDetails);
-      $state.go('companies.add');
-    }
+       dataShare.setData(productDetails);
+       $state.go('companies.add');
+     }*/
 
     /*   $scope.userValidation = function () {
          if (vm.authentication.user) {} else {
@@ -88,17 +88,17 @@
 
 
     if ($stateParams.companyId) {
-      console.log("coming to correct list");
-      console.log("coming to correct list@@@@:" + $stateParams.companyId);
+      //  console.log("coming to correct list");
+      //  console.log("coming to correct list@@@@:" + $stateParams.companyId);
       $scope.productIdIs = $stateParams.companyId;
-      console.log("coming to correct list@@@@:" + $scope.productIdIs);
+      //  console.log("coming to correct list@@@@:" + $scope.productIdIs);
       CompanyServiceUpdate.getProduct.query({
         companyId: $scope.productIdIs
       }, vm.company, successgetProductCallback, errorgetProductCallback);
 
       function successgetProductCallback(res) {
         vm.company = res;
-        console.log("succes callback from get productdetails:" + JSON.stringify(res));
+        // console.log("succes callback from get productdetails:" + JSON.stringify(res));
       }
 
       function errorgetProductCallback(res) {
@@ -123,7 +123,9 @@
        };*/
 
 
-
+    $scope.dynamicPopover = {
+      templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+    };
 
 
     $scope.loadCategories = function ($query) {

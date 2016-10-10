@@ -36,7 +36,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
             console.log('details is : ' + JSON.stringify(details));
             details.regions = $scope.outputBrowsers;*/
-      console.log('details is : ' + JSON.stringify(details));
+      //  console.log('details is : ' + JSON.stringify(details));
       if (details != undefined) {
         if (details.Category || details.Company || details.Product || details.outputBrowsers) {
           var catsArray = [];
@@ -92,14 +92,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };*/
 
     $scope.loadCategories = function ($query) {
-      //  var catsList = CategoryService.query()
-      /* return catsList.filter(function (catLists) {
-         return catLists.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
-       });*/
-
       var catsList = CategoryService.query(),
         defObj = $q.defer();
-      //  console.log($query);
+      // console.log(JSON.stringify(catsList));
       return catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
@@ -108,13 +103,24 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         });
         // console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
-
       //console.log('defferes1111 obj : ' + JSON.stringify(defObj));
       return defObj.promise;
-      /*return catsList.filter(function (catsList) {
-        return catsList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
-      });*/
     };
+
+    $scope.loadSearchCategories = function ($query) {
+      // console.log($query);
+      var catsList = ['Home', 'Healthcare', 'Wearable', 'Sports', 'Fitness', 'Accessories', 'Electronics'];
+
+      return catsList.filter(function (list) {
+        return list.toLowerCase().indexOf($query.toLowerCase()) != -1;
+      });
+
+    };
+
+
+
+
+
 
 
 
@@ -429,7 +435,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
 
     $scope.fClick = function (data) {
-      //console.log('On-item-click');
+      console.log('On-item-click');
       //console.log('On-item-click - data:');
       //console.log(data);
     }
@@ -451,8 +457,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
 
     $scope.fSearchChange = function (data) {
-      //console.log('On-search-change');
-      //console.log('On-search-change - keyword: ' + data.keyword);
+      console.log('On-search-change');
+      console.log('On-search-change - keyword: ' + data.keyword);
       //console.log('On-search-change - result: ');
       //console.log(data.result);
     }

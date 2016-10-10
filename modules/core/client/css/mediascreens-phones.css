@@ -227,6 +227,10 @@
 }
 
 @media (max-width: 765px) {
+  .icon_on_premiumPrdct {
+    margin-top: 12px;
+    margin-right: 0px;
+  }
   .quotes_carousel .glyphicon {
     top: 65%;
   }

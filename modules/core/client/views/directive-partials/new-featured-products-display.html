@@ -1,7 +1,9 @@
 <div>
   <div class="row">
     <div ng-show="editProduct" class="editIon">
-      <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-pencil pencilIcon"></i></a>
+      <i class="fa fa-chevron-down" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i>
+
+      <!--<a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-chevron-down"></i></a>-->
     </div>
   </div>
 

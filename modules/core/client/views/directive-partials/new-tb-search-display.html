@@ -14,7 +14,7 @@
               <div class="col-md-12 search_inpt">
                 <label class="search_text" style="margin-left:-12px;font-weight:bold;font-size:13px;">CATEGORY</label>
                 <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Eg: Home, Wearable's, Health Care etc" style="margin-left:-15px;padding-right:0px;">
-                  <auto-complete source="loadCategories($query)" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                  <auto-complete source="loadSearchCategories($query)" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
                 </tags-input>
               </div>
               <div class="col-md-12 searchtab_search_btn">
