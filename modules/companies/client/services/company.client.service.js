@@ -7,6 +7,7 @@
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
     .factory('ratingService', ratingService)
+    .factory('deactiveService', deactiveService)
     /*  .factory('productService', productService)*/
 
 
@@ -37,6 +38,32 @@
       })
     }
 }]);
+
+  /*  .factory('deactiveService', ['$resource', function ($resource) {
+      return {
+        DeactivateProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          update: {
+            method: 'PUT'
+          }
+        });
+      }
+  }]);*/
+
+  deactiveService.$inject = ['$resource'];
+
+  function deactiveService($resource) {
+    return $resource('api/deactivateProduct/:companyId/:deactive', {
+      deactive: '@deactive',
+      companyId: '@companyId'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+
+  };
 
 
 

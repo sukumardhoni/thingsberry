@@ -10,14 +10,7 @@ var companiesPolicy = require('../policies/companies.server.policy'),
     client: require('redis').createClient(config.redis.uri)
   });
 
-var cli = require('redis').createClient(config.redis.uri);
-cli.keys('*', function (err, keys) {
-  if (err) return console.log(err);
 
-  for (var i = 0, len = keys.length; i < len; i++) {
-    console.log(keys[i]);
-  }
-});
 
 module.exports = function (app) {
   // Companies collection routes
@@ -27,26 +20,24 @@ module.exports = function (app) {
 
 
   app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?/:ProRegions?/:pageId')
-    .get(cache.route(), companies.searchedProductsList);
+    .get(cache.route({
+      expire: 10
+    }), companies.searchedProductsList);
 
 
   app.route('/api/listOfProducts/:pageId')
-    .get(cache.route({
-      expire: 10
-    }), companies.list);
+    .get(cache.route('listProducts'), companies.list);
 
 
   app.route('/api/premiumProducts')
     .get(cache.route(), companies.premiumProductsList);
 
   app.route('/api/featuredProducts')
-    .get(cache.route({
-      expire: 10
-    }), companies.featuredProductsList);
+    .get(cache.route('featuredProducts'), companies.featuredProductsList);
 
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
 
-
+  app.route('/api/deactivateProduct/:companyId/:deactive').put(companies.deactivateProduct);
 
   /* app.route('/api/companies/:productId')
     .get(companies.read)

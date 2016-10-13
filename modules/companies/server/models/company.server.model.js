@@ -14,10 +14,10 @@ var CompanySchema = new Schema({
     type: Date,
     default: Date.now
   },
-  productId:{
-    type:String,
-    default:'',
-    trim:true
+  productId: {
+    type: String,
+    default: '',
+    trim: true
   },
   Proname: {
     type: String,
@@ -108,6 +108,11 @@ var CompanySchema = new Schema({
   totalRatingsCount: {
     type: Number,
     default: 0
+  },
+  status: {
+    type: String,
+    default: 'active',
+    trim: true
   },
   premiumFlag: {
     type: Boolean,

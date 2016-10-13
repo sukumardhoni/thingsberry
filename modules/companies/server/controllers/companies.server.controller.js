@@ -29,6 +29,7 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      _this.deleteExpressRedis();
       res.json(company);
     }
   });
@@ -67,7 +68,7 @@ exports.catsCheck = function (cats) {
  */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
-  console.log('### MIDHUN :' + req.company)
+  //  console.log('### MIDHUN :' + req.company)
   var company = req.company ? req.company.toJSON() : {};
 
   // Add a custom field to the Company, for determining if the current User is the "owner".
@@ -82,10 +83,63 @@ exports.read = function (req, res) {
 /**
  * Update an company
  */
-exports.update = function (req, res) {
+exports.deleteExpressRedis = function () {
+  console.log("@@@#####%%: CALLED DELETE EXPRESSREDIS");
+  var cli = require('redis').createClient(config.redis.uri);
+
+  cli.keys('*', function (err, keys) {
+    if (err) return console.log(err);
+
+    for (var i = 0, len = keys.length; i < len; i++) {
+      // console.log(keys[i]);
+      if (keys[i].indexOf('listProducts') !== -1) {
+        // console.log("$$##@@ IS THERE");
+        cli.del("erc:listProducts", function (err, result) {
+          if (err) return console.log(err);
+          // console.log("@@@ DELTETE:" + result);
+        })
+      }
+
+      if (keys[i].indexOf('featuredProducts') !== -1) {
+        //  console.log("$$##@@ IS THERE");
+        cli.del("erc:featuredProducts", function (err, result) {
+          if (err) return console.log(err);
+          // console.log("@@@ DELTETE:" + result);
+        })
+      }
+
+    }
+  });
+};
+exports.deactivateProduct = function (req, res) {
+  console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
+  console.log(JSON.stringify(req.params));
+  console.log("$$$ REQ.COMPANY DEACTIVE:" + JSON.stringify(req.company.status));
+  req.body.status = req.params.deactive;
+  console.log("$$$ REQ.BODY DEACTIVE:" + JSON.stringify(req.body.ProCat));
   var company = req.company;
 
-  console.log('Company details are : ' + JSON.stringify(req.body));
+  company = _.extend(company, req.body);
+
+  company.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      _this.deleteExpressRedis();
+      res.json(company);
+      console.log(company);
+    }
+  });
+
+};
+
+exports.update = function (req, res) {
+
+  var company = req.company;
+
+  // console.log('Company details are : ' + JSON.stringify(req.body));
   company = _.extend(company, req.body);
   /*company.title = req.body.title;
   company.content = req.body.content;*/
@@ -98,6 +152,7 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      _this.deleteExpressRedis();
       res.json(company);
       console.log(company);
     }
@@ -198,6 +253,7 @@ exports.delete = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      _this.deleteExpressRedis();
       res.json(company);
     }
   });
@@ -216,7 +272,9 @@ exports.list = function (req, res) {
 
   if (req.params.pageId == 0) {
 
-    Company.find().count({}, function (err, count) {
+    Company.find({
+      "status": "active"
+    }).count({}, function (err, count) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -233,7 +291,9 @@ exports.list = function (req, res) {
 
   //console.log('Products count is : ' + JSON.stringify(count));
 
-  Company.find().skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
+  Company.find({
+    "status": "active"
+  }).skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -330,18 +390,36 @@ exports.searchedProductsList = function (req, res) {
   }
   console.log('Request Regions array is : ' + JSON.stringify(operationalRegns));
   var proCats = [];
+  // var proCatsForSingleSearch = [];
+  //var eg1 = JSON.stringify(proCatsForSingleSearch);
+  //var eg2 = eg1.replace(/"/g, "/");
+  // var proCatsForSingleSearch1 = proCatsForSingleSearch[0].replace("\"/g", "");
+  //  console.log('proCats  array is OUT : ' + JSON.stringify(eg2));
   if (req.params.ProCategory != 'Category') {
     var CatsArray = req.params.ProCategory.split(',');
 
-    //  console.log('CatsArray  array is : ' + JSON.stringify(CatsArray));
+    console.log('@@@@CatsArray  array is : ' + JSON.stringify(CatsArray));
+    /*  var eg1 = JSON.stringify(CatsArray);
+      var eg2 = eg1.replace(/"/g, "/");
+      console.log(eg2);*/
+
 
 
     for (var i = 0; i < CatsArray.length; i++) {
+      // CatsArray[i] = CatsArray[i].replace(/"/g, "");
+
+      // var cats = '/' + CatsArray[i] + '/';
+      // console.log("HSIS:" + cats.replace(/"/g, ""));
+      // var cats1 = cats.replace(/(^"|"$)/g, '');
+      // proCatsForSingleSearch.push(CatsArray[i]);
+
+      // console.log("$%%$$:" + JSON.stringify(cats));
+
       proCats.push({
         title: CatsArray[i]
       });
     }
-    //  console.log('proCats  array is : ' + JSON.stringify(proCats));
+    console.log('proCats  array is : ' + JSON.stringify(proCats));
   }
 
 
@@ -405,9 +483,6 @@ exports.searchedProductsList = function (req, res) {
       }
     }
   }
-
-
-
 
 
 
@@ -496,7 +571,7 @@ exports.companyByID = function (req, res, next, id) {
         message: 'No company with that identifier has been found'
       });
     }
-    console.log('@@## MIDHUN1 :' + company);
+    // console.log('@@## MIDHUN1 :' + company);
     req.company = company;
 
     next();

@@ -233,8 +233,8 @@
 
       // TODO: move create/update logic to service
       if (vm.company.productId) {
-        console.log('Update product is called : ' + JSON.stringify(vm.company));
-        console.log('Update product is called : ' + JSON.stringify(vm.company.productId));
+        //  console.log('Update product is called : ' + JSON.stringify(vm.company));
+        //   console.log('Update product is called : ' + JSON.stringify(vm.company.productId));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
@@ -247,7 +247,7 @@
             base64: $scope.productImg.base64
           };
         }
-        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+        // console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
         vm.company.operationalRegions = $scope.operationalRegionsList;
 
         // console.log('adproduct1');
@@ -266,7 +266,7 @@
         /*var replacedTitle = doc.Proname.replace(/\s/g, "-");
         productId: replacedTitle*/
         var productName = vm.company.Proname.replace(/\s/g, "-");
-        console.log("company productId :" + productName);
+        // console.log("company productId :" + productName);
 
         vm.company.productId = productName;
 
@@ -279,8 +279,8 @@
           };
         }
 
-        console.log('Created product is called : ' + JSON.stringify(vm.company));
-        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+        //  console.log('Created product is called : ' + JSON.stringify(vm.company));
+        // console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
 
         //if ($scope.selectionOperational)
         vm.company.operationalRegions = $scope.operationalRegionsList;

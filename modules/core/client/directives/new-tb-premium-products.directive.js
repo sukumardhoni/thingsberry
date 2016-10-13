@@ -13,7 +13,7 @@ angular.module('core')
         //  console.log("entering into the tbPremiumProducts products link furnctions");
         // console.log(scope.details);
         scope.adminUser = Authentication.user;
-        console.log(scope.adminUser.roles);
+        // console.log(scope.adminUser.roles);
 
         if (scope.adminUser) {
           if (scope.adminUser.roles.indexOf('admin') !== -1) {
