@@ -43,13 +43,13 @@ angular.module('core')
           });
 
           modalInstance.result.then(function (product) {
-            console.log("REMOVING PRODUCTS");
+            //  console.log("REMOVING PRODUCTS");
             if (product) {
-              console.log('remove func. on if condition : ');
+              // console.log('remove func. on if condition : ');
               CompanyServiceUpdate.DeleteProduct.remove({
                 companyId: product.productId
               }, function (res) {
-                console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                //   console.log('Res details on remove success cb : ' + JSON.stringify(res));
                 $window.location.reload();
                 /*$state.go('companies.list', {
                   isSearch: false
@@ -71,7 +71,7 @@ angular.module('core')
 
 
         scope.deactivateProduct = function () {
-          console.log("DEACTIVE PRDCT IS CALLED");
+          //  console.log("DEACTIVE PRDCT IS CALLED");
           deactiveService.update({
             companyId: scope.details.productId,
             deactive: 'deactive'

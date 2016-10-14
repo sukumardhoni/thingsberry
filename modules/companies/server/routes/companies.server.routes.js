@@ -10,8 +10,6 @@ var companiesPolicy = require('../policies/companies.server.policy'),
     client: require('redis').createClient(config.redis.uri)
   });
 
-
-
 module.exports = function (app) {
   // Companies collection routes
   app.route('/api/companies') /*.all(companiesPolicy.isAllowed)*/
@@ -26,14 +24,14 @@ module.exports = function (app) {
 
 
   app.route('/api/listOfProducts/:pageId')
-    .get(cache.route('listProducts'), companies.list);
+    .get(cache.route(), companies.list);
 
 
   app.route('/api/premiumProducts')
     .get(cache.route(), companies.premiumProductsList);
 
   app.route('/api/featuredProducts')
-    .get(cache.route('featuredProducts'), companies.featuredProductsList);
+    .get(cache.route(), companies.featuredProductsList);
 
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
 

@@ -44,9 +44,9 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
         });
 
         modalInstance.result.then(function (product) {
-          console.log("REMOVING PRODUCTS");
+          //  console.log("REMOVING PRODUCTS");
           if (product) {
-            console.log('remove func. on if condition : ');
+            // console.log('remove func. on if condition : ');
             CompanyServiceUpdate.DeleteProduct.remove({
               companyId: product.productId
             }, function (res) {
@@ -70,7 +70,7 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
 
 
       scope.deactivateProduct = function () {
-        console.log("DEACTIVE PRDCT IS CALLED");
+        //  console.log("DEACTIVE PRDCT IS CALLED");
         deactiveService.update({
           companyId: scope.details.productId,
           deactive: 'deactive'
@@ -93,9 +93,6 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
         }
 
       };
-
-
-
     }
   }
 })

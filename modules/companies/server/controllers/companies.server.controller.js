@@ -90,25 +90,28 @@ exports.deleteExpressRedis = function () {
   cli.keys('*', function (err, keys) {
     if (err) return console.log(err);
 
-    for (var i = 0, len = keys.length; i < len; i++) {
-      // console.log(keys[i]);
-      if (keys[i].indexOf('listProducts') !== -1) {
-        // console.log("$$##@@ IS THERE");
-        cli.del("erc:listProducts", function (err, result) {
-          if (err) return console.log(err);
-          // console.log("@@@ DELTETE:" + result);
-        })
-      }
+    cli.flushall();
+    console.log("$$###FLUSH:" + cli.flushall());
+    /*
+        for (var i = 0, len = keys.length; i < len; i++) {
+          // console.log(keys[i]);
+          if (keys[i].indexOf('listProducts') !== -1) {
+            // console.log("$$##@@ IS THERE");
+            cli.del("erc:listProducts", function (err, result) {
+              if (err) return console.log(err);
+              // console.log("@@@ DELTETE:" + result);
+            })
+          }
 
-      if (keys[i].indexOf('featuredProducts') !== -1) {
-        //  console.log("$$##@@ IS THERE");
-        cli.del("erc:featuredProducts", function (err, result) {
-          if (err) return console.log(err);
-          // console.log("@@@ DELTETE:" + result);
-        })
-      }
+          if (keys[i].indexOf('featuredProducts') !== -1) {
+            //  console.log("$$##@@ IS THERE");
+            cli.del("erc:featuredProducts", function (err, result) {
+              if (err) return console.log(err);
+              // console.log("@@@ DELTETE:" + result);
+            })
+          }
 
-    }
+        }*/
   });
 };
 exports.deactivateProduct = function (req, res) {
@@ -154,7 +157,7 @@ exports.update = function (req, res) {
     } else {
       _this.deleteExpressRedis();
       res.json(company);
-      console.log(company);
+      // console.log(company);
     }
   });
 };
@@ -245,6 +248,7 @@ exports.updateRating = function (req, res) {
  * Delete an company
  */
 exports.delete = function (req, res) {
+  console.log("@@####CALED DELTE SERVER CNTRLER");
   var company = req.company;
 
   company.remove(function (err) {
@@ -283,13 +287,13 @@ exports.list = function (req, res) {
         //console.log('Server side List of products : ' + JSON.stringify(companies));
         //res.json(count);
         ProObj.count = count;
-        console.log('Server side List of products count : ' + JSON.stringify(count));
+        // console.log('Server side List of products count : ' + JSON.stringify(count));
       }
     });
   }
 
 
-  //console.log('Products count is : ' + JSON.stringify(count));
+  // console.log('Products count is : ' + JSON.stringify(count));
 
   Company.find({
     "status": "active"
@@ -300,9 +304,9 @@ exports.list = function (req, res) {
       });
     } else {
       ProObj.products = companies;
-      //console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
+      console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
       res.json(ProObj);
-      //  console.log("@@@@:" + JSON.stringify(ProObj));
+      // console.log("@@@@:" + JSON.stringify(ProObj));
     }
   });
 };
@@ -390,6 +394,8 @@ exports.searchedProductsList = function (req, res) {
   }
   console.log('Request Regions array is : ' + JSON.stringify(operationalRegns));
   var proCats = [];
+  var sampleArray = [];
+
   // var proCatsForSingleSearch = [];
   //var eg1 = JSON.stringify(proCatsForSingleSearch);
   //var eg2 = eg1.replace(/"/g, "/");
@@ -399,14 +405,19 @@ exports.searchedProductsList = function (req, res) {
     var CatsArray = req.params.ProCategory.split(',');
 
     console.log('@@@@CatsArray  array is : ' + JSON.stringify(CatsArray));
-    /*  var eg1 = JSON.stringify(CatsArray);
-      var eg2 = eg1.replace(/"/g, "/");
-      console.log(eg2);*/
+    /*var eg1 = JSON.stringify(CatsArray);
+    var eg2 = eg1.replace(/"/g, "/");
+    console.log(eg2);*/
+    // var CATS = '/' + CatsArray.join('/,/') + '/';
+
+    for (var i = 0; i < CatsArray.length; i++) {
+      sampleArray.push(CatsArray[i]);
+    }
 
 
 
     for (var i = 0; i < CatsArray.length; i++) {
-      // CatsArray[i] = CatsArray[i].replace(/"/g, "");
+      // CatsArray[i] = CatsArray[i].replace(/"/g, "/");
 
       // var cats = '/' + CatsArray[i] + '/';
       // console.log("HSIS:" + cats.replace(/"/g, ""));
@@ -419,7 +430,8 @@ exports.searchedProductsList = function (req, res) {
         title: CatsArray[i]
       });
     }
-    console.log('proCats  array is : ' + JSON.stringify(proCats));
+    console.log('proCats  array is : ' + JSON.stringify(sampleArray));
+
   }
 
 
@@ -465,9 +477,15 @@ exports.searchedProductsList = function (req, res) {
       }
     }
   } else if ((proCats.length != 0)) {
+    var regexArray = sampleArray.map(x => new RegExp(x));
+    console.log("RESULTANT:" + regexArray);
     mongoQuery = {
       ProCat: {
-        "$in": proCats
+        $elemMatch: {
+          "title": {
+            $in: regexArray
+          }
+        }
       }
     }
   } else if (queryStr != '') {
@@ -504,7 +522,7 @@ exports.searchedProductsList = function (req, res) {
     });
   }
 
-  console.log('Mongo find Query is : ' + JSON.stringify(mongoQuery));
+  console.log('Mongo find Query is : ' + mongoQuery);
 
 
   Company.find(mongoQuery).skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
