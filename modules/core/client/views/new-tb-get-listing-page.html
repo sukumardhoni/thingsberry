@@ -38,13 +38,22 @@
 
             <md-input-container class=" col-md-6 col-xs-12  col-sm-6 col-lg-6">
               <label class="label-styles"><b>Product Name</b></label>
-              <input class="input-styles" type="text" id="productName" ng-model="getListed.productName" required>
+              <input class="input-styles" type="text" name="productName" id="productName" ng-model="getListed.productName" required>
+              <div ng-messages="getListedForm.productName.$error">
+                <div ng-message="required">Product Name is required.</div>
+              </div>
             </md-input-container>
 
 
             <md-input-container class="col-md-6 col-xs-12  col-sm-6 col-lg-6">
               <label class="label-styles"><b>Email</b></label>
-              <input class="input-styles" type="email" id="email" ng-model="getListed.email" required>
+              <input class="input-styles" type="email" id="email" name="email" ng-model="getListed.email" required ng-pattern="/^.+@.+\..+$/">
+              <div ng-messages="getListedForm.email.$error">
+                <div ng-message="required">Email is required.</div>
+                <div ng-message-exp="['required','pattern']">
+                  Your email must be look like valid email address.
+                </div>
+              </div>
             </md-input-container>
           </div>
 
@@ -52,12 +61,21 @@
 
             <md-input-container class="col-md-6 col-xs-12 col-sm-6 ">
               <label class="label-styles"><b>Contact Name</b></label>
-              <input class="input-styles" type="text" id="contact_name" ng-model="getListed.contactName" required>
+              <input class="input-styles" type="text" name="contactName" id="contact_name" ng-model="getListed.contactName" required>
+              <div ng-messages="getListedForm.contactName.$error">
+                <div ng-message="required">Contact Name is required.</div>
+              </div>
             </md-input-container>
 
             <md-input-container class="col-md-6 col-xs-12 col-sm-6">
               <label class="label-styles"><b>Contact Phone</b></label>
-              <input class="input-styles" type="tel" id="contact phone" ng-model="getListed.contactPhone" required>
+              <input class="input-styles" type="tel" name="contactPhone" id="contact phone" ng-model="getListed.contactPhone" required>
+              <div ng-messages="getListedForm.contactPhone.$error">
+                <div ng-message="required">Contact Phone is required.</div>
+                <div ng-message-exp="['required','maxlength']">
+                  Your contact phone must not be in 10 numbers.
+                </div>
+              </div>
             </md-input-container>
 
           </div>
@@ -65,21 +83,33 @@
           <div class="row ">
             <md-input-container class="col-md-12 col-sm-12 col-xs-12 ">
               <label class="label-styles"><b>Product URL</b></label>
-              <input class="input-styles" type="url" id="productURL" ng-model="getListed.productURL" required>
+              <input class="input-styles" type="url" id="productURL" name="productURL" ng-model="getListed.productURL" required ng-pattern="/^.+://.+\..+$/">
+              <div ng-messages="getListedForm.productURL.$error">
+                <div ng-message="required">Product URL is required.</div>
+                <div ng-message-exp="['required','pattern']">
+                  Your URL must be look like (https://example.com).
+                </div>
+              </div>
             </md-input-container>
           </div>
 
           <div class="row ">
             <md-input-container class="col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles"><b>Description</b></label>
-              <input class="input-styles" type="text" id="Description" ng-model="getListed.description" required>
+              <input class="input-styles" type="text" name="description" id="Description" ng-model="getListed.description" required>
+              <div ng-messages="getListedForm.description.$error">
+                <div ng-message="required">Description is required.</div>
+              </div>
             </md-input-container>
           </div>
           <div class="row ">
             <md-input-container class="col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles"><b>Message</b></label>
-              <input class="input-styles" type="text" id="Message" ng-model="getListed.message" required>
+              <input class="input-styles" type="text" name="message" id="Message" ng-model="getListed.message" required>
               <div class="hint">Enter any notes to admin to help list this product</div>
+              <div ng-messages="getListedForm.message.$error">
+                <div ng-message="required">Message is required.</div>
+              </div>
             </md-input-container>
           </div>
           <div class="row ">

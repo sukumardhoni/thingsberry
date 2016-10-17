@@ -11,7 +11,7 @@
         <div class="col-md-6  col-lg-4 col-lg-offset-2 col-xs-4">
           <a ui-sref="authentication.signin" style="color:#b2b9e1;text-decoration: none;float:right;margin-top: 10px; " ng-hide="authentication.user">Login &nbsp;/&nbsp;Signup&nbsp;</a>
           <div class="dropdown header_Login" uib-dropdown ng-show="authentication.user" style="float:right;">
-            <a class="dropdown-toggle user-header-dropdown-toggle header_title" uib-dropdown-toggle role="button">
+            <a class="dropdown-toggle user-header-dropdown-toggle header_title" uib-dropdown- toggle role="button">
               <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
               <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
             </a>
@@ -96,11 +96,18 @@
             </li>
           </ul>
           <hr>
-          <div class="row sideNav_details">
-            <h5><span class="fa fa-phone" aria-hidden="true" style="color:#717171;">&nbsp;&nbsp;&nbsp; (908)&nbsp;-&nbsp;336&nbsp;-&nbsp;1141</span></h5>
+          <div class="sideNav_detailsHeight">
+            <div class="row sideNav_details">
+              <h5><span class="fa fa-phone" aria-hidden="true" style="color:#717171;">&nbsp;&nbsp;&nbsp; (908)&nbsp;-&nbsp;336&nbsp;-&nbsp;1141</span></h5>
+            </div>
+            <div class="row sideNav_details">
+              <span style="color:#717171;font-size: 13px;"><i class="fa fa-envelope" aria-hidden="true" style="color:#717171;"></i> &nbsp;&nbsp; info@thingsberry.com</span>
+            </div>
           </div>
+          <hr>
           <div class="row sideNav_details">
-            <span style="color:#717171;font-size: 13px;"><i class="fa fa-envelope" aria-hidden="true" style="color:#717171;"></i> &nbsp;&nbsp; info@thingsberry.com</span>
+            <span class="sideNav_Terms_Privacy"><a>THINGSBERRY.COM &copy; 2016</a> <a href="privacy" ng-click="toggleLeft()">&nbsp;-&nbsp;Privacy</a>&nbsp;-&nbsp;<a href="terms"ng-click="toggleLeft()">Terms</a></span>
+
           </div>
         </md-content>
       </md-sidenav>
@@ -118,7 +125,7 @@
         <div class="navbar nav" style="border:none;background-color:#ffffff;">
 
           <div class=" navbar-header">
-            <button type="button" class="navbar-toggle pull-left hidden-md hidden-lg" data-toggle="collapse" data-target=".navbar-ex1-collapse" ng-click="toggleLeft()">
+            <button type="button" class="navbar-toggle pull-left hidden-md hidden-lg" data- toggle="collapse" data-target=".navbar-ex1-collapse" ng-click="toggleLeft()">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>

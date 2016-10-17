@@ -48,6 +48,22 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
           pageTitle: 'Get Listed ThingsBerry'
         }
       })
+      .state('privacy', {
+        url: '/privacy',
+        //        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        templateUrl: 'modules/core/client/views/privacyPolicy.view.html',
+        data: {
+          pageTitle: 'Privacy Policy'
+        }
+      })
+      .state('terms', {
+        url: '/terms',
+        //        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        templateUrl: 'modules/core/client/views/termsConditions.view.html',
+        data: {
+          pageTitle: 'Terms & Conditions '
+        }
+      })
       .state('addyourcompany', {
         url: '/addyourcompany',
         templateUrl: 'modules/core/client/views/home.client.view.html'

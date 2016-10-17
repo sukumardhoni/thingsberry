@@ -4,7 +4,7 @@ angular.module('companies').directive('tbHeaderImage', function () {
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: 'modules/companies/client/views/directive-partials/new-header-image.client.view.html',
+    templateUrl: 'modules/companies/client/views/directive-partials/new-header-image.client.view.html ',
     link: function (scope, elem, attr) {
       //  console.log("coming to directive");
       scope.backImage = attr.image;
@@ -30,7 +30,7 @@ angular.module('companies').directive('tbHeaderImage', function () {
         // console.log('coming from contactUs');
         scope.contactStyles = {
           top: '135px',
-          left: '20px'
+          left: '25px'
         }
       }
     }

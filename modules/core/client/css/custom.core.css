@@ -8,7 +8,9 @@ section {
   border-color: rgb(255, 255, 255) !important;
   background-image: -webkit-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
   background-image: -o-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !
+
+important;
   background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
 }
 
@@ -644,6 +646,11 @@ a:hover#backTop {
   color: #969696;
   cursor: pointer;
   font-size: 10px;
+  padding-right: 0px !important;
+}
+
+.footer_names:hover {
+  color: #3f51b5 !important;
 }
 
 .socialIcons {
@@ -654,9 +661,50 @@ a:hover#backTop {
   margin-left: 13px;
 }
 
+.socialFacebook:hover {
+  color: #3f51b5;
+}
+
+.socialTwitter:hover {
+  color: #00aced;
+}
+
+.socialGoogle:hover {
+  color: #d34836;
+}
+
 .footer_logo {
   width: 180px;
   padding-top: 10px;
+}
+
+.terms_privacy_footer {
+  font-size: 11px;
+  float: right;
+  margin-top: 27px;
+  color: #c2c2c2;
+  margin-right: 14px;
+}
+
+.terms_privacy_footer a {
+  color: #c2c2c2;
+  text-decoration: underline;
+}
+
+.terms_privacy_footer a:hover {
+  color: #3f51b5;
+}
+
+.tb_copyright_footer {
+  font-size: 10px;
+  color: #c2c2c2;
+  margin-top: 30px;
+  position: absolute;
+}
+
+.footer_Bg {
+  background-color: #ffffff;
+  height: 80px;
 }
 
 
@@ -703,7 +751,9 @@ a:hover#backTop {
   border-color: rgb(255, 255, 255) !important;
   background-image: -webkit-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
   background-image: -o-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !
+
+important;
   background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
 }*/
 
@@ -849,6 +899,28 @@ a:hover#backTop {
   float: right;
   left: 20px;
   top: 4px;
+}
+
+.sideNav_Terms_Privacy {
+  color: #9d9d9d;
+  font-size: 11px;
+}
+
+.sideNav_Terms_Privacy a {
+  color: #9d9d9d;
+}
+
+.privacy_terms {
+  margin-top: 60px;
+}
+
+.privacy_terms_Background {
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.sideNav_detailsHeight {
+  min-height: 80px;
 }
 
 .sideNav_details {

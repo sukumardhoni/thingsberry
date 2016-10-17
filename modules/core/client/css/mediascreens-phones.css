@@ -48,9 +48,13 @@
     border-color: #029ce3 !important;
     background-image: -webkit-linear-gradient(top, #029ce3 0%, #02a8f3 100%) !important;
     background-image: -o-linear-gradient(top, #029ce3 0%, #02a8f3 100%) !important;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#029ce3), to(#02a8f3)) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#029ce3), to(#02a8f3)) !
+
+important;
     background-image: linear-gradient(to bottom, #029ce3 0%, #02a8f3 100%) !important;
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff029ce3', endColorstr='#ff02a8f3', GradientType=0) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff029ce3',
+
+endColorstr='#ff02a8f3', GradientType=0) !important;
   }
   #tb_top_menu {
     padding-top: 0px;
@@ -227,6 +231,9 @@
 }
 
 @media (max-width: 765px) {
+  .privacy_terms {
+    margin-top: 10px;
+  }
   .icon_on_premiumPrdct {
     margin-top: 12px;
     margin-right: 0px;
@@ -387,6 +394,7 @@
 @media (max-width:380px) {
   .header_img {
     font-size: 20px;
+    left: 10px !important;
   }
   .share .hover_tile {
     right: -20px;
@@ -519,9 +527,13 @@
     border-color: #029ce3 !important;
     background-image: -webkit-linear-gradient(top, #029ce3 0%, #02a8f3 100%) !important;
     background-image: -o-linear-gradient(top, #029ce3 0%, #02a8f3 100%) !important;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#029ce3), to(#02a8f3)) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#029ce3), to(#02a8f3)) !
+
+important;
     background-image: linear-gradient(to bottom, #029ce3 0%, #02a8f3 100%) !important;
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff029ce3', endColorstr='#ff02a8f3', GradientType=0) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff029ce3',
+
+endColorstr='#ff02a8f3', GradientType=0) !important;
   }
   #tb_top_menu {
     padding-top: 0px;
@@ -548,7 +560,9 @@
     border-color: rgb(255, 255, 255) !important;
     background-image: -webkit-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
     background-image: -o-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !
+
+important;
     background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
     padding-bottom: 10px;
   }
@@ -556,7 +570,9 @@
     color: #029ce3 !important;
     background-image: -webkit-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
     background-image: -o-linear-gradient(top, #f2f2f2 0%, #fff 100%) !important;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fff)) !
+
+important;
     background-image: linear-gradient(to bottom, #f2f2f2 0%, #fff 100%) !important;
   }
   .navbar-nav .open .dropdown-menu {

@@ -38,7 +38,13 @@
           <div class="" style="margin-right: 10px;">
             <md-input-container class="col-md-4 col-sm-6 col-xs-12 ">
               <label class="label-styles"><b>Email</b></label>
-              <input class="input-styles" type="email" id="email" class="form-control " ng-model="contact.email" required>
+              <input class="input-styles" type="email" name="email" id="email" class="form-control " ng-model="contact.email" required ng-pattern="/^.+@.+\..+$/">
+              <div ng-messages="contactUsForm.email.$error">
+                <div ng-message="required">Email is required.</div>
+                <div ng-message-exp="['required','pattern']">
+                  Your email must be look like valid email address.
+                </div>
+              </div>
             </md-input-container>
           </div>
 
@@ -53,7 +59,10 @@
         <div class="row">
           <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
             <label class="label-styles-msg"><b>Message</b></label>
-            <input class="input-styles" class="form-control " id="message" type="text" ng-model="contact.message" required>
+            <input class="input-styles" class="form-control" name="message" id="message" type="text" ng-model="contact.message" required>
+            <div ng-messages="contactUsForm.message.$error">
+              <div ng-message="required">Message is required.</div>
+            </div>
           </md-input-container>
         </div>
 

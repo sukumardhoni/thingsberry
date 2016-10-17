@@ -5,6 +5,10 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
+
+
+
+
     $scope.path = $location.absUrl();
     //console.log(path);
     $scope.contactUs = function () {
