@@ -472,7 +472,7 @@ angular.module('core').directive('myYoutube', function ($sce) {
       code: '='
     },
     replace: true,
-    template: '<div class="videoBox"><iframe style="overflow:hidden;height:100%;width:90%" controls="0" src="{{url}}" frameborder="0" allowfullscreen></iframe></div>',
+    template: '<div class="videoBox"><iframe style="overflow:hidden;height:100%;width:100%" controls="0" src="{{url}}" frameborder="0" allowfullscreen></iframe></div>',
     link: function (scope) {
       //  console.log('here');
       scope.$watch('code', function (newVal) {

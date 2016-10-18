@@ -517,6 +517,17 @@ BEFORE THIS ALREDY STYLES
 -------------------------
 }*/
 
+.sngle_prdct_aside {
+  width: 45%;
+  float: left;
+  padding-right: 15px;
+}
+
+.sngle_prdct_aside_sideBox {
+  padding: 25px;
+  padding-top: 5px;
+}
+
 .product-listing.ng-enter,
 .product-listing.ng-leave,
 .product-listing.ng-move {
@@ -1191,9 +1202,10 @@ select:focus {
   font-weight: bold;
 }
 
-.single_product_Name {
+
+/*.single_product_Name {
   margin: 12px;
-}
+}*/
 
 .sngl_prdct_smallSnippet {
   text-align: justify;

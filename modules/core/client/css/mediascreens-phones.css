@@ -231,8 +231,22 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
 }
 
 @media (max-width: 765px) {
+  .quotes_carousel .carousel-control.left,
+  .quotes_carousel .carousel-control.right {
+    width: 40px;
+  }
+  .quotes_title_In_Xs {
+    font-size: 21px;
+  }
+  .sngle_prdct_aside {
+    width: 100% !important;
+    padding-right: 0px !important;
+  }
+  .sngle_prdct_aside_sideBox {
+    padding: 12px;
+  }
   .privacy_terms {
-    margin-top: 10px;
+    margin-top: 30px;
   }
   .icon_on_premiumPrdct {
     margin-top: 12px;
@@ -314,6 +328,9 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
     padding-left: 50px;
   }
   .featured_prdct_carousel {
+    min-height: 345px;
+  }
+  .quotes_carousel {
     min-height: 345px;
   }
   .premium_box {

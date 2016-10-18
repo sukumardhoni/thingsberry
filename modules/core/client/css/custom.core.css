@@ -366,6 +366,20 @@ a:hover#backTop {
   background-color: #3f51b5;
 }
 
+.quotes_carousel .carousel-control.left,
+.quotes_carousel .carousel-control.right {
+  background-image: none;
+  width: 85px;
+  color: white !important;
+  transition: 1s ease;
+}
+
+.quotes_carousel .carousel-control:hover,
+.quotes_carousel .carousel-control:active,
+.quotes_carousel .carousel-control:focus {
+  color: white !important;
+}
+
 .featured_prdct_carousel .carousel-control.left,
 .featured_prdct_carousel .carousel-control.right {
   background-image: none;
@@ -911,7 +925,7 @@ important;
 }
 
 .privacy_terms {
-  margin-top: 60px;
+  margin-top: 90px;
 }
 
 .privacy_terms_Background {
