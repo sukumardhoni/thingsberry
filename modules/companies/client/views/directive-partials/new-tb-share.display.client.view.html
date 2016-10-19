@@ -1,12 +1,12 @@
 <span class="share">
-  <div class="hover_tile arrow_box" ng-style="shareStyles" ng-class="{'featuredShareStyle':featured,'listShareStyle':listview,'singlePrdctShareStyle':singlePrdct}">
+  <div class="hover_tile arrow_box" ng-class="{'featuredShareStyle':featured,'listShareStyle':listview,'singlePrdctShareStyle':singlePrdct}">
     <div>
     <div class="ratingName">
      <h5><b>Share your product..</b></h5>
      </div>
       <div class="text-center">
       <span class="fa fa-facebook-square share_icons share_icons_fb" socialshare socialshare-provider="facebook" socialshare-text="Thingsberry {{products.productId}} - product" socialshare-url="http://qa.thingsberry.com/products/{{products.productId}}" aria-hidden="true"></span>
-       <!-- <a href="http://www.facebook.com/sharer.php?s=100&p[title]={{products.Proname}}&p[summary]={{products.description}}&p[url]=http://qa.thingsberry.com/products/{{products.productId}}">
+<!-- <a href="http://www.facebook.com/sharer.php?s=100&p[title]={{products.Proname}}&p[summary]={{products.description}}&p[url]=http://qa.thingsberry.com/products/{{products.productId}}">
          <span class="fa fa-facebook-square share_icons share_icons_fb" aria-hidden="true"></span>
         </a>-->
 <span class="fa fa-google-plus-square share_icons share_icons_gplus" socialshare socialshare-provider="google" socialshare-text="Thingsberry {{products.Proname}} product" socialshare-url="http://qa.thingsberry.com/products/{{products.productId}}" aria-hidden="true"></span>
@@ -16,26 +16,3 @@
 
 <i class="fa fa-share-alt prodIcons  icons_on_prdct_footer" aria-hidden="true"></i>
 </span>
-
-
-
-
-
-
-
-
-
-<!--<span class=" initialStars ">
-            <div class="hover_box arrow_box" ng-style="ratingStyle">
-              <div>
-                <div class="ratingName">
-                  <h5><b>Give your rating here..</b></h5>
-                </div>
-                <div class="stars">
-                  <uib-rating ng-model="rate1" ng-click="rating(rate1)" max="5" read-only="isReadonly1" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="[' ',' ',' ',' ',' ']" aria-labelledby="default-rating" class="readOnlyRating " style="cursor: pointer;"></uib-rating>
-                </div>
-              </div>
-            </div>
-
-    <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
-          </span>-->

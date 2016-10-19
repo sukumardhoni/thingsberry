@@ -369,6 +369,7 @@ a:hover#backTop {
 .quotes_carousel .carousel-control.left,
 .quotes_carousel .carousel-control.right {
   background-image: none;
+  height: 400px;
   width: 85px;
   color: white !important;
   transition: 1s ease;
@@ -697,7 +698,7 @@ a:hover#backTop {
   float: right;
   margin-top: 27px;
   color: #c2c2c2;
-  margin-right: 14px;
+  margin-right: 31px;
 }
 
 .terms_privacy_footer a {
@@ -882,6 +883,10 @@ important;
   box-shadow: none !important;
 }*/
 
+.privacy_box {
+  padding: 25px;
+}
+
 .logo {
   margin-top: -14px;
   width: 221px;
@@ -925,7 +930,7 @@ important;
 }
 
 .privacy_terms {
-  margin-top: 90px;
+  margin-top: 65px;
 }
 
 .privacy_terms_Background {
@@ -944,7 +949,7 @@ important;
 }
 
 md-backdrop.md-opaque {
-  min-height: 570px;
+  min-height: 665px;
   /* background-color: rgba(33, 33, 33, 1.0) !important;*/
   background-color: transparent !important;
 }

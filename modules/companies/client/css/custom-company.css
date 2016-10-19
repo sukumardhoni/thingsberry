@@ -525,7 +525,13 @@ BEFORE THIS ALREDY STYLES
 
 .sngle_prdct_aside_sideBox {
   padding: 25px;
+  padding-bottom: 15px;
   padding-top: 5px;
+  min-height: 290px;
+}
+
+.sngle_prdct_Date {
+  padding-left: 0px;
 }
 
 .product-listing.ng-enter,
@@ -786,8 +792,9 @@ BEFORE THIS ALREDY STYLES
 .initialStars .hover_box {
   visibility: hidden;
   opacity: 0;
-  right: 15px;
-  /*bottom: 50px;*/
+  right: -15px;
+  z-index: 1;
+  top: -70px;
   border: 1px solid;
   position: absolute;
   background-color: white;
@@ -815,6 +822,7 @@ BEFORE THIS ALREDY STYLES
   width: 150px;
   right: -75px;
   bottom: 35px;
+  /*top: -96px;*/
   border: 1px solid;
   position: absolute;
   background-color: white;
@@ -868,6 +876,10 @@ BEFORE THIS ALREDY STYLES
   color: #dd4b39;
 }
 
+.featuredRatingStyle {
+  right: -10px !important;
+}
+
 .featuredShareStyle {
   right: -65px;
 }
@@ -878,6 +890,8 @@ BEFORE THIS ALREDY STYLES
 
 .singlePrdctShareStyle {
   right: -60px !important;
+  /*  right: -25px !important;
+    top: 194px !important;*/
 }
 
 .prdct_footer {

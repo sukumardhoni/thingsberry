@@ -28,7 +28,9 @@
             <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar date_icon_in_sngle_prdct" aria-hidden="true" ></i>
             {{date1 |date:'MMM d, yyyy'}}</span>
           </div>
-          <tb-ratings-container prod-id={{prodId}} state="productListView" products="details" style="float:right;"></tb-ratings-container>
+          <div class="col-md-7" style="float:right;">
+            <tb-ratings-container prod-id={{prodId}} state="productListView" products="details" style="float:right;"></tb-ratings-container>
+          </div>
         </div>
         <div class="row new_list_prdct_view_desc">
           <p>{{ details.description |limitTo: 150}}</p>

@@ -21,7 +21,7 @@
         <div class="col-md-4 col-sm-4 col-xs-5">
           <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date1 |date:'MMM d, yyyy'}}</span>
         </div>
-       // <div class="col-md-1 col-sm-2 col-xs-1">
+        // <div class="col-md-1 col-sm-2 col-xs-1">
            //   <i class="fa fa-heart-o icons_in_sngle_prdct"></i>
            // </div>
 
@@ -46,18 +46,41 @@
 
   <div class="new_sngle_prdct_box">
 
-    <aside class="sngle_prdct_aside"><img class="" ng-src="{{details.productImageURL}}" onerror="this.onerror=null;this.src='../../../../../modules/core/client/img/brand/tb2.png';" style="width:100%;height:290px;"></aside>
+    <aside class="sngle_prdct_aside">
+      <a ng-href="{{details.webAddress}}" target="_blank"><img class="" ng-src="{{details.productImageURL}}" onerror="this.onerror=null;this.src='../../../../../modules/core/client/img/brand/tb2.png';" style="width:100%;height:295px;"></a>
+    </aside>
     <div class="sngle_prdct_aside_sideBox">
       <div ng-show="editProduct" style="float:right;position:relative;">
         <i class="fa fa-chevron-down pencilIcon" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i>
       </div>
       <h3 class="single_product_Name">{{details.Proname}}</h3>
-
       <hr>
-      <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date1 |date:'MMM d, yyyy'}}</span>
-      <!--<tb-share state="singlePrdct" products="details" class="text-left"></tb-share>-->
-      <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="details" style="float:right;"></tb-ratings-container>
-      <tb-small-snippet desc={{details.description}} prod-id={{prodId}}></tb-small-snippet>
+
+      <div class="row" style="height:30px;">
+        <div class="col-md-3 col-sm-3 col-xs-5 sngle_prdct_Date">
+          <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date1 |date:'MMM d, yyyy'}}</span>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-7 pull-right">
+          <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="details" style="float:right;"></tb-ratings-container>
+        </div>
+      </div>
+      <!--<div class="row">
+        <div class="col-md-7">
+          <p>{{details.description}}</p>
+          //<tb-small-snippet desc={{details.description}} prod-id={{prodId}}></tb-small-snippet>
+        </div>
+      </div>-->
+      <p style="min-height:115px;text-align:justify;">{{details.description}}</p>
+      <div class="row" style="margin-left:0px;">
+        <a ng-href="{{details.webAddress}}" target="_blank">
+          <md-button class="md-raised md-primary" style="margin:0px;top:10px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
+        </a>
+        <div class="col-md-1" style="float:right;margin-top:20px;">
+          <tb-share state="singlePrdct" products="details" class="text-left" style="float:right;"></tb-share>
+        </div>
+      </div>
+
+
     </div>
 
   </div>

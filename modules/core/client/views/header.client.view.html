@@ -11,7 +11,7 @@
         <div class="col-md-6  col-lg-4 col-lg-offset-2 col-xs-4">
           <a ui-sref="authentication.signin" style="color:#b2b9e1;text-decoration: none;float:right;margin-top: 10px; " ng-hide="authentication.user">Login &nbsp;/&nbsp;Signup&nbsp;</a>
           <div class="dropdown header_Login" uib-dropdown ng-show="authentication.user" style="float:right;">
-            <a class="dropdown-toggle user-header-dropdown-toggle header_title" uib-dropdown- toggle role="button">
+            <a class="dropdown-toggle user-header-dropdown-toggle header_title" uib-dropdown-toggle role="button">
               <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
               <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
             </a>
@@ -72,18 +72,6 @@
                 <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
                 <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
               </a>
-              <!--
-                <ul class="dropdown-menu" role="menu">
-                  <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
-                    <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'|| authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
-                  </li>
-                  <li class="divider hidden-xs"></li>
-                  <li>
-                    <a ng-click="signout()" style="cursor:pointer;">Signout</a>
-                  </li>
-                </ul>
-
--->
               <ul class="drop" role="menu" ng-click="toggleLeft()">
                 <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
                   <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'|| authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
@@ -106,7 +94,7 @@
           </div>
           <hr>
           <div class="row sideNav_details">
-            <span class="sideNav_Terms_Privacy"><a>THINGSBERRY.COM &copy; 2016</a> <a href="privacy" ng-click="toggleLeft()">&nbsp;-&nbsp;Privacy</a>&nbsp;-&nbsp;<a href="terms"ng-click="toggleLeft()">Terms</a></span>
+            <span class="sideNav_Terms_Privacy"><a> &copy; 2016 THINGSBERRY</a> <a href="privacy" ng-click="toggleLeft()">&nbsp;-&nbsp;Privacy</a>&nbsp;-&nbsp;<a href="terms"ng-click="toggleLeft()">Terms</a></span>
 
           </div>
         </md-content>
@@ -172,8 +160,7 @@
                 <li ui-sref-active="active" ng-hide="authentication.user" class="visible-xs">
                   <a ui-sref="authentication.signin" class="header-title-names"><!--<img src="modules/core/client/img/user icon.png" class="user-icon hidden-xs">-->LOG IN</a>
                 </li>
-
-                <li class="dropdown visible-xs" uib-dropdown ng-show="authentication.user">
+                <!--<li class="dropdown visible-xs" uib-dropdown ng-show="authentication.user">
                   <a class="dropdown-toggle user-header-dropdown-toggle " uib-dropdown-toggle role="button">
                     <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
                     <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
@@ -187,7 +174,7 @@
                       <a ng-click="signout()" style="cursor:pointer;">Signout</a>
                     </li>
                   </ul>
-                </li>
+                </li>-->
               </ul>
             </div>
             <div class=" pull-right">

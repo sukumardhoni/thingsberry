@@ -459,12 +459,18 @@ exports.searchedProductsList = function (req, res) {
       }
     }
   } else if ((proCats.length != 0) && queryStr != '') {
+    var regexArray1 = sampleArray.map(x => new RegExp(x));
+    console.log("RESULTANT111:" + regexArray1);
     mongoQuery = {
-      ProCat: {
-        "$in": proCats
-      },
       $text: {
         $search: queryStr
+      },
+      "ProCat": {
+        $elemMatch: {
+          "title": {
+            $in: regexArray1
+          }
+        }
       }
     }
   } else if ((operationalRegns.length != 0) && queryStr != '') {
@@ -502,8 +508,10 @@ exports.searchedProductsList = function (req, res) {
     }
   }
 
+  /*{$text:{$search:queryStr}},{ProCat:{$elemMatch:{"title":{$in:regexArray1}}}}*/
+  /*{$text:{$search:"philips"},"ProCat":{$elemMatch:{"title":{$in:[/Home/]}}}}*/
 
-
+  /*{$text:{$search:"beautiful"},"ProCat":{$elemMatch:{"title":{$in:[/Home/]}}},"Comname":{$regex:/philips/i}}*/
 
 
 
@@ -522,7 +530,7 @@ exports.searchedProductsList = function (req, res) {
     });
   }
 
-  console.log('Mongo find Query is : ' + mongoQuery);
+  console.log('Mongo find Query is : ' + JSON.stringify(mongoQuery));
 
 
   Company.find(mongoQuery).skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {

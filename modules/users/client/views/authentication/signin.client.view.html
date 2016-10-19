@@ -44,7 +44,7 @@
 
           <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
             <div class="row">
-              <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" show-errors>
+              <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" show-errors style="margin-bottom:-10px;">
                 <label class="label-styles-msg"><b>Email Address</b></label>
                 <input class="input-styles" class="form-control " type="email" id="email" name="email" ng-model="credentials.email" required>
                 <div ng-messages="userForm.email.$error" role="alert">
@@ -70,7 +70,7 @@
               <div class="text-center form-group">
                 <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-11  col-sm-11 col-xs-11" style="left:7px;margin-top:45px;"><b>LOG IN</b></md-button>
               </div>
-              <uib-alert type="danger" ng-show="error" class="text-center text-danger" style="margin-top:75px;">
+              <uib-alert type="danger" ng-show="error" class="text-center text-danger" style="margin-top:1255px;">
                 <span ng-bind="error"></span>
               </uib-alert>
             </div>

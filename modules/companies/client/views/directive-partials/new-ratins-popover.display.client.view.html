@@ -1,6 +1,6 @@
 <div>
   <span class=" initialStars ">
-            <div class="hover_box arrow_box1" ng-style="ratingStyle">
+            <div class="hover_box arrow_box1"  ng-class="{'featuredRatingStyle':featured,'singlePrdctRatingStyle':singlePrdct}">
               <div>
                 <div class="ratingName">
                   <h5><b>Give your rating here..</b></h5>
@@ -13,5 +13,6 @@
 
     <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating "></uib-rating>
           </span>
+  <!--ng-style="ratingStyle"-->
   <span>({{reviewsCount}})</span>
 </div>
