@@ -698,7 +698,8 @@ a:hover#backTop {
   float: right;
   margin-top: 27px;
   color: #c2c2c2;
-  margin-right: 31px;
+  margin-right: 0px;
+  padding: 0px;
 }
 
 .terms_privacy_footer a {

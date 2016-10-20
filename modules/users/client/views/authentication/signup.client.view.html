@@ -1,13 +1,12 @@
-<div ng-controller="AuthenticationController" class="authentication">
+<div ng-controller="AuthenticationController">
   <div class="container">
     <div class="row ">
 
 
       <div class="col-xs-10 col-xs-offset-1 col-md-offset-4 col-sm-offset-1 col-md-4 text-center login-signup-styles">
-        <br>
-        <br>
+
         <h3>Sign Up</h3>
-        <br>
+
         <h5>Already have an account?  <a ui-sref="authentication.signin">Log In</a></h5>
 
         <div>
@@ -68,9 +67,11 @@
             <div class="row">
               <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" style="margin-bottom:-10px;">
                 <label class="label-styles-msg"><b>First Name</b></label>
-                <input class="input-styles" class="form-control " type="text" required id="firstName" name="firstName" data-ng-model="credentials.firstName" required>
+                <input class="input-styles" class="form-control " type="text" name="firstName" required id="firstName" name="firstName" data-ng-model="credentials.firstName" required>
                 <div ng-messages="userForm.firstName.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">First Name is required.</p>
+                  <!--<p class="help-block error-text" ng-message="required">First Name is required.</p>-->
+                  <div ng-message="required">First Name is required.</div>
+
                 </div>
               </md-input-container>
 
@@ -78,9 +79,10 @@
             <div class="row">
               <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" style="margin-bottom:-10px;">
                 <label class="label-styles-msg"><b>Last Name</b></label>
-                <input class="input-styles" class="form-control " type="text" id="lastName" name="lastName" data-ng-model="credentials.lastName" required>
+                <input class="input-styles" class="form-control " type="text" name="lastName" id="lastName" name="lastName" data-ng-model="credentials.lastName" required>
                 <div ng-messages="userForm.lastName.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Last Name is required.</p>
+                  <!-- <p class="help-block error-text" ng-message="required">Last Name is required.</p>-->
+                  <div ng-message="required">Last Name is required.</div>
                 </div>
               </md-input-container>
 
@@ -88,9 +90,13 @@
             <div class="row">
               <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" show-errors style="margin-bottom:-10px;">
                 <label class="label-styles-msg"><b>Email</b></label>
-                <input class="input-styles" class="form-control " type="email" id="email" name="email" ng-model="credentials.email" required>
+                <input class="input-styles" class="form-control " type="email" name="email" id="email" name="email" ng-model="credentials.email" ng-pattern="/^.+@.+\..+$/" required>
                 <div ng-messages="userForm.email.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Email is required.</p>
+                  <!-- <p class="help-block error-text" ng-message="required">Email is required.</p>-->
+                  <div ng-message="required">Email is required.</div>
+                  <div ng-message-exp="['required','pattern']">
+                    Your email must be look like valid email address.
+                  </div>
                 </div>
               </md-input-container>
 
@@ -102,6 +108,9 @@
                 <div ng-repeat="passwordError in passwordErrors">
                   <p class="help-block error-text" ng-show="userForm.password1.$error.requirements">{{passwordError}}</p>
                 </div>
+                <div ng-messages="userForm.password1.$error" role="alert">
+                  <div ng-message="required">password is required.</div>
+                </div>
               </md-input-container>
 
             </div>
@@ -110,7 +119,8 @@
                 <label class="label-styles-msg"><b>Confirm Password</b></label>
                 <input class="input-styles" class="form-control " type="password" id="password2" name="password2" ng-model="credentials.password2" required ng-change="pwdCompare()">
                 <div ng-messages="userForm.password2.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Password is required.</p>
+                  <!--<p class="help-block error-text" ng-message="required">Password is required.</p>-->
+                  <div ng-message="required">Confirm Password is required.</div>
                 </div>
               </md-input-container>
 

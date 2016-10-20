@@ -135,10 +135,9 @@ input[type="checkbox"]:checked + label:before {
   transform: scale(1.1);
 }
 
-
-/*.authentication {
-  padding-left: 120px;
-}*/
+.authentication {
+  margin-top: 60px;
+}
 
 .login-signup-styles {
   border: 2px solid #d9d9d9;

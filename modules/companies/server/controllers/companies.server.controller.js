@@ -461,18 +461,41 @@ exports.searchedProductsList = function (req, res) {
   } else if ((proCats.length != 0) && queryStr != '') {
     var regexArray1 = sampleArray.map(x => new RegExp(x));
     console.log("RESULTANT111:" + regexArray1);
-    mongoQuery = {
-      $text: {
-        $search: queryStr
-      },
-      "ProCat": {
-        $elemMatch: {
-          "title": {
-            $in: regexArray1
+    if (req.params.ProCategory && req.params.ProCompany && req.params.ProName) {
+      var productName = req.params.ProName;
+      var productCompany = req.params.ProCompany;
+      var productCmpnyRegex = new RegExp(productCompany, 'i');
+      //  console.log('@@Product Company: ' + productCmpnyRegex);
+      mongoQuery = {
+        $text: {
+          $search: productName
+        },
+        "ProCat": {
+          $elemMatch: {
+            "title": {
+              $in: regexArray1
+            }
+          }
+        },
+        "Comname": {
+          $regex: productCmpnyRegex
+        }
+      }
+    } else {
+      mongoQuery = {
+        $text: {
+          $search: queryStr
+        },
+        "ProCat": {
+          $elemMatch: {
+            "title": {
+              $in: regexArray1
+            }
           }
         }
       }
     }
+
   } else if ((operationalRegns.length != 0) && queryStr != '') {
     mongoQuery = {
       $text: {
@@ -495,11 +518,61 @@ exports.searchedProductsList = function (req, res) {
       }
     }
   } else if (queryStr != '') {
-    mongoQuery = {
-      $text: {
-        $search: queryStr
+    /*if (req.params.ProCompany != '') {
+      console.log("only ProCompany");
+      var companyName = new RegExp(req.params.ProCompany, 'i');
+      mongoQuery = {
+        "Comname": {
+          $regex: companyName
+        }
+      }
+
+    } else if (req.params.ProName != '') {
+      console.log("only ProName");
+      var productName = new RegExp(req.params.ProName, 'i');
+      mongoQuery = {
+        "Proname": {
+          $regex: productName
+        }
+      }
+    } else if (req.params.ProCompany && req.params.ProName) {
+      console.log("both proName and company name");
+    } else {
+      console.log("all products");
+      mongoQuery = {
+        $text: {
+          $search: queryStr
+        }
+      }
+    }*/
+    if (req.params.ProCompany && req.params.ProName) {
+      console.log("both proName and company name");
+      var p1 = req.params.ProName;
+      var proName = new RegExp(p1, 'i');
+      console.log("both proName and company name:" + proName);
+      var p2 = req.params.ProCompany;
+      var proComp = new RegExp(p2, 'i');
+      console.log("both proName and company name:" + proComp);
+      mongoQuery = {
+        "Comname": {
+          $regex: proComp
+        },
+        "Proname": {
+          $regex: proName
+        }
+      }
+    } else if (p1) {
+      console.log("only pro name");
+    } else {
+      console.log("all products");
+      mongoQuery = {
+        $text: {
+          $search: queryStr
+        }
       }
     }
+
+
   } else if ((operationalRegns.length != 0)) {
     mongoQuery = {
       operationalRegions: {
@@ -531,6 +604,7 @@ exports.searchedProductsList = function (req, res) {
   }
 
   console.log('Mongo find Query is : ' + JSON.stringify(mongoQuery));
+
 
 
   Company.find(mongoQuery).skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {

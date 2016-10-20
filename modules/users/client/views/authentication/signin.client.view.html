@@ -4,10 +4,10 @@
 
 
       <div class="col-xs-10 col-xs-offset-1 col-md-offset-4 col-sm-offset-1 col-md-4 text-center login-signup-styles">
-        <br>
-        <br>
+
+
         <h3>Log In</h3>
-        <br>
+
         <h5>Don't have an account?  <a ui-sref="authentication.signup">Sign Up</a></h5>
         <div>
 
@@ -46,18 +46,23 @@
             <div class="row">
               <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" show-errors style="margin-bottom:-10px;">
                 <label class="label-styles-msg"><b>Email Address</b></label>
-                <input class="input-styles" class="form-control " type="email" id="email" name="email" ng-model="credentials.email" required>
+                <input class="input-styles" class="form-control " type="email" name="email" id="email" name="email" ng-model="credentials.email" ng-pattern="/^.+@.+\..+$/" required>
                 <div ng-messages="userForm.email.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Email is required.</p>
+                  <!-- <p class="help-block error-text" ng-message="required">Email is required.</p>-->
+                  <div ng-message="required">Email is required.</div>
+                  <div ng-message-exp="['required','pattern']">
+                    Your email must be look like valid email address.
+                  </div>
                 </div>
               </md-input-container>
             </div>
             <div class="row">
               <md-input-container class=" col-md-12 col-sm-12 col-xs-12 form-group" show-errors style="margin-bottom:0px;">
                 <label class="label-styles-msg"><b>Password</b></label>
-                <input class="input-styles" class="form-control " type="password" id="password" name="password" ng-model="credentials.password" required>
+                <input class="input-styles" class="form-control " type="password" name="password" id="password" name="password" ng-model="credentials.password" required>
                 <div ng-messages="userForm.password.$error" role="alert">
-                  <p class="help-block error-text" ng-message="required">Password is required.</p>
+                  <!--<p class="help-block error-text" ng-message="required">Password is required.</p>-->
+                  <div ng-message="required">Password is required.</div>
                 </div>
               </md-input-container>
 
@@ -68,7 +73,7 @@
 
             <div class="row">
               <div class="text-center form-group">
-                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-11  col-sm-11 col-xs-11" style="left:7px;margin-top:45px;"><b>LOG IN</b></md-button>
+                <md-button type="submit" class="md-raised md-primary premium_view_btn col-md-11  col-sm-11 col-xs-11" style="left:7px;margin-top:20px;"><b>LOG IN</b></md-button>
               </div>
               <uib-alert type="danger" ng-show="error" class="text-center text-danger" style="margin-top:1255px;">
                 <span ng-bind="error"></span>
