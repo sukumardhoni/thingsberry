@@ -1184,13 +1184,18 @@ select:focus {
 
 .new_list_prdct_view_footer_icons {
   font-size: 20px;
-  color: #a6a6a6;
+  color: #4d4dff;
   outline: none;
 }
 
 .new_list_prdct_view_footer_icons:hover {
   color: #4d4dff;
   cursor: pointer;
+}
+
+.icon_rotate {
+  transform: rotate(-15deg);
+  color: #4d4dff;
 }
 
 .listclr {
@@ -1226,3 +1231,74 @@ select:focus {
   margin-top: 10px;
   min-height: 134px;
 }
+
+.allPrdctsAccrdnsPage {
+  padding-left: 0px;
+}
+
+.allPrdctsPage {
+  padding-right: 0px;
+}
+
+.accrnds .panel-heading {
+  background-color: #ebebeb;
+  background-image: none;
+  padding: 3px;
+  border-radius: 0px;
+  border-left: 3px solid #4d4dff;
+}
+
+.accrnds .panel-heading:hover,
+.accrnds .panel-heading:active {
+  background-color: #d9d9d9;
+}
+
+.accrnds.panel {
+  background-color: transparent;
+  border: 0px;
+}
+
+.accrnds .panel-body {
+  cursor: pointer;
+  padding: 5px !important;
+}
+
+.accrnds .panel-title a {
+  display: block;
+  padding: 10px 7px;
+}
+
+.accrnds .panel-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.accrnds a:focus {
+  outline: 0px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.accrnds a:hover,
+.accrnds a {
+  text-decoration: none !important;
+}
+
+.accrnds button {
+  border-radius: 0px !important;
+}
+
+.accrnds li {
+  list-style-type: none;
+  padding: 5px;
+  color: #b3b3b3;
+}
+
+.accrnds li:hover {
+  background-color: #d9d9d9;
+}
+
+
+/*.accrnds input[type=checkbox]:checked {
+  color: red !important;
+  background-color: red !important;
+}*/

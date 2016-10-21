@@ -1,0 +1,21 @@
+<div>
+  <uib-accordion close-others="oneAtATime">
+    <!--<div uib-accordion-group class="panel-default accrnds" style="text-decoration:none !important;" data-toggle="collapse" ng-click="toggleOpen()" heading="Mens">
+      This content is straight in the template.
+    </div>-->
+    <div uib-accordion-group class="panel-default accrnds" data-toggle="collapse" ng-click="toggleOpen()" ng-repeat="cats in categories">
+      <uib-accordion-heading>
+        {{cats.title}}
+        <input class="pull-right" id="Checkbox1" ng-click="$event.stopPropagation();" type="checkbox" />
+      </uib-accordion-heading>
+
+
+      <div ng-repeat="list in cats.content">
+        <li>{{list}}
+          <input class="pull-right" type="checkbox">
+        </li>
+      </div>
+    </div>
+  </uib-accordion>
+  <!--<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>-->
+</div>

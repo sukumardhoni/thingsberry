@@ -75,6 +75,10 @@ body {
   font-family: roboto;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 
 /* Wrapper for page content to push down footer */
 
@@ -704,11 +708,12 @@ a:hover#backTop {
 
 .terms_privacy_footer a {
   color: #c2c2c2;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .terms_privacy_footer a:hover {
   color: #3f51b5;
+  text-decoration: none !important;
 }
 
 .tb_copyright_footer {
@@ -946,7 +951,7 @@ important;
 .sideNav_details {
   margin: 15px;
   margin-bottom: 0px;
-  margin-top: 0px;
+  margin-top: -9px;
 }
 
 md-backdrop.md-opaque {

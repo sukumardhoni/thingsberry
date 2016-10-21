@@ -80,7 +80,7 @@
 -->
 
 
-<div class="row footer_Bg">
+<div class="row footer_Bg" ng-controller="HeaderController">
   <div class="container">
 
     <div class="col-md-3 col-xs-7 col-sm-4">
@@ -88,7 +88,7 @@
     </div>
 
     <div class="col-md-3 col-sm-5 hidden-xs" style="padding:0px;">
-      <span class="tb_copyright_footer">&copy; 2016 THINGSBERRY</span><span class="terms_privacy_footer">&nbsp;-&nbsp;<a href="privacy">Privacy Policy</a>&nbsp;-&nbsp;<a href="terms">Terms & Conditions</a></span>
+      <span class="tb_copyright_footer">THINGSBERRY &copy; {{date1 |date:'yyyy'}}</span><span class="terms_privacy_footer">&nbsp;-&nbsp;<a href="privacy">Privacy Policy</a>&nbsp;-&nbsp;<a href="terms">Terms & Conditions</a></span>
     </div>
     <div class="col-md-4 hidden-xs hidden-sm">
 
@@ -124,9 +124,10 @@
         <span><a href="https://twitter.com/thingsberry" target="_blank"><i class="fa fa-twitter  socialIcons socialTwitter"></i></a></span>
       </li>
     </div>
-    <div class=" col-xs-12" style="margin-top:-35px;">
-      <span class="tb_copyright_footer">&copy; 2016 THINGSBERRY</span><span class="terms_privacy_footer">&nbsp;-&nbsp;<a href="privacy">Privacy Policy</a>&nbsp;-&nbsp;<a href="terms">Terms & Conditions</a></span>
+    <div class="col-xs-12 visible-xs" style="margin-top:-35px;">
+      <span class="tb_copyright_footer">THINGSBERRY &copy; {{date1 |date:'yyyy'}}</span><span class="terms_privacy_footer">&nbsp;-&nbsp;<a href="privacy">Privacy Policy</a>&nbsp;-&nbsp;<a href="terms">Terms & Conditions</a></span>
     </div>
   </div>
+
 
 </div>

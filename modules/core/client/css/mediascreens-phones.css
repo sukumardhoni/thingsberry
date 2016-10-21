@@ -247,19 +247,13 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
   }
 }
 
-
-/*
-@media (max-width: 374px) {
-  .terms_privacy_footer {
-    margin-right: 7px !important;
-  }
-  .tb_copyright_footer {
-    margin-left: 0px !important;
-  }
-}
-*/
-
 @media (max-width: 765px) {
+  .allPrdctsAccrdnsPage {
+    padding-left: 15px;
+  }
+  .allPrdctsPage {
+    padding-right: 15px;
+  }
   .authentication {
     margin-top: 15px !important;
   }

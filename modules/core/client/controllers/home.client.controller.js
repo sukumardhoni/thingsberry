@@ -31,6 +31,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.getSearchedProducts = function (details) {
 
+
+
       /*      console.log("entering into getsearchproducts :" + details);
 
             console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
@@ -69,8 +71,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           } else {
             $state.go('companies.list', {
               cat: (catsArray == '') ? 'Category' : catsArray,
-              com: details.Company,
-              name: details.Product,
+              com: (details.Company == undefined) ? 'Company' : details.Company,
+              name: (details.Product == undefined) ? 'Product' : details.Product,
               regions: (regionsArray == '') ? '' : regionsArray,
               isSearch: true
             });
@@ -353,55 +355,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
     $scope.addSlide1 = function (details) {
-      slides1.push(
-        details
-        /*image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++,
-        _id: details._id*/
-      );
+      slides1.push(details);
     };
 
     $scope.addSlide2 = function (details) {
-      slides2.push(details
-        /*  image: details.productImageURL,
-          proAddress: details.webAddress,
-          desc: details.description,
-          web: details.companyWebsite,
-          text: details.Proname,
-          id: currIndex++,
-          _id: details._id*/
-      );
+      slides2.push(details);
     };
 
     $scope.addSlide3 = function (details) {
-      slides3.push(details
-        /*{
-                image: details.productImageURL,
-                proAddress: details.webAddress,
-                desc: details.description,
-                web: details.companyWebsite,
-                text: details.Proname,
-                id: currIndex++,
-                _id: details._id
-              }*/
-      );
+      slides3.push(details);
     };
     $scope.addSlide4 = function (details) {
-      slides4.push(details
-        /*{
-                image: details.productImageURL,
-                proAddress: details.webAddress,
-                desc: details.description,
-                web: details.companyWebsite,
-                text: details.Proname,
-                id: currIndex++,
-                _id: details._id
-              }*/
-      );
+      slides4.push(details);
     };
 
 

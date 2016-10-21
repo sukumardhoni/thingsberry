@@ -11,7 +11,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       $mdSidenav('left').toggle();
     };
 
-
+    $scope.date1 = new Date();
     $scope.showBoxOne = false;
 
     $scope.showSearchDirective = function () {

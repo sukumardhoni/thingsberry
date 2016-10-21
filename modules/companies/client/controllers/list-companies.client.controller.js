@@ -5,9 +5,9 @@
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state'];
+  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService'];
 
-  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state) {
+  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService) {
     var vm = this;
     var pageId = 0;
     $scope.path = $location.absUrl();
@@ -19,6 +19,98 @@
       dataShare.setData(productDetails, $state.current.name);
       $state.go('companies.add');
     }
+
+    $scope.getCategoriesForSide = function () {
+      console.log('get categories function');
+      CategoryService.query({}, function (res) {
+        console.log('succesfully getting response');
+        $scope.categoryList = res;
+        console.log(JSON.stringify($scope.categoryList))
+      }, function (err) {
+        console.log('failed to fetch the products' + err);
+      })
+    }
+
+
+    $scope.groups = [
+      {
+        title: 'Home',
+        count: 21,
+        content: ['under-maintenece']
+
+    },
+      {
+        title: 'Healthcare',
+        count: 45,
+        content: ['Healthcare', 'Healthcare..']
+    },
+      {
+        title: 'Accesories',
+        count: 21,
+        content: ['Accesories']
+
+    },
+      {
+        title: 'Electronics',
+        count: 21,
+        content: ['Electronics']
+
+    },
+      {
+        title: 'Wearables',
+        count: 21,
+        content: ['Wearables', 'Wearables1']
+
+    },
+      {
+        title: 'Baby-Products',
+        count: 21,
+        content: ['Baby-Products']
+
+    },
+      {
+        title: 'sports',
+        count: 21,
+        content: ['sports1', 'sports2', 'sports..']
+
+    },
+      {
+        title: 'Automobile',
+        count: 21,
+        content: ['Automobile', 'Automobile1', 'Automobile2']
+
+    },
+      {
+        title: 'Entertainment',
+        count: 21,
+        content: ['Entertainment']
+
+    },
+      {
+        title: 'Patio,Lawn-&-Garden',
+        count: 21,
+        content: ['Patio,Lawn-&-Garden', 'Patio,Lawn-&-Garden1']
+
+    },
+      {
+        title: 'Kids',
+        count: 21,
+        content: ['Kids']
+
+    },
+      {
+        title: 'Motors',
+        count: 21,
+        content: ['Motors1']
+
+    },
+      {
+        title: 'Others',
+        count: 21,
+        content: ['Others', 'Others..']
+
+    }
+  ];
 
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
     /*CompanyService.query(function (res) {
