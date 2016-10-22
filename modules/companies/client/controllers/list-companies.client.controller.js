@@ -20,16 +20,81 @@
       $state.go('companies.add');
     }
 
-    $scope.getCategoriesForSide = function () {
-      console.log('get categories function');
-      CategoryService.query({}, function (res) {
-        console.log('succesfully getting response');
-        $scope.categoryList = res;
-        console.log(JSON.stringify($scope.categoryList))
-      }, function (err) {
-        console.log('failed to fetch the products' + err);
-      })
-    }
+    /*    $scope.getCategoriesForSide = function () {
+          console.log('get categories function');
+          CategoryService.query({}, function (res) {
+              console.log('succesfully getting response');
+              $scope.categoryList = res;
+
+              var headingArray = [];
+              $scope.accrdnsArray = headingArray;
+              for (var i = 0; i < ($scope.categoryList.length); i++) {
+                var catTitle = $scope.categoryList[i].title;
+
+                var reg, content;
+
+                if (catTitle.indexOf('-') !== -1) {
+                  console.log('is there');
+                  var ss = catTitle.substring(0, catTitle.indexOf('-'));
+                  reg = ss.replace(',', '');
+                  content = catTitle.substring(catTitle.indexOf('-') + 1);
+                } else {
+                  console.log('is not there');
+                  reg = catTitle;
+                }
+
+                //console.log(reg);
+                // console.log(content);
+
+                if (headingArray.length == 0) {
+                  console.log('pushing to array');
+                  if (content == null) {
+                    headingArray.push({
+                      heading: reg,
+                      contents: []
+                    })
+                  } else {
+                    headingArray.push({
+                      heading: reg,
+                      contents: [content]
+                    });
+                  }
+
+                } else {
+                  for (var j = 0; j < headingArray.length; j++) {
+                    console.log(headingArray[j].heading);
+                    if (headingArray[j].heading === reg) {
+                      console.log('duplicate is there');
+                      headingArray[j].contents.push(content);
+                    }
+                  }
+
+                  for (var k = 0; k < headingArray.length; k++) {
+                    console.log('checking if heading is not equal');
+                    if (headingArray[k].heading !== reg) {
+                      headingArray.push({
+                        heading: reg,
+                        contents: []
+                      });
+                    }
+
+                  }
+
+
+
+
+
+
+
+                  console.log("array is not empty");
+                }
+              }
+              console.log("acordian object: " + JSON.stringify(headingArray));
+            },
+            function (err) {
+              console.log('failed to fetch the products' + err);
+            })
+        }*/
 
 
     $scope.groups = [

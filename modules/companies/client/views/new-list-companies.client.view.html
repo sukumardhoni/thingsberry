@@ -72,18 +72,19 @@
       <div class="row col-xs-12  text-center" style="margin:20px;margin-left:0px;">
         <button type="button" class="btn btn-default view_all_prdcts_bttn" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">VIEW MORE PRODUCTS</button>
       </div>
-      <div class="alert alert-warning text-center" ng-show="vm.companys.length == 0">
+
+      <div class="alert alert-warning text-center col-md-11" ng-show="vm.companys.length == 0">
         No Products found for this search query.
       </div>
 
 
     </div>
 
-    <div class="col-md-2 col-xs-12 allPrdctsAccrdnsPage">
-      <!--<h4>Under progress.....</h4>-->
-      <!-- <button class="btn btn-primary" ng-click="getCategoriesForSide()">Get categories</button>
+    <div class="col-md-2 col-xs-12 allPrdctsAccrdnsPage" ng-init="getCategoriesForSide()">
+
+      <button class="btn btn-primary" ng-click="getCategoriesForSide()">Get categories</button>
       <h5><b>CATEGORIES ::</b></h5>
-      <tb-accordions categories="groups"></tb-accordions>-->
+      <tb-accordions categories="accrdnsArray"></tb-accordions>
     </div>
 
   </div>
