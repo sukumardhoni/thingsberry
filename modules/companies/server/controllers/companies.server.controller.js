@@ -396,35 +396,17 @@ exports.searchedProductsList = function (req, res) {
   var proCats = [];
   var sampleArray = [];
 
-  // var proCatsForSingleSearch = [];
-  //var eg1 = JSON.stringify(proCatsForSingleSearch);
-  //var eg2 = eg1.replace(/"/g, "/");
-  // var proCatsForSingleSearch1 = proCatsForSingleSearch[0].replace("\"/g", "");
-  //  console.log('proCats  array is OUT : ' + JSON.stringify(eg2));
   if (req.params.ProCategory != 'Category') {
     var CatsArray = req.params.ProCategory.split(',');
 
     console.log('@@@@CatsArray  array is : ' + JSON.stringify(CatsArray));
-    /*var eg1 = JSON.stringify(CatsArray);
-    var eg2 = eg1.replace(/"/g, "/");
-    console.log(eg2);*/
-    // var CATS = '/' + CatsArray.join('/,/') + '/';
+
 
     for (var i = 0; i < CatsArray.length; i++) {
       sampleArray.push(CatsArray[i]);
     }
 
-
-
     for (var i = 0; i < CatsArray.length; i++) {
-      // CatsArray[i] = CatsArray[i].replace(/"/g, "/");
-
-      // var cats = '/' + CatsArray[i] + '/';
-      // console.log("HSIS:" + cats.replace(/"/g, ""));
-      // var cats1 = cats.replace(/(^"|"$)/g, '');
-      // proCatsForSingleSearch.push(CatsArray[i]);
-
-      // console.log("$%%$$:" + JSON.stringify(cats));
 
       proCats.push({
         title: CatsArray[i]
@@ -433,7 +415,6 @@ exports.searchedProductsList = function (req, res) {
     console.log('proCats  array is : ' + JSON.stringify(sampleArray));
 
   }
-
 
 
 
@@ -548,7 +529,7 @@ exports.searchedProductsList = function (req, res) {
       console.log('only company name');
       var cName = new RegExp(req.params.ProCompany, 'i');
       mongoQuery = {
-        "Proname": {
+        "Comname": {
           $regex: cName
         }
       }
@@ -569,11 +550,6 @@ exports.searchedProductsList = function (req, res) {
       }
     }
   }
-
-  /*{$text:{$search:queryStr}},{ProCat:{$elemMatch:{"title":{$in:regexArray1}}}}*/
-  /*{$text:{$search:"philips"},"ProCat":{$elemMatch:{"title":{$in:[/Home/]}}}}*/
-
-  /*{$text:{$search:"beautiful"},"ProCat":{$elemMatch:{"title":{$in:[/Home/]}}},"Comname":{$regex:/philips/i}}*/
 
 
 
@@ -643,13 +619,6 @@ exports.searchedProductsList = function (req, res) {
   });
 };*/
 exports.companyByID = function (req, res, next, id) {
-
-  /* if (!mongoose.Types.ObjectId.isValid(id)) {
-     return res.status(400).send({
-       message: 'Company is invalid'
-     });
-   }*/
-
   Company.findOne({
     productId: id
   }).populate('user', 'displayName').exec(function (err, company) {
