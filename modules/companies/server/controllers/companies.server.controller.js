@@ -519,41 +519,15 @@ exports.searchedProductsList = function (req, res) {
       }
     }
   } else if (queryStr != '') {
-    /*if (req.params.ProCompany != '') {
-      console.log("only ProCompany");
-      var companyName = new RegExp(req.params.ProCompany, 'i');
-      mongoQuery = {
-        "Comname": {
-          $regex: companyName
-        }
-      }
 
-    } else if (req.params.ProName != '') {
-      console.log("only ProName");
-      var productName = new RegExp(req.params.ProName, 'i');
-      mongoQuery = {
-        "Proname": {
-          $regex: productName
-        }
-      }
-    } else if (req.params.ProCompany && req.params.ProName) {
-      console.log("both proName and company name");
-    } else {
-      console.log("all products");
-      mongoQuery = {
-        $text: {
-          $search: queryStr
-        }
-      }
-    }*/
     if (req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
       console.log("both proName and company name");
       var p1 = req.params.ProName;
       var proName = new RegExp(p1, 'i');
-      console.log(" proName :" + proName);
+      //  console.log(" proName :" + proName);
       var p2 = req.params.ProCompany;
       var proComp = new RegExp(p2, 'i');
-      console.log("company name:" + proComp);
+      //  console.log("company name:" + proComp);
       mongoQuery = {
         "Comname": {
           $regex: proComp
