@@ -8,7 +8,8 @@
     .factory('dataShare', dataShare)
     .factory('ratingService', ratingService)
     .factory('deactiveService', deactiveService)
-    /*  .factory('productService', productService)*/
+
+  /*  .factory('productService', productService)*/
 
 
 

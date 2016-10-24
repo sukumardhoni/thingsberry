@@ -23,6 +23,7 @@ module.exports = function (app) {
     }), companies.searchedProductsList);
 
 
+
   app.route('/api/listOfProducts/:pageId')
     .get(cache.route(), companies.list);
 

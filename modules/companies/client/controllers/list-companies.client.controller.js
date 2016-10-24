@@ -20,162 +20,91 @@
       $state.go('companies.add');
     }
 
-    /*    $scope.getCategoriesForSide = function () {
-          console.log('get categories function');
-          CategoryService.query({}, function (res) {
-              console.log('succesfully getting response');
-              $scope.categoryList = res;
 
-              var headingArray = [];
-              $scope.accrdnsArray = headingArray;
-              for (var i = 0; i < ($scope.categoryList.length); i++) {
-                var catTitle = $scope.categoryList[i].title;
+    $scope.eliminateDuplicates = function (arr) {
+      var b = {};
+      for (var j = 0; j < arr.length; j++) {
+        b[arr[j].toUpperCase()] = arr[j].toLowerCase();
+      }
+      var c = [];
 
-                var reg, content;
+      for (var key in b) {
+        c.push({
+          heading: b[key],
+          contents: []
+        });
+      }
+      return c;
+    }
 
-                if (catTitle.indexOf('-') !== -1) {
-                  console.log('is there');
-                  var ss = catTitle.substring(0, catTitle.indexOf('-'));
-                  reg = ss.replace(',', '');
-                  content = catTitle.substring(catTitle.indexOf('-') + 1);
-                } else {
-                  console.log('is not there');
-                  reg = catTitle;
-                }
 
-                //console.log(reg);
-                // console.log(content);
 
-                if (headingArray.length == 0) {
-                  console.log('pushing to array');
-                  if (content == null) {
-                    headingArray.push({
-                      heading: reg,
-                      contents: []
-                    })
-                  } else {
-                    headingArray.push({
-                      heading: reg,
-                      contents: [content]
-                    });
+    $scope.getCategoriesForSide = function () {
+      //  console.log('get categories function');
+      CategoryService.query({}, function (res) {
+          //   console.log('succesfully getting response');
+          $scope.categoryList = res;
+          var reg, reg1, content;
+          var catTitle;
+          var headingArray = [];
+
+          for (var i = 0; i < $scope.categoryList.length; i++) {
+            catTitle = $scope.categoryList[i].title;
+            if ((catTitle.indexOf('-') !== -1) || (catTitle.indexOf(' ') !== -1)) {
+              var ss = catTitle.substring(0, (catTitle.indexOf('-') || catTitle.indexOf(' ')));
+              reg = ss.replace(',', '');
+              //content = catTitle.substring((catTitle.indexOf('-') || catTitle.indexOf(' ')) + 1);
+            } else {
+              reg = catTitle;
+            }
+            headingArray.push(reg);
+          }
+
+          $scope.rightSideCatsArray = $scope.eliminateDuplicates(headingArray);
+          // console.log("acordian object: " + JSON.stringify($scope.rightSideCatsArray));
+          for (var i = 0; i < $scope.categoryList.length; i++) {
+            catTitle = $scope.categoryList[i].title;
+            if ((catTitle.indexOf('-') !== -1) || (catTitle.indexOf(' ') !== -1)) {
+              var ss = catTitle.substring(0, (catTitle.indexOf('-') || catTitle.indexOf(' ')));
+              reg1 = ss.replace(',', '');
+              content = catTitle.substring((catTitle.indexOf('-') || catTitle.indexOf(' ')) + 1);
+              /* if (content.indexOf('&-') !== -1) {
+                 // console.log("special charecters are there");
+                 content = content.substring(content.indexOf('&-') + 1);
+                 // console.log('contents: ' + content);
+               }*/
+              /* if ((content.indexOf('-') !== -1)) {
+                 // console.log("special charecters are there");
+                 content = content.substring(content.indexOf('-') + 1);
+                 // console.log('contents: ' + content);
+               }*/
+
+            } else {
+              reg1 = catTitle;
+            }
+            //  console.log("content: " + content);
+
+            for (var l = 0; l < $scope.rightSideCatsArray.length; l++) {
+              var head = reg1.toLowerCase();
+              //  console.log("Lowercase: " + head);
+              if ($scope.rightSideCatsArray[l].heading === head) {
+                //    console.log("duplicate is there");
+                if ($scope.rightSideCatsArray[l].contents.indexOf(content) === -1) {
+                  if (content !== undefined) {
+                    $scope.rightSideCatsArray[l].contents.push(content);
                   }
-
-                } else {
-                  for (var j = 0; j < headingArray.length; j++) {
-                    console.log(headingArray[j].heading);
-                    if (headingArray[j].heading === reg) {
-                      console.log('duplicate is there');
-                      headingArray[j].contents.push(content);
-                    }
-                  }
-
-                  for (var k = 0; k < headingArray.length; k++) {
-                    console.log('checking if heading is not equal');
-                    if (headingArray[k].heading !== reg) {
-                      headingArray.push({
-                        heading: reg,
-                        contents: []
-                      });
-                    }
-
-                  }
-
-
-
-
-
-
-
-                  console.log("array is not empty");
                 }
               }
-              console.log("acordian object: " + JSON.stringify(headingArray));
-            },
-            function (err) {
-              console.log('failed to fetch the products' + err);
-            })
-        }*/
-
-
-    $scope.groups = [
-      {
-        title: 'Home',
-        count: 21,
-        content: ['under-maintenece']
-
-    },
-      {
-        title: 'Healthcare',
-        count: 45,
-        content: ['Healthcare', 'Healthcare..']
-    },
-      {
-        title: 'Accesories',
-        count: 21,
-        content: ['Accesories']
-
-    },
-      {
-        title: 'Electronics',
-        count: 21,
-        content: ['Electronics']
-
-    },
-      {
-        title: 'Wearables',
-        count: 21,
-        content: ['Wearables', 'Wearables1']
-
-    },
-      {
-        title: 'Baby-Products',
-        count: 21,
-        content: ['Baby-Products']
-
-    },
-      {
-        title: 'sports',
-        count: 21,
-        content: ['sports1', 'sports2', 'sports..']
-
-    },
-      {
-        title: 'Automobile',
-        count: 21,
-        content: ['Automobile', 'Automobile1', 'Automobile2']
-
-    },
-      {
-        title: 'Entertainment',
-        count: 21,
-        content: ['Entertainment']
-
-    },
-      {
-        title: 'Patio,Lawn-&-Garden',
-        count: 21,
-        content: ['Patio,Lawn-&-Garden', 'Patio,Lawn-&-Garden1']
-
-    },
-      {
-        title: 'Kids',
-        count: 21,
-        content: ['Kids']
-
-    },
-      {
-        title: 'Motors',
-        count: 21,
-        content: ['Motors1']
-
-    },
-      {
-        title: 'Others',
-        count: 21,
-        content: ['Others', 'Others..']
-
+            }
+            // console.log("acordian object: " + JSON.stringify($scope.rightSideCatsArray));
+          }
+        },
+        function (err) {
+          console.log('failed to fetch the products' + err);
+        })
     }
-  ];
+
+
 
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
     /*CompanyService.query(function (res) {
@@ -288,6 +217,37 @@
         });
       }
     };
+
+
+    $scope.getCategoryProduct = function (Catproducts) {
+      $state.go('companies.list', {
+        cat: Catproducts,
+        com: 'Company',
+        name: 'Product',
+        regions: '',
+        isSearch: true
+      });
+      // console.log('in controller with getCategoryProduct ');
+
+      /* {
+               cat: (catsArray == '') ? 'Category' : catsArray,
+               com: (details.Company == undefined) ? 'Company' : details.Company,
+               name: (details.Product == undefined) ? 'Product' : details.Product,
+               regions: (regionsArray == '') ? '' : regionsArray,
+               isSearch: true
+             }*/
+      /*    GetCatProducts.query({
+            getCatProducts: Catproducts
+          }, function (res) {
+            console.log("succesfully geting product");
+            console.log(JSON.stringify(res));
+            $scope.catSearchPrdcts = true;
+            vm.companys = res.products;
+          }, function (err) {
+            console.log("error while getting product");
+          })*/
+    }
+
 
 
 
