@@ -5,9 +5,9 @@
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService'];
+  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService', 'orderByFilter'];
 
-  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService) {
+  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, orderBy) {
     var vm = this;
     var pageId = 0;
     $scope.path = $location.absUrl();
@@ -42,7 +42,6 @@
     $scope.getCategoriesForSide = function () {
       //  console.log('get categories function');
       CategoryService.query({}, function (res) {
-          //   console.log('succesfully getting response');
           $scope.categoryList = res;
           var reg, reg1, content;
           var catTitle;
@@ -61,7 +60,6 @@
           }
 
           $scope.rightSideCatsArray = $scope.eliminateDuplicates(headingArray);
-          // console.log("acordian object: " + JSON.stringify($scope.rightSideCatsArray));
           for (var i = 0; i < $scope.categoryList.length; i++) {
             catTitle = $scope.categoryList[i].title;
             if ((catTitle.indexOf('-') !== -1) || (catTitle.indexOf(' ') !== -1)) {
@@ -78,12 +76,9 @@
                  content = content.substring(content.indexOf('-') + 1);
                  // console.log('contents: ' + content);
                }*/
-
             } else {
               reg1 = catTitle;
             }
-            //  console.log("content: " + content);
-
             for (var l = 0; l < $scope.rightSideCatsArray.length; l++) {
               var head = reg1.toLowerCase();
               //  console.log("Lowercase: " + head);
@@ -96,13 +91,57 @@
                 }
               }
             }
-            // console.log("acordian object: " + JSON.stringify($scope.rightSideCatsArray));
           }
         },
         function (err) {
           console.log('failed to fetch the products' + err);
         })
     }
+
+    $scope.getAccrdns = function () {
+
+      console.log('count: ' + JSON.stringify($scope.rightSideCatsArray.length));
+
+      $scope.rightSideCatsArray.sort(function (a, b) {
+        return b.contents.length - a.contents.length;
+      });
+
+      $scope.accrdnsArray = [].concat($scope.rightSideCatsArray);
+      var accrdnsArray2 = $scope.accrdnsArray.splice(5);
+      // var accrdnsArray3 = [];
+      $scope.accrdnsArray.push({
+        heading: "Others",
+        contents: []
+      });
+      for (var m = 0; m < accrdnsArray2.length; m++) {
+        var categoryTitle = accrdnsArray2[m].heading;
+        /* var categoryHeading = accrdnsArray2[m].contents;
+        // console.log("concat:" + categoryTitle + "-" + categoryHeading);
+        var fullCatTitle = (categoryTitle + ' ' + categoryHeading);
+*/
+
+        for (var n = 0; n < $scope.accrdnsArray.length; n++) {
+          if ($scope.accrdnsArray[n].heading === 'Others') {
+            $scope.accrdnsArray[n].contents.push(categoryTitle)
+          }
+        }
+
+
+
+
+
+        //  console.log("title:" + fullCatTitle);
+
+      }
+
+      console.log('count: ' + JSON.stringify($scope.accrdnsArray));
+      console.log('count111: ' + JSON.stringify(accrdnsArray2.length));
+      // console.log('count111: ' + JSON.stringify(accrdnsArray3.length));
+
+
+    }
+
+
 
 
 
@@ -113,11 +152,6 @@
 });*/
     // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
-    /* if($localStorage.user.roles.indexOf('admin')!==-1){
-       console.log("admin is there");
-     }else{
-       console.log("admin not there");
-     }*/
     $scope.userDetails = $localStorage.user;
     // console.log("USER :"+ JSON.stringify(Authentication));
     // console.log("USER :"+ JSON.stringify($localStorage.user));
