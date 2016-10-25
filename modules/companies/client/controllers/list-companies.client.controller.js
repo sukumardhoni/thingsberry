@@ -92,6 +92,8 @@
               }
             }
           }
+          $scope.rightSideAccrdns = $scope.getAccrdns();
+
         },
         function (err) {
           console.log('failed to fetch the products' + err);
@@ -100,7 +102,7 @@
 
     $scope.getAccrdns = function () {
 
-      console.log('count: ' + JSON.stringify($scope.rightSideCatsArray.length));
+      // console.log('count: ' + JSON.stringify($scope.rightSideCatsArray.length));
 
       $scope.rightSideCatsArray.sort(function (a, b) {
         return b.contents.length - a.contents.length;
@@ -134,8 +136,8 @@
 
       }
 
-      console.log('count: ' + JSON.stringify($scope.accrdnsArray));
-      console.log('count111: ' + JSON.stringify(accrdnsArray2.length));
+      //  console.log('count: ' + JSON.stringify($scope.accrdnsArray));
+      //  console.log('count111: ' + JSON.stringify(accrdnsArray2.length));
       // console.log('count111: ' + JSON.stringify(accrdnsArray3.length));
 
 
