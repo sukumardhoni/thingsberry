@@ -8,6 +8,8 @@
     .factory('dataShare', dataShare)
     .factory('ratingService', ratingService)
     .factory('deactiveService', deactiveService)
+    .factory('CategoryServiceRightPanel', CategoryServiceRightPanel)
+    .factory('FrequentlyProducts', FrequentlyProducts)
 
   /*  .factory('productService', productService)*/
 
@@ -80,6 +82,28 @@
     });
   };
 
+  CategoryServiceRightPanel.$inject = ['$resource'];
+
+  function CategoryServiceRightPanel($resource) {
+    return $resource('api/categories/listOfCategories', {}, {
+      query: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  };
+
+
+  FrequentlyProducts.$inject = ['$resource'];
+
+  function FrequentlyProducts($resource) {
+    return $resource('api/companies/frequentProducts', {}, {
+      query: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  };
 
 
   CompanyService.$inject = ['$resource', '$rootScope', '$timeout'];

@@ -10,4 +10,9 @@ module.exports = function (app) {
   app.route('/api/categories')
     .get(categories.list)
     //.post(categories.create);
+
+  app.route('/api/categories/listOfCategories')
+    .get(categories.listOfCategories)
+
+
 };

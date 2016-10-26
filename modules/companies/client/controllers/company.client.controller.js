@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts'];
 
-  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts) {
     var vm = this;
 
     vm.company = company;
@@ -61,6 +61,33 @@
         $scope.editIcon = false;
       }
     }
+
+
+    $scope.getCategoriesForSide = function () {
+      // console.log('get categories function');
+      CategoryServiceRightPanel.query({}, function (res) {
+        //  console.log('response from server side');
+        //  console.log('response from server side: ' + JSON.stringify(res));
+        $scope.accrdnsPanelArray = res;
+
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
+    };
+
+    $scope.getFrequentlyProducts = function () {
+      //  console.log('getFrequentlyProducts function');
+      FrequentlyProducts.query({}, function (res) {
+        // console.log('response from server side');
+        // console.log('response from server side:' + JSON.stringify(res));
+        $scope.frequentProducts = res;
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
+    }
+
+
+
     /* $scope.editProductFunc = function (productDetails) {
        // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
 

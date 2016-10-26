@@ -47,49 +47,26 @@
           </div>
         </div>
       </div>
-      <div ng-hide="catSearchPrdcts">
-        <div ng-show="gridView">
-          <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-            <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
-            <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
-              <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
-            </div>
-          </div>
-          <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
+
+      <div ng-show="gridView">
+        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
+          <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
+          <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
+            <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
           </div>
         </div>
-
-        <div ng-hide="gridView">
-          <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-            <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-list>
-          </div>
-          <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
-          </div>
+        <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
         </div>
       </div>
-      <div ng-show="catSearchPrdcts">
-        <div ng-show="gridView">
-          <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-            <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
-            <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
-              <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
-            </div>
-          </div>
-          <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
-          </div>
+
+      <div ng-hide="gridView">
+        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
+          <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-list>
         </div>
-
-        <div ng-hide="gridView">
-          <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-            <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-list>
-          </div>
-          <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
-          </div>
+        <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
         </div>
-
-
-
       </div>
+
       <!-- <div class="row tb_paginate text-center col-md-12 col-sm-12 hidden-xs">
           <div class="my-pagination" uib-pagination total-items="vm.count" ng-model="currentPage" max-size="maxSize" boundary-link-numbers="false" items-per-page="itemsPerPage" previous-text="&#xf060;" next-text="&#xf061;"></div>
         </div>-->
@@ -104,10 +81,36 @@
 
     </div>
 
-    <div class="col-md-2 col-xs-12 allPrdctsAccrdnsPage" ng-init="getCategoriesForSide()">
-      <button ng-click="getAccrdns()">get</button>
-      <h5><b>CATEGORIES ::</b></h5>
-      <tb-accordions categories="accrdnsArray"></tb-accordions>
+    <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 hidden-xs allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;">
+      <div class="row frequentCat">
+        <h4><b>CATEGORIES :::</b></h4>
+      </div>
+      <div class="row">
+        <tb-accordions categories="accrdnsPanelArray"></tb-accordions>
+      </div>
+      <div class="hidden-sm">
+        <div class="row frequentCat">
+          <h4><b>You May also Like :::</b></h4>
+        </div>
+        <div class="row" ng-repeat="val in frequentProducts">
+          <tb-frequent-products details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-frequent-products>
+          <!--<tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails" state="frequentlyState"></tb-products-grid>-->
+        </div>
+      </div>
+      <div class="visible-sm" style="margin-bottom:30px;">
+        <div class="row frequentCatInSm">
+          <h4 style="font-size:32px;"><b>You May also Like :::</b></h4>
+        </div>
+        <div class="row">
+          <div ng-repeat="val in frequentProducts |limitTo:2">
+            <div class="col-sm-5 prdct-tile">
+              <!--<tb-frequent-products details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-frequent-products>-->
+              <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>

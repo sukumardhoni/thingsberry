@@ -91,6 +91,13 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
       margin-left: -15px!important;
     }
   }
+  .new_sngle_prdct_box {
+    width: 100%;
+  }
+  .new_list_prdct_view_box {
+    margin: 35px;
+    margin-right: 50px;
+  }
   .tb_copyright_footer {
     margin-left: 25px !important;
   }
@@ -249,7 +256,8 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
 
 @media (max-width: 765px) {
   .allPrdctsAccrdnsPage {
-    padding-left: 15px;
+    /* padding-left: 15px;*/
+    padding: 35px !important;
   }
   .allPrdctsPage {
     padding-right: 15px;

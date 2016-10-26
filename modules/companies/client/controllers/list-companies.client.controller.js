@@ -5,146 +5,44 @@
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService', 'orderByFilter'];
+  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService', 'CategoryServiceRightPanel', 'FrequentlyProducts'];
 
-  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, orderBy) {
+  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, CategoryServiceRightPanel, FrequentlyProducts) {
     var vm = this;
     var pageId = 0;
     $scope.path = $location.absUrl();
 
     $scope.editProductFunc = function (productDetails) {
       /*console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));*/
-      console.log('Edit Product details on Direc. : ');
-      console.log($state.current.name);
+      // console.log('Edit Product details on Direc. : ');
+      //  console.log($state.current.name);
       dataShare.setData(productDetails, $state.current.name);
       $state.go('companies.add');
     }
 
 
-    $scope.eliminateDuplicates = function (arr) {
-      var b = {};
-      for (var j = 0; j < arr.length; j++) {
-        b[arr[j].toUpperCase()] = arr[j].toLowerCase();
-      }
-      var c = [];
-
-      for (var key in b) {
-        c.push({
-          heading: b[key],
-          contents: []
-        });
-      }
-      return c;
-    }
-
-
-
     $scope.getCategoriesForSide = function () {
-      //  console.log('get categories function');
-      CategoryService.query({}, function (res) {
-          $scope.categoryList = res;
-          var reg, reg1, content;
-          var catTitle;
-          var headingArray = [];
+      // console.log('get categories function');
+      CategoryServiceRightPanel.query({}, function (res) {
+        //  console.log('response from server side');
+        //  console.log('response from server side: ' + JSON.stringify(res));
+        $scope.accrdnsPanelArray = res;
 
-          for (var i = 0; i < $scope.categoryList.length; i++) {
-            catTitle = $scope.categoryList[i].title;
-            if ((catTitle.indexOf('-') !== -1) || (catTitle.indexOf(' ') !== -1)) {
-              var ss = catTitle.substring(0, (catTitle.indexOf('-') || catTitle.indexOf(' ')));
-              reg = ss.replace(',', '');
-              //content = catTitle.substring((catTitle.indexOf('-') || catTitle.indexOf(' ')) + 1);
-            } else {
-              reg = catTitle;
-            }
-            headingArray.push(reg);
-          }
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
+    };
 
-          $scope.rightSideCatsArray = $scope.eliminateDuplicates(headingArray);
-          for (var i = 0; i < $scope.categoryList.length; i++) {
-            catTitle = $scope.categoryList[i].title;
-            if ((catTitle.indexOf('-') !== -1) || (catTitle.indexOf(' ') !== -1)) {
-              var ss = catTitle.substring(0, (catTitle.indexOf('-') || catTitle.indexOf(' ')));
-              reg1 = ss.replace(',', '');
-              content = catTitle.substring((catTitle.indexOf('-') || catTitle.indexOf(' ')) + 1);
-              /* if (content.indexOf('&-') !== -1) {
-                 // console.log("special charecters are there");
-                 content = content.substring(content.indexOf('&-') + 1);
-                 // console.log('contents: ' + content);
-               }*/
-              /* if ((content.indexOf('-') !== -1)) {
-                 // console.log("special charecters are there");
-                 content = content.substring(content.indexOf('-') + 1);
-                 // console.log('contents: ' + content);
-               }*/
-            } else {
-              reg1 = catTitle;
-            }
-            for (var l = 0; l < $scope.rightSideCatsArray.length; l++) {
-              var head = reg1.toLowerCase();
-              //  console.log("Lowercase: " + head);
-              if ($scope.rightSideCatsArray[l].heading === head) {
-                //    console.log("duplicate is there");
-                if ($scope.rightSideCatsArray[l].contents.indexOf(content) === -1) {
-                  if (content !== undefined) {
-                    $scope.rightSideCatsArray[l].contents.push(content);
-                  }
-                }
-              }
-            }
-          }
-          $scope.rightSideAccrdns = $scope.getAccrdns();
-
-        },
-        function (err) {
-          console.log('failed to fetch the products' + err);
-        })
+    $scope.getFrequentlyProducts = function () {
+      // console.log('getFrequentlyProducts function');
+      FrequentlyProducts.query({}, function (res) {
+        // console.log('response from server side');
+        // console.log('response from server side:' + JSON.stringify(res));
+        $scope.frequentProducts = res;
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
     }
-
-    $scope.getAccrdns = function () {
-
-      // console.log('count: ' + JSON.stringify($scope.rightSideCatsArray.length));
-
-      $scope.rightSideCatsArray.sort(function (a, b) {
-        return b.contents.length - a.contents.length;
-      });
-
-      $scope.accrdnsArray = [].concat($scope.rightSideCatsArray);
-      var accrdnsArray2 = $scope.accrdnsArray.splice(5);
-      // var accrdnsArray3 = [];
-      $scope.accrdnsArray.push({
-        heading: "Others",
-        contents: []
-      });
-      for (var m = 0; m < accrdnsArray2.length; m++) {
-        var categoryTitle = accrdnsArray2[m].heading;
-        /* var categoryHeading = accrdnsArray2[m].contents;
-        // console.log("concat:" + categoryTitle + "-" + categoryHeading);
-        var fullCatTitle = (categoryTitle + ' ' + categoryHeading);
-*/
-
-        for (var n = 0; n < $scope.accrdnsArray.length; n++) {
-          if ($scope.accrdnsArray[n].heading === 'Others') {
-            $scope.accrdnsArray[n].contents.push(categoryTitle)
-          }
-        }
-
-
-
-
-
-        //  console.log("title:" + fullCatTitle);
-
-      }
-
-      //  console.log('count: ' + JSON.stringify($scope.accrdnsArray));
-      //  console.log('count111: ' + JSON.stringify(accrdnsArray2.length));
-      // console.log('count111: ' + JSON.stringify(accrdnsArray3.length));
-
-
-    }
-
-
-
 
 
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];

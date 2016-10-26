@@ -23,6 +23,8 @@ module.exports = function (app) {
     }), companies.searchedProductsList);
 
 
+  app.route('/api/companies/frequentProducts')
+    .get(companies.frequentProducts);
 
   app.route('/api/listOfProducts/:pageId')
     .get(cache.route(), companies.list);

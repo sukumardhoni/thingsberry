@@ -1045,6 +1045,7 @@ BEFORE THIS ALREDY STYLES
 }
 
 .new_sngle_prdct_box {
+  width: 98%;
   margin-top: 25px;
   background-color: white;
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
@@ -1141,6 +1142,7 @@ select:focus {
 .new_list_prdct_view_box {
   margin: 20px;
   margin-top: 20px;
+  margin-right: 36px;
   background-color: white;
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
   transition: all 0.4s ease;
@@ -1308,3 +1310,37 @@ select:focus {
   color: red !important;
   background-color: red !important;
 }*/
+
+.frequentlyPrdcts {
+  background-color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
+  transition: all 0.4s ease;
+}
+
+.frequentlyPrdcts:hover {
+  box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.frequentlyPrdcts .row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.frequentlyPrdcts .prdct-name {
+  margin: 10px;
+}
+
+.frequentlyPrdcts .prdct_desc {
+  margin: 7px;
+  margin-top: 15px;
+}
+
+.frequentCat {
+  margin-bottom: 3px;
+}
+
+.frequentCatInSm {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

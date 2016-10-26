@@ -331,9 +331,30 @@ exports.premiumProductsList = function (req, res) {
   });
 };
 
+/**
+ * List of Frequently Products
+ */
+exports.frequentProducts = function (req, res) {
+
+  Company.find({
+    "status": 'active'
+  }).sort({
+    "totalRatingsCount": -1
+  }).limit(3).exec(function (err, companies) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // console.log('Server side List of products : ' + JSON.stringify(companies));
+      res.json(companies);
+    }
+  });
+};
+
 
 /**
- * List of Premium Products
+ * List of Featured Products
  */
 exports.featuredProductsList = function (req, res) {
 
@@ -351,11 +372,10 @@ exports.featuredProductsList = function (req, res) {
   });
 };
 
+
 /**
  * Searched Products List
  */
-
-
 exports.searchedProductsList = function (req, res) {
 
   console.log('searchedProductsList id cslled and details are : ' + JSON.stringify(req.params));
@@ -489,7 +509,7 @@ exports.searchedProductsList = function (req, res) {
       }
     }
   } else if ((proCats.length != 0)) {
-    var regexArray = sampleArray.map(x => new RegExp(x));
+    var regexArray = sampleArray.map(x => new RegExp(x, 'i'));
     console.log("RESULTANT:" + regexArray);
     mongoQuery = {
       ProCat: {
