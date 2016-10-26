@@ -1291,6 +1291,7 @@ select:focus {
 }
 
 .accrnds li {
+  text-transform: capitalize;
   list-style-type: none;
   padding: 5px;
   color: #737373;

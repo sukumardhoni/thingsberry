@@ -132,7 +132,7 @@ function getAccrdns(rightSideCatsArray) {
   var accrdnsArray2 = accrdnsArray.splice(5);
   // var accrdnsArray3 = [];
   accrdnsArray.push({
-    heading: "Others",
+    heading: "More",
     contents: []
   });
   for (var m = 0; m < accrdnsArray2.length; m++) {
@@ -142,7 +142,7 @@ function getAccrdns(rightSideCatsArray) {
     // var fullCatTitle = (categoryTitle + ' ' + categoryHeading);
 
     for (var n = 0; n < accrdnsArray.length; n++) {
-      if (accrdnsArray[n].heading === 'Others') {
+      if (accrdnsArray[n].heading === 'More') {
         accrdnsArray[n].contents.push(categoryTitle)
       }
     }
