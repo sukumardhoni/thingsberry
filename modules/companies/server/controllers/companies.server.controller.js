@@ -318,6 +318,7 @@ exports.list = function (req, res) {
 exports.premiumProductsList = function (req, res) {
 
   Company.find({
+    "status": "active",
     premiumFlag: true
   }).limit(10).exec(function (err, companies) {
     if (err) {
@@ -359,6 +360,7 @@ exports.frequentProducts = function (req, res) {
 exports.featuredProductsList = function (req, res) {
 
   Company.find({
+    status: "active",
     featuredFlag: true
   }).limit(12).exec(function (err, companies) {
     if (err) {
@@ -418,6 +420,7 @@ exports.searchedProductsList = function (req, res) {
   var sampleArray = [];
 
   if (req.params.ProCategory != 'Category') {
+
     var CatsArray = req.params.ProCategory.split(',');
 
     console.log('@@@@CatsArray  array is : ' + JSON.stringify(CatsArray));
@@ -462,7 +465,7 @@ exports.searchedProductsList = function (req, res) {
     }
   } else if ((proCats.length != 0) && queryStr != '') {
     var regexArray1 = sampleArray.map(x => new RegExp(x));
-    console.log("RESULTANT111:" + regexArray1);
+    // console.log("RESULTANT111:" + regexArray1);
     if (req.params.ProCategory && req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
       var productName = req.params.ProName;
       var productCompany = req.params.ProCompany;

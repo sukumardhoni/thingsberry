@@ -19,7 +19,8 @@ angular.module('companies').directive('tbFrequentProducts', function (dataShare,
             scope.editProduct = false;
           }
         }*/
-      scope.date1 = attr.dateOnProduct;
+
+      //  console.log(scope.date1);
 
       /*  scope.dynamicPopover = {
           templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
@@ -72,7 +73,7 @@ angular.module('companies').directive('tbFrequentProducts', function (dataShare,
             if ($state.current.name == 'companies.list') {
               $window.location.reload();
             } else {
-              $state.go('companies.list', {
+              $state.go('companies.list.products', {
                 isSearch: false
               });
             }

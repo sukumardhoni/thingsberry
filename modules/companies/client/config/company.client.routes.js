@@ -21,7 +21,7 @@
         }
       })
       .state('companies.list', {
-        url: '/list/:cat?/:com?/:name?/:regions?/:isSearch',
+        url: '/list',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
         controller: 'CompanyListController',
@@ -30,6 +30,18 @@
           pageTitle: 'Products List',
           displayName: 'Searched Products'
         }
+      })
+      .state('companies.list.products', {
+        url: '/:cat?/:com?/:name?/:regions?/:isSearch',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
+
       })
       .state('companies.create', {
         url: '/create',

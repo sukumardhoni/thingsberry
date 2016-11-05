@@ -65,11 +65,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           }
 
           if ((catsArray == '') && (regionsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               isSearch: false
             });
           } else {
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               cat: (catsArray == '') ? 'Category' : catsArray,
               com: (details.Company == undefined) ? 'Company' : details.Company,
               name: (details.Product == undefined) ? 'Product' : details.Product,
@@ -79,7 +79,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           }
         }
       } else {
-        $state.go('companies.list', {
+        $state.go('companies.list.products', {
           isSearch: false
         });
       }

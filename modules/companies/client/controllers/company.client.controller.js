@@ -173,7 +173,7 @@
         $scope.prodImages = ['https://www.sleekcover.com/covers/independent-girl-facebook-cover.jpg', 'http://d2rfsfyh2505gh.cloudfront.net/wp-content/uploads/2015/07/Prabhas.jpg', 'http://www.latesthdwallpapers.in/photos/Allu-Arjun-facebook-best-hd-photos-free-for-mobile.jpg'];
         $scope.sampleDesc = "In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since. 'Whenever you feel like criticizing anyone,' he told me, 'just remember that all the people in this world haven't had the advantages that you've had.Only then, with the reader’s attention hooked,  ";*/
 
-    $scope.date = new Date();
+
     //$scope.sName = "$state.current.name==='companies.view'"
     // console.log("sName:" + $state.current.name);
 
@@ -216,7 +216,7 @@
             companyId: product.productId
           }, function (res) {
             //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               isSearch: false
             });
             NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -318,7 +318,7 @@
       }
 
       function successUpdateCallback(res) {
-        $state.go('companies.list', {
+        $state.go('companies.list.products', {
           isSearch: false
         });
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
@@ -330,7 +330,7 @@
       }
 
       function successCallback(res) {
-        $state.go('companies.list', {
+        $state.go('companies.list.products', {
           isSearch: false
         });
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);

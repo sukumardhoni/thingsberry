@@ -17,7 +17,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           scope.editProduct = false;
         }
       }
-      scope.date1 = attr.dateOnProduct;
+
 
       scope.dynamicPopover = {
         templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
@@ -44,7 +44,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
             }, function (res) {
               //    console.log('Res details on remove success cb : ' + JSON.stringify(res));
               $window.location.reload();
-              /*$state.go('companies.list', {
+              /*$state.go('companies.list.products', {
                 isSearch: false
               });*/
               NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -73,7 +73,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           if ($state.current.name == 'companies.list') {
             $window.location.reload();
           } else {
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               isSearch: false
             });
           }
@@ -102,7 +102,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
     templateUrl: 'modules/companies/client/views/directive-partials/product-list.dispaly.client.view.html',
     link: function (scope, elem, attr) {
       //  console.log("coming to tb productsList");
-      scope.date1 = attr.dateOnProduct;
+
       if (scope.editIcon) {
         if (scope.editIcon.roles.indexOf('admin') !== -1) {
           // console.log('directive admin is there');
@@ -141,7 +141,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
             }, function (res) {
               //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
               $window.location.reload();
-              /*$state.go('companies.list', {
+              /*$state.go('companies.list.products', {
                 isSearch: false
               });*/
               NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -170,7 +170,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           if ($state.current.name == 'companies.list') {
             $window.location.reload();
           } else {
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               isSearch: false
             });
           }

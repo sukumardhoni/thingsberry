@@ -10,7 +10,7 @@ angular.module('companies').directive('tbAccordions', function (dataShare, $stat
     templateUrl: 'modules/companies/client/views/directive-partials/new-tb-accordions.display.client.view.html',
     link: function (scope, elem, attr) {
       // console.log("coming to accordns directive link function");
-      //  console.log("coming to share directive link function" + JSON.stringify(scope.categories));
+      // console.log("coming to share directive link function" + JSON.stringify(scope.listcount));
       /*  scope.getCategoryProduct = function (Catproducts) {
 
           console.log("accrdns: " + Catproducts);

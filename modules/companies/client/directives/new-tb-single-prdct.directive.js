@@ -24,7 +24,7 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
           scope.editProduct = false;
         }
       }
-      scope.date1 = attr.dateOnProduct;
+
 
       scope.dynamicPopover = {
         templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
@@ -51,7 +51,7 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
               companyId: product.productId
             }, function (res) {
               console.log('Res details on remove success cb : ' + JSON.stringify(res));
-              $state.go('companies.list', {
+              $state.go('companies.list.products', {
                 isSearch: false
               });
               NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -80,7 +80,7 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
           if ($state.current.name == 'companies.list') {
             $window.location.reload();
           } else {
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               isSearch: false
             });
           }

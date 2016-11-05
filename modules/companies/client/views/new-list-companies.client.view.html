@@ -1,6 +1,6 @@
 <tb-header-image image="../../../../modules/core/client/img/products.jpg" opacity="1" maintitle="Product Listing ::" subtitle="">
 </tb-header-image>
-<div class="container" ng-init="getSearchedProductsList()">
+<div class="container">
 
   <update-title title="Thingsberry Products List"></update-title>
   <update-meta name="description" content="A List of IOT Products"></update-meta>
@@ -9,77 +9,13 @@
   <update-meta property="og:image" content="http://qa.thingsberry.com/modules/core/client/img/shareProducts.jpg"></update-meta>
   <update-meta property="og:url" content="{{path}}"></update-meta>
 
-  <!-- <update-meta property="twitter:title" content="Thingsberry Products List"></update-meta>
-  <update-meta property="twitter:description" content="A List of IOT Products"></update-meta>
-  <update-meta property="twitter:url" content="{{path}}"></update-meta>-->
-
-
 
   <div class="row  prdcts-list-box">
-    <div class="col-md-10 col-xs-12 allPrdctsPage">
-      <div ng-hide="vm.companys.length == 0">
-        <div class="row prdcts-sorting hidden-sm">
-          <div class="col-md-5 prdct_showing_item">
-            <div class="glyphicon glyphicon-th col-md-1 grid_sytle hidden-xs prdcts_sorting_item" ng-click="grdView()" ng-class="{'listclr':(gridView===true)}"></div>
-            <div class="glyphicon glyphicon-th-list col-md-1 grid_sytle hidden-xs prdcts_sorting_item" ng-click="listView()" ng-class="{'listclr':(gridView===false)}"></div>
-            <div class="col-md-9 col-xs-12 showing_In_Xs">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
-          </div>
-
-          <div class="col-md-3 col-md-offset-3 col-xs-12" style="float:right;">
-            <div class="prdcts_sorting_item">
-              <select class="col-md-9 selectpicker  hidden-xs  sort_on_search" ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
-              </select>
-            </div>
-            <div class=" visible-xs prdcts_sorting_item">
-              <select class="  col-xs-12 col-xs-offset- sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists" style="padding-left: 5px;">
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row prdcts-sorting visible-sm">
-          <div class="col-sm-4 col-sm-offset-1  text-left">Showing 1-{{vm.companys.length}} of {{vm.count}} products</div>
-          <div class="col-sm-1"><span class="glyphicon glyphicon-th grid_sytle  prdcts_sorting_item" ng-click="grdView()" ng-class="{'listclr':(gridView===true)}"></span> </div>
-          <div class="col-sm-1"><span class="glyphicon glyphicon-th-list grid_sytle col-sm-2 prdcts_sorting_item" ng-click="listView()" ng-class="{'listclr':(gridView===false)}"></span> </div>
-          <div class=" hidden-xs prdcts_sorting_item">
-            <select class="col-sm-3 col-sm-offset-1  sort_on_search " ng-model="searchOrder.List" ng-options="template.value as template.name for template in searchOrder.Lists">
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div ng-show="gridView">
-        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-          <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
-          <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
-            <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
-          </div>
-        </div>
-        <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
-        </div>
-      </div>
-
-      <div ng-hide="gridView">
-        <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-          <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-list>
-        </div>
-        <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
-        </div>
-      </div>
-
-      <!-- <div class="row tb_paginate text-center col-md-12 col-sm-12 hidden-xs">
-          <div class="my-pagination" uib-pagination total-items="vm.count" ng-model="currentPage" max-size="maxSize" boundary-link-numbers="false" items-per-page="itemsPerPage" previous-text="&#xf060;" next-text="&#xf061;"></div>
-        </div>-->
-      <div class="row col-xs-12  text-center" style="margin:20px;margin-left:0px;">
-        <button type="button" class="btn btn-default view_all_prdcts_bttn" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">VIEW MORE PRODUCTS</button>
-      </div>
-
-      <div class="alert alert-warning text-center col-md-11" ng-show="vm.companys.length == 0">
-        No Products found for this search query.
-      </div>
-
-
+    <div class="col-md-10 col-xs-12">
+      <div ui-view></div>
     </div>
+
+
 
     <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 hidden-xs allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;">
       <div class="row frequentCat">

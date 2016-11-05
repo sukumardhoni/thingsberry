@@ -58,7 +58,7 @@
 
       <div class="row" style="height:30px;">
         <div class="col-md-3 col-sm-3 col-xs-5 sngle_prdct_Date">
-          <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{date1 |date:'MMM d, yyyy'}}</span>
+          <span class="date_icon_in_sngle_prdct"><i class="fa fa-calendar" aria-hidden="true" style="font-style:italic"></i>  {{details.created |date:'MMM d, yyyy'}}</span>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-7 pull-right">
           <tb-ratings-container prod-id={{prodId}} state="singlePrdct" products="details" style="float:right;"></tb-ratings-container>

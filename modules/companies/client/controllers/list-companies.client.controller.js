@@ -22,18 +22,15 @@
 
 
     $scope.getCategoriesForSide = function () {
-      // console.log('get categories function');
       CategoryServiceRightPanel.query({}, function (res) {
-        //  console.log('response from server side');
-        //  console.log('response from server side: ' + JSON.stringify(res));
         $scope.accrdnsPanelArray = res;
-
       }, function (err) {
         console.log('error while getting the list from server side');
       })
     };
 
     $scope.getFrequentlyProducts = function () {
+
       // console.log('getFrequentlyProducts function');
       FrequentlyProducts.query({}, function (res) {
         // console.log('response from server side');
@@ -95,7 +92,7 @@
       $scope.listView = function () {
         $scope.gridView = false;
       }
-      $scope.date = new Date();
+
 
       //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
 
@@ -153,9 +150,17 @@
     };
 
 
-    $scope.getCategoryProduct = function (Catproducts) {
-      $state.go('companies.list', {
-        cat: Catproducts,
+    $scope.getCategoryProduct = function (Catproducts, CatHeading) {
+      console.log("CatHeading: " + CatHeading);
+      console.log("CatHeading: " + Catproducts);
+      var fullCategory = CatHeading + '-' + Catproducts;
+      console.log("fullCategory: " + fullCategory);
+      if (Catproducts) {
+        $scope.listActive = Catproducts;
+      }
+
+      $state.go('companies.list.products', {
+        cat: fullCategory,
         com: 'Company',
         name: 'Product',
         regions: '',

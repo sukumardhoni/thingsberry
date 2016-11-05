@@ -51,9 +51,7 @@ angular.module('core')
               }, function (res) {
                 //   console.log('Res details on remove success cb : ' + JSON.stringify(res));
                 $window.location.reload();
-                /*$state.go('companies.list', {
-                  isSearch: false
-                });*/
+
                 NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
               }, function (err) {
                 console.log('Err details on remove Error cb : ' + JSON.stringify(err));
