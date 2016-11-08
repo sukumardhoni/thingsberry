@@ -150,17 +150,45 @@
     };
 
 
-    $scope.getCategoryProduct = function (Catproducts, CatHeading) {
-      console.log("CatHeading: " + CatHeading);
-      console.log("CatHeading: " + Catproducts);
-      var fullCategory = CatHeading + '-' + Catproducts;
-      console.log("fullCategory: " + fullCategory);
+    $scope.getCategoryProduct = function (Catproducts, CatHeading, catContentsMoreNames) {
+      //  console.log("CatHeading: " + CatHeading);
+      //  console.log("CatHeading: " + Catproducts);
+      // console.log("CatHeading: " + JSON.stringify(catContentsMoreNames));
+      var catArr = [];
+
+      if (Catproducts == 'More') {
+        console.log("coming to content More");
+        for (var i = 0; i < catContentsMoreNames.length; i++) {
+          var full = CatHeading + '-' + catContentsMoreNames[i].name;
+          catArr.push(full);
+        }
+      } else if (CatHeading == 'More') {
+        console.log("coming to heading More");
+        catArr.push(Catproducts);
+      } else {
+        console.log("coming to contents");
+        var fullCategory = CatHeading + '-' + Catproducts;
+        catArr.push(fullCategory);
+      }
+
+
+
+
+
+      /* if (CatHeading == 'More') {
+         var fullCategory = Catproducts;
+       } else {
+         fullCategory = CatHeading + '-' + Catproducts;
+       }*/
+
+
+      // console.log("fullCategory: " + fullCategory);
       if (Catproducts) {
         $scope.listActive = Catproducts;
       }
 
       $state.go('companies.list.products', {
-        cat: fullCategory,
+        cat: catArr,
         com: 'Company',
         name: 'Product',
         regions: '',

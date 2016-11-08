@@ -34,17 +34,6 @@ exports.list = function (req, res) {
 
 
 function countByTitle(categoryTitle) {
-  //console.log(categoryTitle);
-  /* var CountContent;
-   if ((categoryTitle.indexOf('-') !== -1) || (categoryTitle.indexOf(' ') !== -1)) {
-
-     CountContent = categoryTitle.substring((categoryTitle.indexOf('-') || categoryTitle.indexOf(' ')) + 1);
-     // console.log("IF: " + CountContent);
-   } else {
-     CountContent = categoryTitle;
-   }
-   console.log("categoryTitle: " + categoryTitle);
-   console.log("CountContent: " + CountContent);*/
   var regex = [];
   regex.push(categoryTitle);
   var regexArray = regex.map(x => new RegExp(x, 'i'));
@@ -69,28 +58,20 @@ function countByTitle(categoryTitle) {
 
 exports.listOfCategories = function (req, res) {
   console.log('@@### calling list of categories from html');
-
-
-  // console.log("#########" + JSON.stringify(results));
   Category.find().then(function (categories) {
     var categoryList = categories;
-    // var resultant;
     var promises = [];
     for (var q = 0; q < categoryList.length; q++) {
       promises.push(countByTitle(categoryList[q].title));
     }
-    // console.log(":: " + JSON.stringify(promises));
     Promise.all(promises).then(results => {
-        // console.log(JSON.stringify(results));
-        var resultant = getResultantArr(results);
-        resultant.then(function (result) {
-          res.json(result);
-        })
-
+      var resultant = getResultantArr(results);
+      resultant.then(function (result) {
+        res.json(result);
       })
-      // console.log("#########" + JSON.stringify(resultant));
+
+    })
   }).catch(function (err) {
-    //if there is any error while resolving the promises, this block will be called
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
@@ -99,12 +80,9 @@ exports.listOfCategories = function (req, res) {
 
 
 function getResultantArr(result) {
-  // console.log("%@@@@@@@ Coming to ");
-  // console.log(JSON.stringify(result));
   var reg, reg1, content;
   var catTitle, catContentCount;
   var headingArray = [];
-
 
   for (var i = 0; i < result.length; i++) {
     catTitle = result[i].name;
@@ -116,10 +94,9 @@ function getResultantArr(result) {
     }
     headingArray.push(reg);
   }
-  // console.log("%@@@@@@@ Coming to " + JSON.stringify(headingArray));
 
   var rightSideCatsArray = eliminateDuplicates(headingArray);
-  // console.log("%@@@@@@@ Coming to " + JSON.stringify(rightSideCatsArray));
+  // console.log(JSON.stringify(rightSideCatsArray))
 
   for (var i = 0; i < result.length; i++) {
     catTitle = result[i].name;
@@ -131,13 +108,21 @@ function getResultantArr(result) {
     } else {
       reg1 = catTitle;
     }
-    // console.log("ContentNAme: " + content);
-    // console.log("ContentNAme: " + catContentCount);
     for (var l = 0; l < rightSideCatsArray.length; l++) {
       var head = reg1.toLowerCase();
-      // console.log("Lowercase: " + head);
       if (rightSideCatsArray[l].heading === head) {
-        //  console.log("duplicate is there");
+        /*   for (var f = 0; f < rightSideCatsArray[l].contents.length; f++) {
+             if (content !== undefined) {
+               if (rightSideCatsArray[l].contents[f].name !== content) {
+                 if (catContentCount !== 0) {
+                   rightSideCatsArray[l].contents.push({
+                     name: content,
+                     count: catContentCount
+                   });
+                 }
+               }
+             }
+           }*/
         if (rightSideCatsArray[l].contents.indexOf(content) === -1) {
           if (content !== undefined) {
             if (catContentCount !== 0) {
@@ -150,14 +135,12 @@ function getResultantArr(result) {
         }
       }
     }
-
   }
-  //console.log("!!!!!!FInale " + JSON.stringify(rightSideCatsArray));
+
   var rightSideAccrdns = getAccrdns(rightSideCatsArray);
-  // console.log("After counting the heading count: " + JSON.stringify(rightSideAccrdns));
   return rightSideAccrdns.then(function (result) {
-    //  console.log("total array: " + JSON.stringify(result));
-    return result;
+    var contentresult = contentMoreFunc(result);
+    return contentresult;
   });
 
 }
@@ -165,15 +148,11 @@ function getResultantArr(result) {
 
 
 function eliminateDuplicates(arr) {
-  console.log('$$##@@ Coming to eliminate duplicates function');
-  // console.log('$$##@@ Coming to eliminate duplicates function' + JSON.stringify(arr));
   var b = {};
   for (var j = 0; j < arr.length; j++) {
     b[arr[j].toUpperCase()] = arr[j].toLowerCase();
   }
-  //  console.log(b);
   var c = [];
-
   for (var key in b) {
     c.push({
       heading: b[key],
@@ -183,62 +162,80 @@ function eliminateDuplicates(arr) {
   return c;
 }
 
-function getAccrdns(rightSideCatsArray) {
-  // console.log('$$%%%  Coming to getAccrdns : ' + JSON.stringify(rightSideCatsArray));
 
+function contentMoreFunc(contentMore) {
+  var contentMoreArray2, contentCount;
+
+  for (var t = 0; t < contentMore.length; t++) {
+    contentMore[t].contents.sort(function (a, b) {
+      return parseFloat(b.count) - parseFloat(a.count);
+    });
+
+    contentMore[t].contents = [].concat(contentMore[t].contents);
+    contentMoreArray2 = contentMore[t].contents.splice(3);
+    contentMore[t].contents.push({
+      name: "More",
+      contents: [],
+      count: 0
+    });
+    for (var v = 0; v < contentMore[t].contents.length; v++) {
+      if (contentMore[t].contents[v].name === 'More') {
+        for (var u = 0; u < contentMoreArray2.length; u++) {
+          contentMore[t].contents[v].contents.push({
+            name: contentMoreArray2[u].name
+          })
+        }
+        contentCount = contentMore[t].contents[v].contents.length;
+        contentMore[t].contents[v].count = contentCount;
+      }
+
+
+    }
+  }
+  return contentMore;
+}
+
+
+
+function getAccrdns(rightSideCatsArray) {
   rightSideCatsArray.sort(function (a, b) {
     return b.contents.length - a.contents.length;
   });
-
   var accrdnsArray = [].concat(rightSideCatsArray);
   var accrdnsArray2 = accrdnsArray.splice(5);
-
 
   accrdnsArray.push({
     heading: "More",
     contents: []
   });
-
+  // console.log(JSON.stringify(accrdnsArray));
   var resultantMoreCount = getMoreCount(accrdnsArray2);
-  // console.log('count: ' + JSON.stringify(midhun));
 
   return resultantMoreCount.then(function (count) {
-    // console.log("######" + JSON.stringify(count));
     for (var n = 0; n < accrdnsArray.length; n++) {
       if (accrdnsArray[n].heading === 'More') {
-        // console.log("coming to More heading");
         for (var b = 0; b < count.length; b++) {
-          accrdnsArray[n].contents.push({
-            name: count[b].name,
-            count: count[b].count
-          });
+          if (count[b].count !== 0) {
+            accrdnsArray[n].contents.push({
+              name: count[b].name,
+              count: count[b].count
+            });
+          }
         }
       }
     }
     return accrdnsArray;
-    // console.log('count: ' + JSON.stringify(accrdnsArray));
   });
-  // console.log("11111111" + JSON.stringify(midhun));
-
-
-  // console.log("coming to promise: " + JSON.stringify(headingcount));
-
-  // console.log('count: ' + JSON.stringify(accrdnsArray));
-  // console.log('count111: ' + JSON.stringify(accrdnsArray2));
-
-  //return accrdnsArray;
 }
+
 
 function getMoreCount(accrdnsArray2) {
   var accrdnsArr3 = [];
   for (var m = 0; m < accrdnsArray2.length; m++) {
     var categoryHeading = accrdnsArray2[m].heading;
-    //  console.log(categoryHeading);
     accrdnsArr3.push(countByTitle(categoryHeading));
   }
-
   return Promise.all(accrdnsArr3).then(headingcount => {
-    // console.log('count: ' + JSON.stringify(headingcount));
     return headingcount;
   });
 }

@@ -10,8 +10,9 @@
       </uib-accordion-heading>
 
       <div ng-repeat="list in cats.contents">
+
         <!--  <div ng-repeat="count in listcount">-->
-        <li ng-click="getCategoryProduct(list.name,$parent.cats.heading)" ng-class="{'listActive':(listActive===list.name)}">{{list.name}} ({{list.count}})
+        <li ng-click="getCategoryProduct(list.name,$parent.cats.heading,list.contents)" ng-class="{'listActive':(listActive===list.name)}">{{list.name}} ({{list.count}})
           <!--<input class="pull-right" type="checkbox">-->
         </li>
         <!--  </div>-->
