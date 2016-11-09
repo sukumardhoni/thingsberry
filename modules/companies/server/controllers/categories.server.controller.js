@@ -87,7 +87,6 @@ function countByTitle(categoryTitle) {
 }*/
 
 
-
 exports.listOfCategories = function (req, res) {
   console.log('@@### calling list of categories from html');
   Category.find().then(function (categories) {
