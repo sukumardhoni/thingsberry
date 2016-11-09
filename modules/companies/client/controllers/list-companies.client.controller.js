@@ -5,9 +5,9 @@
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService', 'CategoryServiceRightPanel', 'FrequentlyProducts'];
+  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService', 'CategoryServiceRightPanel', 'FrequentlyProducts', '$timeout'];
 
-  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, CategoryServiceRightPanel, FrequentlyProducts) {
+  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, CategoryServiceRightPanel, FrequentlyProducts, $timeout) {
     var vm = this;
     var pageId = 0;
     $scope.path = $location.absUrl();
@@ -20,10 +20,12 @@
       $state.go('companies.add');
     }
 
-
+    $scope.carouselBg3 = [];
     $scope.getCategoriesForSide = function () {
+      $scope.carouselBg3.push('carousel_spinner_featured');
       CategoryServiceRightPanel.query({}, function (res) {
         $scope.accrdnsPanelArray = res;
+        $scope.carouselBg3.pop('carousel_spinner_featured');
       }, function (err) {
         console.log('error while getting the list from server side');
       })
@@ -151,38 +153,31 @@
 
 
     $scope.getCategoryProduct = function (Catproducts, CatHeading, catContentsMoreNames) {
-      //  console.log("CatHeading: " + CatHeading);
-      //  console.log("CatHeading: " + Catproducts);
+      // console.log("CatHeading: " + CatHeading);
+      // console.log("CatHeading: " + Catproducts);
       // console.log("CatHeading: " + JSON.stringify(catContentsMoreNames));
       var catArr = [];
 
       if (Catproducts == 'More') {
-        console.log("coming to content More");
+        //  console.log("coming to content More");
         for (var i = 0; i < catContentsMoreNames.length; i++) {
-          var full = CatHeading + '-' + catContentsMoreNames[i].name;
+          if (CatHeading == 'More') {
+            var full = catContentsMoreNames[i].name;
+          } else {
+            full = CatHeading + '-' + catContentsMoreNames[i].name;
+          }
           catArr.push(full);
         }
       } else if (CatHeading == 'More') {
-        console.log("coming to heading More");
+        //  console.log("coming to heading More");
         catArr.push(Catproducts);
       } else {
-        console.log("coming to contents");
+        //  console.log("coming to contents");
         var fullCategory = CatHeading + '-' + Catproducts;
         catArr.push(fullCategory);
       }
 
 
-
-
-
-      /* if (CatHeading == 'More') {
-         var fullCategory = Catproducts;
-       } else {
-         fullCategory = CatHeading + '-' + Catproducts;
-       }*/
-
-
-      // console.log("fullCategory: " + fullCategory);
       if (Catproducts) {
         $scope.listActive = Catproducts;
       }
@@ -194,25 +189,7 @@
         regions: '',
         isSearch: true
       });
-      // console.log('in controller with getCategoryProduct ');
 
-      /* {
-               cat: (catsArray == '') ? 'Category' : catsArray,
-               com: (details.Company == undefined) ? 'Company' : details.Company,
-               name: (details.Product == undefined) ? 'Product' : details.Product,
-               regions: (regionsArray == '') ? '' : regionsArray,
-               isSearch: true
-             }*/
-      /*    GetCatProducts.query({
-            getCatProducts: Catproducts
-          }, function (res) {
-            console.log("succesfully geting product");
-            console.log(JSON.stringify(res));
-            $scope.catSearchPrdcts = true;
-            vm.companys = res.products;
-          }, function (err) {
-            console.log("error while getting product");
-          })*/
     }
 
 
