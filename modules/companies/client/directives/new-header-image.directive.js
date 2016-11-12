@@ -30,7 +30,7 @@ angular.module('companies').directive('tbHeaderImage', function () {
         // console.log('coming from contactUs');
         scope.contactStyles = {
           top: '135px',
-          left: '25px'
+          left: '90px'
         }
       }
     }

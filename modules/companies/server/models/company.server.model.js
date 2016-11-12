@@ -118,6 +118,10 @@ var CompanySchema = new Schema({
     type: Boolean,
     default: false
   },
+  featuredFlag: {
+    type: Boolean,
+    default: false
+  },
   businessSector: [],
   serviceOffered: [],
   operationalRegions: [],

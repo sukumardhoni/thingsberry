@@ -437,12 +437,12 @@ angular.module('core').directive('myYoutube', function ($sce) {
       code: '='
     },
     replace: true,
-    template: '<div class="videoBox"><iframe style="overflow:hidden;height:100%;width:100%" controls="0" src="{{url}}" frameborder="0" allowfullscreen></iframe></div>',
+    template: '<div class="videoBox embed-responsive"><iframe style="overflow:hidden;height:100%;width:100%" controls="0" src="{{url}}" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div>',
     link: function (scope) {
       //  console.log('here');
       scope.$watch('code', function (newVal) {
         if (newVal) {
-          scope.url = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + newVal);
+          scope.url = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + newVal + "?rel=0&iv_load_policy=3&amp;controls=1&amp;showinfo=0");
         }
       });
     }

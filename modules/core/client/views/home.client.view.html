@@ -91,13 +91,15 @@
               </uib-slide>
             </uib-carousel>
           </div>-->
-          <div class=" quotes_carousel col-md-12 col-xs-12" ng-class="carouselBg2">
+          <div class=" quotes_carousel  col-md-12 col-xs-12">
             <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slide in videos " index="$index">
                 <div class="row" style="min-height:100px;">
                   <h2 class="quotes_title_In_Xs" style="color:white;">{{slide.title}}</h2>
                 </div>
-                <div class=" video-frame" my-youtube code="slide.videoId"></div>
+                <div ng-click="showControls=!showControls">
+                  <div class="video-frame" my-youtube code="slide.videoId"></div>
+                </div>
               </uib-slide>
             </uib-carousel>
           </div>

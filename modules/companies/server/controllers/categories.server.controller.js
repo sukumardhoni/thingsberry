@@ -53,39 +53,6 @@ function countByTitle(categoryTitle) {
   });
 }
 
-/*function countByTitle1(categoryTitle) {
-  var regex = [];
-  regex.push(categoryTitle);
-  var regexArray = regex.map(x => new RegExp(x, 'i'));
-  var mongoQuery = {
-    ProCat: {
-      $elemMatch: {
-        "title": {
-          $in: regexArray
-        }
-      }
-    }
-  }
-  return Company.count(mongoQuery).then(function (count) {
-    console.log("HEADING COUNT: " + count);
-    return count;
-
-  });
-}*/
-
-/*function getHeadingsCout(resultant) {
-  // console.log("$$$$$$$$$" + JSON.stringify(resultant));
-  for (var k = 0; k < resultant.length; k++) {
-    var d = countByTitle1(resultant[k].heading);
-    resultant[k].count=d;
-    // console.log("$$$$$$$$" + JSON.stringify(d));
-  }
-  Promise.all(resultant).then(resultssss => {
-    console.log("$$$$$$$$$" + JSON.stringify(resultssss));
-  });
-
-}*/
-
 
 exports.listOfCategories = function (req, res) {
   console.log('@@### calling list of categories from html');
@@ -96,10 +63,9 @@ exports.listOfCategories = function (req, res) {
       promises.push(countByTitle(categoryList[q].title));
     }
     Promise.all(promises).then(results => {
-      var resultant = getResultantArr(results);
 
+      var resultant = getResultantArr(results);
       resultant.then(function (result) {
-        // var finalResult = getHeadingsCout(result);
         res.json(result);
       })
 
@@ -163,7 +129,13 @@ function getResultantArr(result) {
 
   }
 
+  /* for (var x = 0; x < rightSideCatsArray.length; x++) {
+    // console.log("&&&&& : " + JSON.stringify(rightSideCatsArray[x].heading));
+     moreContentsTotalCount(rightSideCatsArray[x].contents);
+   }*/
+
   var rightSideAccrdns = getAccrdns(rightSideCatsArray);
+
   return rightSideAccrdns.then(function (result) {
     var contentresult = contentMoreFunc(result);
     return contentresult;
@@ -189,39 +161,97 @@ function eliminateDuplicates(arr) {
   return c;
 }
 
+function sampleHeadingCount(sampleArr) {
+  var regexArr = sampleArr.map(x => new RegExp(x, 'i'));
+  // console.log("!!!!!!: " + JSON.stringify(regexArr));
+  var mongoQuery = {
+    ProCat: {
+      $elemMatch: {
+        "title": {
+          $in: regexArr
+        }
+      }
+    }
+  }
+  return Company.count(mongoQuery).then(function (count) {
+    console.log("@@@@@: " + JSON.stringify(count));
+    return count
+  });
+}
+
+
+
+/*function moredbCount(contentMoreArray2, ArrHeading) {
+  // console.log("######: " + JSON.stringify(ArrHeading));
+  // console.log("!!!!!!!!!: " + JSON.stringify(contentMoreArray2));
+  var sampleArr = [];
+  for (var a = 0; a < contentMoreArray2.length; a++) {
+    if (ArrHeading !== 'More') {
+      var fullHeading = ArrHeading + '-' + contentMoreArray2[a].name;
+    } else {
+      fullHeading = contentMoreArray2[a].name;
+    }
+    sampleArr.push(fullHeading);
+  }
+  var sampleCount = sampleHeadingCount(sampleArr);
+  return sampleCount.then(function (resultantCount) {
+    return resultantCount;
+  });
+}*/
+
+
+
 
 function contentMoreFunc(contentMore) {
-  var contentMoreArray2, contentCount;
+  var contentMoreArray3, contentCount, contentMoreContents;
+  // moredbCount(contentMore);
 
   for (var t = 0; t < contentMore.length; t++) {
     contentMore[t].contents.sort(function (a, b) {
       return parseFloat(b.count) - parseFloat(a.count);
     });
-
+    var ArrHeading1 = contentMore[t].heading;
     contentMore[t].contents = [].concat(contentMore[t].contents);
-    contentMoreArray2 = contentMore[t].contents.splice(3);
+    contentMoreArray3 = contentMore[t].contents.splice(3);
     contentMore[t].contents.push({
       name: "More",
       contents: [],
       count: 0
     });
+
+    /*   var totalCount = moredbCount(contentMoreArray2, ArrHeading);
+
+       totalCount.then(function (resultantTotalCount) {
+         console.log("@@@@@: " + JSON.stringify(resultantTotalCount))
+         return resultantTotalCount;
+       });*/
+
+
     for (var v = 0; v < contentMore[t].contents.length; v++) {
       if (contentMore[t].contents[v].name === 'More') {
-        for (var u = 0; u < contentMoreArray2.length; u++) {
+        for (var u = 0; u < contentMoreArray3.length; u++) {
           contentMore[t].contents[v].contents.push({
-            name: contentMoreArray2[u].name
+            name: contentMoreArray3[u].name
           })
         }
-        contentCount = contentMore[t].contents[v].contents.length;
-        contentMore[t].contents[v].count = contentCount;
+        // contentMore[t].contents[v].count = totalCount;
       }
-
-
     }
+
   }
+
   return contentMore;
 }
 
+/*function moreContentsTotalCount(contentMoreArray2) {
+  // console.log("!!!!! : " + JSON.stringify(contentMoreArray2));
+  var moreContentCounts = 0;
+  for (var l = 0; l < contentMoreArray2.length; l++) {
+    moreContentCounts = moreContentCounts + contentMoreArray2[l].count;
+  }
+  // console.log("!!!!! : " + moreContentCounts);
+  return moreContentCounts;
+}*/
 
 
 function getAccrdns(rightSideCatsArray) {
@@ -233,12 +263,11 @@ function getAccrdns(rightSideCatsArray) {
 
   accrdnsArray.push({
     heading: "More",
-    contents: []
-
+    contents: [],
+    count: 0
   });
 
   var resultantMoreCount = getMoreCount(accrdnsArray2);
-
   return resultantMoreCount.then(function (count) {
     for (var n = 0; n < accrdnsArray.length; n++) {
       if (accrdnsArray[n].heading === 'More') {
@@ -251,7 +280,10 @@ function getAccrdns(rightSideCatsArray) {
           }
         }
       }
+      // var headingCount = moreContentsTotalCount(accrdnsArray[n].contents)
+      // accrdnsArray[n].count = headingCount;
     }
+
     return accrdnsArray;
   });
 }

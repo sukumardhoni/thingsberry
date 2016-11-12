@@ -71,6 +71,20 @@
             s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
           })();
+
+          /* * * Disqus Reset Function * * */
+          var reset = function (newIdentifier, newUrl, newTitle, newLanguage) {
+            DISQUS.reset({
+              reload: true,
+              config: function () {
+                this.page.identifier = newIdentifier;
+                this.page.url = newUrl;
+                this.page.title = newTitle;
+                this.language = newLanguage;
+                this.experiment.enable_scroll_container = true;
+              }
+            });
+          };
         </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 

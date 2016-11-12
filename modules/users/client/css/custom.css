@@ -156,7 +156,7 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .saveProfile_btn {
-  left: 60px;
+  left: 90px;
 }
 
 .editProfile_view {

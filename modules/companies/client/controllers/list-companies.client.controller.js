@@ -153,13 +153,9 @@
 
 
     $scope.getCategoryProduct = function (Catproducts, CatHeading, catContentsMoreNames) {
-      // console.log("CatHeading: " + CatHeading);
-      // console.log("CatHeading: " + Catproducts);
-      // console.log("CatHeading: " + JSON.stringify(catContentsMoreNames));
       var catArr = [];
 
       if (Catproducts == 'More') {
-        //  console.log("coming to content More");
         for (var i = 0; i < catContentsMoreNames.length; i++) {
           if (CatHeading == 'More') {
             var full = catContentsMoreNames[i].name;
@@ -169,16 +165,15 @@
           catArr.push(full);
         }
       } else if (CatHeading == 'More') {
-        //  console.log("coming to heading More");
         catArr.push(Catproducts);
       } else {
-        //  console.log("coming to contents");
         var fullCategory = CatHeading + '-' + Catproducts;
         catArr.push(fullCategory);
       }
 
 
       if (Catproducts) {
+        $scope.listActive1 = CatHeading;
         $scope.listActive = Catproducts;
       }
 
@@ -203,7 +198,6 @@
         ListOfProducts.query({
           pageId: pageId
         }, function (res) {
-          //vm.companys = res;
           $scope.spinnerLoading = false;
           pageId++;
           onScroll = res.products;

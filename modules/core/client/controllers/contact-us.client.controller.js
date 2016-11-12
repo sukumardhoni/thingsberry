@@ -21,7 +21,11 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
       function successCallback(res) {
         //console.log('Success while sending the Contactus details : ' + res);
-        NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.name);
+        if (res.name === undefined) {
+          NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi User');
+        } else {
+          NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.name);
+        }
         $scope.contactUsForm.$setPristine();
         $scope.contactUsForm.$setUntouched();
         $scope.contact = {};
