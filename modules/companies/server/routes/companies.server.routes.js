@@ -26,7 +26,7 @@ module.exports = function (app) {
   app.route('/api/companies/frequentProducts')
     .get(companies.frequentProducts);
 
-  app.route('/api/listOfProducts/:pageId')
+  app.route('/api/listOfProducts/:adminStatus/:pageId')
     .get(cache.route(), companies.list);
 
 

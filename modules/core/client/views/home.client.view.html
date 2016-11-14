@@ -83,29 +83,29 @@
   <div ng-init="tbVideos()">
     <div class="row quotes_bg_image">
       <div class="container">
-        <div>
-          <!--<div class="featured_prdct_carousel quotes_carousel col-md-12 col-xs-12">
+
+        <!--<div class="featured_prdct_carousel quotes_carousel col-md-12 col-xs-12">
             <uib-carousel interval="5000" active=0 no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slide in quotes " index="$index">
                 <tb-quotes tbquote="slide"></tb-quotes>
               </uib-slide>
             </uib-carousel>
           </div>-->
-          <div class=" quotes_carousel  col-md-12 col-xs-12">
-            <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in videos " index="$index">
-                <div class="row" style="min-height:100px;">
-                  <h2 class="quotes_title_In_Xs" style="color:white;">{{slide.title}}</h2>
-                </div>
-                <div ng-click="showControls=!showControls">
-                  <div class="video-frame" my-youtube code="slide.videoId"></div>
-                </div>
-              </uib-slide>
-            </uib-carousel>
-          </div>
+        <div class=" quotes_carousel  col-md-12 col-xs-12">
+          <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
+            <uib-slide ng-repeat="slide in videos " index="$index">
+              <div class="row" style="min-height:100px;">
+                <h2 class="quotes_title_In_Xs" style="color:white;">{{slide.title}}</h2>
+              </div>
 
-          <!--<tb-quotes tbquote="quote"></tb-quotes>-->
+              <div id="player" class="video-frame" my-youtube code="slide.videoId"></div>
+
+            </uib-slide>
+          </uib-carousel>
         </div>
+
+        <!--<tb-quotes tbquote="quote"></tb-quotes>-->
+
         <!--<div class="row  text-center ">
           <span ng-repeat="quotes in quotes |limitTo: 3 ">
           <img ng-src="{{quotes.personImageUrl}}" class="quotes_imges">
@@ -159,7 +159,37 @@
       return false;
     })
   });
+
+  /*  var player, playing = false;
+
+    function onYouTubeIframeAPIReady() {
+      alert('hi');
+      player = new YT.Player('video', {
+
+        events: {
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerStateChange(event) {
+      if (!playing) {
+        alert('hi');
+        playing = true;
+      }
+    }*/
 </script>
+<!--
+<script>
+  function onYouTubePlayerAPIReady() {
+    angular.element(document).ready(function () {
+      var rootScope = angular.element(document).injector().get('$rootScope');
+      rootScope.$broadcast('onYouTubePlayerAPIReady');
+    });
+  }
+</script>
+<script src="http://www.youtube.com/player_api"></script>
+-->
 
 
 

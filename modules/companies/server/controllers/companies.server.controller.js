@@ -269,47 +269,85 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
 
-
+  console.log("@!!!!!!!!!!")
+  console.log("@!!!!!!!!!!")
+  console.log("@!!!!!!!!!!")
+  console.log("@!!!!!!!!!!: " + req.params.adminStatus);
   var ProObj = {};
   ProObj.products = [];
   ProObj.count = 0;
   console.log('req.params.pageId is : ' + req.params.pageId);
+  if (req.params.adminStatus !== 'admin') {
 
-  if (req.params.pageId == 0) {
+    if (req.params.pageId == 0) {
+
+      Company.find({
+        "status": "active"
+      }).count({}, function (err, count) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          //console.log('Server side List of products : ' + JSON.stringify(companies));
+          //res.json(count);
+          ProObj.count = count;
+          // console.log('Server side List of products count : ' + JSON.stringify(count));
+        }
+      });
+    }
+
+
+    // console.log('Products count is : ' + JSON.stringify(count));
 
     Company.find({
       "status": "active"
-    }).count({}, function (err, count) {
+    }).skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        //console.log('Server side List of products : ' + JSON.stringify(companies));
-        //res.json(count);
-        ProObj.count = count;
-        // console.log('Server side List of products count : ' + JSON.stringify(count));
+        ProObj.products = companies;
+        console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
+        res.json(ProObj);
+        // console.log("@@@@:" + JSON.stringify(ProObj));
       }
     });
-  }
+  } else {
+    if (req.params.pageId == 0) {
 
-
-  // console.log('Products count is : ' + JSON.stringify(count));
-
-  Company.find({
-    "status": "active"
-  }).skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+      Company.find().count({}, function (err, count) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          //console.log('Server side List of products : ' + JSON.stringify(companies));
+          //res.json(count);
+          ProObj.count = count;
+          // console.log('Server side List of products count : ' + JSON.stringify(count));
+        }
       });
-    } else {
-      ProObj.products = companies;
-      console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
-      res.json(ProObj);
-      // console.log("@@@@:" + JSON.stringify(ProObj));
     }
-  });
+
+
+    // console.log('Products count is : ' + JSON.stringify(count));
+
+    Company.find().skip(req.params.pageId * 12).limit(12).sort('-created').exec(function (err, companies) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        ProObj.products = companies;
+        console.log('Server side List of products : ' + JSON.stringify(ProObj.count));
+        res.json(ProObj);
+        // console.log("@@@@:" + JSON.stringify(ProObj));
+      }
+    });
+
+  }
 };
 
 /**

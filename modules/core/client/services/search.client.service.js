@@ -22,7 +22,8 @@ angular.module('core')
 
 
 .factory('ListOfProducts', function ($resource) {
-  return $resource('api/listOfProducts/:pageId', {
+  return $resource('api/listOfProducts/:adminStatus/:pageId', {
+    adminStatus: '@adminStatus',
     pageId: '@pageId'
   }, {
     'query': {

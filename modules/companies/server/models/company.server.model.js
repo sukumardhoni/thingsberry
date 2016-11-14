@@ -72,6 +72,11 @@ var CompanySchema = new Schema({
     default: '',
     trim: true
   },
+  affliateLink: {
+    type: String,
+    default: '',
+    trim: true
+  },
   companyWebsite: {
     type: String,
     default: '',

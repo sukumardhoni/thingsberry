@@ -63,14 +63,25 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
 
 
       scope.deactivateProduct = function () {
+        console.log("DEACTIVE PRDCT IS CALLED:" + scope.details.status);
         //   console.log("DEACTIVE PRDCT IS CALLED");
-        deactiveService.update({
-          companyId: scope.details.productId,
-          deactive: 'deactive'
-        }, scope.details, successUpdateCallback, errorUpdateCallback);
+        if (scope.details.status == 'active') {
+          console.log("now PRDCT IS going to deactive ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'deactive'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          console.log("now PRDCT IS going to active ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'active'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list') {
+          if ($state.current.name == 'companies.list.products') {
             $window.location.reload();
           } else {
             $state.go('companies.list.products', {
@@ -159,15 +170,26 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
       }
 
 
+
+
       scope.deactivateProduct = function () {
         // console.log("DEACTIVE PRDCT IS CALLED");
-        deactiveService.update({
-          companyId: scope.details.productId,
-          deactive: 'deactive'
-        }, scope.details, successUpdateCallback, errorUpdateCallback);
+        if (scope.details.status == 'active') {
+          console.log("now PRDCT IS going to deactive ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'deactive'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          console.log("now PRDCT IS going to active ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'active'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list') {
+          if ($state.current.name == 'companies.list.products') {
             $window.location.reload();
           } else {
             $state.go('companies.list.products', {

@@ -7,7 +7,7 @@
   <h5> Delete </h5>
 </div>
 <div class="row popoverEditTemplate" ng-click="deactivateProduct()">
-  <h5> Deactivate </h5>
+  <h5 style="text-transform:capitalize"> {{details.status==="active"? "Deactivate":"Activate"}} </h5>
 </div>
 <div class="row popoverEditTemplate">
   <a ui-sref="companies.add({ companyId: details.productId })"><h5> Edit </h5></a>

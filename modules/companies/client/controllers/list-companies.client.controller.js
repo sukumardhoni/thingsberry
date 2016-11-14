@@ -10,6 +10,7 @@
   function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, CategoryServiceRightPanel, FrequentlyProducts, $timeout) {
     var vm = this;
     var pageId = 0;
+    var loginUser;
     $scope.path = $location.absUrl();
 
     $scope.editProductFunc = function (productDetails) {
@@ -52,7 +53,18 @@
     // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
     $scope.userDetails = $localStorage.user;
-    // console.log("USER :"+ JSON.stringify(Authentication));
+    // console.log("USER(OR)ADMIN:" + JSON.stringify($scope.userDetails));
+    if ($scope.userDetails !== undefined) {
+
+      if ($scope.userDetails.roles.indexOf('admin') == 1) {
+        loginUser = 'admin';
+      } else {
+        loginUser = 'user';
+      }
+    } else {
+      loginUser = 'user';
+    }
+    // console.log("USER(OR)ADMIN:" + JSON.stringify(loginUser));
     // console.log("USER :"+ JSON.stringify($localStorage.user));
     $scope.getSearchedProductsList = function () {
 
@@ -115,6 +127,7 @@
 
       if ($stateParams.isSearch == 'false') {
         ListOfProducts.query({
+          adminStatus: loginUser,
           pageId: pageId
         }, function (res) {
           // console.log('response is : ' + JSON.stringify(res));

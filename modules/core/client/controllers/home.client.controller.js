@@ -21,6 +21,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     //  console.log($scope.authentication);
 
 
+
     $scope.Advanced_Search_Fields = false;
 
     $scope.categoriesList = ['Category', 'HOME', 'HEALTH CARE', 'AUTOMOBILE', 'AGRICULTURE', 'UTILITIES', 'ENTERTAINMENT', 'ACCESORIES',
@@ -428,9 +429,29 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       //console.log(data.result);
     }
 
-}
-]);
-angular.module('core').directive('myYoutube', function ($sce) {
+
+        }]);
+angular.module('core').directive('myYoutube', function ($sce, $window) {
+  /*
+
+     // autoplay video
+     function onPlayerReady(event) {
+       console.log('autoplay');
+
+       event.target.playVideo();
+     }
+
+     // when video ends
+     function onPlayerStateChange(event) {
+       if (event.data === 0) {
+         console.log('finsihed');
+
+         alert('done');
+       }
+     }
+  */
+
+
   return {
     restrict: 'EA',
     scope: {
@@ -438,9 +459,33 @@ angular.module('core').directive('myYoutube', function ($sce) {
     },
     replace: true,
     template: '<div class="videoBox embed-responsive"><iframe style="overflow:hidden;height:100%;width:100%" controls="0" src="{{url}}" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div>',
-    link: function (scope) {
-      //  console.log('here');
+    link: function (scope, element) {
+
+      /*  scope.$on('onYouTubePlayerAPIReady', function () {
+          console.log('Creating player');
+          var player = new YT.Player(element.attr('id'), {
+            events: {
+              'onReady': onPlayerReady,
+              'onStateChange': onPlayerStateChange
+            }
+          });
+        });*/
+
+
       scope.$watch('code', function (newVal) {
+
+        /*   scope.$on('onYouTubePlayerAPIReady', function () {
+            console.log('Creating player');
+            var player = new YT.Player(element.attr('id'), {
+              videoId:newVal,
+              events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+              }
+            });
+          });*/
+
+        // console.log('here @@@@@@@@@@@@@@@@@@');
         if (newVal) {
           scope.url = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + newVal + "?rel=0&iv_load_policy=3&amp;controls=1&amp;showinfo=0");
         }
