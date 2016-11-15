@@ -42,7 +42,7 @@ exports.contactUs = function (req, res) {
  */
 exports.getListed = function (req, res) {
   var details = req.body;
-  // console.log(details);
+  //console.log(details);
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
   agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
 

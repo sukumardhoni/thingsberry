@@ -5,12 +5,13 @@
 angular.module('core')
 
 .factory('SearchProducts', function ($resource) {
-  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:ProRegions/:pageId', {
+  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:ProRegions/:pageId/:adminStatus', {
     ProCategory: '@ProCategory',
     ProCompany: '@ProCompany',
     ProName: '@ProName',
     ProRegions: '@ProRegions',
-    pageId: '@pageId'
+    pageId: '@pageId',
+    adminStatus: '@adminStatus'
   }, {
     'query': {
       method: 'GET',

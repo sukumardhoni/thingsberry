@@ -852,7 +852,7 @@ BEFORE THIS ALREDY STYLES
   font-size: 14px;
   color: #e9ce18;
   cursor: pointer;
-  padding-top: 15px;
+  padding-top: 11px;
 }
 
 .prodct-stars {
@@ -1378,6 +1378,26 @@ select:focus {
   /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
   opacity: 0.5;
+}
+
+.btnDisabled {
+  pointer-events: none;
+}
+
+.disabledEdit {
+  background-color: white !important;
+}
+
+.editIon .popover {
+  top: 33px;
+  width: 140px;
+  left: -97px !important;
+}
+
+.editInList .popover {
+  width: 140px;
+  top: 19px;
+  left: -95px !important;
 }
 
 

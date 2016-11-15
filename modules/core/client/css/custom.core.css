@@ -385,6 +385,11 @@ a:hover#backTop {
   color: white !important;
 }
 
+.disableControlls .carousel-control.left,
+.disableControlls .carousel-control.right {
+  visibility: hidden;
+}
+
 .featured_prdct_carousel .carousel-control.left,
 .featured_prdct_carousel .carousel-control.right {
   background-image: none;

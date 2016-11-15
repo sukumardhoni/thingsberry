@@ -43,7 +43,7 @@
         <uib-carousel interval="" active=0 no-wrap="noWrapSlides" ng-class="carouselBg1">
           <uib-slide ng-repeat="slide in sample" index="$index">
             <div ng-repeat="sarray in slide" class="col-md-3 feature_prdcts " data-wrap="false">
-              <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="authentication"></tb-featured-products>
+              <tb-featured-products details=sarray></tb-featured-products>
             </div>
           </uib-slide>
         </uib-carousel>
@@ -54,7 +54,7 @@
         <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInSm" index="$index">
             <div ng-repeat="sarray in slide" class="col-sm-5 col-sm-offset-1 feature_prdcts" data-wrap="false">
-              <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="authentication"></tb-featured-products>
+              <tb-featured-products details=sarray></tb-featured-products>
             </div>
           </uib-slide>
         </uib-carousel>
@@ -65,7 +65,7 @@
         <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInXs" index="$index">
             <div ng-repeat="sarray in slide" class="col-xs-11 feature_prdcts" data-wrap="false">
-              <tb-featured-products details=sarray date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="authentication"></tb-featured-products>
+              <tb-featured-products details=sarray></tb-featured-products>
             </div>
           </uib-slide>
         </uib-carousel>
@@ -91,15 +91,18 @@
               </uib-slide>
             </uib-carousel>
           </div>-->
-        <div class=" quotes_carousel  col-md-12 col-xs-12">
+        <div class=" quotes_carousel  col-md-12 col-xs-12" ng-class="{'disableControlls':disableControlls}">
           <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
             <uib-slide ng-repeat="slide in videos " index="$index">
               <div class="row" style="min-height:100px;">
                 <h2 class="quotes_title_In_Xs" style="color:white;">{{slide.title}}</h2>
               </div>
-
-              <div id="player" class="video-frame" my-youtube code="slide.videoId"></div>
-
+              <div>
+                <youtube-video class="videoBox embed-responsive" video-id="slide.videoId"></youtube-video>
+              </div>
+              <!--<div class="video_mask">-->
+              <!--<div class="video-frame" my-youtube code="slide.videoId"></div>-->
+              <!--</div>-->
             </uib-slide>
           </uib-carousel>
         </div>
@@ -159,25 +162,6 @@
       return false;
     })
   });
-
-  /*  var player, playing = false;
-
-    function onYouTubeIframeAPIReady() {
-      alert('hi');
-      player = new YT.Player('video', {
-
-        events: {
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    function onPlayerStateChange(event) {
-      if (!playing) {
-        alert('hi');
-        playing = true;
-      }
-    }*/
 </script>
 <!--
 <script>

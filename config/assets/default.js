@@ -41,7 +41,9 @@ module.exports = {
         'public/lib/angular-material/angular-material.js',
         'public/lib/angular-aria/angular-aria.js',
         'public/lib/angular-socialshare/dist/angular-socialshare.min.js',
-        'public/lib/angular-update-meta/dist/update-meta.min.js'
+        'public/lib/angular-update-meta/dist/update-meta.min.js',
+        'https://www.youtube.com/iframe_api',
+        'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

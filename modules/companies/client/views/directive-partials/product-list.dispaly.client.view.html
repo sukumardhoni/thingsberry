@@ -1,8 +1,8 @@
-<div>
+<div ng-class="{'deactivetedPrdct':(details.status==='deactive')}">
   <div class="row new_list_prdct_view_box ">
     <div class="col-md-4 col-sm-4 col-xs-12 new_list_prdct_view_img ">
       <p>
-        <a ng-href="{{details.webAddress}}" target="_blank"> <img class="" ng-src="{{details.productImageURL}}" onerror="this.onerror=null;this.src='../../../../../modules/core/client/img/brand/tb2.png';" style="width:100%;height:225px;"> </a>
+        <a ng-href="{{details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}"> <img class="" ng-src="{{details.productImageURL}}" onerror="this.onerror=null;this.src='../../../../../modules/core/client/img/brand/tb2.png';" style="width:100%;height:225px;"> </a>
       </p>
     </div>
     <div class="col-md-8 col-sm-8 col-xs-12">
@@ -11,7 +11,7 @@
           <h3>{{details.Proname}}</h3>
         </div>
         <div class="col-md-1 col-sm-1">
-          <div ng-show="editProduct">
+          <div ng-show="editProduct" class="editInList">
             <i class="fa fa-chevron-down pencilIcon" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i>
             <!-- <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-chevron-down pencilIcon" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i></a>-->
           </div>
@@ -29,7 +29,7 @@
             {{details.created |date:'MMM d, yyyy'}}</span>
           </div>
           <div class="col-md-7" style="float:right;">
-            <tb-ratings-container prod-id={{prodId}} state="productListView" products="details" style="float:right;"></tb-ratings-container>
+            <tb-ratings-container prod-id={{prodId}} state="productListView" products="details" style="float:right;" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-ratings-container>
           </div>
         </div>
         <div class="row new_list_prdct_view_desc">
@@ -38,15 +38,15 @@
       </div>
       <div class="row">
         <div class="col-md-4" style="bottom:6px;">
-          <a ng-href="{{details.webAddress}}" target="_blank">
+          <a ng-href="{{details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
             <md-button class="md-raised md-primary col-md-4 col-sm-3 col-xs-3" style="margin:0px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
           </a>
         </div>
         <div class="col-md-1 col-sm-2 col-xs-4 pull-right">
-          <tb-share state="listview" products="details"></tb-share>
+          <tb-share state="listview" products="details" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-share>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
-          <a ui-sref="companies.view({ companyId: details.productId })"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
+          <a ui-sref="companies.view({ companyId: details.productId })" ng-class="{'btnDisabled':(details.status==='deactive')}"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
         </div>
         <!--<div class="col-md-1 col-sm-1 col-xs-4">
           <i class="fa fa-heart-o new_list_prdct_view_footer_icons"></i>

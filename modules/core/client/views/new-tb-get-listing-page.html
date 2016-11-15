@@ -94,6 +94,19 @@
           </div>
 
           <div class="row ">
+            <md-input-container class="col-md-12 col-sm-12 col-xs-12 ">
+              <label class="label-styles"><b>Affliate Link</b></label>
+              <input class="input-styles" type="url" id="affliateLink" name="affliateLink" ng-model="getListed.affliateLink" required ng-pattern="/^.+://.+\..+$/">
+              <div ng-messages="getListedForm.affliateLink.$error">
+                <div ng-message="required">Affliate Link is required.</div>
+                <div ng-message-exp="['required','pattern']">
+                  Your URL must be look like (https://example.com).
+                </div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div class="row ">
             <md-input-container class="col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles"><b>Description</b></label>
               <input class="input-styles" type="text" name="description" id="Description" ng-model="getListed.description" required>

@@ -17,7 +17,7 @@ module.exports = function (app) {
     .post(companies.create);
 
 
-  app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?/:ProRegions?/:pageId')
+  app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?/:ProRegions?/:pageId/:adminStatus')
     .get(cache.route({
       expire: 10
     }), companies.searchedProductsList);

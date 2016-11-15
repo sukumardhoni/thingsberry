@@ -681,6 +681,7 @@
                       <br />Product Name : {{getListedDetails.productName}}
                       <br/>Is Product Premium ? : {{getListedDetails.isPremium}}
                       <br/>Product URL : {{getListedDetails.productURL}}
+                      <br/>Product URL : {{getListedDetails.affliateLink}}
                       <br/>Description : {{getListedDetails.description}}
                       <br/>Message : {{getListedDetails.message}}
                       <br/>Email : {{getListedDetails.email}}

@@ -115,11 +115,29 @@ exports.deleteExpressRedis = function () {
   });
 };
 exports.deactivateProduct = function (req, res) {
-  console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
-  console.log(JSON.stringify(req.params));
-  console.log("$$$ REQ.COMPANY DEACTIVE:" + JSON.stringify(req.company.status));
-  req.body.status = req.params.deactive;
-  console.log("$$$ REQ.BODY DEACTIVE:" + JSON.stringify(req.body.ProCat));
+  //  console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
+  //  console.log(JSON.stringify(req.params));
+  // console.log("$$$ REQ.COMPANY status:" + JSON.stringify(req.company.status));
+  // console.log("$$$ REQ.COMPANY featured flag:" + JSON.stringify(req.company.featuredFlag));
+  if ((req.params.deactive === 'true') || (req.params.deactive === 'false')) {
+    // console.log("coming to featured: " + req.params.deactive);
+    req.body.featuredFlag = req.params.deactive;
+  } else if ((req.params.deactive === 'setPremiumToTrue') || (req.params.deactive === 'setPremiumToFalse')) {
+    // console.log("coming to premiumProducts");
+    if (req.params.deactive === 'setPremiumToTrue') {
+      //  console.log("coming to premiumProducts to set true");
+      req.body.premiumFlag = true;
+    } else {
+      // console.log("coming to premiumProducts to set false");
+      req.body.premiumFlag = false;
+    }
+
+  } else {
+    // console.log("coming to deactive");
+    req.body.status = req.params.deactive;
+  }
+
+  //  console.log("$$$ REQ.BODY DEACTIVE:" + JSON.stringify(req.body));
   var company = req.company;
 
   company = _.extend(company, req.body);
@@ -132,7 +150,7 @@ exports.deactivateProduct = function (req, res) {
     } else {
       _this.deleteExpressRedis();
       res.json(company);
-      console.log(company);
+      // console.log(company);
     }
   });
 
@@ -269,14 +287,10 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
 
-  console.log("@!!!!!!!!!!")
-  console.log("@!!!!!!!!!!")
-  console.log("@!!!!!!!!!!")
-  console.log("@!!!!!!!!!!: " + req.params.adminStatus);
   var ProObj = {};
   ProObj.products = [];
   ProObj.count = 0;
-  console.log('req.params.pageId is : ' + req.params.pageId);
+  //  console.log('req.params.pageId is : ' + req.params.pageId);
   if (req.params.adminStatus !== 'admin') {
 
     if (req.params.pageId == 0) {
@@ -478,141 +492,288 @@ exports.searchedProductsList = function (req, res) {
 
   }
 
+  if (req.params.adminStatus == 'admin') {
 
-
-  if ((proCats.length != 0) && (operationalRegns.length != 0) && queryStr != '') {
-    mongoQuery = {
-      ProCat: {
-        "$in": proCats
-      },
-      $text: {
-        $search: queryStr
-      },
-      operationalRegions: {
-        $all: operationalRegns
-      }
-    }
-  } else if ((proCats.length != 0) && (operationalRegns.length != 0)) {
-    mongoQuery = {
-      ProCat: {
-        "$in": proCats
-      },
-      operationalRegions: {
-        $all: operationalRegns
-      }
-    }
-  } else if ((proCats.length != 0) && queryStr != '') {
-    var regexArray1 = sampleArray.map(x => new RegExp(x));
-    // console.log("RESULTANT111:" + regexArray1);
-    if (req.params.ProCategory && req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
-      var productName = req.params.ProName;
-      var productCompany = req.params.ProCompany;
-      var productCmpnyRegex = new RegExp(productCompany, 'i');
-      console.log('@@Product Company: ' + productCmpnyRegex);
+    if ((proCats.length != 0) && (operationalRegns.length != 0) && queryStr != '') {
       mongoQuery = {
+        ProCat: {
+          "$in": proCats
+        },
         $text: {
-          $search: productName
+          $search: queryStr
         },
-        "ProCat": {
-          $elemMatch: {
-            "title": {
-              $in: regexArray1
-            }
-          }
-        },
-        "Comname": {
-          $regex: productCmpnyRegex
+        operationalRegions: {
+          $all: operationalRegns
         }
       }
-    } else {
-      // console.log('else satisfied');
+    } else if ((proCats.length != 0) && (operationalRegns.length != 0)) {
+      mongoQuery = {
+        ProCat: {
+          "$in": proCats
+        },
+        operationalRegions: {
+          $all: operationalRegns
+        }
+      }
+    } else if ((proCats.length != 0) && queryStr != '') {
+      var regexArray1 = sampleArray.map(x => new RegExp(x));
+      // console.log("RESULTANT111:" + regexArray1);
+      if (req.params.ProCategory && req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
+        var productName = req.params.ProName;
+        var productCompany = req.params.ProCompany;
+        var productCmpnyRegex = new RegExp(productCompany, 'i');
+        console.log('@@Product Company: ' + productCmpnyRegex);
+        mongoQuery = {
+          $text: {
+            $search: productName
+          },
+          "ProCat": {
+            $elemMatch: {
+              "title": {
+                $in: regexArray1
+              }
+            }
+          },
+          "Comname": {
+            $regex: productCmpnyRegex
+          }
+        }
+      } else {
+        // console.log('else satisfied');
+        mongoQuery = {
+          $text: {
+            $search: queryStr
+          },
+          "ProCat": {
+            $elemMatch: {
+              "title": {
+                $in: regexArray1
+              }
+            }
+          }
+        }
+      }
+
+    } else if ((operationalRegns.length != 0) && queryStr != '') {
       mongoQuery = {
         $text: {
           $search: queryStr
         },
-        "ProCat": {
+        operationalRegions: {
+          $all: operationalRegns
+        }
+      }
+    } else if ((proCats.length != 0)) {
+      var regexArray = sampleArray.map(x => new RegExp(x, 'i'));
+      console.log("RESULTANT:" + regexArray);
+      mongoQuery = {
+        ProCat: {
           $elemMatch: {
             "title": {
-              $in: regexArray1
+              $in: regexArray
             }
           }
         }
       }
-    }
+    } else if (queryStr != '') {
 
-  } else if ((operationalRegns.length != 0) && queryStr != '') {
-    mongoQuery = {
-      $text: {
-        $search: queryStr
-      },
-      operationalRegions: {
-        $all: operationalRegns
-      }
-    }
-  } else if ((proCats.length != 0)) {
-    var regexArray = sampleArray.map(x => new RegExp(x, 'i'));
-    console.log("RESULTANT:" + regexArray);
-    mongoQuery = {
-      ProCat: {
-        $elemMatch: {
-          "title": {
-            $in: regexArray
+      if (req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
+        console.log("both proName and company name");
+        var p1 = req.params.ProName;
+        var proName = new RegExp(p1, 'i');
+        //  console.log(" proName :" + proName);
+        var p2 = req.params.ProCompany;
+        var proComp = new RegExp(p2, 'i');
+        //  console.log("company name:" + proComp);
+        mongoQuery = {
+          "Comname": {
+            $regex: proComp
+          },
+          "Proname": {
+            $regex: proName
+          }
+        }
+      } else if (req.params.ProName !== 'Product') {
+        console.log("only pro name");
+        var pName = new RegExp(req.params.ProName, 'i');
+        mongoQuery = {
+          "Proname": {
+            $regex: pName
+          }
+        }
+      } else if (req.params.ProCompany !== 'Company') {
+        console.log('only company name');
+        var cName = new RegExp(req.params.ProCompany, 'i');
+        mongoQuery = {
+          "Comname": {
+            $regex: cName
+          }
+        }
+      } else {
+        console.log("all products");
+        mongoQuery = {
+          $text: {
+            $search: queryStr
           }
         }
       }
-    }
-  } else if (queryStr != '') {
 
-    if (req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
-      console.log("both proName and company name");
-      var p1 = req.params.ProName;
-      var proName = new RegExp(p1, 'i');
-      //  console.log(" proName :" + proName);
-      var p2 = req.params.ProCompany;
-      var proComp = new RegExp(p2, 'i');
-      //  console.log("company name:" + proComp);
+
+    } else if ((operationalRegns.length != 0)) {
       mongoQuery = {
-        "Comname": {
-          $regex: proComp
+        operationalRegions: {
+          $all: operationalRegns
+        }
+      }
+    }
+
+  } else {
+    if ((proCats.length != 0) && (operationalRegns.length != 0) && queryStr != '') {
+      mongoQuery = {
+        status: 'active',
+        ProCat: {
+          "$in": proCats
         },
-        "Proname": {
-          $regex: proName
-        }
-      }
-    } else if (req.params.ProName !== 'Product') {
-      console.log("only pro name");
-      var pName = new RegExp(req.params.ProName, 'i');
-      mongoQuery = {
-        "Proname": {
-          $regex: pName
-        }
-      }
-    } else if (req.params.ProCompany !== 'Company') {
-      console.log('only company name');
-      var cName = new RegExp(req.params.ProCompany, 'i');
-      mongoQuery = {
-        "Comname": {
-          $regex: cName
-        }
-      }
-    } else {
-      console.log("all products");
-      mongoQuery = {
         $text: {
           $search: queryStr
+        },
+        operationalRegions: {
+          $all: operationalRegns
+        }
+      }
+    } else if ((proCats.length != 0) && (operationalRegns.length != 0)) {
+      mongoQuery = {
+        status: 'active',
+        ProCat: {
+          "$in": proCats
+        },
+        operationalRegions: {
+          $all: operationalRegns
+        }
+      }
+    } else if ((proCats.length != 0) && queryStr != '') {
+      var regexArray1 = sampleArray.map(x => new RegExp(x));
+      // console.log("RESULTANT111:" + regexArray1);
+      if (req.params.ProCategory && req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
+        var productName = req.params.ProName;
+        var productCompany = req.params.ProCompany;
+        var productCmpnyRegex = new RegExp(productCompany, 'i');
+        console.log('@@Product Company: ' + productCmpnyRegex);
+        mongoQuery = {
+          status: 'active',
+          $text: {
+            $search: productName
+          },
+          "ProCat": {
+            $elemMatch: {
+              "title": {
+                $in: regexArray1
+              }
+            }
+          },
+          "Comname": {
+            $regex: productCmpnyRegex
+          }
+        }
+      } else {
+        // console.log('else satisfied');
+        mongoQuery = {
+          status: 'active',
+          $text: {
+            $search: queryStr
+          },
+          "ProCat": {
+            $elemMatch: {
+              "title": {
+                $in: regexArray1
+              }
+            }
+          }
+        }
+      }
+
+    } else if ((operationalRegns.length != 0) && queryStr != '') {
+      mongoQuery = {
+        status: 'active',
+        $text: {
+          $search: queryStr
+        },
+        operationalRegions: {
+          $all: operationalRegns
+        }
+      }
+    } else if ((proCats.length != 0)) {
+      var regexArray = sampleArray.map(x => new RegExp(x, 'i'));
+      console.log("RESULTANT:" + regexArray);
+      mongoQuery = {
+        status: 'active',
+        ProCat: {
+          $elemMatch: {
+            "title": {
+              $in: regexArray
+            }
+          }
+        }
+      }
+    } else if (queryStr != '') {
+
+      if (req.params.ProCompany !== 'Company' && req.params.ProName !== 'Product') {
+        console.log("both proName and company name");
+        var p1 = req.params.ProName;
+        var proName = new RegExp(p1, 'i');
+        //  console.log(" proName :" + proName);
+        var p2 = req.params.ProCompany;
+        var proComp = new RegExp(p2, 'i');
+        //  console.log("company name:" + proComp);
+        mongoQuery = {
+          status: 'active',
+          "Comname": {
+            $regex: proComp
+          },
+          "Proname": {
+            $regex: proName
+          }
+        }
+      } else if (req.params.ProName !== 'Product') {
+        console.log("only pro name");
+        var pName = new RegExp(req.params.ProName, 'i');
+        mongoQuery = {
+          status: 'active',
+          "Proname": {
+            $regex: pName
+          }
+        }
+      } else if (req.params.ProCompany !== 'Company') {
+        console.log('only company name');
+        var cName = new RegExp(req.params.ProCompany, 'i');
+        mongoQuery = {
+          status: 'active',
+          "Comname": {
+            $regex: cName
+          }
+        }
+      } else {
+        console.log("all products");
+        mongoQuery = {
+          status: 'active',
+          $text: {
+            $search: queryStr
+          }
+        }
+      }
+
+
+    } else if ((operationalRegns.length != 0)) {
+
+      mongoQuery = {
+        status: 'active',
+        operationalRegions: {
+          $all: operationalRegns
         }
       }
     }
 
-
-  } else if ((operationalRegns.length != 0)) {
-    mongoQuery = {
-      operationalRegions: {
-        $all: operationalRegns
-      }
-    }
   }
-
 
 
   if (req.params.pageId == 0) {

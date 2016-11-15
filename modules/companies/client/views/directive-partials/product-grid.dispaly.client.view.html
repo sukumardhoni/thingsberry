@@ -1,13 +1,13 @@
 <div ng-class="{'deactivetedPrdct':(details.status==='deactive')}">
   <div class="prdct_edit">
     <div class="row">
-      <div ng-show="editProduct" class="editIon">
+      <div ng-show="editProduct" class="editIon" ng-class="{'disabledEdit':(details.status==='deactive')}">
         <i class="fa fa-chevron-down pencilIcon" style="outline:none;" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i>
         <!--<a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-chevron-down" style="outline:none;"></i></a>-->
       </div>
     </div>
     <div class="row">
-      <a ng-href="{{details.webAddress}}" target="_blank"><img src="{{details.productImageURL}}" class="prdct-img" onerror="this.onerror=null;this.src='../../../../../modules/core/client/img/brand/tb2.png';"></a>
+      <a ng-href="{{details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}"><img src="{{details.productImageURL}}" class="prdct-img" onerror="this.onerror=null;this.src='../../../../../modules/core/client/img/brand/tb2.png';"></a>
     </div>
     <div class="row prdct_body">
       <div class="row prdct-divider">
@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-7 col-sm-7 col-xs-7">
           <span class="prodct-stars">
-        <tb-ratings-container prod-id={{prodId}} state="productGridView" products="details"></tb-ratings-container>
+        <tb-ratings-container prod-id={{prodId}} state="productGridView" products="details" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-ratings-container>
       </span>
         </div>
       </div>
@@ -31,14 +31,14 @@
     <div class="row prdct_footer ">
       {{}}
       <div class="">
-        <a ng-href="{{details.webAddress}}" target="_blank">
+        <a ng-href="{{details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
           <md-button class="md-raised md-primary col-md-3 col-sm-3 col-xs-4" style="bottom:10px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
         </a>
       </div>
       <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right">
-        <tb-share state="gridview" products="details"></tb-share>
+        <tb-share state="gridview" products="details" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-share>
       </div>
-      <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right"><a ui-sref="companies.view({ companyId: details.productId })"><i class="fa fa-expand icon_rotate  icons_on_prdct_footer "></i></a>
+      <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right"><a ui-sref="companies.view({ companyId: details.productId })" ng-class="{'btnDisabled':(details.status==='deactive')}"><i class="fa fa-expand icon_rotate  icons_on_prdct_footer "></i></a>
       </div>
       <!--<span class=" col-md-1 col-sm-2 col-xs-2 text-center">
         <i class="fa fa-heart-o   icons_on_prdct_footer "></i>

@@ -12,3 +12,9 @@
 <div class="row popoverEditTemplate">
   <a ui-sref="companies.add({ companyId: details.productId })"><h5> Edit </h5></a>
 </div>
+<div class="row popoverEditTemplate" ng-click="setAsFeatured()">
+  <h5>{{details.featuredFlag===false ? " Set as Featured":"Remove from Featured"}}</h5>
+</div>
+<div class="row popoverEditTemplate" ng-click="setAsPremium()">
+  <h5> {{details.premiumFlag===false ? " Set as Premium":"Remove from Premium"}}</h5>
+</div>

@@ -19,6 +19,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     // This provides Authentication context.
     $scope.authentication = Authentication;
     //  console.log($scope.authentication);
+    $scope.$on('youtube.player.playing', function ($event, player) {
+      // console.log("@@@ payer playing called");
+      $scope.disableControlls = true;
+    });
+    $scope.$on('youtube.player.paused', function ($event, player) {
+      // console.log("@@@ payer playing called");
+      $scope.disableControlls = false;
+    });
 
 
 
@@ -203,7 +211,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
     $scope.featuredProducts = function () {
-      $scope.date = new Date();
+      // $scope.date = new Date();
       $scope.carouselBg1.push('carousel_spinner_featured');
 
       featuredProducts.query({}, function (res) {
@@ -431,61 +439,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
         }]);
-angular.module('core').directive('myYoutube', function ($sce, $window) {
-  /*
-
-     // autoplay video
-     function onPlayerReady(event) {
-       console.log('autoplay');
-
-       event.target.playVideo();
-     }
-
-     // when video ends
-     function onPlayerStateChange(event) {
-       if (event.data === 0) {
-         console.log('finsihed');
-
-         alert('done');
-       }
-     }
-  */
-
-
+angular.module('core').directive('myYoutube', function ($sce) {
   return {
     restrict: 'EA',
     scope: {
       code: '='
     },
-    replace: true,
-    template: '<div class="videoBox embed-responsive"><iframe style="overflow:hidden;height:100%;width:100%" controls="0" src="{{url}}" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div>',
+
+    /*template: '<div class="videoBox embed-responsive" ><iframe style="overflow:hidden;height:100%;width:100%" controls="0" src="{{url}}" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen ng-click="pauseOrPlay()"></iframe></div>',*/
+    template: '<youtube-video class="videoBox embed-responsive" video-url="url"></youtube-video>',
     link: function (scope, element) {
-
-      /*  scope.$on('onYouTubePlayerAPIReady', function () {
-          console.log('Creating player');
-          var player = new YT.Player(element.attr('id'), {
-            events: {
-              'onReady': onPlayerReady,
-              'onStateChange': onPlayerStateChange
-            }
-          });
-        });*/
-
-
       scope.$watch('code', function (newVal) {
-
-        /*   scope.$on('onYouTubePlayerAPIReady', function () {
-            console.log('Creating player');
-            var player = new YT.Player(element.attr('id'), {
-              videoId:newVal,
-              events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-              }
-            });
-          });*/
-
-        // console.log('here @@@@@@@@@@@@@@@@@@');
+        console.log("Called");
         if (newVal) {
           scope.url = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + newVal + "?rel=0&iv_load_policy=3&amp;controls=1&amp;showinfo=0");
         }

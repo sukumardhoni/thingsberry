@@ -152,7 +152,8 @@
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
           ProRegions: $stateParams.regions,
-          pageId: pageId
+          pageId: pageId,
+          adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
