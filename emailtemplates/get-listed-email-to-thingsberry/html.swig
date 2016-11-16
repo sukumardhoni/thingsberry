@@ -680,8 +680,7 @@
                       <h3> Hi ThingsBerry Team,</h3> This is the notification mail for getting listed in thingsberry.com
                       <br />Product Name : {{getListedDetails.productName}}
                       <br/>Is Product Premium ? : {{getListedDetails.isPremium}}
-                      <br/>Product URL : {{getListedDetails.productURL}}
-                      <br/>Product URL : {{getListedDetails.affliateLink}}
+                      <br/>Product URL : {{getListedDetails.productURL}}                    
                       <br/>Description : {{getListedDetails.description}}
                       <br/>Message : {{getListedDetails.message}}
                       <br/>Email : {{getListedDetails.email}}
