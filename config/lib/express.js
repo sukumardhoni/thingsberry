@@ -66,7 +66,8 @@ module.exports.initMiddleware = function (app) {
   }));
 
   //prerender
-  app.use(require('prerender-node').set('prerenderToken', 'hZTLOLQEvz4KuImHGCz4'));
+  /*app.use(require('prerender-node').set('prerenderToken', 'hZTLOLQEvz4KuImHGCz4'));*/
+  app.use(require('prerender-node').set('prerenderToken', '85Cb2wJ3ApJJGqkD4UZ2'));
 
   // Initialize favicon middleware
   app.use(favicon(app.locals.favicon));
