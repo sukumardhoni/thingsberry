@@ -65,7 +65,14 @@ exports.listOfCategories = function (req, res) {
     Promise.all(promises).then(results => {
 
       var resultant = getResultantArr(results);
+
       resultant.then(function (result) {
+        for (var a = 0; a < result.length; a++) {
+          var headingCounts = moreContentsTotalCount(result[a].contents);
+          // console.log("!!!!! : " + headingCounts);
+          result[a].count = headingCounts;
+        }
+        console.log("!!!!! : " + JSON.stringify(result));
         res.json(result);
       })
 
@@ -243,7 +250,7 @@ function contentMoreFunc(contentMore) {
   return contentMore;
 }
 
-/*function moreContentsTotalCount(contentMoreArray2) {
+function moreContentsTotalCount(contentMoreArray2) {
   // console.log("!!!!! : " + JSON.stringify(contentMoreArray2));
   var moreContentCounts = 0;
   for (var l = 0; l < contentMoreArray2.length; l++) {
@@ -251,7 +258,7 @@ function contentMoreFunc(contentMore) {
   }
   // console.log("!!!!! : " + moreContentCounts);
   return moreContentCounts;
-}*/
+}
 
 
 function getAccrdns(rightSideCatsArray) {

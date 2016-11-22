@@ -1400,6 +1400,11 @@ select:focus {
   left: -95px !important;
 }
 
+.accrdnsHeadngCount {
+  font-size: 12px;
+  color: darkgray;
+}
+
 
 /*.deactivetedPrdct button {
 
