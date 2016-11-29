@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
-  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select'];
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select', 'ngMaterial', '720kb.socialshare', 'updateMeta', 'youtube-embed'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -339,7 +339,10 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   angular
     .module('companies.routes')
-    .config(routeConfig);
+    .config(routeConfig)
+    .run(["$state", "$rootScope", function ($state, $rootScope) {
+      $rootScope.$state = $state;
+    }]);
 
   routeConfig.$inject = ['$stateProvider'];
 
@@ -354,14 +357,27 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
       })
       .state('companies.list', {
-        url: '/list/:cat?/:com?/:name?/:regions?/:isSearch',
-        templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        url: '/list',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
         }
+      })
+      .state('companies.list.products', {
+        url: '/:cat?/:com?/:name?/:regions?/:isSearch',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
+
       })
       .state('companies.create', {
         url: '/create',
@@ -377,8 +393,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         }
       })
       .state('companies.add', {
-        url: '/add_your_product',
+        url: '/your_product/:companyId',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',
+        /*   templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
         controller: 'CompanyController',
         controllerAs: 'vm',
         resolve: {
@@ -389,20 +406,33 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           pageTitle: 'Add Product'
         }
       })
-      .state('companies.edit', {
-        url: '/:companyId/edit',
-        templateUrl: 'modules/companies/client/views/add-company.client.view.html',
-        controller: 'CompanyController',
-        controllerAs: 'vm',
-        resolve: {
-          companyResolve: getCompany
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Company {{ companyResolve.Proname }}'
-        }
-      })
-      .state('companies.view', {
+
+
+    .state('companies.view', {
+      url: '/:companyId',
+      /* url: '/:productId',*/
+      /*templateUrl: 'modules/companies/client/views/view-company.client.view.html',*/
+      /*templateUrl: 'modules/companies/client/views/new-single-product.client.view.html',*/
+      templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
+      controller: 'CompanyController',
+      controllerAs: 'vm',
+      resolve: {
+        companyResolve: getCompany
+      },
+      data: {
+        pageTitle: 'Company {{ companyResolve.Proname }}'
+      }
+    });
+  }
+
+  getCompany.$inject = ['$stateParams', 'CompanyService'];
+
+  function getCompany($stateParams, CompanyService) {
+    return CompanyService.get({
+      companyId: $stateParams.companyId
+    }).$promise;
+  }
+  /*   .state('companies.view', {
         url: '/:companyId',
         templateUrl: 'modules/company/client/views/view-company.client.view.html',
         controller: 'CompanyController',
@@ -422,7 +452,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     return CompanyService.get({
       companyId: $stateParams.companyId
     }).$promise;
-  }
+  }*/
 
   newCompany.$inject = ['CompanyService'];
 
@@ -467,9 +497,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts'];
 
-  function CompanyController($scope, $state, company, Authentication, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts) {
     var vm = this;
 
     vm.company = company;
@@ -479,8 +509,54 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     //vm.remove = remove;
     //vm.save = save;
     vm.addCompanyDetails = addCompanyDetails;
+    $scope.path = $location.absUrl();
 
     $scope.addBtnText = 'SUBMIT';
+    // console.log("USER :" + JSON.stringify($localStorage.user));
+    // console.log(vm.company);
+    /*$scope.user = $localStorage.user;*/
+    if ($localStorage.user) {
+      if ($localStorage.user.roles.indexOf('admin') !== -1) {
+        // console.log("coming to true");
+        $scope.editIcon = true;
+      } else {
+        // console.log("coming to true");
+        $scope.editIcon = false;
+      }
+    }
+
+
+    $scope.getCategoriesForSide = function () {
+      // console.log('get categories function');
+      CategoryServiceRightPanel.query({}, function (res) {
+        //  console.log('response from server side');
+        //  console.log('response from server side: ' + JSON.stringify(res));
+        $scope.accrdnsPanelArray = res;
+
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
+    };
+
+    $scope.getFrequentlyProducts = function () {
+      //  console.log('getFrequentlyProducts function');
+      FrequentlyProducts.query({}, function (res) {
+        // console.log('response from server side');
+        // console.log('response from server side:' + JSON.stringify(res));
+        $scope.frequentProducts = res;
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
+    }
+
+
+
+    /* $scope.editProductFunc = function (productDetails) {
+       // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
+
+       dataShare.setData(productDetails);
+       $state.go('companies.add');
+     }*/
 
     /*   $scope.userValidation = function () {
          if (vm.authentication.user) {} else {
@@ -498,17 +574,90 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
          }
        }*/
 
+    // console.log("product id there:" + $stateParams.companyId);
 
-    $scope.loadCategories = function () {
+
+    if ($stateParams.companyId) {
+      //  console.log("coming to correct list");
+      //  console.log("coming to correct list@@@@:" + $stateParams.companyId);
+      $scope.productIdIs = $stateParams.companyId;
+      //  console.log("coming to correct list@@@@:" + $scope.productIdIs);
+      CompanyServiceUpdate.getProduct.query({
+        companyId: $scope.productIdIs
+      }, vm.company, successgetProductCallback, errorgetProductCallback);
+
+      function successgetProductCallback(res) {
+        vm.company = res;
+        // console.log("succes callback from get productdetails:" + JSON.stringify(res));
+      }
+
+      function errorgetProductCallback(res) {
+        vm.error = res.data.message;
+        console.log("error callback from get productdetails");
+        NotificationFactory.error('Failed to get Product details...', res.data.message);
+      }
+
+    }
+
+    /* $scope.loadCategories = function ($query) {
+         var catsList = CategoryService.query(),
+           defObj = $q.defer();
+         return catsList.$promise.then(function (result) {
+           defObj.resolve(result);
+           return result.filter(function (catList) {
+             return catList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+           });
+         });
+         return defObj.promise;
+
+       };*/
+
+
+    $scope.dynamicPopover = {
+      templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+    };
+
+
+    $scope.loadCategories = function ($query) {
       var catsList = CategoryService.query(),
         defObj = $q.defer();
-      catsList.$promise.then(function (result) {
-        //$scope.catsList = result;
+      return catsList.$promise.then(function (result) {
         defObj.resolve(result);
-        console.log('$scope.catsList is : ' + JSON.stringify(catsList));
+        return result.filter(function (catList) {
+          return catList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+        });
       });
       return defObj.promise;
     };
+
+    /*    $scope.BackgroundImage = "https://www.sleekcover.com/covers/citizen-watch-facebook-cover.jpg";
+        $scope.headerImgMainTitle = "Withings Activite Activity tracker";
+        $scope.headerImgSubTitle = "ID 123456";
+        $scope.prodImages = ['https://www.sleekcover.com/covers/independent-girl-facebook-cover.jpg', 'http://d2rfsfyh2505gh.cloudfront.net/wp-content/uploads/2015/07/Prabhas.jpg', 'http://www.latesthdwallpapers.in/photos/Allu-Arjun-facebook-best-hd-photos-free-for-mobile.jpg'];
+        $scope.sampleDesc = "In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since. 'Whenever you feel like criticizing anyone,' he told me, 'just remember that all the people in this world haven't had the advantages that you've had.Only then, with the reader’s attention hooked,  ";*/
+
+
+    //$scope.sName = "$state.current.name==='companies.view'"
+    // console.log("sName:" + $state.current.name);
+
+
+
+    $scope.changeLimit = function (pro) {
+      if ($scope.limit == pro.description.length)
+        $scope.limit = 100;
+      else
+        $scope.limit = pro.description.length;
+    };
+
+    /*$scope.dynamicPopover = {
+      templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+    };*/
+    /*$scope.hoveringOver = function (value) {
+      //  console.log('hoveringOver is called');
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };*/
+
 
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({
@@ -527,10 +676,10 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         if (product) {
           //console.log('remove func. on if condition : ');
           CompanyServiceUpdate.DeleteProduct.remove({
-            companyId: product._id
+            companyId: product.productId
           }, function (res) {
             //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               isSearch: false
             });
             NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -573,9 +722,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       }
 
       // TODO: move create/update logic to service
-      if (vm.company._id) {
-        //console.log('Update product is called : ' + JSON.stringify(vm.company));
-        //console.log('Update product is called : ' + JSON.stringify(vm.company._id));
+      if (vm.company.productId) {
+        //  console.log('Update product is called : ' + JSON.stringify(vm.company));
+        //   console.log('Update product is called : ' + JSON.stringify(vm.company.productId));
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
@@ -588,12 +737,12 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
             base64: $scope.productImg.base64
           };
         }
-        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+        // console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
         vm.company.operationalRegions = $scope.operationalRegionsList;
 
-
+        // console.log('adproduct1');
         CompanyServiceUpdate.UpdateProduct.update({
-          companyId: vm.company._id
+          companyId: vm.company.productId
         }, vm.company, successUpdateCallback, errorUpdateCallback);
 
 
@@ -604,8 +753,12 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
 
+        /*var replacedTitle = doc.Proname.replace(/\s/g, "-");
+        productId: replacedTitle*/
+        var productName = vm.company.Proname.replace(/\s/g, "-");
+        // console.log("company productId :" + productName);
 
-
+        vm.company.productId = productName;
 
         if (vm.company.productImageURL) {
 
@@ -616,8 +769,8 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           };
         }
 
-        console.log('Created product is called : ' + JSON.stringify(vm.company));
-        console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
+        //  console.log('Created product is called : ' + JSON.stringify(vm.company));
+        // console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
 
         //if ($scope.selectionOperational)
         vm.company.operationalRegions = $scope.operationalRegionsList;
@@ -628,7 +781,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       }
 
       function successUpdateCallback(res) {
-        $state.go('companies.list', {
+        $state.go('companies.list.products', {
           isSearch: false
         });
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
@@ -640,7 +793,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       }
 
       function successCallback(res) {
-        $state.go('companies.list', {
+        $state.go('companies.list.products', {
           isSearch: false
         });
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
@@ -650,22 +803,30 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         vm.error = res.data.message;
         NotificationFactory.error('Failed to save Product details...', res.data.message);
       }
-
-
-
     }
 
-    $scope.$on('data_shared', function () {
-      var proDetails = dataShare.getData();
 
-      if (proDetails.logo)
-        $scope.previewImg(proDetails.logo);
-      $scope.productImg = proDetails.logo;
+    /*
+        $scope.$on('data_shared', function () {
+          var proDetails = dataShare.getData();
+          //  console.log("datashare localstorage");
+          //  $localStorage.editProductDetails = proDetails;
+          console.log(JSON.stringify(proDetails.detailsState));
 
-      $scope.operationalRegionsList = (proDetails.operationalRegions.length != 0) ? proDetails.operationalRegions : $scope.operationalRegionsList;
 
-      vm.company = proDetails;
-    });
+          if (proDetails.data.logo)
+            $scope.previewImg(proDetails.data.logo);
+          $scope.productImg = proDetails.data.logo;
+
+          $scope.operationalRegionsList = (proDetails.data.operationalRegions.length != 0) ? proDetails.operationalRegions : $scope.data.operationalRegionsList;
+
+          vm.company = proDetails.data;
+          console.log('datashare last: ' + JSON.stringify(vm.company));
+        });*/
+
+
+
+
 
     $scope.businessSectorSelectedArray = [];
 
@@ -826,6 +987,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       //console.log('Base 64 img details filetype is : ' + val.filetype);
     };
 
+
   }
 })();
 
@@ -836,11 +998,45 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     .module('companies')
     .controller('CompanyListController', CompanyListController);
 
-  CompanyListController.$inject = ['CompanyService', '$scope', '$stateParams', 'SearchProducts', 'ListOfProducts'];
+  CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService', 'CategoryServiceRightPanel', 'FrequentlyProducts', '$timeout'];
 
-  function CompanyListController(CompanyService, $scope, $stateParams, SearchProducts, ListOfProducts) {
+  function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, CategoryServiceRightPanel, FrequentlyProducts, $timeout) {
     var vm = this;
     var pageId = 0;
+    var loginUser;
+    $scope.path = $location.absUrl();
+
+    $scope.editProductFunc = function (productDetails) {
+      /*console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));*/
+      // console.log('Edit Product details on Direc. : ');
+      //  console.log($state.current.name);
+      dataShare.setData(productDetails, $state.current.name);
+      $state.go('companies.add');
+    }
+
+    $scope.carouselBg3 = [];
+    $scope.getCategoriesForSide = function () {
+      $scope.carouselBg3.push('carousel_spinner_featured');
+      CategoryServiceRightPanel.query({}, function (res) {
+        $scope.accrdnsPanelArray = res;
+        $scope.carouselBg3.pop('carousel_spinner_featured');
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
+    };
+
+    $scope.getFrequentlyProducts = function () {
+
+      // console.log('getFrequentlyProducts function');
+      FrequentlyProducts.query({}, function (res) {
+        // console.log('response from server side');
+        // console.log('response from server side:' + JSON.stringify(res));
+        $scope.frequentProducts = res;
+      }, function (err) {
+        console.log('error while getting the list from server side');
+      })
+    }
+
 
     //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
     /*CompanyService.query(function (res) {
@@ -849,7 +1045,24 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 });*/
     // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
+    $scope.userDetails = $localStorage.user;
+    // console.log("USER(OR)ADMIN:" + JSON.stringify($scope.userDetails));
+    if ($scope.userDetails !== undefined) {
+
+      if ($scope.userDetails.roles.indexOf('admin') == 1) {
+        loginUser = 'admin';
+      } else {
+        loginUser = 'user';
+      }
+    } else {
+      loginUser = 'user';
+    }
+    // console.log("USER(OR)ADMIN:" + JSON.stringify(loginUser));
+    // console.log("USER :"+ JSON.stringify($localStorage.user));
     $scope.getSearchedProductsList = function () {
+
+
+      //  console.log("Entering into getsearchproductslists");
 
       // var pageId = 0;
 
@@ -872,6 +1085,20 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         //console.log('ELSE')
         $scope.productsDisplayText = 'All Products';
       }
+      $scope.totalItems = $scope.getSearchedProductsList.length;
+      $scope.currentPage = 1;
+      $scope.itemsPerPage = 12;
+      $scope.maxSize = 2;
+
+      $scope.gridView = true;
+      $scope.grdView = function () {
+        $scope.gridView = true;
+        //  console.log("coming to div1 funct");
+      }
+
+      $scope.listView = function () {
+        $scope.gridView = false;
+      }
 
 
       //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
@@ -879,30 +1106,30 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
       $scope.searchOrder.Lists = [
+
         {
-          'name': 'Sort by',
-          'value': ''
-        },
-        {
-          'name': 'Latest',
-          'value': '-created'
-        },
-        {
-          'name': 'Ratings',
+          'name': 'Sort by Ratings',
           'value': 'created'
+        },
+        {
+          'name': 'Sort by Newest',
+          'value': '-created'
         }
   ];
       $scope.searchOrder.List = $scope.searchOrder.Lists[1].value;
 
       if ($stateParams.isSearch == 'false') {
         ListOfProducts.query({
+          adminStatus: loginUser,
           pageId: pageId
         }, function (res) {
-          //console.log('response is : ' + JSON.stringify(res));
+          // console.log('response is : ' + JSON.stringify(res));
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
+
           pageId++;
+
         }, function (err) {
           console.log('Failed to fetch the product details : ' + err);
         });
@@ -918,29 +1145,67 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
           ProRegions: $stateParams.regions,
-          pageId: pageId
+          pageId: pageId,
+          adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
           pageId++;
         }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+          console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       }
     };
 
 
+    $scope.getCategoryProduct = function (Catproducts, CatHeading, catContentsMoreNames) {
+      var catArr = [];
+
+      if (Catproducts == 'More') {
+        for (var i = 0; i < catContentsMoreNames.length; i++) {
+          if (CatHeading == 'More') {
+            var full = catContentsMoreNames[i].name;
+          } else {
+            full = CatHeading + '-' + catContentsMoreNames[i].name;
+          }
+          catArr.push(full);
+        }
+      } else if (CatHeading == 'More') {
+        catArr.push(Catproducts);
+      } else {
+        var fullCategory = CatHeading + '-' + Catproducts;
+        catArr.push(fullCategory);
+      }
+
+
+      if (Catproducts) {
+        $scope.listActive1 = CatHeading;
+        $scope.listActive = Catproducts;
+      }
+
+      $state.go('companies.list.products', {
+        cat: catArr,
+        com: 'Company',
+        name: 'Product',
+        regions: '',
+        isSearch: true
+      });
+
+    }
+
+
+
 
     $scope.LoadMoreProducts = function () {
-      //console.log('LoadMoreProducts function is called');
+      // console.log('LoadMoreProducts function is called');
       var onScroll = {};
       $scope.spinnerLoading = true;
       if ($stateParams.isSearch == 'false') {
         ListOfProducts.query({
+          adminStatus: loginUser,
           pageId: pageId
         }, function (res) {
-          //vm.companys = res;
           $scope.spinnerLoading = false;
           pageId++;
           onScroll = res.products;
@@ -951,14 +1216,15 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           vm.companys = oldProducts.concat(onScroll);
 
         }, function (err) {
-          console.log('Failed to fetch the product details : ' + err);
+          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
         });
       } else {
         SearchProducts.query({
           ProCategory: $stateParams.cat,
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
-          pageId: pageId
+          pageId: pageId,
+          adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
@@ -1017,9 +1283,1033 @@ angular.module('companies')
 
 'use strict';
 
+angular.module('companies').directive('tbHeaderCarousel', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      images: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-header-carousel.client.view.html',
+    link: function (scope, elem, attr) {
+      console.log("coming to header carousel");
+      console.log(scope.images);
+    }
+  }
+}]).directive('repeatCarousel', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, element) {
+      // wait for the last item in the ng-repeat then call init
+      if (scope.$last) {
+        $(element.parent()).owlCarousel({
+          autoplay: true,
+          autoplayTimeout: 1000,
+          loop: true,
+          slideSpeed: 300,
+          paginationSpeed: 400,
+          items: 1,
+          margin: 20,
+
+        })
+      }
+    }
+  };
+});
+
+'use strict';
+
+angular.module('companies').directive('tbHeaderImage', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'modules/companies/client/views/directive-partials/new-header-image.client.view.html ',
+    link: function (scope, elem, attr) {
+      //  console.log("coming to directive");
+      scope.backImage = attr.image;
+      //  console.log(scope.backImage);
+      var ImageOpcty = attr.opacity;
+      scope.ImgMainTtl = attr.maintitle;
+      scope.ImgSubTtl = attr.subtitle;
+      /*scope.state = attr.state;
+      console.log(scope.state);*/
+      elem.addClass('mobileImage');
+      elem.css({
+        background: 'url(' + scope.backImage + ')',
+        /*width: '100%',*/
+        height: '250px',
+        opacity: ImageOpcty,
+        position: 'relative',
+        backgroundPosition: '0px',
+        backgroundSize: 'cover',
+        backgroundColor: '#929292'
+      });
+
+      if (attr.state == 'contactUs' || attr.state == 'getListed') {
+        // console.log('coming from contactUs');
+        scope.contactStyles = {
+          top: '135px',
+          left: '90px'
+        }
+      }
+    }
+  }
+});
+
+ 'use strict';
+
+ angular.module('companies').directive('myTabs', function () {
+     return {
+       restrict: 'E',
+       transclude: true,
+       scope: {},
+       controller: ["$scope", function ($scope) {
+         var panes = $scope.panes = [];
+
+         $scope.select = function (pane) {
+           angular.forEach(panes, function (pane) {
+             pane.selected = false;
+           });
+           pane.selected = true;
+         };
+
+         this.addPane = function (pane) {
+           if (panes.length === 0) {
+             $scope.select(pane);
+           }
+           panes.push(pane);
+         };
+       }],
+       templateUrl: 'modules/companies/client/views/directive-partials/new-tabs.client.view.html'
+     };
+   })
+   .directive('myPane', function () {
+     return {
+       require: '^^myTabs',
+       restrict: 'E',
+       transclude: true,
+       scope: {
+         title: '@'
+       },
+       link: function (scope, element, attrs, tabsCtrl) {
+         tabsCtrl.addPane(scope);
+       },
+       templateUrl: 'modules/companies/client/views/directive-partials/new-panes.client.view.html'
+     };
+   });
+
+'use strict';
+
+angular.module('companies').directive('tbProductsGrid', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", "deactiveService", "$window", "$uibModal", "CompanyServiceUpdate", function (dataShare, $state, $localStorage, ratingService, NotificationFactory, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+  return {
+    restrict: 'E',
+    scope: {
+      details: '=',
+      editIcon: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/product-grid.dispaly.client.view.html',
+    link: function (scope, elem, attr) {
+      // console.log("coming to tb productsList");
+      if (scope.editIcon) {
+        if (scope.editIcon.roles.indexOf('admin') !== -1) {
+          scope.editProduct = true;
+        } else {
+          scope.editProduct = false;
+        }
+      }
+
+
+      scope.dynamicPopover = {
+        templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+      };
+      scope.deleteProduct = function () {
+        var modalInstance = $uibModal.open({
+          animation: scope.animationsEnabled,
+          templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
+          controller: 'ModalInstanceCtrl',
+          backdrop: 'static',
+          resolve: {
+            productFromModal: function () {
+              return scope.details;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (product) {
+          // console.log("REMOVING PRODUCTS");
+          if (product) {
+            //   console.log('remove func. on if condition : ');
+            CompanyServiceUpdate.DeleteProduct.remove({
+              companyId: product.productId
+            }, function (res) {
+              //    console.log('Res details on remove success cb : ' + JSON.stringify(res));
+              $window.location.reload();
+              /*$state.go('companies.list.products', {
+                isSearch: false
+              });*/
+              NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+            }, function (err) {
+              console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+            })
+          } else {
+            //   console.log('remove func. on else condition : ');
+          }
+        }, function () {
+          //$log.info('Modal Task Delete dismissed at: ' + new Date());
+        });
+
+      }
+
+
+      scope.deactivateProduct = function () {
+        console.log("DEACTIVE PRDCT IS CALLED:" + scope.details.status);
+        //   console.log("DEACTIVE PRDCT IS CALLED");
+        if (scope.details.status == 'active') {
+          console.log("now PRDCT IS going to deactive ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'deactive'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          console.log("now PRDCT IS going to active ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'active'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+
+      };
+
+      scope.setAsFeatured = function () {
+        if (scope.details.featuredFlag === false) {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: true
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: false
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+
+      }
+
+      scope.setAsPremium = function () {
+        if (scope.details.premiumFlag === false) {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'setPremiumToTrue'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'setPremiumToFalse'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+      }
+
+
+
+
+    }
+  }
+}]).directive('tbProductsList', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", "deactiveService", "$window", "$uibModal", "CompanyServiceUpdate", function (dataShare, $state, $localStorage, ratingService, NotificationFactory, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+  return {
+    restrict: 'E',
+    scope: {
+      details: '=',
+      editIcon: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/product-list.dispaly.client.view.html',
+    link: function (scope, elem, attr) {
+      //  console.log("coming to tb productsList");
+
+      if (scope.editIcon) {
+        if (scope.editIcon.roles.indexOf('admin') !== -1) {
+          // console.log('directive admin is there');
+          scope.editProduct = true;
+
+        } else {
+          // console.log('directive admin not there');
+          scope.editProduct = false;
+        }
+      }
+
+      scope.dynamicPopover = {
+        templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+      };
+
+
+      scope.deleteProduct = function () {
+        var modalInstance = $uibModal.open({
+          animation: scope.animationsEnabled,
+          templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
+          controller: 'ModalInstanceCtrl',
+          backdrop: 'static',
+          resolve: {
+            productFromModal: function () {
+              return scope.details;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (product) {
+          // console.log("REMOVING PRODUCTS");
+          if (product) {
+            // console.log('remove func. on if condition : ');
+            CompanyServiceUpdate.DeleteProduct.remove({
+              companyId: product.productId
+            }, function (res) {
+              //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
+              $window.location.reload();
+              /*$state.go('companies.list.products', {
+                isSearch: false
+              });*/
+              NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+            }, function (err) {
+              //  console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+            })
+          } else {
+            // console.log('remove func. on else condition : ');
+          }
+        }, function () {
+          //$log.info('Modal Task Delete dismissed at: ' + new Date());
+        });
+
+      }
+
+      scope.deactivateProduct = function () {
+        // console.log("DEACTIVE PRDCT IS CALLED");
+        if (scope.details.status == 'active') {
+          // console.log("now PRDCT IS going to deactive ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'deactive'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          // console.log("now PRDCT IS going to active ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'active'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+
+      };
+
+      scope.setAsFeatured = function () {
+        if (scope.details.featuredFlag === false) {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: true
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: false
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+
+      };
+
+
+      scope.setAsPremium = function () {
+        if (scope.details.premiumFlag === false) {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'setPremiumToTrue'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'setPremiumToFalse'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+      };
+
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbRatingsContainer', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      products: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-ratins-popover.display.client.view.html',
+    transclude: true,
+    link: function (scope, elem, attr) {
+      //  console.log("coming to ratings container");
+      //  console.log("before if cond:" + attr.state);
+
+      if (attr.state == 'featurePrdct') {
+        scope.featured = true;
+      }
+      if (attr.state == 'singlePrdct') {
+        scope.singlePrdct = true
+      }
+
+
+
+      var previousRatingValue;
+      var localStorageRatingKey;
+
+      scope.user = $localStorage.user;
+      /* console.log("---->:" + JSON.stringify(scope.user));*/
+
+      // console.log(scope.products);
+
+      var productname = scope.products.Proname;
+      /* console.log(productname);*/
+      var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
+      // console.log(productNameLowerCase);
+      if (scope.user == undefined) {
+        localStorageRatingKey = "guest" + productNameLowerCase;
+        //  console.log("userId:" + localStorageRatingKey);
+      } else {
+        localStorageRatingKey = scope.user._id + productNameLowerCase;
+        // console.log("userId:" + localStorageRatingKey);
+      }
+
+      scope.rating = function (rate) {
+
+
+        scope.ratevalue = rate;
+        //  console.log("ratevalue:" + scope.ratevalue);
+
+
+
+        if ($localStorage[localStorageRatingKey] == undefined) {
+
+          previousRatingValue = 0;
+          $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+        } else {
+
+          previousRatingValue = $localStorage[localStorageRatingKey];
+          $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+        }
+        //  console.log(previousRatingValue);
+        //   console.log($localStorage[localStorageRatingKey]);
+
+        ratingService.update({
+          companyId: scope.products.productId,
+          userRating: scope.ratevalue,
+          previousRatingValue: previousRatingValue
+        }, scope.products, successCallback, errorCallback);
+
+
+        function successCallback(res) {
+          //  console.log("coming from callback");
+          scope.rate = res.avgRatings;
+          scope.reviewsCount = res.totalRatingsCount;
+          //   console.log(scope.rate);
+          //   console.log(scope.reviewsCount);
+        }
+
+
+        function errorCallback(res) {
+          //   console.log("coming from callback");
+          NotificationFactory.error('Failed to update the product rating...', res.data.message);
+        }
+
+      };
+
+
+      scope.rate1 = $localStorage[localStorageRatingKey];
+      scope.isReadonly1 = false;
+      scope.rate = scope.products.avgRatings;
+      scope.reviewsCount = scope.products.totalRatingsCount;
+
+      scope.max = 5;
+      scope.isReadonly = true;
+
+      /*scope.rate = 4;
+           scope.isReadonly = true;*/
+      scope.hoveringOver = function (value) {
+        scope.overStar = value;
+        scope.percent = 100 * (value / scope.max);
+      };
+
+
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbAccordions', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    scope: {
+      categories: '='
+    },
+    controller: 'CompanyListController',
+    templateUrl: 'modules/companies/client/views/directive-partials/new-tb-accordions.display.client.view.html',
+    link: function (scope, elem, attr) {
+      // console.log("coming to accordns directive link function");
+      // console.log("coming to share directive link function" + JSON.stringify(scope.listcount));
+      /*  scope.getCategoryProduct = function (Catproducts) {
+
+          console.log("accrdns: " + Catproducts);
+
+          GetCatProducts.query({
+            getCatProducts: Catproducts
+          }, function (res) {
+            console.log("succesfully geting product");
+            console.log(JSON.stringify(res));
+            vm.companys = res.products;
+          }, function (err) {
+            console.log("error while getting product");
+          })
+
+        }*/
+
+
+
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbHeaderCarouselOptions', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      images: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-carosel-options.client.view.html',
+    link: function (scope, elem, attr) {
+      console.log("coming to carousel options ");
+      console.log(" carousel Options images" + scope.images);
+      var options = attr.options;
+      console.log(options);
+      if (options.indexOf("z") !== -1) {
+        scope.showMeZ = true;
+      }
+      if (options.indexOf("f") !== -1) {
+        scope.showMeF = true;
+      }
+      if (options.indexOf("s") !== -1) {
+        scope.showMeS = true;
+      }
+
+    }
+  }
+}]).directive('fullScreen', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: ' <span><span class="glyphicon glyphicon-fullscreen"></span>&nbsp;VIEW FULL SCREEN</span>',
+    link: function (scope, elem, attr) {
+      console.log("coming to view full screen directive");
+
+    }
+  }
+}).directive('share', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: '<span><i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;SHARE</span>',
+    link: function (scope, elem, attr) {
+      console.log("coming to Share directive");
+    }
+  }
+});
+
+'use strict';
+
+angular.module('companies').directive('tbFullDesc', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      text: '='
+    },
+    template: '<div ><h4>Description</h4><p>{{text}}</p></div>',
+    link: function (scope, elem, attr) {
+      elem.css({
+        border: '.5px solid lightgray',
+        boxShadow: ' 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1)',
+        backgroundColor: 'white',
+        margin: '10px',
+        padding: '20px'
+
+      });
+    }
+  }
+});
+
+'use strict';
+
+angular.module('companies').directive('tbFrequentProducts', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", "deactiveService", "$window", "$uibModal", "CompanyServiceUpdate", function (dataShare, $state, $localStorage, ratingService, NotificationFactory, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+  return {
+    restrict: 'E',
+    scope: {
+      details: '=',
+      editIcon: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-tb-frequent-products.display.client.view.html',
+    link: function (scope, elem, attr) {
+      // console.log("coming to tbFrequentProducts directive link function");
+      // console.log("coming to tbFrequentProducts directive link function" + JSON.stringify(scope.details));
+
+      /*  if (scope.editIcon) {
+          if (scope.editIcon.roles.indexOf('admin') !== -1) {
+            scope.editProduct = true;
+          } else {
+            scope.editProduct = false;
+          }
+        }*/
+
+      //  console.log(scope.date1);
+
+      /*  scope.dynamicPopover = {
+          templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+        };
+        scope.deleteProduct = function () {
+          var modalInstance = $uibModal.open({
+            animation: scope.animationsEnabled,
+            templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
+            controller: 'ModalInstanceCtrl',
+            backdrop: 'static',
+            resolve: {
+              productFromModal: function () {
+                return scope.details;
+              }
+            }
+          });*/
+
+      /*  modalInstance.result.then(function (product) {
+          // console.log("REMOVING PRODUCTS");
+          if (product) {
+            //   console.log('remove func. on if condition : ');
+            CompanyServiceUpdate.DeleteProduct.remove({
+              companyId: product.productId
+            }, function (res) {
+              //    console.log('Res details on remove success cb : ' + JSON.stringify(res));
+              $window.location.reload();
+              NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+            }, function (err) {
+              console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+            })
+          } else {
+            //   console.log('remove func. on else condition : ');
+          }
+        }, function () {
+          //$log.info('Modal Task Delete dismissed at: ' + new Date());
+        });
+
+      }*/
+
+
+      /*  scope.deactivateProduct = function () {
+          //   console.log("DEACTIVE PRDCT IS CALLED");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'deactive'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+
+          function successUpdateCallback(res) {
+            if ($state.current.name == 'companies.list') {
+              $window.location.reload();
+            } else {
+              $state.go('companies.list.products', {
+                isSearch: false
+              });
+            }
+            NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+          }
+
+          function errorUpdateCallback(res) {
+            vm.error = res.data.message;
+            NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          }
+
+        };*/
+
+
+
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbLinkButton', ["$location", function ($location) {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: '<button class="btn btn-primary">LINK SITE&nbsp;&nbsp;<i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></button>',
+    link: function (scope, elem, attr) {
+      console.log("coming to link button");
+      var newLink = attr.prodLink;
+      var newColor = attr.btnColor;
+      console.log(newColor);
+      elem.css({
+        backgroundColor: newColor,
+        borderRadius: '0px',
+        borderBottomColor: 'none',
+        backgroundImage: 'none',
+        marginTop: '10px'
+
+      });
+      elem.bind('click', function () {
+        window.location.href = newLink;
+      });
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbShare', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    scope: {
+      products: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-tb-share.display.client.view.html',
+    transclude: true,
+    link: function (scope, elem, attr) {
+
+      // console.log("coming to share directive link function");
+
+      /*    if (attr.state == 'featured') {
+            scope.shareStyles = {
+              right: '-65px'
+            }
+          }
+          if (attr.state == 'listview') {
+            scope.shareStyles = {
+              right: '-55px'
+            }
+          }
+          if (attr.state == 'singlePrdct') {
+            scope.shareStyles = {
+              right: '-60px'
+            }
+          } */
+      if (attr.state == 'featured') {
+        scope.featured = true;
+      }
+      if (attr.state == 'listview') {
+        scope.listview = true
+      }
+      if (attr.state == 'singlePrdct') {
+        scope.singlePrdct = true;
+      }
+
+
+
+      // console.log(scope.products);
+
+
+
+
+
+    }
+  }
+}]);
+
+'use strict';
+
+angular.module('companies').directive('tbSingleProduct', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", "Authentication", "deactiveService", "$window", "$uibModal", "CompanyServiceUpdate", function (dataShare, $state, $localStorage, ratingService, NotificationFactory, Authentication, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+  return {
+    restrict: 'E',
+    scope: {
+      details: '='
+    },
+    templateUrl: 'modules/companies/client/views/directive-partials/new-tb-single-prdct.display.client.view.html',
+    link: function (scope, elem, attr) {
+      //  console.log("coming to tb single product");
+      //  console.log("coming to tb single product:" + JSON.stringify(scope.details));
+      // console.log(scope.editIcon.roles);
+      scope.adminUser = Authentication.user;
+      //   console.log(scope.adminUser.roles);
+
+      if (scope.adminUser) {
+        if (scope.adminUser.roles.indexOf('admin') !== -1) {
+          // console.log('directive admin is there');
+          scope.editProduct = true;
+
+        } else {
+          // console.log('directive admin not there');
+          scope.editProduct = false;
+        }
+      }
+
+
+      scope.dynamicPopover = {
+        templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+      };
+
+      scope.deleteProduct = function () {
+        var modalInstance = $uibModal.open({
+          animation: scope.animationsEnabled,
+          templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
+          controller: 'ModalInstanceCtrl',
+          backdrop: 'static',
+          resolve: {
+            productFromModal: function () {
+              return scope.details;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (product) {
+          //  console.log("REMOVING PRODUCTS");
+          if (product) {
+            // console.log('remove func. on if condition : ');
+            CompanyServiceUpdate.DeleteProduct.remove({
+              companyId: product.productId
+            }, function (res) {
+              console.log('Res details on remove success cb : ' + JSON.stringify(res));
+              $state.go('companies.list.products', {
+                isSearch: false
+              });
+              NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+            }, function (err) {
+              console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+            })
+          } else {
+            // console.log('remove func. on else condition : ');
+          }
+        }, function () {
+          //$log.info('Modal Task Delete dismissed at: ' + new Date());
+        });
+
+      }
+
+
+      scope.deactivateProduct = function () {
+        //  console.log("DEACTIVE PRDCT IS CALLED");
+        if (scope.details.status == 'active') {
+          // console.log("now PRDCT IS going to deactive ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'deactive'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          //  console.log("now PRDCT IS going to active ");
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'active'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+
+      };
+
+      scope.setAsFeatured = function () {
+        if (scope.details.featuredFlag === false) {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: true
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: false
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+
+      };
+
+
+      scope.setAsPremium = function () {
+        if (scope.details.premiumFlag === false) {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'setPremiumToTrue'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        } else {
+          deactiveService.update({
+            companyId: scope.details.productId,
+            deactive: 'setPremiumToFalse'
+          }, scope.details, successUpdateCallback, errorUpdateCallback);
+        }
+
+        function successUpdateCallback(res) {
+          if ($state.current.name == 'companies.list.products') {
+            $window.location.reload();
+          } else {
+            $state.go('companies.list.products', {
+              isSearch: false
+            });
+          }
+          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+        }
+
+        function errorUpdateCallback(res) {
+          vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+        }
+      };
+    }
+  }
+}])
+
+'use strict';
+
+angular.module('companies').directive('tbSmallSnippet', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'modules/companies/client/views/directive-partials/new-tb-small-snippet.client.view.html',
+    transclude: true,
+    link: function (scope, elem, attr) {
+    //  console.log("coming to small snippet");
+      scope.smallDescription = attr.desc;
+
+    }
+  }
+}]);
+
+'use strict';
+
 
 angular.module('companies')
-  .directive('productDisplay', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+  .directive('productDisplay', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
     return {
       restrict: 'E',
       scope: {
@@ -1027,18 +2317,130 @@ angular.module('companies')
       },
       templateUrl: 'modules/companies/client/views/directive-partials/product-display.client.view.html',
       link: function (scope, elem, attrs) {
+
+        var previousRatingValue;
+        var localStorageRatingKey;
+
         scope.user = $localStorage.user;
+        console.log("---->:" + JSON.stringify(scope.user));
+
+        var productname = scope.details.Proname;
+        var productNameLowerCase = productname.replace(/[^a-zA-Z]/g, "").toLowerCase();
+
+
+        if (scope.user == undefined) {
+
+          localStorageRatingKey = "guest" + productNameLowerCase;
+          //console.log("userId:" + localStorageRatingKey);
+
+        } else {
+
+          localStorageRatingKey = scope.user._id + productNameLowerCase;
+          // console.log("userId:" + localStorageRatingKey);
+
+        }
+
+        scope.rating = function (rate) {
+
+
+          scope.ratevalue = rate;
+          console.log("ratevalue:" + scope.ratevalue);
+
+
+
+          if ($localStorage[localStorageRatingKey] == undefined) {
+
+            previousRatingValue = 0;
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+          } else {
+
+            previousRatingValue = $localStorage[localStorageRatingKey];
+            $localStorage[localStorageRatingKey] = scope.ratevalue;
+
+          }
+
+
+          ratingService.update({
+            companyId: scope.details._id,
+            userRating: scope.ratevalue,
+            previousRatingValue: previousRatingValue
+          }, scope.details, successCallback, errorCallback);
+
+
+          function successCallback(res) {
+            // console.log("coming from callback");
+            scope.rate = res.avgRatings;
+            scope.reviewsCount = res.totalRatingsCount;
+          }
+
+
+          function errorCallback(res) {
+            //  console.log("coming from callback");
+            NotificationFactory.error('Failed to update the product rating...', res.data.message);
+          }
+
+        };
+
+
+        scope.showMe = function () {
+
+          scope.showRatings = !scope.showRatings;
+          scope.ratevalue = false;
+          console.log("showme :" + scope.showRatings);
+          //  console.log("---->" + scope.ratevalue);
+        }
+
+        scope.mouseOut = function () {
+            scope.showRatings = !scope.showRatings;
+          }
+          // scope.ratevalue = true;
+          /*if (scope.ratevalue == true) {
+            scope.showRatings = false;
+          } else {
+            scope.showRatings = false;
+          }*/
+
+        /*
+                  if ($localStorage[localStorageRatingKey]) {
+                    scope.ratevalue = true;
+                  } else {
+                    scope.ratevalue = false;
+
+                  }*/
 
 
 
 
-        scope.rate1 = 4;
-        scope.max1 = 5;
+        scope.hoverOut = function () {
+
+          if ($localStorage[localStorageRatingKey]) {
+
+            scope.showRatings = !scope.showRatings;
+
+          } else {
+
+            scope.showRatings = true;
+          }
+          console.log("hoverOut ShowRatings:" + scope.showRatings);
+        }
+
+
+        if ($localStorage[localStorageRatingKey]) {
+
+          scope.showRatings = false;
+
+        } else {
+
+          scope.showRatings = true;
+        }
+        console.log("showRatings :" + scope.showRatings);
+
+        scope.rate1 = $localStorage[localStorageRatingKey];
         scope.isReadonly1 = false;
+        scope.rate = scope.details.avgRatings;
+        scope.reviewsCount = scope.details.totalRatingsCount;
 
-
-        scope.rate = Math.floor(Math.random() * 6) + 1;
-        scope.reviewsCount = Math.floor(Math.random() * 1000) + 1
         scope.max = 5;
         scope.isReadonly = true;
 
@@ -1067,15 +2469,28 @@ angular.module('companies')
 
 
 
-        scope.dynamicPopover = {
+        /* scope.dynamicPopover = {
           templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
         };
-
+*/
 
         scope.hoveringOver = function (value) {
           //console.log('hoveringOver is called');
           scope.overStar = value;
-          scope.percent = 100 * (value / scope.max);
+          // console.log('hoveringOver is called:' + scope.overStar);
+          if (scope.overStar == 1) {
+            scope.productReviewLabel = 'Unusable Product';
+            // console.log('hoveringOver is called:' + scope.percent);
+          } else if (scope.overStar == 2) {
+            scope.productReviewLabel = 'Poor Product';
+          } else if (scope.overStar == 3) {
+            scope.productReviewLabel = 'Ok Product';
+          } else if (scope.overStar == 4) {
+            scope.productReviewLabel = 'Good Product';
+          } else {
+            scope.productReviewLabel = 'Excellect Product';
+          }
+          // scope.percent = 100 * (value / scope.max);
         };
 
       }
@@ -1091,6 +2506,12 @@ angular.module('companies')
     .factory('CompanyService', CompanyService)
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)
+    .factory('ratingService', ratingService)
+    .factory('deactiveService', deactiveService)
+    .factory('CategoryServiceRightPanel', CategoryServiceRightPanel)
+    .factory('FrequentlyProducts', FrequentlyProducts)
+
+  /*  .factory('productService', productService)*/
 
 
 
@@ -1110,9 +2531,42 @@ angular.module('companies')
         remove: {
           method: 'DELETE'
         }
+      }),
+      getProduct: $resource('api/companies/:companyId', {
+        companyId: '@companyId'
+      }, {
+        query: {
+          method: 'GET'
+        }
       })
     }
 }]);
+
+  /*  .factory('deactiveService', ['$resource', function ($resource) {
+      return {
+        DeactivateProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          update: {
+            method: 'PUT'
+          }
+        });
+      }
+  }]);*/
+
+  deactiveService.$inject = ['$resource'];
+
+  function deactiveService($resource) {
+    return $resource('api/deactivateProduct/:companyId/:deactive', {
+      deactive: '@deactive',
+      companyId: '@companyId'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+
+  };
 
 
 
@@ -1128,6 +2582,28 @@ angular.module('companies')
     });
   };
 
+  CategoryServiceRightPanel.$inject = ['$resource'];
+
+  function CategoryServiceRightPanel($resource) {
+    return $resource('api/categories/listOfCategories', {}, {
+      query: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  };
+
+
+  FrequentlyProducts.$inject = ['$resource'];
+
+  function FrequentlyProducts($resource) {
+    return $resource('api/companies/frequentProducts', {}, {
+      query: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  };
 
 
   CompanyService.$inject = ['$resource', '$rootScope', '$timeout'];
@@ -1143,11 +2619,26 @@ angular.module('companies')
   };
 
 
+  /* function CompanyService($resource) {
+     return $resource('api/companies/:productId', {
+       productId: '@productId'
+     }, {
+       update: {
+         method: 'PUT'
+       }
+     });
+   };*/
+
+
 
   function dataShare($rootScope, $timeout) {
     var service = {};
     service.data = false;
-    service.setData = function (data) {
+    service.setData = function (proDetails, proDetailsState) {
+      var data = {
+        data: proDetails,
+        detailsState: proDetailsState
+      }
       this.data = data;
       $timeout(function () {
         $rootScope.$broadcast('data_shared');
@@ -1159,6 +2650,20 @@ angular.module('companies')
     return service;
   };
 
+  ratingService.$inject = ['$resource'];
+
+  function ratingService($resource) {
+
+    return $resource('api/updateRating/:companyId/:previousRatingValue/:userRating', {
+      previousRatingValue: '@previousRatingValue',
+      companyId: '@companyId'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+
+  };
 
 })();
 
@@ -1256,6 +2761,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       .state('home', {
         url: '/',
         templateUrl: 'modules/core/client/views/home.client.view.html'
+          /*templateUrl: 'modules/core/client/views/new-home.client.view.html'*/
       })
       .state('aboutus', {
         url: '/aboutus',
@@ -1273,16 +2779,34 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       })
       .state('contactus', {
         url: '/contactus',
-        templateUrl: 'modules/core/client/views/contact-us.client.view.html',
+        /*  templateUrl: 'modules/core/client/views/contact-us.client.view.html',*/
+        templateUrl: 'modules/core/client/views/new-tb-contact-us.client.view.html',
         data: {
           pageTitle: 'Contact ThingsBerry'
         }
       })
       .state('getListed', {
         url: '/getListed/:isPremium',
-        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        //        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        templateUrl: 'modules/core/client/views/new-tb-get-listing-page.html',
         data: {
           pageTitle: 'Get Listed ThingsBerry'
+        }
+      })
+      .state('privacy', {
+        url: '/privacy',
+        //        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        templateUrl: 'modules/core/client/views/privacyPolicy.view.html',
+        data: {
+          pageTitle: 'Privacy Policy'
+        }
+      })
+      .state('terms', {
+        url: '/terms',
+        //        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        templateUrl: 'modules/core/client/views/termsConditions.view.html',
+        data: {
+          pageTitle: 'Terms & Conditions '
         }
       })
       .state('addyourcompany', {
@@ -1318,19 +2842,35 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 'use strict';
 
-angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService',
-  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService) {
+angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService', '$location',
+  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService, $location) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
+
+
+
+
+    $scope.path = $location.absUrl();
+    //console.log(path);
     $scope.contactUs = function () {
+
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);
+      /*ContactUsService.send($scope.contact);*/
+
+
 
       function successCallback(res) {
         //console.log('Success while sending the Contactus details : ' + res);
-        NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.firstName);
-        $scope.contact = '';
+        if (res.name === undefined) {
+          NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi User');
+        } else {
+          NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.name);
+        }
+        $scope.contactUsForm.$setPristine();
+        $scope.contactUsForm.$setUntouched();
+        $scope.contact = {};
       }
 
       function errorCallback(res) {
@@ -1342,18 +2882,25 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 
     $scope.getListedEmail = function () {
-      //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
 
-      if ($stateParams.isPremium == 'isPremium')
-        $scope.getListed.isPremium = true;
+      console.log('getlisted form details on controller : ' + JSON.stringify($scope.getListed));
+
+
+      console.log("entering into getlisted function");
+      /*   console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));*/
+
+      /*if ($stateParams.isPremium == 'isPremium')
+        $scope.getListed.isPremium = true;*/
 
       $scope.getListed.isPremium = false;
 
       GetListedService.send($scope.getListed, successCallback, errorCallback);
 
       function successCallback(res) {
-        //console.log('Success while sending the Contactus details : ' + res);
-        NotificationFactory.success('Thankyou for Contacting ThingsBerry', res.contactName);
+        console.log('Success while sending the Contactus details : ' + res);
+        NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.contactName);
+        $scope.getListedForm.$setPristine();
+        $scope.getListedForm.$setUntouched();
         $scope.getListed = '';
       }
 
@@ -1368,11 +2915,31 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage',
-  function ($scope, $state, Authentication, Menus, $http, $localStorage) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav',
+  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
+
+
+    $scope.toggleLeft = function () {
+      $mdSidenav('left').toggle();
+    };
+
+    $scope.date1 = new Date();
+    $scope.showBoxOne = false;
+
+    $scope.showSearchDirective = function () {
+      if ($state.current.name === 'home') {
+        $scope.showBoxOne;
+      } else {
+        $scope.showBoxOne = !$scope.showBoxOne;
+      }
+
+      // console.log($state.current.name)
+    }
+
+
 
     // Get the topbar menu
     $scope.menu = Menus.getMenu('topbar');
@@ -1399,9 +2966,10 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
     $scope.signout = function () {
       //console.log('signout is called');
+      // console.log('@@# in $http'+JSON.stringify($localStorage));
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
-      $http.post('/api/auth/jwtSignout').success(function (response) {
-        //console.log('Signout callback : ' + JSON.stringify(response));
+      $http.get('/api/auth/jwtSignout').success(function (response) {
+        console.log('Signout callback : ' + JSON.stringify(response));
         $scope.authentication.user = '';
         delete $localStorage.token;
         delete $localStorage.user;
@@ -1410,18 +2978,87 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       });
 
     };
+
+
+    /* $scope.content = [
+
+       {
+
+         link: 'HoMe',
+
+         route: 'home'
+
+
+
+                   },
+
+       {
+
+         link: 'ALLPRODUCTS',
+         route: 'not-found'
+
+
+                   },
+
+       {
+
+         link: 'BLOG',
+         route: 'blog'
+
+                   },
+
+       {
+
+         link: 'GETLISTED',
+         route: 'getListed'
+
+                   },
+
+       {
+
+         link: 'CONTACTUS',
+         route: 'contactus'
+
+                   }
+
+                   ];*/
+
+
+
+
   }
 ]);
 
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce) {
 
     var vm = this;
 
+
+    $scope.spinnerLoading = true;
+
+    $scope.myInterval = 0;
+
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+
+    // $scope.headersearch=false;
+
+
     // This provides Authentication context.
     $scope.authentication = Authentication;
+    //  console.log($scope.authentication);
+    $scope.$on('youtube.player.playing', function ($event, player) {
+      // console.log("@@@ payer playing called");
+      $scope.disableControlls = true;
+    });
+    $scope.$on('youtube.player.paused', function ($event, player) {
+      // console.log("@@@ payer playing called");
+      $scope.disableControlls = false;
+    });
+
 
 
     $scope.Advanced_Search_Fields = false;
@@ -1434,10 +3071,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.getSearchedProducts = function (details) {
 
-      //console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
-      //console.log('details is : ' + JSON.stringify(details));
-      details.regions = $scope.outputBrowsers;
 
+
+      /*      console.log("entering into getsearchproducts :" + details);
+
+            console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
+            console.log('details is : ' + JSON.stringify(details));
+            details.regions = $scope.outputBrowsers;*/
+      //  console.log('details is : ' + JSON.stringify(details));
       if (details != undefined) {
         if (details.Category || details.Company || details.Product || details.outputBrowsers) {
           var catsArray = [];
@@ -1464,46 +3105,64 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           }
 
           if ((catsArray == '') && (regionsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               isSearch: false
             });
           } else {
-            $state.go('companies.list', {
+            $state.go('companies.list.products', {
               cat: (catsArray == '') ? 'Category' : catsArray,
-              com: details.Company,
-              name: details.Product,
+              com: (details.Company == undefined) ? 'Company' : details.Company,
+              name: (details.Product == undefined) ? 'Product' : details.Product,
               regions: (regionsArray == '') ? '' : regionsArray,
               isSearch: true
             });
           }
         }
       } else {
-        $state.go('companies.list', {
+        $state.go('companies.list.products', {
           isSearch: false
         });
       }
     };
 
 
-    $scope.homePageProductDetails = {
+    /*$scope.homePageProductDetails = {
       title: 'SONY',
       logoURL: '../../../../modules/core/client/img/brand/sony logo.png',
       description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       webAddress: 'http://www.sonos.com/shop/play5'
-    };
+    };*/
 
-    $scope.loadCategories = function () {
+    $scope.loadCategories = function ($query) {
       var catsList = CategoryService.query(),
         defObj = $q.defer();
-      catsList.$promise.then(function (result) {
+      // console.log(JSON.stringify(catsList));
+      return catsList.$promise.then(function (result) {
         //$scope.catsList = result;
         defObj.resolve(result);
+        return result.filter(function (catList) {
+          return catList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
+        });
         // console.log('$scope.catsList is : ' + JSON.stringify(catsList));
       });
-
       //console.log('defferes1111 obj : ' + JSON.stringify(defObj));
       return defObj.promise;
     };
+
+    $scope.loadSearchCategories = function ($query) {
+      // console.log($query);
+      var catsList = ['Home', 'Healthcare', 'Wearable', 'Sports', 'Fitness', 'Accessories', 'Electronics'];
+
+      return catsList.filter(function (list) {
+        return list.toLowerCase().indexOf($query.toLowerCase()) != -1;
+      });
+
+    };
+
+
+
+
+
 
 
 
@@ -1542,38 +3201,143 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
+    /* $scope.myInterval = 5000;
+     var slides = $scope.slides = [];
+     $scope.addSlide = function() {
+       console.log('in the home controller');
+       var newWidth = 600 + slides.length + 1;
+       slides.push({
+         image: 'http://placekitten.com/' + newWidth + '/300',
+         text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+           ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+       });
+     };
+     for (var i=0; i<4; i++) {
+       $scope.addSlide();
+     };*/
+
+
+    $scope.tbClients = function () {
+      ourClients.query({}, function (res) {
+          // console.log(res);
+          $scope.clients = res;
+        },
+        function (err) {
+          console.log('Failed to fetch the product details : ' + err);
+        });
+    };
+
+    $scope.tbVideos = function () {
+      $scope.carouselBg2.push('carousel_spinner_featured');
+      videos.query({}, function (res) {
+          $scope.videos = res;
+          $timeout(function () {
+            $scope.carouselBg2.pop('carousel_spinner_featured');
+          }, 1000);
+        },
+        function (err) {
+          console.log('Failed to fetch the product details : ' + err);
+        });
+    };
+
+
+    $scope.featuredProducts = function () {
+      // $scope.date = new Date();
+      $scope.carouselBg1.push('carousel_spinner_featured');
+
+      featuredProducts.query({}, function (res) {
+        // console.log(res);
+        $scope.featuredProducts = res;
+        // console.log('the length:' + JSON.stringify($scope.featuredProducts.length));
+        for (var i = 0; i < ($scope.featuredProducts.length); i++) {
+          $scope.addSlide2($scope.featuredProducts[i]);
+        }
+        $scope.sample = $scope.listToMatrix($scope.slides2, 3);
+        // console.log('the resultant matrix' + JSON.stringify($scope.sample));
+
+        for (var j = 0; j < ($scope.featuredProducts.length); j++) {
+          $scope.addSlide3($scope.featuredProducts[j]);
+        }
+        $scope.sampleInSm = $scope.listToMatrix($scope.slides3, 2);
+        // console.log('the resultant matrix' + JSON.stringify($scope.sampleInSm));
+
+
+        for (var k = 0; k < $scope.featuredProducts.length; k++) {
+          $scope.addSlide4($scope.featuredProducts[k]);
+        }
+        $scope.sampleInXs = $scope.listToMatrix($scope.slides4, 1);
+        // console.log('the resultant matrix' + JSON.stringify($scope.sampleInXs));
+        $timeout(function () {
+          $scope.carouselBg1.pop('carousel_spinner_featured');
+        }, 1000);
+
+
+      }, function (err) {
+        console.log('Failed to fetch the product details : ' + err);
+      });
+
+    };
+
+    $scope.tbQuotes = function () {
+
+      quotes.query({}, function (res) {
+        // console.log(res);
+        $scope.quotes = res;
+        //  console.log('the length:' + JSON.stringify($scope.quotes));
+      }, function (err) {
+        console.log('Failed to fetch the product details : ' + err);
+      });
+
+    }
 
 
 
 
-    $scope.myInterval = 5000;
-    $scope.noWrapSlides = false;
-    $scope.active = 0;
+
+
+    /*    $scope.myInterval = 5000;
+        $scope.noWrapSlides = false;
+        $scope.active = 0;
+        var slides1 = $scope.slides1 = [];*/
+    /*var slidesarray =$scope.slidesarray = [['slide1','slide2'],['slide3','slide4'],['slide5','slide6'],['slide7','slide8'],['slide9','slide10']];*/
+
+    /*    var sample = $scope.sample = [];
+        var slides3 = $scope.slides3 = [];
+        var currIndex = 0;
+        $scope.carouselBg = [];*/
+
+
+
+    //    $scope.myInterval = 5000;
+    //    $scope.noWrapSlides = false;
+    //    $scope.active = 0;
+
+
     var slides1 = $scope.slides1 = [];
     var slides2 = $scope.slides2 = [];
     var slides3 = $scope.slides3 = [];
+    var slides4 = $scope.slides4 = [];
     var currIndex = 0;
     $scope.carouselBg = [];
-    $scope.getPremiumProducts = function () {
+    $scope.carouselBg1 = [];
+    $scope.carouselBg2 = [];
+
+
+    $scope.premiumProducts = function () {
+      // $scope.spinnerLoading = true;
       $scope.carouselBg.push('carousel_spinner');
       PremiumProducts.query({}, function (res) {
+
         $scope.premiumProducts = res;
 
-        for (var i = 0; i < ($scope.premiumProducts.length / 2); i++) {
+        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
           $scope.addSlide1($scope.premiumProducts[i]);
         }
-
-        for (var j = ($scope.premiumProducts.length / 2); j < $scope.premiumProducts.length; j++) {
-          $scope.addSlide2($scope.premiumProducts[j]);
-        }
-
-        for (var k = 0; k < $scope.premiumProducts.length; k++) {
-          $scope.addSlide3($scope.premiumProducts[k]);
-        }
+        $scope.premiumPrdcts = $scope.listToMatrix($scope.slides1, 1);
+        // console.log($scope.premiumPrdcts);
         $timeout(function () {
           $scope.carouselBg.pop('carousel_spinner');
         }, 1000);
-
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
       });
@@ -1581,38 +3345,70 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
+
+
+    //
+    //    $scope.getPremiumProducts = function () {
+    //      $scope.carouselBg.push('carousel_spinner');
+    //      PremiumProducts.query({}, function (res) {
+    //        $scope.premiumProducts = res;
+    //
+    //        //console.log('the length:'+JSON.stringify($scope.premiumProducts));
+    //        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
+    //          $scope.addSlide1($scope.premiumProducts[i]);
+    //        }
+    //
+    //        $scope.sample = $scope.listToMatrix($scope.slides1, 2);
+    //        // console.log('the resultant matrix'+JSON.stringify($scope.sample));
+    //
+    //        for (var k = 0; k < $scope.premiumProducts.length; k++) {
+    //          $scope.addSlide3($scope.premiumProducts[k]);
+    //        }
+    //        $timeout(function () {
+    //          $scope.carouselBg.pop('carousel_spinner');
+    //        }, 1000);
+    //
+    //      }, function (err) {
+    //        console.log('Failed to fetch the product details : ' + err);
+    //      });
+    //    };
+
+
+    $scope.listToMatrix = function (list, elementsPerSubArray) {
+      //console.log('calling to listtomatrix function');
+      var matrix = [],
+        i, k;
+
+      for (i = 0, k = -1; i < list.length; i++) {
+        if (i % elementsPerSubArray === 0) {
+          k++;
+          matrix[k] = [];
+        }
+
+        matrix[k].push(list[i]);
+      }
+
+      return matrix;
+      //console.log('the resultant matrix:'+matrix);
+    }
+
+
+
     $scope.addSlide1 = function (details) {
-      slides1.push({
-        image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++
-      });
+      slides1.push(details);
     };
 
     $scope.addSlide2 = function (details) {
-      slides2.push({
-        image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++
-      });
+      slides2.push(details);
     };
 
     $scope.addSlide3 = function (details) {
-      slides3.push({
-        image: details.productImageURL,
-        proAddress: details.webAddress,
-        desc: details.description,
-        web: details.companyWebsite,
-        text: details.Proname,
-        id: currIndex++
-      });
+      slides3.push(details);
     };
+    $scope.addSlide4 = function (details) {
+      slides4.push(details);
+    };
+
 
 
 
@@ -1644,7 +3440,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
 
     $scope.fClick = function (data) {
-      //console.log('On-item-click');
+      console.log('On-item-click');
       //console.log('On-item-click - data:');
       //console.log(data);
     }
@@ -1666,16 +3462,139 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     }
 
     $scope.fSearchChange = function (data) {
-      //console.log('On-search-change');
-      //console.log('On-search-change - keyword: ' + data.keyword);
+      console.log('On-search-change');
+      console.log('On-search-change - keyword: ' + data.keyword);
       //console.log('On-search-change - result: ');
       //console.log(data.result);
     }
 
 
+        }]);
+angular.module('core').directive('myYoutube', ["$sce", function ($sce) {
+  return {
+    restrict: 'EA',
+    scope: {
+      code: '='
+    },
 
-  }
-]);
+    /*template: '<div class="videoBox embed-responsive" ><iframe style="overflow:hidden;height:100%;width:100%" controls="0" src="{{url}}" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen ng-click="pauseOrPlay()"></iframe></div>',*/
+    template: '<youtube-video class="videoBox embed-responsive" video-url="url"></youtube-video>',
+    link: function (scope, element) {
+      scope.$watch('code', function (newVal) {
+        console.log("Called");
+        if (newVal) {
+          scope.url = $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + newVal + "?rel=0&iv_load_policy=3&amp;controls=1&amp;showinfo=0");
+        }
+      });
+    }
+  };
+}]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbClients', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        clients: '='
+
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-tb-clients-display.html',
+      link: function (scope, elem, attrs) {
+        // console.log("entering into the clients link furnctions");
+        // console.log(scope.clients);
+
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbPremiumProducts', ["dataShare", "$state", "$localStorage", "Authentication", function (dataShare, $state, $localStorage, Authentication) {
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-premium-products-display.html',
+      link: function (scope, elem, attrs) {
+        //  console.log("entering into the tbPremiumProducts products link furnctions");
+        // console.log(scope.details);
+        scope.adminUser = Authentication.user;
+        // console.log(scope.adminUser.roles);
+
+        if (scope.adminUser) {
+          if (scope.adminUser.roles.indexOf('admin') !== -1) {
+            // console.log('directive admin is there');
+            scope.editProduct = true;
+
+          } else {
+            // console.log('directive admin not there');
+            scope.editProduct = false;
+          }
+        }
+
+        scope.dynamicPopover = {
+          templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+        };
+
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbQuotes', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        tbquote: '='
+
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-tb-quotes-display.html',
+      link: function (scope, elem, attrs) {
+        //  console.log("entering into the quotes link furnctions");
+        //  console.log(scope.tbquote);
+
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbSearch', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        headersearch: '='
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-tb-search-display.html',
+      controller: 'HomeController',
+      link: function (scope, elem, attrs) {
+        // console.log("entering into the tbSearch link furnctions");
+        // console.log("directive:" + scope.headersearch);
+
+        if (attrs.state === 'headerSearchInput') {
+          scope.headerSearch = function (value) {
+            //  console.log("befor return incontroler");
+            scope.headersearch = value;
+            // console.log("after return incontroler");
+          };
+        }
+      }
+    };
+  }]);
 
 (function () {
   'use strict';
@@ -1789,6 +3708,143 @@ angular.module('core')
           }
         }
         return linkFn;
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('tbFeaturedProducts', ["dataShare", "$state", "$localStorage", "deactiveService", "$window", "$uibModal", "CompanyServiceUpdate", function (dataShare, $state, $localStorage, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/core/client/views/directive-partials/new-featured-products-display.html',
+      link: function (scope, elem, attrs) {
+        // console.log("entering into the featurred products link furnctions");
+
+        // scope.date1 = attrs.dateOnProduct;
+
+        /*  if (scope.editIcon.user) {
+            if (scope.editIcon.user.roles.indexOf('admin') !== -1) {
+              // console.log('directive admin is there');
+              scope.editProduct = true;
+
+            } else {
+              // console.log('directive admin not there');
+              scope.editProduct = false;
+            }
+          }*/
+        /*  scope.dynamicPopover = {
+            templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
+          };*/
+
+        /*   scope.deleteProduct = function () {
+             var modalInstance = $uibModal.open({
+               animation: scope.animationsEnabled,
+               templateUrl: 'modules/companies/client/views/modals/delete-product-modal.client.view.html',
+               controller: 'ModalInstanceCtrl',
+               backdrop: 'static',
+               resolve: {
+                 productFromModal: function () {
+                   return scope.details;
+                 }
+               }
+             });
+
+             modalInstance.result.then(function (product) {
+               //  console.log("REMOVING PRODUCTS");
+               if (product) {
+                 // console.log('remove func. on if condition : ');
+                 CompanyServiceUpdate.DeleteProduct.remove({
+                   companyId: product.productId
+                 }, function (res) {
+                   //   console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                   $window.location.reload();
+
+                   NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+                 }, function (err) {
+                   console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+                   NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+                 })
+               } else {
+                 console.log('remove func. on else condition : ');
+               }
+             }, function () {
+               //$log.info('Modal Task Delete dismissed at: ' + new Date());
+             });
+
+           }*/
+
+
+        /*
+                scope.deactivateProduct = function () {
+                  //  console.log("DEACTIVE PRDCT IS CALLED");
+                  deactiveService.update({
+                    companyId: scope.details.productId,
+                    deactive: 'deactive'
+                  }, scope.details, successUpdateCallback, errorUpdateCallback);
+
+                  function successUpdateCallback(res) {
+                    $window.location.reload();
+
+                    NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+                  }
+
+                  function errorUpdateCallback(res) {
+                    vm.error = res.data.message;
+                    NotificationFactory.error('Failed to Update Product details...', res.data.message);
+                  }
+
+                };*/
+
+
+
+      }
+    };
+  }]);
+
+'use strict';
+
+
+angular.module('core')
+  .directive('premiumProductsDisplay', ["dataShare", "$state", "$localStorage", function (dataShare, $state, $localStorage) {
+
+    // console.log("entering into premiumProductsDisplay directive1");
+    return {
+      restrict: 'E',
+      scope: {
+        details: '='
+      },
+      templateUrl: 'modules/core/client/views/tb-premium-products-display.html',
+
+
+      link: function (scope, elem, attrs) {
+
+
+        //  console.log("entering into the premium products link furnctions");
+        scope.user = $localStorage.user;
+        scope.proImgUrl = function () {
+          if (scope.details.image) {
+            return scope.details.image
+          } else if (scope.details.logo != undefined) {
+            // console.log('Detaisl of product getting eroor : ' + JSON.stringify(scope.details));
+            return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+          }
+        };
+
+
+        // console.log('Product details are : ' + JSON.stringify(scope.details));
+
+
+        scope.ProductDetails = function () {
+          //   console.log('ProductDetails is triggred');
+        }
+
+
       }
     };
   }]);
@@ -2056,12 +4112,13 @@ angular.module('core')
 angular.module('core')
 
 .factory('SearchProducts', ["$resource", function ($resource) {
-  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:ProRegions/:pageId', {
+  return $resource('api/search/products/:ProCategory/:ProCompany/:ProName/:ProRegions/:pageId/:adminStatus', {
     ProCategory: '@ProCategory',
     ProCompany: '@ProCompany',
     ProName: '@ProName',
     ProRegions: '@ProRegions',
-    pageId: '@pageId'
+    pageId: '@pageId',
+    adminStatus: '@adminStatus'
   }, {
     'query': {
       method: 'GET',
@@ -2073,7 +4130,8 @@ angular.module('core')
 
 
 .factory('ListOfProducts', ["$resource", function ($resource) {
-  return $resource('api/listOfProducts/:pageId', {
+  return $resource('api/listOfProducts/:adminStatus/:pageId', {
+    adminStatus: '@adminStatus',
     pageId: '@pageId'
   }, {
     'query': {
@@ -2086,6 +4144,47 @@ angular.module('core')
 
 .factory('PremiumProducts', ["$resource", function ($resource) {
   return $resource('api/premiumProducts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+}])
+
+.factory('featuredProducts', ["$resource", function ($resource) {
+  return $resource('api/featuredProducts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+}])
+
+
+.factory('ourClients', ["$resource", function ($resource) {
+  return $resource('api/clients', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+}])
+
+.factory('quotes', ["$resource", function ($resource) {
+  return $resource('api/quotes', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+}])
+
+.factory('videos', ["$resource", function ($resource) {
+  return $resource('api/videos', {}, {
     'query': {
       method: 'GET',
       timeout: 20000,
@@ -2197,8 +4296,10 @@ angular.module('users.admin.routes').config(['$stateProvider',
 'use strict';
 
 // Setting up route
+
 angular.module('users').config(['$stateProvider',
   function ($stateProvider) {
+   // console.log('In the clientSide Routes');
     // Users state routing
     $stateProvider
       .state('settings', {
@@ -2379,8 +4480,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
 
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$localStorage', 'NotificationFactory',
-  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, $localStorage, NotificationFactory) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', '$localStorage', 'NotificationFactory', 'SignUpCondition', 'Users',
+  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, $localStorage, NotificationFactory, SignUpCondition, Users) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
@@ -2407,7 +4508,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
 
     $scope.signup = function (isValid) {
-
+      console.log('In the controller function from signup page');
       $scope.buttonTextSignUp = 'Signing Up...';
 
 
@@ -2418,9 +4519,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-
+      console.log($scope.credentials);
       $http.post('/api/auth/jwtSignup', $scope.credentials).success(function (response) {
-
+        //console.log('proving the route to go to server side routes');
+        console.log("to signup:" + JSON.stringify(response));
         if (response.type === false) {
           $scope.error = response.data;
           //$scope.isDisabled = false;
@@ -2432,6 +4534,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
           $scope.populateUserLocally(response);
+          console.log('Msg : ' + JSON.stringify(response));
         }
 
 
@@ -2459,13 +4562,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           $scope.error = response.data;
           //$scope.isDisabled = false;
           //$scope.buttonTextSignUp = 'Sign Up';
-          console.log('Error Msg : ' + JSON.stringify(response.data));
+          // console.log('Error Msg : ' + JSON.stringify(response.data));
 
         } else {
           $scope.error = null;
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
           $scope.populateUserLocally(response);
+          //console.log('#####->user login detailsss : ' + JSON.stringify(response));
         }
       }).error(function (response) {
         $scope.error = response.message;
@@ -2482,22 +4586,126 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $localStorage.user = respUser;
       $localStorage.token = respUser.token;
       NotificationFactory.success('Hi ' + respUser.displayName, 'Authentication Success !');
+      /* console.log('states:'+ $state.previous.state.name);
+       console.log('states++++:'+ JSON.stringify($state.previous.params));*/
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     };
 
 
 
+    hello.init({
+      google: '1011487504050-sjufok8ijqcho7h19uke77et14bmu87n.apps.googleusercontent.com',
+      facebook: '239001833102223'
+    }, {
+      scope: 'email',
+      redirect_uri: '/'
+    });
+
+    $scope.fbAuthLogIn = function () {
+      //console.log('in the fbAuthlogin');
+      hello('facebook').login().then(function (fbRes) {
+        //console.log('user response is:'+JSON.stringify(fbRes));
+        $http({
+            method: "GET",
+            url: 'https://graph.facebook.com/me?fields=email,first_name,gender,id,last_name&access_token=' + fbRes.authResponse.access_token,
+            data: null,
+            dataType: 'json',
+          })
+          .success(function (data) {
+            //console.log('User Profile Details is : ' + JSON.stringify(data));
+            $scope.fUser = {
+              firstName: data.first_name,
+              lastName: data.last_name,
+              email: data.email,
+              provider: 'fb'
+            };
+            // console.log('$scope fuser details :'+JSON.stringify($scope.fUser));
+            Users.Signup.create($scope.fUser).$promise.then(function (res) {
+              // console.log('##users.signup.create response :'+JSON.stringify(res));
+              if (res.type === false) {
+                //  console.log('@@ res.type is :'+res.type);
+                $scope.errMsg = res.data;
+                //  console.log('@@ res.data is :'+res.data);
+                $scope.populateUserLocally(res.user);
+                //  console.log('@@ res.user is :'+JSON.stringify(res.user));
+              } else {
+                $scope.errMsg = false;
+                $scope.populateUserLocally(res);
+                //  console.log('@@ response in fb')
+              }
+            }).catch(function (err) {
+              alert('Looks like there is an issue with your connectivity, Please try after sometime!');
+            });
+          })
+          .error(function (data, status) {
+            $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
+          });
+      }, function (e) {
+        console.log('Signin error: ' + e.error.message);
+      })
+    };
 
 
-    // OAuth provider request
+
+
+    $scope.googleAuthLogIn = function () {
+      //console.log('in the googleAuthLogIn');
+      hello('google').login().then(function (gRes) {
+        //console.log('google user response' + JSON.stringify(gRes));
+        $http({
+            method: "GET",
+            url: 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + gRes.authResponse.access_token,
+            data: null,
+            dataType: 'json',
+          })
+          .success(function (data) {
+            //console.log('User Profile is : ' + JSON.stringify(data));
+            $scope.gUser = {
+              firstName: data.given_name,
+              lastName: data.family_name,
+              email: data.email,
+              provider: 'gmail'
+            };
+            Users.Signup.create($scope.gUser).$promise.then(function (res) {
+              if (res.type === false) {
+                console.log('@@ res.type is :' + res.type);
+                $scope.errMsg = res.data;
+                console.log('@@ res.data is :' + res.data);
+                $scope.populateUserLocally(res.user);
+                console.log('@@ res.user is :' + JSON.stringify(res.user));
+              } else {
+                $scope.errMsg = false;
+                $scope.populateUserLocally(res);
+              }
+            }).catch(function (err) {
+              alert('Looks like there is an issue with your connectivity, Please try after sometime!');
+            });
+          })
+          .error(function (data, status) {
+            $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
+          });
+      }, function (e) {
+        console.log('Signin error: ' + e.error.message);
+      })
+    };
+
+
+
+
+
+
+    /*  // OAuth provider request
     $scope.callOauthProvider = function (url) {
+      console.log('client side url'+url);
       if ($state.previous && $state.previous.href) {
         url += '?redirect_to=' + encodeURIComponent($state.previous.href);
+        console.log('client side url'+JSON.stringify($state.previous.href));
+        console.log('######client side url'+url);
       }
 
       // Effectively call OAuth authentication route:
       $window.location.href = url;
-    };
+    };*/
   }
 ]);
 
@@ -2522,9 +4730,11 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 
         return false;
       }
-
+console.log("forgot password:"+JSON.stringify($scope.credentials));
       $http.post('/api/auth/jwtForgot', $scope.credentials).success(function (response) {
         // Show user success message and clear form
+         $scope.forgotPasswordForm.$setPristine();
+        $scope.forgotPasswordForm.$setUntouched();
         $scope.credentials = null;
         $scope.success = response.message;
 
@@ -2582,6 +4792,9 @@ angular.module('users').controller('ChangePasswordController', ['$scope', '$http
         // If successful show success message and clear form
         $scope.$broadcast('show-errors-reset', 'passwordForm');
         $scope.success = true;
+         $scope.passwordForm.$setPristine();
+        $scope.passwordForm.$setUntouched();
+
         $scope.passwordDetails = null;
       }).error(function (response) {
         $scope.error = response.message;
@@ -2890,4 +5103,49 @@ angular.module('users.admin').factory('Admin', ['$resource',
       }
     });
   }
-]);
+])
+.factory('SignUpCondition', function () {
+  return false;
+})
+
+
+
+
+
+
+  .factory('Users', ['$resource', 'ConfigService', function ($resource, ConfigService, $localStorage) {
+  return {
+    Signup: $resource(ConfigService.API_URL + '/users/signup', {}, {
+      create: {
+        method: 'POST',
+        timeout: 30000
+      }
+    }),
+    Login: $resource(ConfigService.API_URL + '/users/signin', {}, {
+      create: {
+        method: 'POST',
+        timeout: 20000
+      }
+    }),
+
+
+  }
+}])
+
+/*provides environment specific API url */
+.service('ConfigService', ["$window", function ($window) {
+  if ($window.location.host.match(/localhost:3000\.com/)) {
+    //console.log('its prod: ' + $window.location.host);
+    this.API_URL = 'http://www.qa.thingsberry.com';
+    return this.API_URL;
+  } else if ($window.location.host.match(/202.83.31.92\:3000/)) {
+    //console.log('its test: ' + $window.location.host);
+    this.API_URL = 'http://localhost:3000';
+    return this.API_URL;
+  } else {
+    //console.log('its dev: ' + $window.location.host);
+    this.API_URL = 'http://' + $window.location.host;
+    return this.API_URL;
+  }
+}])
+
