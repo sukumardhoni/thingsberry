@@ -35,9 +35,10 @@
     <!--   Angular material     -->
     <div class="hidden-md hidden-lg">
 
-      <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" style="height:530px;">
+      <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" style="height:550px;">
         <md-toolbar class="md-theme-indigo row" style="background:white;padding-left: 41px;">
-          <a ui-sref="home" class=" navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo col-xs-6" ng-click="toggleLeft()"><span class="glyphicon glyphicon-chevron-left side_nav_header_arrow" ng-click="toggleLeft()"></span> </a>
+          <span class="col-xs-offset-10 glyphicon glyphicon-chevron-left side_nav_header_arrow" ng-click="toggleLeft()"></span>
+          <a ui-sref="home" class=" navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo col-xs-6" ng-click="toggleLeft()"></a>
 
         </md-toolbar>
         <hr>

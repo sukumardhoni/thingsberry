@@ -205,11 +205,12 @@
 
 
     $scope.LoadMoreProducts = function () {
-      //console.log('LoadMoreProducts function is called');
+      // console.log('LoadMoreProducts function is called');
       var onScroll = {};
       $scope.spinnerLoading = true;
       if ($stateParams.isSearch == 'false') {
         ListOfProducts.query({
+          adminStatus: loginUser,
           pageId: pageId
         }, function (res) {
           $scope.spinnerLoading = false;
@@ -222,14 +223,15 @@
           vm.companys = oldProducts.concat(onScroll);
 
         }, function (err) {
-          console.log('Failed to fetch the product details : ' + err);
+          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
         });
       } else {
         SearchProducts.query({
           ProCategory: $stateParams.cat,
           ProCompany: $stateParams.com,
           ProName: $stateParams.name,
-          pageId: pageId
+          pageId: pageId,
+          adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;

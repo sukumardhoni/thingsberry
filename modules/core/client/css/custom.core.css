@@ -401,7 +401,7 @@ a:hover#backTop {
 .featured_prdct_carousel .carousel-control:hover,
 .featured_prdct_carousel .carousel-control:active,
 .featured_prdct_carousel .carousel-control:focus {
-  color: white !important;
+  color: #3f51b5 !important;
 }
 
 .featured_text {
@@ -731,6 +731,7 @@ a:hover#backTop {
 .footer_Bg {
   background-color: #ffffff;
   height: 80px;
+  margin-top: -20px;
 }
 
 
@@ -928,7 +929,8 @@ important;
 .side_nav_header_arrow {
   float: right;
   left: 20px;
-  top: 4px;
+  top: 35px;
+  color: #9d9d9d;
 }
 
 .sideNav_Terms_Privacy {
@@ -950,7 +952,7 @@ important;
 }
 
 .sideNav_detailsHeight {
-  min-height: 80px;
+  min-height: 50px;
 }
 
 .sideNav_details {
