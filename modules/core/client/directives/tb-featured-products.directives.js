@@ -10,6 +10,32 @@ angular.module('core')
       },
       templateUrl: 'modules/core/client/views/directive-partials/new-featured-products-display.html',
       link: function (scope, elem, attrs) {
+
+
+
+
+        /*   function imgError(image) {
+             console.log("IMAGE ERROR : ");
+             image.onerror = "";
+             image.src = "../../../../modules/core/client/img/brand/tb2.png";
+             return true;
+             // console.log("IMAGE ERROR : " + JSON.stringify(image));
+             // console.log("IMAGE ERROR PRO NAME : " + JSON.stringify(prodName));
+
+           };*/
+
+        /* var im = document.getElementById('imageID').src;
+ console.log("FEATURE PRODUCT IMAGE ERROR " + im);
+ if (im == false) {
+   console.log("FEATURE PRODUCT IMAGE ERROR " + im);
+ }*/
+        /*  im.onerror = function () {
+            console.log("FEATURE PRODUCT IMAGE ERROR ");
+            // im.src = '../../../../modules/core/client/img/brand/tb2.png'
+          }*/
+
+
+
         // console.log("entering into the featurred products link furnctions");
 
         // scope.date1 = attrs.dateOnProduct;
@@ -89,6 +115,55 @@ angular.module('core')
 
 
 
+      }
+    };
+  }).directive('checkImg', function (dataShare, $state, $localStorage, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+    return {
+      restrict: 'EA',
+      scope: {
+        name: '=',
+        prdct: '&prdctData'
+      },
+      controller: 'HomeController',
+      link: function (scope, element, attrs) {
+        // var errImagesPrdcts = [];
+        element.bind('error', function ($event) {
+          // scope.errImgCount++;
+          // console.log("@@@VVVV : " + JSON.stringify(scope.errImagesCount));
+          // console.log("@@@VVVV : " + JSON.stringify(scope.name)); // Here is your product
+          // errImagesPrdcts.push(scope.name);
+          /* scope.errPrdctArr.push(scope.name);
+           console.log("@@@VVVV : " + JSON.stringify(scope.name));*/
+          scope.prdct({
+            val: scope.name
+          });
+
+          // scope.details = scope.name;
+
+          /* deactiveService.update({
+             companyId: scope.details.productId,
+             deactive: 'deactive'
+           }, scope.details, successUpdateCallback, errorUpdateCallback);*/
+
+        });
+
+        //  console.log("@@@VVVV : " + JSON.stringify(errImagesPrdcts));
+        /*  function successUpdateCallback(res) {
+            // console.log("COMING TO SUCCES");
+            // $window.location.reload();
+          }
+
+          function errorUpdateCallback(err) {
+            console.log("Failed to load the products : " + JSON.stringify(err));
+
+          }*/
+      }
+    }
+  })
+  .directive('emitLastRepeaterElement', function () {
+    return function (scope) {
+      if (scope.$last) {
+        scope.$emit('LastRepeaterElement');
       }
     };
   });

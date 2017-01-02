@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'GetErrImgPrdcts', 'getAllProducts',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, GetErrImgPrdcts, getAllProducts) {
 
     var vm = this;
 
@@ -435,7 +435,64 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       console.log('On-search-change - keyword: ' + data.keyword);
       //console.log('On-search-change - result: ');
       //console.log(data.result);
+    };
+
+    $scope.errPrdctArr = [];
+    var imgCount = 1;
+    $scope.errImagesCount = function (count) {
+        imgCount = imgCount + count;
+        console.log("##### : " + JSON.stringify(imgCount));
+        $scope.finalExec();
+      }
+      // console.log("TOTAL COUNT : " + JSON.stringify(imgCount));
+
+    // $scope.errImagesCount = 0;
+    // console.log("TOTAL PRDCTS : " + JSON.stringify($scope.errImagesCount));
+    $scope.productData = function (val) {
+      // console.log("##### : " + JSON.stringify(val));
+
+      if (val == 'last') {
+        console.log("TOTAL PRDCTS ARRAY LENGTH : " + JSON.stringify($scope.errPrdctArr.length));
+      } else {
+        $scope.errPrdctArr.push(val);
+      }
+      // console.log("TOTAL PRDCTS ARRAY LENGTH : " + JSON.stringify($scope.errPrdctArr.length));
+
     }
+    $scope.$on('LastRepeaterElement', function () {
+      console.log('good to go');
+    });
+    $scope.erroredImages = [];
+    $scope.getErroredImagePrdcts = function () {
+      $scope.spinner = true;
+      getAllProducts.query({}, function (res) {
+        // console.log("ALL PRODUCTS : " + JSON.stringify(res));
+        $scope.erroredImages = res;
+        $scope.spinner = false;
+      }, function (err) {
+        console.log("ALL PRODUCTS : " + JSON.stringify(err));
+      });
+    };
+
+    /*  $scope.getErroredImagePrdcts = function () {
+
+      console.log("CLICKED");
+      GetErrImgPrdcts.query({}, function (res) {
+        console.log("ERROR IMAGE PRODUCTS : " + JSON.stringify(res));
+        $scope.erroredImages = res;
+        $scope.spinner = false;
+      }, function (err) {
+        console.log("Failed to load products : " + JSON.stringify(err))
+      })
+    };
+*/
+    $scope.finalExec = function () {
+      console.log("final execution ");
+      if ($scope.erroredImages.length == imgCount) {
+        console.log("ALL ITERATIONS ");
+        console.log("ALL ITERATIONS " + JSON.stringify($scope.errPrdctArr));
+      }
+    };
 
 
         }]);

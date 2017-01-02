@@ -22,6 +22,8 @@ module.exports = function (app) {
       expire: 10
     }), companies.searchedProductsList);
 
+  app.route('/api/companies/getProducts')
+    .get(companies.getAllPrdcts);
 
   app.route('/api/companies/frequentProducts')
     .get(companies.frequentProducts);
@@ -29,6 +31,8 @@ module.exports = function (app) {
   app.route('/api/listOfProducts/:adminStatus/:pageId')
     .get(cache.route(), companies.list);
 
+  app.route('/api/GetErrImgPrdcts')
+    .get(companies.getErrImgPrdcts);
 
   app.route('/api/premiumProducts')
     .get(cache.route(), companies.premiumProductsList);

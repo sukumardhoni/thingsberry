@@ -67,7 +67,7 @@
     // console.log("USER(OR)ADMIN:" + JSON.stringify(loginUser));
     // console.log("USER :"+ JSON.stringify($localStorage.user));
     $scope.getSearchedProductsList = function () {
-
+      // getproductsforImages();
 
       //  console.log("Entering into getsearchproductslists");
 
@@ -198,11 +198,7 @@
         regions: '',
         isSearch: true
       });
-
-    }
-
-
-
+    };
 
     $scope.LoadMoreProducts = function () {
       // console.log('LoadMoreProducts function is called');

@@ -9,7 +9,7 @@ var path = require('path'),
   Category = mongoose.model('Category'),
   Company = mongoose.model('Company'),
   _this = this,
-  Promise = require("bluebird");;
+  Promise = require("bluebird");
 
 
 

@@ -18,7 +18,8 @@ var config = require('../config'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
   path = require('path'),
-  lusca = require('lusca');
+  lusca = require('lusca'),
+  cors = require('cors');
 
 /**
  * Initialize local variables
@@ -68,6 +69,9 @@ module.exports.initMiddleware = function (app) {
   //prerender
   /*app.use(require('prerender-node').set('prerenderToken', 'hZTLOLQEvz4KuImHGCz4'));*/
   app.use(require('prerender-node').set('prerenderToken', '85Cb2wJ3ApJJGqkD4UZ2'));
+
+  //CORS functionality
+  app.use(cors());
 
   // Initialize favicon middleware
   app.use(favicon(app.locals.favicon));

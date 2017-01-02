@@ -7,11 +7,17 @@ var path = require('path'),
   _ = require('lodash'),
   mongoose = require('mongoose'),
   Company = mongoose.model('Company'),
+  DeactivePrdcts = mongoose.model('DeactivePrdcts'),
   Category = mongoose.model('Category'),
   config = require('../../../../config/config'),
   agenda = require('../../../../schedules/job-schedule')(config.db),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _this = this;
+  _this = this,
+  https = require('https'),
+  fs = require('fs'),
+  url = require('url'),
+  hh = require('http-https'),
+  Promise = require("bluebird");
 
 /**
  * Create an company
@@ -384,11 +390,168 @@ exports.premiumProductsList = function (req, res) {
   });
 };
 
+
+exports.getAllPrdcts = function (req, res) {
+  Company.find({
+    "status": 'active'
+  }).then(function (companies) {
+    res.json(companies);
+  }).catch(function (err) {
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+    });
+  });
+};
+
+/*function getInValidImgUrl(prodObj){
+     return new Promise((resolve,reject) => {
+         hh.get(prodObj.imageUrl,function(res){
+         if(res.statusCode == 404){
+            resolve( {
+                    name:prodObj.name,
+                    imgUrl:prodObj.imageUrl
+                   })
+          }
+      })
+}
+}*/
+
+function getErrImages(prodObj) {
+  return new Promise((resolve, reject) => {
+
+    hh.get(prodObj.productImageURL, function (res) {
+        if (res.statusCode == 404) {
+          //  console.log("IN HHHHH : " + prodObj.productImageURL);
+          resolve({
+            type: 'success',
+            name: prodObj.Proname,
+            imgUrl: prodObj.productImageURL,
+            id: prodObj._id
+          })
+        }
+
+      })
+      .on('error', function (e) {
+        // console.error(e);
+        resolve({
+          type: 'error',
+          name: prodObj.Proname,
+          imgUrl: prodObj.productImageURL,
+          id: prodObj._id
+        })
+      });
+  })
+};
+
+
+
+exports.getErrImgPrdcts = function (req, res) {
+  console.log("##### IN HTTP");
+
+  Company.find({
+    "status": 'active'
+  }).then(function (companies) {
+
+
+    // console.log("Got response: " + JSON.stringify(companies));
+    // var deactivePrdct = new DeactivePrdcts(req.body);
+    var errImgPrdctCount = 0;
+    //  var Arr = [];
+    var totalPrdctsCount = 0;
+    for (var j = 0; j < companies.length; j++) {
+
+      if (companies[j].productImageURL.indexOf('base64') == -1) {
+        var calback = getErrImages(companies[j]);
+        calback.then(function (ress) {
+          totalPrdctsCount = totalPrdctsCount + 1;
+          if (ress.type === 'success') {
+            //console.log("IAMGE CB : " + JSON.stringify(ress));
+            console.log("IAMGE CB : " + JSON.stringify(errImgPrdctCount));
+            errImgPrdctCount = errImgPrdctCount + 1
+              // Arr.push(errImgPrdctCount);
+              /* Company.find({
+                 _id: ress.id
+               }).then(function (pdrctObj) {
+                 console.log("PRODUCT CB : " + JSON.stringify(pdrctObj));
+                 errImgPrdctCount=errImgPrdctCount+1*/
+              // updateErrProduct(pdrctObj._id)
+              // var prdID = prodObj._id;
+              /*  Company.find({
+                  _id: prodObj._id
+                }).then(function (response) {
+                  console.log("@@@ @@ RESPONSE FROM UPDATE : " + JSON.stringify(response));
+                })*/
+
+            /*var prdData = pdrctObj;
+            var prdDeativeObj = {
+              status: 'deactive'
+            };
+            var prdData2 = _.extend(prdData, prdDeativeObj);
+            console.log("## %%% : " + JSON.stringify(prdData2));*/
+            /* prdData.save(function (err) {
+               if (err) {
+                 return res.status(400).send({
+                   message: errorHandler.getErrorMessage(err)
+                 });
+               } else {
+                 _this.deleteExpressRedis();
+                 //  res.json(company);
+                 //  console.log("## %%% : " + JSON.stringify(company));
+               }
+             });*/
+
+            // })
+
+            /* var prdDetails = Promise.resolve(getProdDetails(ress.id));
+             prdDetails.then(function (prdRespnse) {
+               console.log("&&&& @@@ PRODUCT : " + JSON.stringify(prdRespnse));
+             })*/
+
+            /* var presentDate = Date.now();
+             // console.log(nn)
+
+             if (ress.type === 'success') {
+               var resultantObj = {
+                 id: ress.id,
+                 proName: ress.name,
+                 imageUrl: ress.imgUrl,
+                 runDate: presentDate
+               }
+             }*/
+          }
+
+        })
+      }
+    }
+
+    if (totalPrdctsCount == companies.length) {
+      console.log("COUNT OF PRDCTS : " + totalPrdctsCount);
+      console.log("@@@@$$$$ COUNT OF PRDCTS : " + errImgPrdctCount);
+    }
+
+
+    /*setInterval(function () {
+
+    }, 18000);*/
+
+
+
+  }).catch(function (err) {
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+    });
+  });
+
+
+};
+
+
+
 /**
  * List of Frequently Products
  */
 exports.frequentProducts = function (req, res) {
-
+  /*  _this.imgDeactiveFunc();*/
   Company.find({
     "status": 'active'
   }).sort({
@@ -400,6 +563,7 @@ exports.frequentProducts = function (req, res) {
       });
     } else {
       // console.log('Server side List of products : ' + JSON.stringify(companies));
+
       res.json(companies);
     }
   });

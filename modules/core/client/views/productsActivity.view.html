@@ -1,0 +1,37 @@
+<div class="container" ng-controller="HomeController" style="margin-top:70px;">
+  <div class="row">
+    <div class="col-md-6">
+      <md-button class="md-raised md-primary pull-left"> Inactive Products </md-button>
+    </div>
+    <div class="col-md-6">
+      <md-button class="md-raised md-primary pull-right" ng-click="getErroredImagePrdcts()"> Unloaded Image Products </md-button>
+    </div>
+  </div>
+  <hr>
+  <div layout="row" layout-align="space-around">
+    <md-progress-circular md-mode="indeterminate" ng-show="spinner" md-diameter="96"></md-progress-circular>
+  </div>
+  <div ng-repeat="product in erroredImages">
+    <div class="row col-md-4" ng-hide="true" ng-init="errImagesCount(1)">
+      <img src="{{product.productImageURL}}" name="product" check-img prdct-data="productData(val)">
+      <!-- <div ng-if="$last" ng-init="$last?productData('last'):null"></div>-->
+    </div>
+
+  </div>
+
+  <div ng-repeat="errProduct in errPrdctArr">
+
+    <div class="row">
+      <div class="col-md-1">
+
+      </div>
+      <div class="col-md-3">
+        {{errProduct.Proname}}
+      </div>
+      <div class="col-md-8">
+
+      </div>
+    </div>
+  </div>
+
+</div>

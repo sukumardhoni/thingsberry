@@ -21,6 +21,23 @@ angular.module('core')
 })
 
 
+.factory('getAllProducts', function ($resource) {
+  return $resource('api/companies/getProducts', {}, {
+    'query': {
+      method: 'GET',
+      isArray: true
+    }
+  });
+})
+
+.factory('GetErrImgPrdcts', function ($resource) {
+  return $resource('api/GetErrImgPrdcts', {}, {
+    'query': {
+      method: 'GET',
+      isArray: true
+    }
+  });
+})
 
 .factory('ListOfProducts', function ($resource) {
   return $resource('api/listOfProducts/:adminStatus/:pageId', {

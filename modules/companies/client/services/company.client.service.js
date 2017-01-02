@@ -69,8 +69,6 @@
   };
 
 
-
-
   CategoryService.$inject = ['$resource'];
 
   function CategoryService($resource) {

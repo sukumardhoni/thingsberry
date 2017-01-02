@@ -42,7 +42,7 @@
       <div class="col-md-12 featured_prdct_carousel featured-listing">
         <uib-carousel interval="" active=0 no-wrap="noWrapSlides" ng-class="carouselBg1">
           <uib-slide ng-repeat="slide in sample" index="$index">
-            <div ng-repeat="sarray in slide" class="col-md-3 feature_prdcts " data-wrap="false">
+            <div ng-repeat="sarray in slide" emit-last-repeater-element class="col-md-3 feature_prdcts " data-wrap="false">
               <tb-featured-products details=sarray></tb-featured-products>
             </div>
           </uib-slide>

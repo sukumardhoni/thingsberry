@@ -35,6 +35,7 @@
       state: 'settings.password'
     });
 
+
     /* Menus.addSubMenuItem('account', 'settings', {
    title: 'Manage Social Accounts',
    state: 'settings.accounts'
