@@ -8,30 +8,50 @@
     </div>
   </div>
   <hr>
-  <div layout="row" layout-align="space-around">
-    <md-progress-circular md-mode="indeterminate" ng-show="spinner" md-diameter="96"></md-progress-circular>
-  </div>
-  <div ng-repeat="product in erroredImages">
-    <div class="row col-md-4" ng-hide="true" ng-init="errImagesCount(1)">
-      <img src="{{product.productImageURL}}" name="product" check-img prdct-data="productData(val)">
-      <!-- <div ng-if="$last" ng-init="$last?productData('last'):null"></div>-->
+  <!--<div class="row" ng-hide="showTxt">
+    <h3 class="text-center">Click here to show all the Image errored products.</h3>
+    <div class="col-md-4 col-md-offset-4">
+      <md-button class="md-raised md-primary" ng-click="getErroredImagePrdcts()"> Unloaded Image Products </md-button>
     </div>
+  </div>-->
 
+  <div class="row errImgPrdctHead" ng-show="erroredImages">
+    <div class="col-md-1">
+      <h5><!--<b> Select All</b>--><input type="checkbox" ng-model="checkAll" ng-click="selectAll(checkAll)"></h5>
+    </div>
+    <div class="col-md-4">
+      <h5><b>Product Name</b></h5>
+    </div>
+    <div class="col-md-7">
+      <h5><b>Product Image URL</b></h5>
+    </div>
   </div>
 
-  <div ng-repeat="errProduct in errPrdctArr">
-
+  <div ng-show="spinner">
     <div class="row">
-      <div class="col-md-1">
-
-      </div>
-      <div class="col-md-3">
-        {{errProduct.Proname}}
-      </div>
-      <div class="col-md-8">
-
-      </div>
+      <h5 class="text-center"><b>We are fetching the deatils...</b></h5>
+    </div>
+    <div layout="row" layout-align="space-around">
+      <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
     </div>
   </div>
+
+  <div ng-repeat="product in erroredImages">
+    <div class="row errImgPrdctBody">
+      <div class="col-md-1">
+        <h5><input type="checkbox" ng-model="selected[product.proName]" ng-click="selectedProduct(product.proName)"></h5>
+      </div>
+      <div class="col-md-4">
+        <h5>{{product.proName}}</h5>
+
+      </div>
+      <div class="col-md-7">
+        <h5>{{product.imageUrl | limitTo:80}}...</h5>
+      </div>
+    </div>
+
+  </div>
+
+
 
 </div>

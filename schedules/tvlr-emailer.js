@@ -24,6 +24,8 @@ exports.sendMail = function (mailData) {
       userData: mailData.userData,
       contactedDetails: mailData.contactedDetails,
       getListedDetails: mailData.getListedDetails,
+      ErrorImagesProducts: mailData.ErrorImagesProducts,
+      ErrorImagesProductsLength: mailData.ErrorImagesProductsLength,
       resetUrl: mailData.url,
       appEnv: config.app.title
     },

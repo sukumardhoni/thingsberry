@@ -416,25 +416,30 @@ exports.getAllPrdcts = function (req, res) {
 }
 }*/
 
+
+//var allPCount;
+
+
 function getErrImages(prodObj) {
+
   return new Promise((resolve, reject) => {
 
     hh.get(prodObj.productImageURL, function (res) {
-        if (res.statusCode == 404) {
-          //  console.log("IN HHHHH : " + prodObj.productImageURL);
+        // allPCount = allPCount + 1;
+        if ((res.statusCode)) {
           resolve({
             type: 'success',
+            resStatus: res.statusCode,
             name: prodObj.Proname,
             imgUrl: prodObj.productImageURL,
             id: prodObj._id
           })
         }
-
       })
       .on('error', function (e) {
-        // console.error(e);
         resolve({
           type: 'error',
+          resStatus: 'none',
           name: prodObj.Proname,
           imgUrl: prodObj.productImageURL,
           id: prodObj._id
@@ -451,90 +456,88 @@ exports.getErrImgPrdcts = function (req, res) {
   Company.find({
     "status": 'active'
   }).then(function (companies) {
-
-
-    // console.log("Got response: " + JSON.stringify(companies));
-    // var deactivePrdct = new DeactivePrdcts(req.body);
     var errImgPrdctCount = 0;
-    //  var Arr = [];
+    var errPrdctsArr = [];
     var totalPrdctsCount = 0;
+    var withoutBase64 = 0;
+    var withBase64;
+    var ifCount = 0;
+    var elseCount = 0;
     for (var j = 0; j < companies.length; j++) {
-
+      totalPrdctsCount = totalPrdctsCount + 1;
       if (companies[j].productImageURL.indexOf('base64') == -1) {
+        withoutBase64 = withoutBase64 + 1;
+        withBase64 = totalPrdctsCount - parseInt(withoutBase64);
         var calback = getErrImages(companies[j]);
         calback.then(function (ress) {
-          totalPrdctsCount = totalPrdctsCount + 1;
+          errImgPrdctCount = errImgPrdctCount + 1;
+
+          //  console.log('totalPrdctsCount :   ' + totalPrdctsCount);
+          //  console.log('errImgPrdctCount :   ' + errImgPrdctCount);
+          // console.log('withBase64 :   ' + withBase64);
+
+          var presentDate = Date.now();
+          var resultantObj;
+          //  var regExpForErrPrdcts = '/^4[0-9].*$/';
           if (ress.type === 'success') {
-            //console.log("IAMGE CB : " + JSON.stringify(ress));
-            console.log("IAMGE CB : " + JSON.stringify(errImgPrdctCount));
-            errImgPrdctCount = errImgPrdctCount + 1
-              // Arr.push(errImgPrdctCount);
-              /* Company.find({
-                 _id: ress.id
-               }).then(function (pdrctObj) {
-                 console.log("PRODUCT CB : " + JSON.stringify(pdrctObj));
-                 errImgPrdctCount=errImgPrdctCount+1*/
-              // updateErrProduct(pdrctObj._id)
-              // var prdID = prodObj._id;
-              /*  Company.find({
-                  _id: prodObj._id
-                }).then(function (response) {
-                  console.log("@@@ @@ RESPONSE FROM UPDATE : " + JSON.stringify(response));
-                })*/
-
-            /*var prdData = pdrctObj;
-            var prdDeativeObj = {
-              status: 'deactive'
-            };
-            var prdData2 = _.extend(prdData, prdDeativeObj);
-            console.log("## %%% : " + JSON.stringify(prdData2));*/
-            /* prdData.save(function (err) {
-               if (err) {
-                 return res.status(400).send({
-                   message: errorHandler.getErrorMessage(err)
-                 });
-               } else {
-                 _this.deleteExpressRedis();
-                 //  res.json(company);
-                 //  console.log("## %%% : " + JSON.stringify(company));
-               }
-             });*/
-
-            // })
-
-            /* var prdDetails = Promise.resolve(getProdDetails(ress.id));
-             prdDetails.then(function (prdRespnse) {
-               console.log("&&&& @@@ PRODUCT : " + JSON.stringify(prdRespnse));
-             })*/
-
-            /* var presentDate = Date.now();
-             // console.log(nn)
-
-             if (ress.type === 'success') {
-               var resultantObj = {
-                 id: ress.id,
-                 proName: ress.name,
-                 imageUrl: ress.imgUrl,
-                 runDate: presentDate
-               }
-             }*/
+            ifCount = ifCount + 1;
+            if (/^[4][0-9]/g.test(ress.resStatus)) {
+              // statusCount = statusCount + 1;
+              resultantObj = {
+                id: ress.id,
+                proName: ress.name,
+                imageUrl: ress.imgUrl,
+                runDate: presentDate
+              }
+              errPrdctsArr.push(resultantObj);
+            }
+          } else {
+            elseCount = elseCount + 1;
+            resultantObj = {
+              id: ress.id,
+              proName: ress.name,
+              imageUrl: ress.imgUrl,
+              runDate: presentDate
+            }
+            errPrdctsArr.push(resultantObj);
           }
+
+          console.log('ifCount :   ' + ifCount);
+          console.log('elseCount :   ' + elseCount);
+          var totalErrPrdctsCount = (ifCount + parseInt(elseCount)) + withBase64;
+          console.log('totalErrPrdctsCount :   ' + totalErrPrdctsCount);
+
+
+
+          if ((totalErrPrdctsCount === companies.length)) {
+            console.log('All error products from server is : ' + errPrdctsArr.length);
+
+            for (var m = 0; m < errPrdctsArr.length; m++) {
+              console.log("PRODUCT : " + JSON.stringify(errPrdctsArr[m]));
+              Company.update({
+                "_id": errPrdctsArr[m].id
+              }, {
+                $set: {
+                  "status": "deactive"
+                }
+              }).then(function (res) {
+                console.log("RESULTANT : " + JSON.stringify(res));
+              })
+            }
+
+
+            agenda.now('Deactivate_Products', {
+
+              ErrorImagesProductsLength: errPrdctsArr.length,
+              ErrorImagesProducts: errPrdctsArr
+            });
+            // res.jsonp(errPrdctsArr);
+          }
+
 
         })
       }
     }
-
-    if (totalPrdctsCount == companies.length) {
-      console.log("COUNT OF PRDCTS : " + totalPrdctsCount);
-      console.log("@@@@$$$$ COUNT OF PRDCTS : " + errImgPrdctCount);
-    }
-
-
-    /*setInterval(function () {
-
-    }, 18000);*/
-
-
 
   }).catch(function (err) {
     return res.status(400).send({

@@ -23,6 +23,7 @@ module.exports = function (agendaDb) {
     emailJob.sendUserInfoToThingsBerryTeam(agenda);
     emailJob.sendUserContactUSInfoToThingsBerryTeam(agenda);
     emailJob.sendUserGetListedInfoToThingsBerryAdmin(agenda);
+    emailJob.sendDeactivate_ProductsAdmin(agenda);
     agenda.start();
   });
 
