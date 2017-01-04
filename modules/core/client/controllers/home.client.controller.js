@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'GetErrImgPrdcts', 'getAllProducts',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, GetErrImgPrdcts, getAllProducts) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getAllProducts',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getAllProducts) {
 
     var vm = this;
 
@@ -437,19 +437,19 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       //console.log(data.result);
     };
 
-    $scope.getErroredImagePrdcts = function () {
-      $scope.spinner = true;
-      $scope.showTxt = true;
-      console.log("CLICKED");
-      GetErrImgPrdcts.query({}, function (res) {
-        //  console.log("ERROR IMAGE PRODUCTS : " + JSON.stringify(res));
-        console.log("ERROR IMAGE PRODUCTS LENGTH : " + JSON.stringify(res.length));
-        $scope.erroredImages = res;
-        $scope.spinner = false;
-      }, function (err) {
-        console.log("Failed to load products : " + JSON.stringify(err))
-      })
-    };
+    /* $scope.getErroredImagePrdcts = function () {
+       $scope.spinner = true;
+       $scope.showTxt = true;
+       console.log("CLICKED");
+       GetErrImgPrdcts.query({}, function (res) {
+         //  console.log("ERROR IMAGE PRODUCTS : " + JSON.stringify(res));
+         console.log("ERROR IMAGE PRODUCTS LENGTH : " + JSON.stringify(res.length));
+         $scope.erroredImages = res;
+         $scope.spinner = false;
+       }, function (err) {
+         console.log("Failed to load products : " + JSON.stringify(err))
+       })
+     };*/
 
     $scope.selected = {};
     $scope.selectAll = function (value) {

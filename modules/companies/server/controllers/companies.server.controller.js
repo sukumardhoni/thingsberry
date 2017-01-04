@@ -17,7 +17,48 @@ var path = require('path'),
   fs = require('fs'),
   url = require('url'),
   hh = require('http-https'),
-  Promise = require("bluebird");
+  Promise = require("bluebird"),
+  moment = require('moment');
+require('pkginfo')(module, 'name', 'description', 'author', 'version');
+
+
+
+/**
+ * Company Live status
+ */
+
+exports.live = function (req, res) {
+  res.json(_.extend({
+    'message': 'api is alive !'
+  }, module.exports));
+};
+
+/**
+ * Company Products status
+ */
+
+exports.productsStatus = function (req, res) {
+  var productsStats = {};
+  Company.find({
+    "status": "active"
+  }).count().then(function (result) {
+    console.log("$$$ COUNT : " + JSON.stringify(result));
+    productsStats.Active_Products = result
+  });
+
+  Company.find({
+    "status": "deactive"
+  }).count().then(function (result) {
+    console.log("$$$ INACTIVE COUNT : " + JSON.stringify(result));
+    productsStats.Inactive_Products = result;
+    res.json(_.extend({
+      'message': 'Products status ',
+      'Active_Products': productsStats.Active_Products,
+      'Inactive_Products': productsStats.Inactive_Products
+    }));
+  });
+
+};
 
 /**
  * Create an company
@@ -476,7 +517,7 @@ exports.getErrImgPrdcts = function (req, res) {
           //  console.log('errImgPrdctCount :   ' + errImgPrdctCount);
           // console.log('withBase64 :   ' + withBase64);
 
-          var presentDate = Date.now();
+
           var resultantObj;
           //  var regExpForErrPrdcts = '/^4[0-9].*$/';
           if (ress.type === 'success') {
@@ -484,20 +525,18 @@ exports.getErrImgPrdcts = function (req, res) {
             if (/^[4][0-9]/g.test(ress.resStatus)) {
               // statusCount = statusCount + 1;
               resultantObj = {
-                id: ress.id,
+                proID: ress.id,
                 proName: ress.name,
-                imageUrl: ress.imgUrl,
-                runDate: presentDate
+                imageUrl: ress.imgUrl
               }
               errPrdctsArr.push(resultantObj);
             }
           } else {
             elseCount = elseCount + 1;
             resultantObj = {
-              id: ress.id,
+              proID: ress.id,
               proName: ress.name,
-              imageUrl: ress.imgUrl,
-              runDate: presentDate
+              imageUrl: ress.imgUrl
             }
             errPrdctsArr.push(resultantObj);
           }
@@ -525,9 +564,17 @@ exports.getErrImgPrdcts = function (req, res) {
               })
             }
 
+            var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
+
+            res.json(_.extend({
+              'message': 'Inactive Products',
+              'Total Inactive_Products': errPrdctsArr.length,
+              'Inactive-Products': errPrdctsArr
+            }));
+
 
             agenda.now('Deactivate_Products', {
-
+              ErrorImagesRunTime: presentDate,
               ErrorImagesProductsLength: errPrdctsArr.length,
               ErrorImagesProducts: errPrdctsArr
             });

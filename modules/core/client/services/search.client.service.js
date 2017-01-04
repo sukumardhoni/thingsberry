@@ -30,14 +30,14 @@ angular.module('core')
   });
 })
 
-.factory('GetErrImgPrdcts', function ($resource) {
-  return $resource('api/GetErrImgPrdcts', {}, {
+/*.factory('GetErrImgPrdcts', function ($resource) {
+  return $resource('api/GetErrorImages', {}, {
     'query': {
       method: 'GET',
       isArray: true
     }
   });
-})
+})*/
 
 .factory('ListOfProducts', function ($resource) {
   return $resource('api/listOfProducts/:adminStatus/:pageId', {

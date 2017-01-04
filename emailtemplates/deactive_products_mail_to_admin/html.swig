@@ -628,6 +628,13 @@
       }
       /* Place footer social and utility links on their own lines, for easier access */
     }
+    
+    .item-recipe table,
+    th,
+    td {
+      border: 1px solid #e6e6e6;
+      font-size: 14px !important;
+    }
   </style>
 </head>
 
@@ -674,19 +681,41 @@
               <td align="center" valign="top">
                 <!-- BEGIN BODY // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+
+
                   <tr>
                     <td valign="top" class="bodyContent" mc:edit="body_content">
 
-                      <h3> Hi ThingsBerry Team,</h3> This is the notification mail came from thingsberry.com
-
-                      <br />Contacted details are :
-                      <br/>Name : {{contactedDetails.name}}
-                      <br/>Email : {{contactedDetails.email}}
-                      <br/>Phone : {{contactedDetails.phone}}
-                      <br/>Message : {{contactedDetails.message}}
-
+                      <h3> Hi ThingsBerry Team,</h3> This is the notification mail for thingsberry admin
+                      <br>
                     </td>
                   </tr>
+
+                  <tr>
+                    <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00">
+                      Rundate : <b> {{ErrorImagesRunTime}}</b>
+                      <br>Total Inactivated products : <b>{{ErrorImagesProductsLength}}</b>
+                      <br>The following products are Inactivated 
+                      <table cellpadding="5">
+                        <tbody class="bodyContent">
+                          <tr>
+                            <th align="left">ID</th>
+                            <th align="left">Title</th>
+                            <th align="left">Image Url</th>
+                          </tr>
+                          {% for product in ErrorImagesProducts %}
+                          <tr>                           
+                            <td align="left" valign="top">{{product.proID |json}}</td>
+                            <td align="left" valign="top">{{product.proName}}</td>
+                            <td align="left" valign="top">{{product.imageUrl}} </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+
                   <tr>
                     <td valign="top" class="bodyContent" mc:edit="body_content03">
                       Best regards,
