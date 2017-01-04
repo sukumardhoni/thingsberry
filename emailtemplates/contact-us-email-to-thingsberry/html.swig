@@ -703,7 +703,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
                   <tr>
                     <td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01">
-                      <em>Copyright &copy;  2016 ThingsBerry, All rights reserved.</em>
+                      <em>Copyright &copy;  {{presentYear}} ThingsBerry, All rights reserved.</em>
                       <br />
                       <br />
 

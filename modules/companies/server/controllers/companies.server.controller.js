@@ -565,9 +565,11 @@ exports.getErrImgPrdcts = function (req, res) {
             }
 
             var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
+            var presentYear = moment().format('YYYY');
 
             res.json(_.extend({
               'message': 'Inactive Products',
+              'presentYear': presentYear,
               'Total Inactive_Products': errPrdctsArr.length,
               'Inactive-Products': errPrdctsArr
             }));

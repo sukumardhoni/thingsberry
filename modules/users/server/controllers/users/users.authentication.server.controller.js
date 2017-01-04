@@ -10,7 +10,8 @@ var path = require('path'),
   jwt = require('jwt-simple'),
   User = mongoose.model('User'),
   config = require('../../../../../config/config'),
-  agenda = require('../../../../../schedules/job-schedule')(config.db);
+  agenda = require('../../../../../schedules/job-schedule')(config.db),
+  moment = require('moment');
 /*nodemailer = require('nodemailer'),
 smtpTransport = require('nodemailer-smtp-transport'),
 transporter = nodemailer.createTransport(smtpTransport(config.mailer.options))*/
@@ -26,12 +27,14 @@ var noReturnUrls = [
 /**
  * ContactUs admin
  */
+var presentYear = moment().format('YYYY');
 exports.contactUs = function (req, res) {
   var details = req.body;
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
 
   agenda.now('User_ContactUS_Info_To_ThingsBerry_Team', {
     /*  ContactedDetails: '\n Name : ' + details.name + '\n , Email : ' + details.email + '\n , Phone : ' + details.phone + '\n , Message: ' + details.message + '.'*/
+    presentYear: presentYear,
     ContactedDetails: details
   });
   res.json(details);
@@ -43,10 +46,12 @@ exports.contactUs = function (req, res) {
 exports.getListed = function (req, res) {
   var details = req.body;
   //console.log(details);
+
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
   agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
 
     /* GetListedDetails: '\n Product Name : ' + details.productName + '\n Is Product Premium ? : ' + details.isPremium + '\n , Product URL : ' + details.productURL + '\n , Description : ' + details.description + '\n , Message :' + details.message + '\n , Email : ' + details.email + '\n , Contact Name : ' + details.contactName + '\n , Contact Phone: ' + details.contactPhone + '.'*/
+    presentYear: presentYear,
     GetListedDetails: details
   });
   res.json(details);
@@ -160,7 +165,8 @@ exports.jwtSignup = function (req, res, next) {
                 //send a welcome mail notification using agenda
                 agenda.now('New_User_Welcome', {
                   email: userModel.email,
-                  displayName: userModel.displayName
+                  displayName: userModel.displayName,
+                  presentYear: presentYear
                 });
                 //  console.log("agenda jobs else part:" + JSON.stringify(userModel));
                 var userSignupMailDetails = {
@@ -172,7 +178,8 @@ exports.jwtSignup = function (req, res, next) {
                   //send a User_Info_To_ThingsBerry_Team mail notification using agenda
                 agenda.now('User_Info_To_ThingsBerry_Team', {
                   /*  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider*/
-                  userData: userSignupMailDetails
+                  userData: userSignupMailDetails,
+                  presentYear: presentYear
                 });
                 res.jsonp(userModel);
               }

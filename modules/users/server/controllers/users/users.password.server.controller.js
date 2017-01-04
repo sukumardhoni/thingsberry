@@ -14,6 +14,7 @@ var path = require('path'),
   async = require('async'),
   jwt = require('jwt-simple'),
   crypto = require('crypto'),
+  moment = require('moment'),
   smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 
@@ -21,7 +22,7 @@ var path = require('path'),
  * jwtForgot for reset password (forgot POST)
  */
 
-
+var presentYear = moment().format('YYYY');
 exports.jwtForgot = function (req, res, next) {
 
   var token = '';
@@ -48,7 +49,8 @@ exports.jwtForgot = function (req, res, next) {
               agenda.now('Recovery_Link_Email', {
                 email: user.email,
                 displayName: user.displayName,
-                url: 'http://' + req.headers.host + '/api/auth/reset/' + token
+                url: 'http://' + req.headers.host + '/api/auth/reset/' + token,
+                presentYear: presentYear
               });
               res.send({
                 message: 'An email has been sent to ' + user.email + ' with further instructions.'
@@ -165,7 +167,7 @@ exports.forgot = function (req, res, next) {
     },
     // Lookup user by username
     function (token, done) {
-      console.log('@##@@@# USERNAME :'+req.body.username);
+      console.log('@##@@@# USERNAME :' + req.body.username);
       if (req.body.username) {
         User.findOne({
           username: req.body.username.toLowerCase()
@@ -291,7 +293,8 @@ exports.reset = function (req, res, next) {
                 //done(err, user);
                 agenda.now('Password_Changed_Email', {
                   email: user.email,
-                  displayName: user.displayName
+                  displayName: user.displayName,
+                  presentYear: presentYear
                 });
               }
             });
