@@ -15,6 +15,7 @@ var path = require('path'),
   jwt = require('jwt-simple'),
   crypto = require('crypto'),
   moment = require('moment'),
+  momentTimezone = require('moment-timezone'),
   smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 
@@ -22,7 +23,7 @@ var path = require('path'),
  * jwtForgot for reset password (forgot POST)
  */
 
-var presentYear = moment().format('YYYY');
+var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
 exports.jwtForgot = function (req, res, next) {
 
   var token = '';

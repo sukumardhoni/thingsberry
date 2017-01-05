@@ -11,7 +11,8 @@ var path = require('path'),
   User = mongoose.model('User'),
   config = require('../../../../../config/config'),
   agenda = require('../../../../../schedules/job-schedule')(config.db),
-  moment = require('moment');
+  moment = require('moment'),
+  momentTimezone = require('moment-timezone');
 /*nodemailer = require('nodemailer'),
 smtpTransport = require('nodemailer-smtp-transport'),
 transporter = nodemailer.createTransport(smtpTransport(config.mailer.options))*/
@@ -27,7 +28,7 @@ var noReturnUrls = [
 /**
  * ContactUs admin
  */
-var presentYear = moment().format('YYYY');
+var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
 exports.contactUs = function (req, res) {
   var details = req.body;
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda

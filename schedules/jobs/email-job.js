@@ -56,7 +56,7 @@ exports.sendDeactivate_ProductsAdmin = function (agenda) {
     // console.log('@@@@@@@@ TO ADMIN Deactivate_Products, email: ' + JSON.stringify(job.attrs.data.ErrorImagesProductsLength));
     var mailData = {};
     mailData.templateName = 'emailtemplates/deactive_products_mail_to_admin';
-    mailData.to = 'support@thingsberry.com';
+    mailData.to = 'midhunsai@globaltechminds.com';
     mailData.subject = 'Deactivated Products';
     mailData.ErrorImagesProducts = job.attrs.data.ErrorImagesProducts;
     mailData.presentYear = job.attrs.data.presentYear;

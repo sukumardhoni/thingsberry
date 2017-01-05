@@ -695,23 +695,24 @@
                     <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00">
                       Rundate : <b> {{ErrorImagesRunTime}}</b>
                       <br>Total Inactivated products : <b>{{ErrorImagesProductsLength}}</b>
+                      {% if ErrorImagesProducts.length > 0 %}
                       <br>The following products are Inactivated 
                       <table cellpadding="5">
                         <tbody class="bodyContent">
                           <tr>
-                            <th align="left">ID</th>
-                            <th align="left">Title</th>
-                            <th align="left">Image Url</th>
+                            <th align="left">Product Details</th>
+                            
                           </tr>
                           {% for product in ErrorImagesProducts %}
-                          <tr>                           
-                            <td align="left" valign="top">{{product.proID |json}}</td>
-                            <td align="left" valign="top">{{product.proName}}</td>
-                            <td align="left" valign="top">{{product.imageUrl}} </td>
+                          <tr>
+                           <td align="left" valign="top"> Product ID : {{product.proID |json}},
+                           <br> Product Name : {{product.proName}},
+                           <br> Product ImageUrl : {{product.imageUrl}}</td>                           
                           </tr>
                           {% endfor %}
                         </tbody>
                       </table>
+                       {% endif %}
                     </td>
                   </tr>
 

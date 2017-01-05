@@ -18,7 +18,8 @@ var path = require('path'),
   url = require('url'),
   hh = require('http-https'),
   Promise = require("bluebird"),
-  moment = require('moment');
+  moment = require('moment'),
+  momentTimezone = require('moment-timezone');
 require('pkginfo')(module, 'name', 'description', 'author', 'version');
 
 
@@ -43,19 +44,19 @@ exports.productsStatus = function (req, res) {
     "status": "active"
   }).count().then(function (result) {
     console.log("$$$ COUNT : " + JSON.stringify(result));
-    productsStats.Active_Products = result
-  });
-
-  Company.find({
-    "status": "deactive"
-  }).count().then(function (result) {
-    console.log("$$$ INACTIVE COUNT : " + JSON.stringify(result));
-    productsStats.Inactive_Products = result;
-    res.json(_.extend({
-      'message': 'Products status ',
-      'Active_Products': productsStats.Active_Products,
-      'Inactive_Products': productsStats.Inactive_Products
-    }));
+    productsStats.Active_Products = result;
+    Company.find({
+      "status": "deactive"
+    }).count().then(function (resultant) {
+      console.log("$$$ INACTIVE COUNT : " + JSON.stringify(resultant));
+      productsStats.Inactive_Products = resultant;
+      res.json(_.extend({
+        'message': 'Products status ',
+        'Active_Products': productsStats.Active_Products,
+        'Inactive_Products': productsStats.Inactive_Products
+      }));
+      console.log("### : " + JSON.stringify(productsStats));
+    });
   });
 
 };
@@ -512,17 +513,14 @@ exports.getErrImgPrdcts = function (req, res) {
         var calback = getErrImages(companies[j]);
         calback.then(function (ress) {
           errImgPrdctCount = errImgPrdctCount + 1;
-
           //  console.log('totalPrdctsCount :   ' + totalPrdctsCount);
           //  console.log('errImgPrdctCount :   ' + errImgPrdctCount);
           // console.log('withBase64 :   ' + withBase64);
-
-
           var resultantObj;
           //  var regExpForErrPrdcts = '/^4[0-9].*$/';
           if (ress.type === 'success') {
             ifCount = ifCount + 1;
-            if (/^[4][0-9]/g.test(ress.resStatus)) {
+            if ((/^[4][0-9]/g.test(ress.resStatus)) || (/^[5][0-9]/g.test(ress.resStatus))) {
               // statusCount = statusCount + 1;
               resultantObj = {
                 proID: ress.id,
@@ -541,45 +539,53 @@ exports.getErrImgPrdcts = function (req, res) {
             errPrdctsArr.push(resultantObj);
           }
 
-          console.log('ifCount :   ' + ifCount);
-          console.log('elseCount :   ' + elseCount);
+          //  console.log('ifCount :   ' + ifCount);
+          // console.log('elseCount :   ' + elseCount);
           var totalErrPrdctsCount = (ifCount + parseInt(elseCount)) + withBase64;
-          console.log('totalErrPrdctsCount :   ' + totalErrPrdctsCount);
-
-
+          //  console.log('totalErrPrdctsCount :   ' + totalErrPrdctsCount);
 
           if ((totalErrPrdctsCount === companies.length)) {
             console.log('All error products from server is : ' + errPrdctsArr.length);
-
+            var forRedisDelete = 0;
             for (var m = 0; m < errPrdctsArr.length; m++) {
+
               console.log("PRODUCT : " + JSON.stringify(errPrdctsArr[m]));
               Company.update({
-                "_id": errPrdctsArr[m].id
+                "_id": errPrdctsArr[m].proID
               }, {
                 $set: {
                   "status": "deactive"
                 }
               }).then(function (res) {
-                console.log("RESULTANT : " + JSON.stringify(res));
+                forRedisDelete = forRedisDelete + 1;
+                //  console.log("RESULTANT : " + JSON.stringify(res));
+                //  console.log("ERR PRDCTS ARR LENGTH : " + errPrdctsArr.length);
+                // console.log("EXPRESS REDIS COUNT INC : " + forRedisDelete);
+                if (forRedisDelete == errPrdctsArr.length) {
+                  _this.deleteExpressRedis();
+                  var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
+                  /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
+                  var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+                  agenda.now('Deactivate_Products', {
+                    ErrorImagesRunTime: presentDate,
+                    presentYear: presentYear,
+                    ErrorImagesProductsLength: errPrdctsArr.length,
+                    ErrorImagesProducts: errPrdctsArr
+                  });
+                }
+
               })
             }
 
-            var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
-            var presentYear = moment().format('YYYY');
 
             res.json(_.extend({
               'message': 'Inactive Products',
-              'presentYear': presentYear,
               'Total Inactive_Products': errPrdctsArr.length,
               'Inactive-Products': errPrdctsArr
             }));
 
 
-            agenda.now('Deactivate_Products', {
-              ErrorImagesRunTime: presentDate,
-              ErrorImagesProductsLength: errPrdctsArr.length,
-              ErrorImagesProducts: errPrdctsArr
-            });
+
             // res.jsonp(errPrdctsArr);
           }
 
