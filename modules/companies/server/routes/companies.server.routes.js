@@ -22,8 +22,11 @@ module.exports = function (app) {
       expire: 10
     }), companies.searchedProductsList);
 
-  app.route('/api/companies/getProducts')
+  app.route('/getProducts')
     .get(companies.getAllPrdcts);
+
+  app.route('/api/companies/getDeactiveProducts')
+    .get(companies.getDeactiveProducts);
 
   app.route('/api/companies/frequentProducts')
     .get(companies.frequentProducts);
@@ -31,7 +34,7 @@ module.exports = function (app) {
   app.route('/api/listOfProducts/:adminStatus/:pageId')
     .get(cache.route(), companies.list);
 
-  app.route('/GetErrorImages')
+  app.route('/cleanUpInactive')
     .get(companies.getErrImgPrdcts);
 
   app.route('/stats')

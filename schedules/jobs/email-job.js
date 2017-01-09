@@ -51,12 +51,29 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
   })
 }
 
+
+exports.sendProductsStatsAdmin = function (agenda) {
+  agenda.define('Products_Stats', function (job, done) {
+    // console.log('@@@@@@@@ TO ADMIN Deactivate_Products, email: ' + JSON.stringify(job.attrs.data.ErrorImagesProductsLength));
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/Products_Stats_mail_to_admin';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = 'Products Stats';
+    mailData.stats = job.attrs.data.stats;
+    mailData.presentYear = job.attrs.data.presentYear;
+    mailData.appEnv = config.app.title;
+    // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
+
 exports.sendDeactivate_ProductsAdmin = function (agenda) {
   agenda.define('Deactivate_Products', function (job, done) {
     // console.log('@@@@@@@@ TO ADMIN Deactivate_Products, email: ' + JSON.stringify(job.attrs.data.ErrorImagesProductsLength));
     var mailData = {};
     mailData.templateName = 'emailtemplates/deactive_products_mail_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = 'Deactivated Products';
     mailData.ErrorImagesProducts = job.attrs.data.ErrorImagesProducts;
     mailData.presentYear = job.attrs.data.presentYear;

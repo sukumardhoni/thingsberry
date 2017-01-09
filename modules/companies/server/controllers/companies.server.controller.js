@@ -20,7 +20,7 @@ var path = require('path'),
   Promise = require("bluebird"),
   moment = require('moment'),
   momentTimezone = require('moment-timezone');
-require('pkginfo')(module, 'name', 'description', 'author', 'version');
+require('pkginfo')(module, 'name', 'description', 'version');
 
 
 
@@ -50,12 +50,44 @@ exports.productsStatus = function (req, res) {
     }).count().then(function (resultant) {
       console.log("$$$ INACTIVE COUNT : " + JSON.stringify(resultant));
       productsStats.Inactive_Products = resultant;
-      res.json(_.extend({
-        'message': 'Products status ',
-        'Active_Products': productsStats.Active_Products,
-        'Inactive_Products': productsStats.Inactive_Products
-      }));
-      console.log("### : " + JSON.stringify(productsStats));
+
+      Company.find().count().then(function (totalRes) {
+        productsStats.Total_Products = totalRes;
+
+        exports.name = require('../../../../package.json').name;
+        exports.description = require('../../../../package.json').description;
+        exports.version = require('../../../../package.json').version;
+
+        res.json(_.extend({
+          'name': exports.name,
+          'description': exports.description,
+          'version': exports.version,
+          'Total_Products_Count': productsStats.Total_Products,
+          'Active_Products_Count': productsStats.Active_Products,
+          'Inactive_Products_Count': productsStats.Inactive_Products
+        }));
+
+        var stats = {
+          'name': exports.name,
+          'description': exports.description,
+          'version': exports.version,
+          'Total_Products_Count': productsStats.Total_Products,
+          'Active_Products_Count': productsStats.Active_Products,
+          'Inactive_Products_Count': productsStats.Inactive_Products
+        };
+
+        /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
+        var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+        agenda.now('Products_Stats', {
+          presentYear: presentYear,
+          stats: stats
+        });
+        console.log("### : " + JSON.stringify(stats));
+
+
+      });
+
+
     });
   });
 
@@ -65,6 +97,13 @@ exports.productsStatus = function (req, res) {
  * Create an company
  */
 exports.create = function (req, res) {
+  console.log("BEFOR : " + JSON.stringify(req.body));
+  if (req.body.productStatus === true) {
+    req.body.status = 'active';
+  } else {
+    req.body.status = 'deactive';
+  }
+  console.log("AFTER : " + JSON.stringify(req.body));
   var company = new Company(req.body);
   company.user = req.user;
   var ProCatsArray = req.body.ProCat;
@@ -207,8 +246,14 @@ exports.deactivateProduct = function (req, res) {
 exports.update = function (req, res) {
 
   var company = req.company;
-
-  // console.log('Company details are : ' + JSON.stringify(req.body));
+  console.log('Company details are@@ : ' + JSON.stringify(req.company));
+  console.log('Company details are : ' + JSON.stringify(req.body));
+  if (req.body.productStatus === true) {
+    req.body.status = 'active';
+  } else {
+    req.body.status = 'deactive';
+  }
+  console.log('Company details are AFTER : ' + JSON.stringify(req.body));
   company = _.extend(company, req.body);
   /*company.title = req.body.title;
   company.content = req.body.content;*/
@@ -434,32 +479,30 @@ exports.premiumProductsList = function (req, res) {
 
 
 exports.getAllPrdcts = function (req, res) {
-  Company.find({
-    "status": 'active'
-  }).then(function (companies) {
-    res.json(companies);
-  }).catch(function (err) {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(err)
-    });
+  /* Company.find({
+     "status": 'active'
+   }).then(function (companies) {
+     res.json(companies);
+   }).catch(function (err) {
+     return res.status(400).send({
+       message: errorHandler.getErrorMessage(err)
+     });
+   });*/
+
+  hh.get('http://topsolute.com/wp-content/uploads/2016/03/Skybellhd-homemb.png', function (res) {
+    console.log("ERROR OF ANOTHER PRDCTS : " + JSON.stringify(res.statusCode));
   });
+
 };
 
-/*function getInValidImgUrl(prodObj){
-     return new Promise((resolve,reject) => {
-         hh.get(prodObj.imageUrl,function(res){
-         if(res.statusCode == 404){
-            resolve( {
-                    name:prodObj.name,
-                    imgUrl:prodObj.imageUrl
-                   })
-          }
-      })
-}
-}*/
-
-
-//var allPCount;
+exports.getDeactiveProducts = function (req, res) {
+  Company.find({
+    "status": "deactive"
+  }).then(function (Dproducts) {
+    // console.log("ALL DEACTIVE PRDCTS : " + JSON.stringify(Dproducts.length));
+    res.json(Dproducts);
+  });
+};
 
 
 function getErrImages(prodObj) {
@@ -520,7 +563,7 @@ exports.getErrImgPrdcts = function (req, res) {
           //  var regExpForErrPrdcts = '/^4[0-9].*$/';
           if (ress.type === 'success') {
             ifCount = ifCount + 1;
-            if ((/^[4][0-9]/g.test(ress.resStatus)) || (/^[5][0-9]/g.test(ress.resStatus))) {
+            if ((/^[4][0-9]/g.test(ress.resStatus)) || (/^[5][0-9]/g.test(ress.resStatus)) || (ress.resStatus == 302) || (ress.resStatus == 301) || (ress.resStatus == 307) || (ress.resStatus == 308)) {
               // statusCount = statusCount + 1;
               resultantObj = {
                 proID: ress.id,
@@ -564,7 +607,6 @@ exports.getErrImgPrdcts = function (req, res) {
                 if (forRedisDelete == errPrdctsArr.length) {
                   _this.deleteExpressRedis();
                   var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
-                  /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
                   var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
                   agenda.now('Deactivate_Products', {
                     ErrorImagesRunTime: presentDate,
@@ -577,19 +619,13 @@ exports.getErrImgPrdcts = function (req, res) {
               })
             }
 
-
             res.json(_.extend({
               'message': 'Inactive Products',
               'Total Inactive_Products': errPrdctsArr.length,
               'Inactive-Products': errPrdctsArr
             }));
-
-
-
             // res.jsonp(errPrdctsArr);
           }
-
-
         })
       }
     }
@@ -660,10 +696,7 @@ exports.searchedProductsList = function (req, res) {
   ProObj.products = [];
   ProObj.count = 0;
 
-
   var mongoQuery, queryStr = '';
-
-
 
   if ((req.params.ProCompany != 'Company') && (req.params.ProName != 'Product')) {
     queryStr = req.params.ProCompany + ' ' + req.params.ProName
@@ -675,7 +708,6 @@ exports.searchedProductsList = function (req, res) {
 
   //console.log('Request FindOBj is : ' + JSON.stringify(findObj));
   console.log('Request queryStr is : ' + JSON.stringify(queryStr));
-
 
 
   var operationalRegns = [];

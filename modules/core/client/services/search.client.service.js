@@ -21,8 +21,8 @@ angular.module('core')
 })
 
 
-.factory('getAllProducts', function ($resource) {
-  return $resource('api/companies/getProducts', {}, {
+.factory('getDeactiveProducts', function ($resource) {
+  return $resource('api/companies/getDeactiveProducts', {}, {
     'query': {
       method: 'GET',
       isArray: true

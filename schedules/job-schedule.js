@@ -24,6 +24,7 @@ module.exports = function (agendaDb) {
     emailJob.sendUserContactUSInfoToThingsBerryTeam(agenda);
     emailJob.sendUserGetListedInfoToThingsBerryAdmin(agenda);
     emailJob.sendDeactivate_ProductsAdmin(agenda);
+    emailJob.sendProductsStatsAdmin(agenda);
     agenda.start();
   });
 

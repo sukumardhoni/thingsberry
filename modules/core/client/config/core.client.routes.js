@@ -64,14 +64,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
           pageTitle: 'Terms & Conditions '
         }
       })
-      /*  .state('productsActivity', {
-          url: '/productsActivity',
-          //        templateUrl: 'modules/core/client/views/getListed.client.view.html',
-          templateUrl: 'modules/core/client/views/productsActivity.view.html',
-          data: {
-            pageTitle: 'Products Activity'
-          }
-        })*/
+      .state('deactiveProducts', {
+        url: '/deactiveProducts',
+        templateUrl: 'modules/core/client/views/deactiveProducts.view.html',
+        data: {
+          pageTitle: 'Deactive Products'
+        }
+      })
       .state('addyourcompany', {
         url: '/addyourcompany',
         templateUrl: 'modules/core/client/views/home.client.view.html'

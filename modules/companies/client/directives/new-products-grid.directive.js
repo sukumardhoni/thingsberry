@@ -18,6 +18,13 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         }
       }
 
+      scope.proImgUrl = function () {
+        if (scope.details.productImageURL)
+          return scope.details.productImageURL
+        else
+          return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+      };
+
 
       scope.dynamicPopover = {
         templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
@@ -185,6 +192,15 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           scope.editProduct = false;
         }
       }
+
+      scope.proImgUrl = function () {
+        if (scope.details.productImageURL) {
+          return scope.details.productImageURL
+        } else {
+          return 'data:' + scope.details.logo.filetype + ';base64,' + scope.details.logo.base64;
+        }
+
+      };
 
       scope.dynamicPopover = {
         templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'

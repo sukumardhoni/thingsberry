@@ -1,0 +1,35 @@
+<div class="container" ng-controller="HomeController" ng-init="getAllDeactivePrdcts()" style="margin-top:70px;">
+  <div class="row">
+    <h5><b>Total Deactivated Products :</b>{{deactiveProducts.length}}</h5>
+  </div>
+  <div class="row errImgPrdctHead">
+    <div class="col-md-2">
+      <h5><b>Id</b></h5>
+    </div>
+    <div class="col-md-4">
+      <h5><b>Product Name</b></h5>
+    </div>
+    <div class="col-md-6">
+      <h5><b>Product Image URL</b></h5>
+    </div>
+  </div>
+
+  <div ng-repeat="product in deactiveProducts">
+    <div class="row errImgPrdctBody">
+      <div class="col-md-2">
+        <h5>{{product._id}}</h5>
+      </div>
+      <div class="col-md-3">
+        <h5>{{product.Proname}}</h5>
+
+      </div>
+      <div class="col-md-6">
+        <h5>{{product.productImageURL | limitTo:75}}.....</h5>
+      </div>
+      <div class="col-md-1">
+        <h5><button class="DPrdctsEdit" ui-sref="companies.add({ companyId: product.productId })">Edit</button></h5>
+      </div>
+    </div>
+
+  </div>
+</div>

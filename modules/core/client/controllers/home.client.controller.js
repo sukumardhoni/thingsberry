@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getAllProducts',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getAllProducts) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts) {
 
     var vm = this;
 
@@ -437,6 +437,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       //console.log(data.result);
     };
 
+
+    $scope.getAllDeactivePrdcts = function () {
+      getDeactiveProducts.query({}, function (res) {
+        // console.log("ALL DEACTIEV PRDCTS : " + JSON.stringify(res));
+        $scope.deactiveProducts = res;
+      }, function (err) {
+        console.log("ALL DEACTIEV PRDCTS ERR : " + JSON.stringify(err));
+      })
+    };
+
+
+
     /* $scope.getErroredImagePrdcts = function () {
        $scope.spinner = true;
        $scope.showTxt = true;
@@ -451,42 +463,42 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
        })
      };*/
 
-    $scope.selected = {};
-    $scope.selectAll = function (value) {
-      console.log("ERROR IMAGE PRODUCTS : ", value);
-      console.log("ERROR IMAGE PRODUCTS : ", $scope.checkAll);
-      if (value == true) {
-        for (var i = 0; i < $scope.erroredImages.length; i++) {
-          var item = $scope.erroredImages[i];
+    /*    $scope.selected = {};
+        $scope.selectAll = function (value) {
+          console.log("ERROR IMAGE PRODUCTS : ", value);
+          console.log("ERROR IMAGE PRODUCTS : ", $scope.checkAll);
+          if (value == true) {
+            for (var i = 0; i < $scope.erroredImages.length; i++) {
+              var item = $scope.erroredImages[i];
 
-          $scope.selected[item.proName] = true;
-        }
+              $scope.selected[item.proName] = true;
+            }
 
-      } else {
-        for (var i = 0; i < $scope.erroredImages.length; i++) {
-          var item = $scope.erroredImages[i];
+          } else {
+            for (var i = 0; i < $scope.erroredImages.length; i++) {
+              var item = $scope.erroredImages[i];
 
-          $scope.selected[item.proName] = false;
-        }
+              $scope.selected[item.proName] = false;
+            }
 
-      }
-      console.log("HECKED PRODUCTS : " + JSON.stringify($scope.selected));
+          }
+          console.log("HECKED PRODUCTS : " + JSON.stringify($scope.selected));
 
-    };
-
-
-    $scope.selectedProduct = function () {
-      // console.log("SELECTED : " + JSON.stringify(productName));
-      console.log("HECKED PRODUCTS : " + JSON.stringify($scope.selected));
-
-      /*for (var j in $scope.selected) {
-
-        console.log("ONLY TRUE : " + JSON.stringify( $scope.selected[j];));
+        };
 
 
-      }*/
+        $scope.selectedProduct = function () {
+          // console.log("SELECTED : " + JSON.stringify(productName));
+          console.log("HECKED PRODUCTS : " + JSON.stringify($scope.selected));
 
-    };
+          for (var j in $scope.selected) {
+
+            console.log("ONLY TRUE : " + JSON.stringify( $scope.selected[j];));
+
+
+          }
+
+        };*/
 
 
         }]);
