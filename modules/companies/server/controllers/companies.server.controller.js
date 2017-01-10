@@ -511,7 +511,7 @@ function getErrImages(prodObj) {
 
     hh.get(prodObj.productImageURL, function (res) {
         // allPCount = allPCount + 1;
-        if ((res.statusCode)) {
+        if (res.statusCode) {
           resolve({
             type: 'success',
             resStatus: res.statusCode,
@@ -556,11 +556,12 @@ exports.getErrImgPrdcts = function (req, res) {
         var calback = getErrImages(companies[j]);
         calback.then(function (ress) {
           errImgPrdctCount = errImgPrdctCount + 1;
-          //  console.log('totalPrdctsCount :   ' + totalPrdctsCount);
-          //  console.log('errImgPrdctCount :   ' + errImgPrdctCount);
-          // console.log('withBase64 :   ' + withBase64);
+          console.log('totalPrdctsCount :   ' + totalPrdctsCount);
+          console.log('errImgPrdctCount :   ' + errImgPrdctCount);
+          console.log('withBase64 :   ' + withBase64);
+          console.log('withoutBase64 :   ' + withoutBase64);
+          console.log('ressssssssss :   ' + JSON.stringify(ress));
           var resultantObj;
-          //  var regExpForErrPrdcts = '/^4[0-9].*$/';
           if (ress.type === 'success') {
             ifCount = ifCount + 1;
             if ((/^[4][0-9]/g.test(ress.resStatus)) || (/^[5][0-9]/g.test(ress.resStatus)) || (ress.resStatus == 302) || (ress.resStatus == 301) || (ress.resStatus == 307) || (ress.resStatus == 308)) {
@@ -581,18 +582,16 @@ exports.getErrImgPrdcts = function (req, res) {
             }
             errPrdctsArr.push(resultantObj);
           }
-
-          //  console.log('ifCount :   ' + ifCount);
-          // console.log('elseCount :   ' + elseCount);
+          console.log('ifCount :   ' + ifCount);
+          console.log('elseCount :   ' + elseCount);
           var totalErrPrdctsCount = (ifCount + parseInt(elseCount)) + withBase64;
-          //  console.log('totalErrPrdctsCount :   ' + totalErrPrdctsCount);
+          console.log('totalErrPrdctsCount :   ' + totalErrPrdctsCount);
 
           if ((totalErrPrdctsCount === companies.length)) {
             console.log('All error products from server is : ' + errPrdctsArr.length);
             var forRedisDelete = 0;
             for (var m = 0; m < errPrdctsArr.length; m++) {
-
-              console.log("PRODUCT : " + JSON.stringify(errPrdctsArr[m]));
+              // console.log("PRODUCT : " + JSON.stringify(errPrdctsArr[m]));
               Company.update({
                 "_id": errPrdctsArr[m].proID
               }, {
@@ -606,18 +605,18 @@ exports.getErrImgPrdcts = function (req, res) {
                 // console.log("EXPRESS REDIS COUNT INC : " + forRedisDelete);
                 if (forRedisDelete == errPrdctsArr.length) {
                   _this.deleteExpressRedis();
-                  var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
-                  var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
-                  agenda.now('Deactivate_Products', {
-                    ErrorImagesRunTime: presentDate,
-                    presentYear: presentYear,
-                    ErrorImagesProductsLength: errPrdctsArr.length,
-                    ErrorImagesProducts: errPrdctsArr
-                  });
                 }
-
               })
             }
+
+            var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
+            var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+            agenda.now('Deactivate_Products', {
+              ErrorImagesRunTime: presentDate,
+              presentYear: presentYear,
+              ErrorImagesProductsLength: errPrdctsArr.length,
+              ErrorImagesProducts: errPrdctsArr
+            });
 
             res.json(_.extend({
               'message': 'Inactive Products',
