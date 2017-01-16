@@ -314,8 +314,9 @@
 
         vm.company.$save(successCallback, errorCallback);
 
-
       }
+
+
 
       function successUpdateCallback(res) {
         $state.go('companies.list.products', {
