@@ -17,8 +17,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           scope.editProduct = false;
         }
       }
-      scope.authentication = Authentication;
-      console.log("USER : " + JSON.stringify(scope.authentication));
+
       scope.proImgUrl = function () {
         if (scope.details.productImageURL)
           return scope.details.productImageURL
@@ -182,8 +181,6 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
     templateUrl: 'modules/companies/client/views/directive-partials/product-list.dispaly.client.view.html',
     link: function (scope, elem, attr) {
       //console.log("coming to tb productsList");
-      scope.authentication = Authentication;
-      console.log("USER : " + JSON.stringify(scope.authentication));
       if (scope.editIcon) {
         if (scope.editIcon.roles.indexOf('admin') !== -1) {
           // console.log('directive admin is there');
