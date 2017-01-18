@@ -991,7 +991,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
   }
 })();
-
 (function () {
   'use strict';
 
