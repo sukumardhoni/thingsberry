@@ -70,16 +70,16 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
 
 
       scope.deactivateProduct = function () {
-        console.log("DEACTIVE PRDCT IS CALLED:" + scope.details.status);
+        // console.log("DEACTIVE PRDCT IS CALLED:" + scope.details.status);
         //   console.log("DEACTIVE PRDCT IS CALLED");
         if (scope.details.status == 'active') {
-          console.log("now PRDCT IS going to deactive ");
+          // console.log("now PRDCT IS going to deactive ");
           deactiveService.update({
             companyId: scope.details.productId,
             deactive: 'deactive'
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         } else {
-          console.log("now PRDCT IS going to active ");
+          //  console.log("now PRDCT IS going to active ");
           deactiveService.update({
             companyId: scope.details.productId,
             deactive: 'active'

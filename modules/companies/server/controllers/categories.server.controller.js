@@ -55,7 +55,7 @@ function countByTitle(categoryTitle) {
 
 
 exports.listOfCategories = function (req, res) {
-  console.log('@@### calling list of categories from html');
+  //console.log('@@### calling list of categories from html');
   Category.find().then(function (categories) {
     var categoryList = categories;
     var promises = [];
@@ -72,7 +72,7 @@ exports.listOfCategories = function (req, res) {
           // console.log("!!!!! : " + headingCounts);
           result[a].count = headingCounts;
         }
-        console.log("!!!!! : " + JSON.stringify(result));
+       // console.log("!!!!! : " + JSON.stringify(result));
         res.json(result);
       })
 
@@ -181,7 +181,7 @@ function sampleHeadingCount(sampleArr) {
     }
   }
   return Company.count(mongoQuery).then(function (count) {
-    console.log("@@@@@: " + JSON.stringify(count));
+   // console.log("@@@@@: " + JSON.stringify(count));
     return count
   });
 }

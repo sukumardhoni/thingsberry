@@ -127,10 +127,10 @@ var CompanySchema = new Schema({
     type: Boolean,
     default: false
   },
-  productStatus: {
+  /*productStatus: {
     type: Boolean,
     default: true
-  },
+  },*/
   businessSector: [],
   serviceOffered: [],
   operationalRegions: [],

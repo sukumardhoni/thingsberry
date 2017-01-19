@@ -98,12 +98,12 @@ exports.productsStatus = function (req, res) {
  */
 exports.create = function (req, res) {
   console.log("BEFOR : " + JSON.stringify(req.body));
-  if (req.body.productStatus === true) {
+ /* if (req.body.productStatus === true) {
     req.body.status = 'active';
   } else {
     req.body.status = 'deactive';
-  }
-  console.log("AFTER : " + JSON.stringify(req.body));
+  }*/
+ // console.log("AFTER : " + JSON.stringify(req.body));
   var company = new Company(req.body);
   company.user = req.user;
   var ProCatsArray = req.body.ProCat;
@@ -202,7 +202,7 @@ exports.deleteExpressRedis = function () {
   });
 };
 exports.deactivateProduct = function (req, res) {
-  //  console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
+    console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
   //  console.log(JSON.stringify(req.params));
   // console.log("$$$ REQ.COMPANY status:" + JSON.stringify(req.company.status));
   // console.log("$$$ REQ.COMPANY featured flag:" + JSON.stringify(req.company.featuredFlag));
@@ -220,8 +220,8 @@ exports.deactivateProduct = function (req, res) {
     }
 
   } else {
-    // console.log("coming to deactive");
-    req.body.status = req.params.deactive;
+     req.body.status = req.params.deactive;
+    // console.log("@@@### coming to deactive : "+JSON.stringify(req.params.deactive));
   }
 
   //  console.log("$$$ REQ.BODY DEACTIVE:" + JSON.stringify(req.body));
