@@ -9,7 +9,7 @@ exports.sendNewUserWelcomeEmail = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/welcome-email';
     mailData.to = job.attrs.data.email;
-    mailData.subject = 'Welcome to ThingsBerry';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'Welcome to ThingsBerry';
     mailData.displayName = job.attrs.data.displayName;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.appEnv = config.app.title;
@@ -25,7 +25,7 @@ exports.sendUserInfoToThingsBerryTeam = function (agenda) {
     mailData.templateName = 'emailtemplates/new-user-email-to-thingsberry';
     //mailData.to = 'support@thingsberry.com';
     mailData.to = 'support@thingsberry.com';
-    mailData.subject = 'New User To ThingsBerry';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'New User To ThingsBerry';
     mailData.userData = job.attrs.data.userData;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.appEnv = config.app.title;
@@ -41,7 +41,7 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/contact-us-email-to-thingsberry';
     mailData.to = 'support@thingsberry.com';
-    mailData.subject = 'ContactUs Info To ThingsBerry';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'ContactUs Info To ThingsBerry';
     mailData.contactedDetails = job.attrs.data.ContactedDetails;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.appEnv = config.app.title;
@@ -51,14 +51,66 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
   })
 }
 
+exports.sendAddedNewProductDetails = function (agenda) {
+  agenda.define('Added_New_Product_Details', function (job, done) {
+    /*console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(
+      process.env.tb_mail_env));*/
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/Added_New_Product_Details_to_admin';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'Added New Product Details';
+    mailData.AddedNewProductDetails = job.attrs.data.AddedNewProductDetails;
+    mailData.presentYear = job.attrs.data.presentYear;
+    mailData.appEnv = config.app.title;
+    // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
+
+exports.sendDeletedProductDetails = function (agenda) {
+  agenda.define('Deleted_Product_Details', function (job, done) {
+    /*console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(
+      process.env.tb_mail_env));*/
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/Deleted_Product_Details_to_admin';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'Deleted Product Details';
+    mailData.DeletedProductDetails = job.attrs.data.DeletedProductDetails;
+    mailData.presentYear = job.attrs.data.presentYear;
+    mailData.appEnv = config.app.title;
+    // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
+
+
+exports.sendUpdatedProductDetails = function (agenda) {
+  agenda.define('Updated_Product_Details', function (job, done) {
+    /*console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(
+      process.env.tb_mail_env));*/
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/Updated_Product_Details_to_admin';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'Updated Product Details';
+    mailData.oldProductDeatils = job.attrs.data.oldProductDeatils;
+    mailData.newProductDeatils = job.attrs.data.newProductDeatils;
+    mailData.presentYear = job.attrs.data.presentYear;
+    mailData.appEnv = config.app.title;
+    // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
 
 exports.sendProductsStatsAdmin = function (agenda) {
   agenda.define('Products_Stats', function (job, done) {
     // console.log('@@@@@@@@ TO ADMIN Deactivate_Products, email: ' + JSON.stringify(job.attrs.data.ErrorImagesProductsLength));
     var mailData = {};
     mailData.templateName = 'emailtemplates/Products_Stats_mail_to_admin';
-    mailData.to = 'support@thingsberry.com';
-    mailData.subject = 'Products Stats';
+    mailData.to = 'stats@thingsberry.com';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'Products Stats';
     mailData.stats = job.attrs.data.stats;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.appEnv = config.app.title;
@@ -74,7 +126,7 @@ exports.sendDeactivate_ProductsAdmin = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/deactive_products_mail_to_admin';
     mailData.to = 'support@thingsberry.com';
-    mailData.subject = 'Deactivated Products';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'Deactivated Products';
     mailData.ErrorImagesProducts = job.attrs.data.ErrorImagesProducts;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.ErrorImagesRunTime = job.attrs.data.ErrorImagesRunTime;
@@ -93,7 +145,7 @@ exports.sendUserGetListedInfoToThingsBerryAdmin = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/get-listed-email-to-thingsberry';
     mailData.to = 'support@thingsberry.com';
-    mailData.subject = 'Get Listed Product Info To ThingsBerry';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'Get Listed Product Info To ThingsBerry';
     mailData.getListedDetails = job.attrs.data.GetListedDetails;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.appEnv = config.app.title;
@@ -108,7 +160,7 @@ exports.sendRecoveryLinkEmail = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/recovery-email';
     mailData.to = job.attrs.data.email;
-    mailData.subject = 'ThingsBerry Password Reset';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'ThingsBerry Password Reset';
     mailData.displayName = job.attrs.data.displayName;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.url = job.attrs.data.url;
@@ -123,7 +175,7 @@ exports.sendPasswordChangedEmail = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/password-changed-email';
     mailData.to = job.attrs.data.email;
-    mailData.subject = 'ThingsBerry Password Successfully Changed';
+    mailData.subject = process.env.tb_mail_env + ' - ' + 'ThingsBerry Password Successfully Changed';
     mailData.displayName = job.attrs.data.displayName;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.appEnv = config.app.title;

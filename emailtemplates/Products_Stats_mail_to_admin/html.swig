@@ -685,6 +685,7 @@
                       <br/><b>Total Products Count :</b> {{stats.Total_Products_Count}}
                       <br/><b>Active Products Count :</b> {{stats.Active_Products_Count}}
                       <br/><b>Inactive Products Count :</b> {{stats.Inactive_Products_Count}}
+                      <br/><b>Affliate-Link Products Count :</b> {{stats.Affliate_Products_count}}
 
                     </td>
                   </tr>
@@ -723,9 +724,9 @@
                         <td valign="top" style="color:white;padding-left:20px;width:20%;" mc:edit="preheader_content00">
                           Follow us on :</td>
                         <td valign="bottom" align="left">
-                          <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" mc:allowdesigner mc:allowtext /></a>
-                          <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" mc:allowdesigner mc:allowtext /></a>
-                          <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="https://www.thingsberry.com/modules/core/client/img/fb_icon.png" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="https://www.thingsberry.com/modules/core/client/img/google_icon.png" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://twitter.com/thingsberry" target="_blank"><img src="https://www.thingsberry.com/modules/core/client/img/twitter_icon.png" mc:allowdesigner mc:allowtext /></a>
                         </td>
                       </tr>
                     </table>

@@ -54,36 +54,47 @@ exports.productsStatus = function (req, res) {
       Company.find().count().then(function (totalRes) {
         productsStats.Total_Products = totalRes;
 
-        exports.name = require('../../../../package.json').name;
-        exports.description = require('../../../../package.json').description;
-        exports.version = require('../../../../package.json').version;
+        Company.find({
+          affliateLink: {
+            $exists: true
+          }
+        }).count().then(function (affliateResult) {
+          console.log("$$$ Affliate Link COUNT : " + JSON.stringify(affliateResult));
+          productsStats.Affliate_Products_count = affliateResult;
 
-        res.json(_.extend({
-          'name': exports.name,
-          'description': exports.description,
-          'version': exports.version,
-          'Total_Products_Count': productsStats.Total_Products,
-          'Active_Products_Count': productsStats.Active_Products,
-          'Inactive_Products_Count': productsStats.Inactive_Products
-        }));
 
-        var stats = {
-          'name': exports.name,
-          'description': exports.description,
-          'version': exports.version,
-          'Total_Products_Count': productsStats.Total_Products,
-          'Active_Products_Count': productsStats.Active_Products,
-          'Inactive_Products_Count': productsStats.Inactive_Products
-        };
+          exports.name = require('../../../../package.json').name;
+          exports.description = require('../../../../package.json').description;
+          exports.version = require('../../../../package.json').version;
 
-        /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
-        var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
-        agenda.now('Products_Stats', {
-          presentYear: presentYear,
-          stats: stats
-        });
-        console.log("### : " + JSON.stringify(stats));
+          res.json(_.extend({
+            'name': exports.name,
+            'description': exports.description,
+            'version': exports.version,
+            'Total_Products_Count': productsStats.Total_Products,
+            'Active_Products_Count': productsStats.Active_Products,
+            'Inactive_Products_Count': productsStats.Inactive_Products,
+            'Affliate_Link_Products_count': productsStats.Affliate_Products_count
+          }));
 
+          var stats = {
+            'name': exports.name,
+            'description': exports.description,
+            'version': exports.version,
+            'Total_Products_Count': productsStats.Total_Products,
+            'Active_Products_Count': productsStats.Active_Products,
+            'Inactive_Products_Count': productsStats.Inactive_Products,
+            'Affliate_Products_count': productsStats.Affliate_Products_count
+          };
+
+          /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
+          var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+          agenda.now('Products_Stats', {
+            presentYear: presentYear,
+            stats: stats
+          });
+          console.log("### : " + JSON.stringify(stats));
+        })
 
       });
 
@@ -97,13 +108,13 @@ exports.productsStatus = function (req, res) {
  * Create an company
  */
 exports.create = function (req, res) {
-  console.log("BEFOR : " + JSON.stringify(req.body));
- /* if (req.body.productStatus === true) {
-    req.body.status = 'active';
-  } else {
-    req.body.status = 'deactive';
-  }*/
- // console.log("AFTER : " + JSON.stringify(req.body));
+  // console.log("BEFOR : " + JSON.stringify(req.body));
+  /* if (req.body.productStatus === true) {
+     req.body.status = 'active';
+   } else {
+     req.body.status = 'deactive';
+   }*/
+  // console.log("AFTER : " + JSON.stringify(req.body));
   var company = new Company(req.body);
   company.user = req.user;
   var ProCatsArray = req.body.ProCat;
@@ -118,9 +129,46 @@ exports.create = function (req, res) {
     } else {
       _this.deleteExpressRedis();
       res.json(company);
+      getMsgForAddedProduct(company);
     }
   });
 };
+
+function getMsgForAddedProduct(product) {
+  console.log("NEW ADDED PRODUCT : " + JSON.stringify(product));
+  var AddedNewProductDetails = {
+    productId: product._id,
+    operationalRegions: product.operationalRegions,
+    premiumFlag: product.premiumFlag,
+    featuredFlag: product.featuredFlag,
+    description: product.description,
+    phoneNo: product.phoneNo,
+    mobileCode: product.mobileCode,
+    email: product.email,
+    companyWebsite: product.companyWebsite,
+    productImageURL: product.productImageURL,
+    webAddress: product.webAddress,
+    zipCode: product.zipCode,
+    country: product.country,
+    address1: product.address1,
+    address2: product.address2,
+    address3: product.address3,
+    address4: product.address4,
+    Comname: product.Comname,
+    ProCat: product.ProCat,
+    Proname: product.Proname,
+    status: product.status,
+    affliateLink: product.affliateLink
+  }
+  console.log("NEW ADDED PRODUCT OBJ : " + JSON.stringify(AddedNewProductDetails));
+
+  var presentYear2 = momentTimezone().tz("America/New_York").format('YYYY');
+  agenda.now('Added_New_Product_Details', {
+    presentYear: presentYear2,
+    AddedNewProductDetails: AddedNewProductDetails
+  });
+}
+
 
 exports.catsCheck = function (cats) {
   var ProCatsArray = cats;
@@ -201,8 +249,8 @@ exports.deleteExpressRedis = function () {
         }*/
   });
 };
-exports.deactivateProduct = function (req, res) {
-    console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
+/*exports.deactivateProduct = function (req, res) {
+  console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
   //  console.log(JSON.stringify(req.params));
   // console.log("$$$ REQ.COMPANY status:" + JSON.stringify(req.company.status));
   // console.log("$$$ REQ.COMPANY featured flag:" + JSON.stringify(req.company.featuredFlag));
@@ -220,7 +268,7 @@ exports.deactivateProduct = function (req, res) {
     }
 
   } else {
-     req.body.status = req.params.deactive;
+    req.body.status = req.params.deactive;
     // console.log("@@@### coming to deactive : "+JSON.stringify(req.params.deactive));
   }
 
@@ -241,19 +289,87 @@ exports.deactivateProduct = function (req, res) {
     }
   });
 
-};
+};*/
+
+function getMsgForUpdateProducts(oldProduct, newProduct) {
+
+  console.log('Company details are11@@ : ' + JSON.stringify(oldProduct));
+  console.log('Company details are@@ : ' + JSON.stringify(newProduct));
+
+  var oldPrdctDetails = {
+    productId: oldProduct._id,
+    operationalRegions: oldProduct.operationalRegions,
+    premiumFlag: oldProduct.premiumFlag,
+    featuredFlag: oldProduct.featuredFlag,
+    description: oldProduct.description,
+    phoneNo: oldProduct.phoneNo,
+    mobileCode: oldProduct.mobileCode,
+    email: oldProduct.email,
+    companyWebsite: oldProduct.companyWebsite,
+    productImageURL: oldProduct.productImageURL,
+    webAddress: oldProduct.webAddress,
+    zipCode: oldProduct.zipCode,
+    country: oldProduct.country,
+    address1: oldProduct.address1,
+    address2: oldProduct.address2,
+    address3: oldProduct.address3,
+    address4: oldProduct.address4,
+    Comname: oldProduct.Comname,
+    ProCat: oldProduct.ProCat,
+    Proname: oldProduct.Proname,
+    status: oldProduct.status,
+    affliateLink: oldProduct.affliateLink
+  }
+
+  var newPrdctDetails = {
+    productId: newProduct._id,
+    operationalRegions: newProduct.operationalRegions,
+    premiumFlag: newProduct.premiumFlag,
+    featuredFlag: newProduct.featuredFlag,
+    description: newProduct.description,
+    phoneNo: newProduct.phoneNo,
+    mobileCode: newProduct.mobileCode,
+    email: newProduct.email,
+    companyWebsite: newProduct.companyWebsite,
+    productImageURL: newProduct.productImageURL,
+    webAddress: newProduct.webAddress,
+    zipCode: newProduct.zipCode,
+    country: newProduct.country,
+    address1: newProduct.address1,
+    address2: newProduct.address2,
+    address3: newProduct.address3,
+    address4: newProduct.address4,
+    Comname: newProduct.Comname,
+    ProCat: newProduct.ProCat,
+    Proname: newProduct.Proname,
+    status: newProduct.status,
+    affliateLink: newProduct.affliateLink
+  }
+  console.log('Company  : ' + JSON.stringify(oldPrdctDetails));
+
+  var presentYear1 = momentTimezone().tz("America/New_York").format('YYYY');
+  agenda.now('Updated_Product_Details', {
+    presentYear: presentYear1,
+    oldProductDeatils: oldPrdctDetails,
+    newProductDeatils: newPrdctDetails
+  });
+
+
+
+
+}
 
 exports.update = function (req, res) {
 
   var company = req.company;
-  console.log('Company details are@@ : ' + JSON.stringify(req.company));
-  console.log('Company details are : ' + JSON.stringify(req.body));
-  if (req.body.productStatus === true) {
-    req.body.status = 'active';
-  } else {
-    req.body.status = 'deactive';
-  }
-  console.log('Company details are AFTER : ' + JSON.stringify(req.body));
+  var oldProductDetials = JSON.parse(JSON.stringify(req.company));
+  // console.log('Company details are11@@ : ' + JSON.stringify(oldProductDetials));
+  /* if (req.body.productStatus === true) {
+     req.body.status = 'active';
+   } else {
+     req.body.status = 'deactive';
+   }*/
+  // console.log('Company details are AFTER : ' + JSON.stringify(req.body.status));
   company = _.extend(company, req.body);
   /*company.title = req.body.title;
   company.content = req.body.content;*/
@@ -266,9 +382,13 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      console.log('Company details are@@ : ' + JSON.stringify(oldProductDetials.status));
+      console.log('Company details are : ' + JSON.stringify(req.body.status));
+      // console.log('Company details are11 : ' + JSON.stringify(company));
       _this.deleteExpressRedis();
       res.json(company);
       // console.log(company);
+      getMsgForUpdateProducts(oldProductDetials, company);
     }
   });
 };
@@ -370,9 +490,46 @@ exports.delete = function (req, res) {
     } else {
       _this.deleteExpressRedis();
       res.json(company);
+      console.log("@@####CALED DELTE SERVER CNTRLER" + JSON.stringify(company));
+      getMsgForDeleteProduct(company);
     }
   });
 };
+
+function getMsgForDeleteProduct(product) {
+  console.log("DeletedProductDetails : " + JSON.stringify(product));
+  var DeletedProductDetails = {
+    productId: product._id,
+    operationalRegions: product.operationalRegions,
+    premiumFlag: product.premiumFlag,
+    featuredFlag: product.featuredFlag,
+    description: product.description,
+    phoneNo: product.phoneNo,
+    mobileCode: product.mobileCode,
+    email: product.email,
+    companyWebsite: product.companyWebsite,
+    productImageURL: product.productImageURL,
+    webAddress: product.webAddress,
+    zipCode: product.zipCode,
+    country: product.country,
+    address1: product.address1,
+    address2: product.address2,
+    address3: product.address3,
+    address4: product.address4,
+    Comname: product.Comname,
+    ProCat: product.ProCat,
+    Proname: product.Proname,
+    status: product.status,
+    affliateLink: product.affliateLink
+  }
+  console.log("NEW DELETED PRODUCT OBJ : " + JSON.stringify(DeletedProductDetails));
+
+  var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+  agenda.now('Deleted_Product_Details', {
+    presentYear: presentYear,
+    DeletedProductDetails: DeletedProductDetails
+  });
+}
 
 
 /**

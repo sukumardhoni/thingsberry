@@ -71,6 +71,7 @@ module.exports = {
     sandbox: true
   },
   mailer: {
+    env: process.env.tb_mail_env,
     from: process.env.MAILER_FROM || 'ThingsBerry Support <support@thingsberry.com>',
     options: {
       host: 'thingsberry.com',

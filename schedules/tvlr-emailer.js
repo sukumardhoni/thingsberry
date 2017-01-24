@@ -28,6 +28,10 @@ exports.sendMail = function (mailData) {
       ErrorImagesProductsLength: mailData.ErrorImagesProductsLength,
       ErrorImagesRunTime: mailData.ErrorImagesRunTime,
       stats: mailData.stats,
+      oldProductDeatils: mailData.oldProductDeatils,
+      AddedNewProductDetails: mailData.AddedNewProductDetails,
+      DeletedProductDetails: mailData.DeletedProductDetails,
+      newProductDeatils: mailData.newProductDeatils,
       presentYear: mailData.presentYear,
       resetUrl: mailData.url,
       appEnv: config.app.title

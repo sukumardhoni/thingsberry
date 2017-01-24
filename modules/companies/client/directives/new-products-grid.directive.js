@@ -57,7 +57,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
               NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
             }, function (err) {
               console.log('Err details on remove Error cb : ' + JSON.stringify(err));
-              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
             })
           } else {
             //   console.log('remove func. on else condition : ');
@@ -74,15 +74,17 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         //   console.log("DEACTIVE PRDCT IS CALLED");
         if (scope.details.status == 'active') {
           // console.log("now PRDCT IS going to deactive ");
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'deactive'
+          scope.details.status = 'deactive';
+          // console.log("now PRDCT IS going to deactive " + JSON.stringify(scope.details.status));
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         } else {
           //  console.log("now PRDCT IS going to active ");
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'active'
+          scope.details.status = 'active';
+          // console.log("now PRDCT IS going to deactive " + JSON.stringify(scope.details.status));
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         }
 
@@ -99,70 +101,71 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         }
 
         function errorUpdateCallback(res) {
-          vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          // vm.error = res.data.message;
+          console.log(JSON.stringify(res));
+          NotificationFactory.error('Failed to Update Product details...', res);
         }
 
       };
 
       scope.setAsFeatured = function () {
         if (scope.details.featuredFlag === false) {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: true
+          scope.details.featuredFlag = true;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         } else {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: false
+          scope.details.featuredFlag = false;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
-            $window.location.reload();
-          } else {
-            $state.go('companies.list.products', {
-              isSearch: false
-            });
-          }
+          /*          if ($state.current.name == 'companies.list.products') {
+                      // $window.location.reload();
+                    } else {
+                      $state.go('companies.list.products', {
+                        isSearch: false
+                      });
+                    }*/
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
 
         function errorUpdateCallback(res) {
-          vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          // vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res);
         }
 
       }
 
       scope.setAsPremium = function () {
         if (scope.details.premiumFlag === false) {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'setPremiumToTrue'
+          scope.details.premiumFlag = true;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         } else {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'setPremiumToFalse'
+          scope.details.premiumFlag = false;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
-            $window.location.reload();
-          } else {
-            $state.go('companies.list.products', {
-              isSearch: false
-            });
-          }
+          /* if ($state.current.name == 'companies.list.products') {
+             // $window.location.reload();
+           } else {
+             $state.go('companies.list.products', {
+               isSearch: false
+             });
+           }*/
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
 
         function errorUpdateCallback(res) {
-          vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          // vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res);
         }
       }
 
@@ -234,7 +237,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
               NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
             }, function (err) {
               //  console.log('Err details on remove Error cb : ' + JSON.stringify(err));
-              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
             })
           } else {
             // console.log('remove func. on else condition : ');
@@ -249,21 +252,23 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         // console.log("DEACTIVE PRDCT IS CALLED");
         if (scope.details.status == 'active') {
           // console.log("now PRDCT IS going to deactive ");
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'deactive'
+          scope.details.status = 'deactive';
+          // console.log("now PRDCT IS going to deactive " + JSON.stringify(scope.details.status));
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         } else {
           // console.log("now PRDCT IS going to active ");
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'active'
+          scope.details.status = 'active';
+          // console.log("now PRDCT IS going to deactive " + JSON.stringify(scope.details.status));
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         }
 
         function successUpdateCallback(res) {
           if ($state.current.name == 'companies.list.products') {
-            $window.location.reload();
+            // $window.location.reload();
           } else {
             $state.go('companies.list.products', {
               isSearch: false
@@ -273,39 +278,39 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         }
 
         function errorUpdateCallback(res) {
-          vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          // vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res);
         }
 
       };
 
       scope.setAsFeatured = function () {
         if (scope.details.featuredFlag === false) {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: true
+          scope.details.featuredFlag = true;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         } else {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: false
+          scope.details.featuredFlag = false;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
-            $window.location.reload();
-          } else {
-            $state.go('companies.list.products', {
-              isSearch: false
-            });
-          }
+          /*   if ($state.current.name == 'companies.list.products') {
+               $window.location.reload();
+             } else {
+               $state.go('companies.list.products', {
+                 isSearch: false
+               });
+             }*/
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
 
         function errorUpdateCallback(res) {
-          vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          // vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res);
         }
 
       };
@@ -313,31 +318,32 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
 
       scope.setAsPremium = function () {
         if (scope.details.premiumFlag === false) {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'setPremiumToTrue'
+          scope.details.premiumFlag = true;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
+
         } else {
-          deactiveService.update({
-            companyId: scope.details.productId,
-            deactive: 'setPremiumToFalse'
+          scope.details.premiumFlag = false;
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: scope.details.productId
           }, scope.details, successUpdateCallback, errorUpdateCallback);
         }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
-            $window.location.reload();
-          } else {
-            $state.go('companies.list.products', {
-              isSearch: false
-            });
-          }
+          /*  if ($state.current.name == 'companies.list.products') {
+              $window.location.reload();
+            } else {
+              $state.go('companies.list.products', {
+                isSearch: false
+              });
+            }*/
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
 
         function errorUpdateCallback(res) {
-          vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          // vm.error = res.data.message;
+          NotificationFactory.error('Failed to Update Product details...', res);
         }
       };
 

@@ -50,7 +50,7 @@ module.exports = function (app) {
 
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
 
-  app.route('/api/deactivateProduct/:companyId/:deactive').put(companies.deactivateProduct);
+  /* app.route('/api/deactivateProduct/:companyId/:deactive').put(companies.deactivateProduct);*/
 
   /* app.route('/api/companies/:productId')
     .get(companies.read)

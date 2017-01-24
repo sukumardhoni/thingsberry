@@ -752,9 +752,9 @@
                         <td valign="top" style="color:white;padding-left:20px;width:20%;" mc:edit="preheader_content00">
                           Follow us on :</td>
                         <td valign="bottom" align="left">
-                          <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/fb_icon.png" mc:allowdesigner mc:allowtext /></a>
-                          <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/google_icon.png" mc:allowdesigner mc:allowtext /></a>
-                          <a href="https://twitter.com/thingsberry" target="_blank"><img src="http://qa.thingsberry.com/modules/core/client/img/twitter_icon.png" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://www.facebook.com/thingsberry" target="_blank"><img src="https://www.thingsberry.com/modules/core/client/img/fb_icon.png" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://plus.google.com/communities/116282848843785038447" target="_blank"><img src="https://www.thingsberry.com/modules/core/client/img/google_icon.png" mc:allowdesigner mc:allowtext /></a>
+                          <a href="https://twitter.com/thingsberry" target="_blank"><img src="https://www.thingsberry.com/modules/core/client/img/twitter_icon.png" mc:allowdesigner mc:allowtext /></a>
                         </td>
                       </tr>
                     </table>

@@ -200,7 +200,7 @@
       /*@editable*/
       font-size: 16px;
       /*@editable*/
-      font-style: italic;
+      /*font-style: italic;*/
       /*@editable*/
       font-weight: normal;
       /*@editable*/
@@ -628,6 +628,13 @@
       }
       /* Place footer social and utility links on their own lines, for easier access */
     }
+    
+    .item-recipe table,
+    th,
+    td {
+      border: 1px solid #e6e6e6;
+      font-size: 14px !important;
+    }
   </style>
 </head>
 
@@ -674,11 +681,97 @@
               <td align="center" valign="top">
                 <!-- BEGIN BODY // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+
+
                   <tr>
-                    <td valign="top" class="bodyContent" mc:edit="body_content00">
-                      <h3> Hi {{displayName}},</h3> Thank you for joining the ThingsBerry community. You can browse, search IOT devices, add your IOT Product details and also get notifications on new arrivals in your favorite categories.
+                    <td valign="top" class="bodyContent" mc:edit="body_content">
+
+                      <h3> Hi ThingsBerry Team,</h3> This is the notification mail for thingsberry admin
+                      <br>
                     </td>
                   </tr>
+
+                  <tr>
+                    <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00">
+                      <br>The following are the Updated Product Details
+                      <table cellpadding="5">
+                        <tbody class="bodyContent">
+                          <tr>
+                            <th align="left">
+                              <h3><b>Old Product Details</b></h3></th>
+
+                          </tr>
+
+                          <tr>
+                            <td align="left" valign="top"><b> Product ID :</b> {{oldProductDeatils.productId |json}}
+                              <br><b> Product Name :</b> {{oldProductDeatils.Proname}}
+                              <br><b> Product Description :</b> {{oldProductDeatils.description}}
+                              <br><b> Product Web Address :</b> {{oldProductDeatils.webAddress}}
+                              <br><b> Company Name :</b> {{oldProductDeatils.Comname}}
+                              <br><b> Company Website :</b> {{oldProductDeatils.companyWebsite}}
+                              <br><b> Email :</b> {{oldProductDeatils.email}}
+                              <br><b> Phone Number :</b>{{oldProductDeatils.mobileCode}} - {{oldProductDeatils.phoneNo}}
+                              <br><b> Product status :</b> {{oldProductDeatils.status}}
+                              <br><b> Product ImageUrl :</b> {{oldProductDeatils.productImageURL}}
+                              <br><b> Product Affliate Link :</b> {{oldProductDeatils.affliateLink}}
+                              <br><b> Feature Flag :</b> {{oldProductDeatils.featuredFlag}}
+                              <br><b> Premium Flag :</b> {{oldProductDeatils.premiumFlag}}
+                              <br><b> Address-1 :</b> {{oldProductDeatils.address1}}
+                              <br><b> Address-2 :</b> {{oldProductDeatils.address2}}
+                              <br><b> Address-3 :</b> {{oldProductDeatils.address3}}
+                              <br><b> Address-4 :</b> {{oldProductDeatils.address4}}
+                              <br><b> Country :</b> {{oldProductDeatils.country}}
+                              <br><b> Zipcode :</b> {{oldProductDeatils.zipCode}} {% for productCat in oldProductDeatils.ProCat %}
+                              <br><b> Product Category :</b> {{productCat.title}} {% endfor %} {% for OpRegions in oldProductDeatils.operationalRegions %}
+                              <br><b> Operational Region Name :</b> {{OpRegions.name}}
+                              <br><b> Operational Region checked :</b> {{OpRegions.checked}} {% endfor %}
+
+                            </td>
+                          </tr>
+
+                          <!--</tbody>
+
+                        <tbody class="bodyContent"> -->
+                          <tr>
+                            <th align="left">
+                              <h3><b>Updated Product Details</b></h3></th>
+
+                          </tr>
+
+                          <tr>
+                            <td align="left" valign="top"><b> Product ID :</b> {{newProductDeatils.productId |json}}
+                              <br><b> Product Name :</b> {{newProductDeatils.Proname}}
+                              <br><b> Product Description :</b> {{newProductDeatils.description}}
+                              <br><b> Product Web Address :</b> {{newProductDeatils.webAddress}}
+                              <br><b> Company Name :</b> {{newProductDeatils.Comname}}
+                              <br><b> Company Website :</b> {{newProductDeatils.companyWebsite}}
+                              <br><b> Email :</b> {{newProductDeatils.email}}
+                              <br><b> Phone Number :</b> {{newProductDeatils.mobileCode}} - {{newProductDeatils.phoneNo}}
+                              <br><b> Product status :</b> {{newProductDeatils.status}}
+                              <br><b> Product ImageUrl :</b> {{newProductDeatils.productImageURL}}
+                              <br><b> Product Affliate Link :</b> {{newProductDeatils.affliateLink}}
+                              <br><b> Feature Flag :</b> {{newProductDeatils.featuredFlag}}
+                              <br><b> Premium Flag :</b> {{newProductDeatils.premiumFlag}}
+                              <br><b> Address-1 :</b> {{newProductDeatils.address1}}
+                              <br><b> Address-2 :</b> {{newProductDeatils.address2}}
+                              <br><b> Address-3 :</b> {{newProductDeatils.address3}}
+                              <br><b> Address-4 :</b> {{newProductDeatils.address4}}
+                              <br><b> Country :</b> {{newProductDeatils.country}}
+                              <br><b> Zipcode :</b> {{newProductDeatils.zipCode}} {% for productCat in newProductDeatils.ProCat %}
+                              <br><b> Product Category :</b> {{productCat.title}} {% endfor %} {% for OpRegions in newProductDeatils.operationalRegions %}
+                              <br><b> Operational Region Name :</b> {{OpRegions.name}}
+                              <br><b> Operational Region checked :</b> {{OpRegions.checked}} {% endfor %}
+
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+
+                    </td>
+                  </tr>
+
+
                   <tr>
                     <td valign="top" class="bodyContent" mc:edit="body_content03">
                       Best regards,

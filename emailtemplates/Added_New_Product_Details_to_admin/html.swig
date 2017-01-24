@@ -200,7 +200,7 @@
       /*@editable*/
       font-size: 16px;
       /*@editable*/
-      font-style: italic;
+      /*font-style: italic;*/
       /*@editable*/
       font-weight: normal;
       /*@editable*/
@@ -628,6 +628,13 @@
       }
       /* Place footer social and utility links on their own lines, for easier access */
     }
+    
+    .item-recipe table,
+    th,
+    td {
+      border: 1px solid #e6e6e6;
+      font-size: 14px !important;
+    }
   </style>
 </head>
 
@@ -674,11 +681,60 @@
               <td align="center" valign="top">
                 <!-- BEGIN BODY // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+
+
                   <tr>
-                    <td valign="top" class="bodyContent" mc:edit="body_content00">
-                      <h3> Hi {{displayName}},</h3> Thank you for joining the ThingsBerry community. You can browse, search IOT devices, add your IOT Product details and also get notifications on new arrivals in your favorite categories.
+                    <td valign="top" class="bodyContent" mc:edit="body_content">
+
+                      <h3> Hi ThingsBerry Team,</h3> This is the notification mail for thingsberry admin
+                      <br>
                     </td>
                   </tr>
+
+                  <tr>
+                    <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00">
+                      <br>The following are the New Product Details
+                      <table cellpadding="5">
+                        <tbody class="bodyContent">
+                          <tr>
+                            <th align="left">
+                              <h3><b>New Product Details</b></h3></th>
+
+                          </tr>
+
+                          <tr>
+                            <td align="left" valign="top"><b> Product ID :</b> {{AddedNewProductDetails.productId |json}}
+                              <br><b> Product Name :</b> {{AddedNewProductDetails.Proname}}
+                              <br><b> Product Description :</b> {{AddedNewProductDetails.description}}
+                              <br><b> Product Web Address :</b> {{AddedNewProductDetails.webAddress}}
+                              <br><b> Company Name :</b> {{AddedNewProductDetails.Comname}}
+                              <br><b> Company Website :</b> {{AddedNewProductDetails.companyWebsite}}
+                              <br><b> Email :</b> {{AddedNewProductDetails.email}}
+                              <br><b> Phone Number :</b>{{AddedNewProductDetails.mobileCode}} - {{AddedNewProductDetails.phoneNo}}
+                              <br><b> Product status :</b> {{AddedNewProductDetails.status}}
+                              <br><b> Product ImageUrl :</b> {{AddedNewProductDetails.productImageURL}}
+                              <br><b> Product Affliate Link :</b> {{AddedNewProductDetails.affliateLink}}
+                              <br><b> Feature Flag :</b> {{AddedNewProductDetails.featuredFlag}}
+                              <br><b> Premium Flag :</b> {{AddedNewProductDetails.premiumFlag}}
+                              <br><b> Address-1 :</b> {{AddedNewProductDetails.address1}}
+                              <br><b> Address-2 :</b> {{AddedNewProductDetails.address2}}
+                              <br><b> Address-3 :</b> {{AddedNewProductDetails.address3}}
+                              <br><b> Address-4 :</b> {{AddedNewProductDetails.address4}}
+                              <br><b> Country :</b> {{AddedNewProductDetails.country}}
+                              <br><b> Zipcode :</b> {{AddedNewProductDetails.zipCode}} {% for productCat in AddedNewProductDetails.ProCat %}
+                              <br><b> Product Category :</b> {{productCat.title}} {% endfor %} {% for OpRegions in AddedNewProductDetails.operationalRegions %}
+                              <br><b> Operational Region Name :</b> {{OpRegions.name}}
+                              <br><b> Operational Region checked :</b> {{OpRegions.checked}} {% endfor %}
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </td>
+                  </tr>
+
+
                   <tr>
                     <td valign="top" class="bodyContent" mc:edit="body_content03">
                       Best regards,
