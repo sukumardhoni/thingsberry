@@ -123,6 +123,7 @@ exports.sendProductsStatsAdmin = function (agenda) {
 exports.sendDeactivate_ProductsAdmin = function (agenda) {
   agenda.define('Deactivate_Products', function (job, done) {
     // console.log('@@@@@@@@ TO ADMIN Deactivate_Products, email: ' + JSON.stringify(job.attrs.data.ErrorImagesProductsLength));
+
     var mailData = {};
     mailData.templateName = 'emailtemplates/deactive_products_mail_to_admin';
     mailData.to = 'support@thingsberry.com';
