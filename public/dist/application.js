@@ -5280,25 +5280,25 @@ angular.module('users').factory('Users', ['$resource',
 //TODO this should be Users service
 angular.module('users.admin').factory('Admin', ['$resource',
   function ($resource) {
-    return $resource('api/users/:userId', {
-      userId: '@_id'
-    }, {
-      update: {
-        method: 'PUT'
-      }
-    });
+      return $resource('api/users/:userId', {
+        userId: '@_id'
+      }, {
+        update: {
+          method: 'PUT'
+        }
+      });
   }
 ])
-.factory('SignUpCondition', function () {
-  return false;
-})
+  .factory('SignUpCondition', function () {
+    return false;
+  })
 
 
 
 
 
 
-  .factory('Users', ['$resource', 'ConfigService', function ($resource, ConfigService, $localStorage) {
+.factory('Users', ['$resource', 'ConfigService', function ($resource, ConfigService, $localStorage) {
   return {
     Signup: $resource(ConfigService.API_URL + '/users/signup', {}, {
       create: {
@@ -5329,8 +5329,7 @@ angular.module('users.admin').factory('Admin', ['$resource',
     return this.API_URL;
   } else {
     //console.log('its dev: ' + $window.location.host);
-    this.API_URL = 'http://' + $window.location.host;
+    this.API_URL = 'https://' + $window.location.host;
     return this.API_URL;
   }
 }])
-
