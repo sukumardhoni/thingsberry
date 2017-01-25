@@ -63,7 +63,7 @@ angular.module('users.admin').factory('Admin', ['$resource',
     return this.API_URL;
   } else {
     //console.log('its dev: ' + $window.location.host);
-    this.API_URL = 'http://' + $window.location.host;
+    this.API_URL = 'https://' + $window.location.host;
     return this.API_URL;
   }
 })
