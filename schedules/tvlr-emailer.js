@@ -32,6 +32,7 @@ exports.sendMail = function (mailData) {
       AddedNewProductDetails: mailData.AddedNewProductDetails,
       DeletedProductDetails: mailData.DeletedProductDetails,
       newProductDeatils: mailData.newProductDeatils,
+      DuplicateProducts: mailData.DuplicateProducts,
       presentYear: mailData.presentYear,
       resetUrl: mailData.url,
       appEnv: config.app.title

@@ -628,6 +628,13 @@
       }
       /* Place footer social and utility links on their own lines, for easier access */
     }
+    
+    .item-recipe table,
+    th,
+    td {
+      border: 1px solid #e6e6e6;
+      font-size: 14px !important;
+    }
   </style>
 </head>
 
@@ -644,7 +651,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader" style="background-color:#3f51b5;color:white;">
                   <tr>
                     <td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
-                      Password for your ThingsBerry account is changed successfully.
+                      Welcome to ThingsBerry, a web application to add, view and share popular IOT things.
                     </td>
                     <!-- *|IFNOT:ARCHIVE_PAGE|* -->
                     <!--<td valign="top" width="180" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;" mc:edit="preheader_content01">
@@ -674,17 +681,48 @@
               <td align="center" valign="top">
                 <!-- BEGIN BODY // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+
+
                   <tr>
                     <td valign="top" class="bodyContent" mc:edit="body_content">
 
-                      <h3> Hi ThingsBerry Team,</h3> This is the notification mail of new user is signup just now from thingsberry.com
-                      <br />New User details are :
-                      <br/> Email : {{userData.email}}
-                      <br/> Display Name : {{userData.displayName}}
-                      <br/> Provider : {{userData.provider}}
-
+                      <h3> Hi ThingsBerry Team,</h3> This is the notification mail for thingsberry admin
+                      <br>
                     </td>
                   </tr>
+
+                  <tr>
+                    <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00">
+                      {% if DuplicateProducts.length > 0 %}
+                      <br>The following Products are having Duplicates
+                      <table cellpadding="5">
+                        <tbody class="bodyContent">
+                          <tr>
+                            <th align="left">Product name</th>
+                            <th align="left">_id</th>
+                            <th align="left">product Id</th>
+                            <th align="left">Product description</th>
+
+                          </tr>
+                          {% for product in DuplicateProducts %}
+                          <tr>
+                            <td align="left" valign="top"> {{product.prodName}}</td>
+
+                            <td align="left" valign="top">  {{product.prodId|json}}</td>
+                            
+                            <td align="left" valign="top">  {{product.productId}}</td>
+
+                            <td align="left" valign="top"> {{product.prodDesc}}</td>
+
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      {% endif %}
+                    </td>
+                  </tr>
+
+
                   <tr>
                     <td valign="top" class="bodyContent" mc:edit="body_content03">
                       Best regards,

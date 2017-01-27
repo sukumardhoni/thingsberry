@@ -24,6 +24,8 @@ module.exports = function (app) {
 
   app.route('/getProducts')
     .get(companies.getAllPrdcts);
+  app.route('/duplicateProducts')
+    .get(companies.getDuplicateProducts);
 
   app.route('/api/companies/getDeactiveProducts')
     .get(companies.getDeactiveProducts);

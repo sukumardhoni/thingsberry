@@ -652,6 +652,88 @@ exports.getAllPrdcts = function (req, res) {
 
 };
 
+
+
+
+exports.getDuplicateProducts = function (req, res) {
+  Company.aggregate([
+    {
+      $group: {
+        _id: {
+          Proname: "$Proname"
+        },
+        uniqueIds: {
+          $addToSet: "$_id"
+        },
+        Desc: {
+          $addToSet: "$description"
+        },
+        count: {
+          $sum: 1
+        }
+      }
+    },
+    {
+      $match: {
+        count: {
+          $gte: 2
+        }
+      }
+    },
+    {
+      $sort: {
+        count: -1
+      }
+    }
+]).exec(function (err, dupProds) {
+    if (err) {
+
+    } else {
+      console.log("ALL DUPLICATE PRDCTS : " + JSON.stringify(dupProds));
+
+
+
+
+
+      var prodArray = [];
+      var uniqueIdCount = 0;
+      for (var i = 0; i < dupProds.length; i++) {
+        console.log("PROD DETAILS FOR : ");
+        Company.find({
+          "Proname": dupProds[i]._id.Proname
+        }).then(function (prodDetails) {
+          uniqueIdCount = uniqueIdCount + 1;
+          console.log("PROD DETAILS : " + JSON.stringify(prodDetails));
+          console.log("PROD DETAILS COUNT : " + JSON.stringify(uniqueIdCount));
+          for (var k = 0; k < prodDetails.length; k++) {
+            var dupProdData = {
+              prodId: prodDetails[k]._id,
+              prodName: prodDetails[k].Proname,
+              prodDesc: prodDetails[k].description,
+              producId: prodDetails[k].productId
+            }
+            prodArray.push(dupProdData);
+          }
+          if (dupProds.length == uniqueIdCount) {
+            console.log("TOTAL DETAILS : " + JSON.stringify(prodArray));
+            res.json(_.extend({
+              'message': 'Duplicate Products',
+              'Total Duplicate_Products_Count': prodArray.length,
+              'Duplicate_Products': prodArray
+            }));
+            var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+            agenda.now('Duplicate_Products', {
+              presentYear: presentYear,
+              DuplicateProducts: prodArray
+            });
+          }
+        })
+      }
+    }
+  })
+};
+
+
 exports.getDeactiveProducts = function (req, res) {
   Company.find({
     "status": "deactive"
@@ -757,9 +839,6 @@ exports.getErrImgPrdcts = function (req, res) {
                 }
               }).then(function (res) {
                 forRedisDelete = forRedisDelete + 1;
-                //  console.log("RESULTANT : " + JSON.stringify(res));
-                //  console.log("ERR PRDCTS ARR LENGTH : " + errPrdctsArr.length);
-                // console.log("EXPRESS REDIS COUNT INC : " + forRedisDelete);
                 if (forRedisDelete == errPrdctsArr.length) {
                   _this.deleteExpressRedis();
                 }
