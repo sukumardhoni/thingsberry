@@ -66,7 +66,7 @@ exports.sendDuplicateProductsDetails = function (agenda) {
       process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Duplicate_Products_Details_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Duplicate Products Report' + '( ' + job.attrs.data.DuplicateProducts.length + ' )';
     mailData.DuplicateProducts = job.attrs.data.DuplicateProducts;
     mailData.presentYear = job.attrs.data.presentYear;
