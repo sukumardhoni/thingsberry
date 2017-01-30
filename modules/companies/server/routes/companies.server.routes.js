@@ -22,9 +22,9 @@ module.exports = function (app) {
       expire: 10
     }), companies.searchedProductsList);
 
-  app.route('/getProducts')
-    .get(companies.getAllPrdcts);
-  app.route('/duplicateProducts')
+  app.route('/adminAccess')
+    .get(companies.getAllRoutes);
+  app.route('/findDuplicateProducts')
     .get(companies.getDuplicateProducts);
 
   app.route('/api/companies/getDeactiveProducts')

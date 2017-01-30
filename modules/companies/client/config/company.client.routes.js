@@ -22,6 +22,7 @@
       })
       .state('companies.list', {
         url: '/list',
+        abstract: true,
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
         controller: 'CompanyListController',
@@ -72,11 +73,8 @@
       })
 
 
-    .state('companies.view', {
-      url: '/:companyId',
-      /* url: '/:productId',*/
-      /*templateUrl: 'modules/companies/client/views/view-company.client.view.html',*/
-      /*templateUrl: 'modules/companies/client/views/new-single-product.client.view.html',*/
+    .state('companies.list.products.detail', {
+      url: '/productDetail/:companyId',
       templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
       controller: 'CompanyController',
       controllerAs: 'vm',
@@ -87,6 +85,21 @@
         pageTitle: 'Company {{ companyResolve.Proname }}'
       }
     });
+
+
+
+    /* .state('companies.view', {
+       url: '/:companyId',
+       templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
+       controller: 'CompanyController',
+       controllerAs: 'vm',
+       resolve: {
+         companyResolve: getCompany
+       },
+       data: {
+         pageTitle: 'Company {{ companyResolve.Proname }}'
+       }
+     });*/
   }
 
   getCompany.$inject = ['$stateParams', 'CompanyService'];

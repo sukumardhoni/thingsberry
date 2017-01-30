@@ -693,7 +693,9 @@
 
                   <tr>
                     <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00">
-                      {% if DuplicateProducts.length > 0 %}
+                      <b>Report Run Time : </b>{{duplicateProdRunDate}}
+                      <br><b>Number of duplicate products : </b>{{DuplicateProducts.length}}
+                      <br> {% if DuplicateProducts.length > 0 %}
                       <br>The following Products are having Duplicates
                       <table cellpadding="5">
                         <tbody class="bodyContent">
@@ -708,9 +710,9 @@
                           <tr>
                             <td align="left" valign="top"> {{product.prodName}}</td>
 
-                            <td align="left" valign="top">  {{product.prodId|json}}</td>
-                            
-                            <td align="left" valign="top">  {{product.productId}}</td>
+                            <td align="left" valign="top"> {{product.prodId|json}}</td>
+
+                            <td align="left" valign="top"> {{product.productId}}</td>
 
                             <td align="left" valign="top"> {{product.prodDesc}}</td>
 

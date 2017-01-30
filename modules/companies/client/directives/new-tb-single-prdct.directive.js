@@ -88,13 +88,10 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
         }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
-            $window.location.reload();
-          } else {
-            $state.go('companies.list.products', {
-              isSearch: false
-            });
-          }
+          $window.location.reload();
+          $state.go('companies.list.products', {
+            isSearch: false
+          });
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
 
@@ -151,13 +148,13 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
         }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
-            $window.location.reload();
-          } else {
-            $state.go('companies.list.products', {
-              isSearch: false
-            });
-          }
+          /*  if ($state.current.name == 'companies.list.products') {
+              $window.location.reload();
+            } else {
+              $state.go('companies.list.products', {
+                isSearch: false
+              });
+            }*/
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
 

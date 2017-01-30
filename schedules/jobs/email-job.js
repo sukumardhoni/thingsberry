@@ -66,10 +66,11 @@ exports.sendDuplicateProductsDetails = function (agenda) {
       process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Duplicate_Products_Details_to_admin';
-    mailData.to = 'vinodhko@globaltechminds.com';
-    mailData.subject = testingEnv + 'Duplicate_Products Details';
+    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.subject = testingEnv + 'Duplicate Products Report' + '( ' + job.attrs.data.DuplicateProducts.length + ' )';
     mailData.DuplicateProducts = job.attrs.data.DuplicateProducts;
     mailData.presentYear = job.attrs.data.presentYear;
+    mailData.duplicateProdRunDate = job.attrs.data.duplicateProdRunDate;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);

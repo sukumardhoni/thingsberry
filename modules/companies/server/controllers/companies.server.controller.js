@@ -227,69 +227,9 @@ exports.deleteExpressRedis = function () {
 
     cli.flushall();
     console.log("$$###FLUSH:" + cli.flushall());
-    /*
-        for (var i = 0, len = keys.length; i < len; i++) {
-          // console.log(keys[i]);
-          if (keys[i].indexOf('listProducts') !== -1) {
-            // console.log("$$##@@ IS THERE");
-            cli.del("erc:listProducts", function (err, result) {
-              if (err) return console.log(err);
-              // console.log("@@@ DELTETE:" + result);
-            })
-          }
-
-          if (keys[i].indexOf('featuredProducts') !== -1) {
-            //  console.log("$$##@@ IS THERE");
-            cli.del("erc:featuredProducts", function (err, result) {
-              if (err) return console.log(err);
-              // console.log("@@@ DELTETE:" + result);
-            })
-          }
-
-        }*/
   });
 };
-/*exports.deactivateProduct = function (req, res) {
-  console.log("@@## ENTERIN TO DEACTIVATE PRODUCT");
-  //  console.log(JSON.stringify(req.params));
-  // console.log("$$$ REQ.COMPANY status:" + JSON.stringify(req.company.status));
-  // console.log("$$$ REQ.COMPANY featured flag:" + JSON.stringify(req.company.featuredFlag));
-  if ((req.params.deactive === 'true') || (req.params.deactive === 'false')) {
-    // console.log("coming to featured: " + req.params.deactive);
-    req.body.featuredFlag = req.params.deactive;
-  } else if ((req.params.deactive === 'setPremiumToTrue') || (req.params.deactive === 'setPremiumToFalse')) {
-    // console.log("coming to premiumProducts");
-    if (req.params.deactive === 'setPremiumToTrue') {
-      //  console.log("coming to premiumProducts to set true");
-      req.body.premiumFlag = true;
-    } else {
-      // console.log("coming to premiumProducts to set false");
-      req.body.premiumFlag = false;
-    }
 
-  } else {
-    req.body.status = req.params.deactive;
-    // console.log("@@@### coming to deactive : "+JSON.stringify(req.params.deactive));
-  }
-
-  //  console.log("$$$ REQ.BODY DEACTIVE:" + JSON.stringify(req.body));
-  var company = req.company;
-
-  company = _.extend(company, req.body);
-
-  company.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      _this.deleteExpressRedis();
-      res.json(company);
-      // console.log(company);
-    }
-  });
-
-};*/
 
 function getMsgForUpdateProducts(oldProduct, newProduct) {
 
@@ -364,15 +304,8 @@ exports.update = function (req, res) {
   var company = req.company;
   var oldProductDetials = JSON.parse(JSON.stringify(req.company));
   // console.log('Company details are11@@ : ' + JSON.stringify(oldProductDetials));
-  /* if (req.body.productStatus === true) {
-     req.body.status = 'active';
-   } else {
-     req.body.status = 'deactive';
-   }*/
   // console.log('Company details are AFTER : ' + JSON.stringify(req.body.status));
   company = _.extend(company, req.body);
-  /*company.title = req.body.title;
-  company.content = req.body.content;*/
   var ProCatsArray = req.body.ProCat;
   _this.catsCheck(ProCatsArray);
 
@@ -382,12 +315,10 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log('Company details are@@ : ' + JSON.stringify(oldProductDetials.status));
-      console.log('Company details are : ' + JSON.stringify(req.body.status));
-      // console.log('Company details are11 : ' + JSON.stringify(company));
+      // console.log('Company details are@@ : ' + JSON.stringify(oldProductDetials.status));
+      // console.log('Company details are : ' + JSON.stringify(req.body.status));
       _this.deleteExpressRedis();
       res.json(company);
-      // console.log(company);
       getMsgForUpdateProducts(oldProductDetials, company);
     }
   });
@@ -409,22 +340,18 @@ function calculateRating(previousRatingValue, userRating, avgRatings, totalUsers
     //  console.log("coming to true condition count have to increase");
 
   } else {
-
     sum = (((avgRatings * totalUsers) - parseInt(previousRatingValue)) + parseInt(userRating));
     //  console.log("sum:" + sum);
     //  console.log("total users:" + totalUsers);
     avg = sum / totalUsers;
     //  console.log("coming to false condition no count increament");
   }
-
   return avg;
 };
 
 
 exports.updateRating = function (req, res) {
-
   // console.log("@@@@@@@@ coming to createRating server side function");
-
   var previousRatingValue = req.params.previousRatingValue;
   // console.log("previousRatingValue:" + previousRatingValue);
   var userRating = req.params.userRating;
@@ -433,33 +360,23 @@ exports.updateRating = function (req, res) {
   //  console.log("avgRatings:" + avgRatings);
   var totalUsers = req.company.totalRatingsCount;
   //  console.log("totalUsers:" + totalUsers);
-
   var currentRating = calculateRating(previousRatingValue, userRating, req.company.avgRatings, req.company.totalRatingsCount);
-
   // console.log("currentRating is :" + currentRating);
   if (previousRatingValue == 0) {
-
     var count = req.company.totalRatingsCount;
     count++
-
   } else if (userRating == 0) {
-
     count = req.company.totalRatingsCount;
     count--;
-
   } else {
     count = req.company.totalRatingsCount;
   }
-
   req.body.avgRatings = Math.round(currentRating);
   //  console.log("save to avgRatings:" + req.body.avgRatings);
   req.body.totalRatingsCount = count;
   //  console.log("save to totalCount:" + req.body.totalRatingsCount);
-
   var company = req.company;
-
   company = _.extend(company, req.body);
-
   company.save(function (err) {
     if (err) {
       console.log("@@@@ error:" + err);
@@ -635,24 +552,31 @@ exports.premiumProductsList = function (req, res) {
 };
 
 
-exports.getAllPrdcts = function (req, res) {
-  /* Company.find({
-     "status": 'active'
-   }).then(function (companies) {
-     res.json(companies);
-   }).catch(function (err) {
-     return res.status(400).send({
-       message: errorHandler.getErrorMessage(err)
-     });
-   });*/
+/*exports.getAllPrdcts = function (req, res) {
+
 
   hh.get('http://topsolute.com/wp-content/uploads/2016/03/Skybellhd-homemb.png', function (res) {
     console.log("ERROR OF ANOTHER PRDCTS : " + JSON.stringify(res.statusCode));
   });
 
+};*/
+
+exports.getAllRoutes = function (req, res) {
+  var routes = {
+    isAlive: '/isAlive',
+    stats: '/stats',
+    findDuplicates: '/findDuplicateProducts',
+    cleanUpInactive: '/cleanUpInactive',
+  };
+
+  res.json(_.extend({
+    'message': 'api is alive !',
+    'name': exports.name,
+    'description': exports.description,
+    'version': exports.version,
+    'routes': routes
+  }));
 };
-
-
 
 
 exports.getDuplicateProducts = function (req, res) {
@@ -687,14 +611,9 @@ exports.getDuplicateProducts = function (req, res) {
     }
 ]).exec(function (err, dupProds) {
     if (err) {
-
+      console.log("ERROR IN DUPLICATE PROD FUNCTION : " + JSON.stringify(err));
     } else {
-      console.log("ALL DUPLICATE PRDCTS : " + JSON.stringify(dupProds));
-
-
-
-
-
+      // console.log("ALL DUPLICATE PRDCTS : " + JSON.stringify(dupProds));
       var prodArray = [];
       var uniqueIdCount = 0;
       for (var i = 0; i < dupProds.length; i++) {
@@ -703,14 +622,14 @@ exports.getDuplicateProducts = function (req, res) {
           "Proname": dupProds[i]._id.Proname
         }).then(function (prodDetails) {
           uniqueIdCount = uniqueIdCount + 1;
-          console.log("PROD DETAILS : " + JSON.stringify(prodDetails));
-          console.log("PROD DETAILS COUNT : " + JSON.stringify(uniqueIdCount));
+          // console.log("PROD DETAILS : " + JSON.stringify(prodDetails));
+          // console.log("PROD DETAILS COUNT : " + JSON.stringify(uniqueIdCount));
           for (var k = 0; k < prodDetails.length; k++) {
             var dupProdData = {
               prodId: prodDetails[k]._id,
               prodName: prodDetails[k].Proname,
               prodDesc: prodDetails[k].description,
-              producId: prodDetails[k].productId
+              productId: prodDetails[k].productId
             }
             prodArray.push(dupProdData);
           }
@@ -721,8 +640,10 @@ exports.getDuplicateProducts = function (req, res) {
               'Total Duplicate_Products_Count': prodArray.length,
               'Duplicate_Products': prodArray
             }));
+            var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
             var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
             agenda.now('Duplicate_Products', {
+              duplicateProdRunDate: presentDate,
               presentYear: presentYear,
               DuplicateProducts: prodArray
             });

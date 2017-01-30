@@ -30,7 +30,6 @@
         </div>
         <div class="row" ng-repeat="val in frequentProducts">
           <tb-frequent-products details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-frequent-products>
-          <!--<tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails" state="frequentlyState"></tb-products-grid>-->
         </div>
       </div>
       <div class="visible-sm" style="margin-bottom:30px;">
@@ -40,15 +39,12 @@
         <div class="row">
           <div ng-repeat="val in frequentProducts |limitTo:2">
             <div class="col-sm-5 prdct-tile">
-              <!--<tb-frequent-products details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-frequent-products>-->
               <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
 
   <a id='backTop'>Back To Top</a>
@@ -69,6 +65,13 @@
         }, 800);
         return false;
       })
+      $("#backTop1").click(function () {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 800);
+        return false;
+      })
+
     });
   </script>
 
