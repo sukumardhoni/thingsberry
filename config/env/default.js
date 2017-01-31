@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    title: 'Welcome to Thingsberry',
+    title: 'Welcome to Thingsberry-qa',
     description: 'A comprehensive listing of All Internet Of Things',
     keywords: 'All Internet Of Things, iot, internet, things',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID',
