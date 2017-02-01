@@ -48,7 +48,7 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     //  console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.ContactedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/contact-us-email-to-thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'ContactUs Info To ThingsBerry';
     mailData.contactedDetails = job.attrs.data.ContactedDetails;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -172,7 +172,7 @@ exports.sendUserGetListedInfoToThingsBerryAdmin = function (agenda) {
     // console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.GetListedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/get-listed-email-to-thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Get Listed Product Info To ThingsBerry';
     mailData.getListedDetails = job.attrs.data.GetListedDetails;
     mailData.presentYear = job.attrs.data.presentYear;
