@@ -24,6 +24,7 @@ module.exports = function (app) {
 
   app.route('/adminAccess')
     .get(companies.getAllRoutes);
+
   app.route('/findDuplicateProducts')
     .get(companies.getDuplicateProducts);
 

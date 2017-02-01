@@ -40,14 +40,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.getSearchedProducts = function (details) {
 
-
-
-      /*      console.log("entering into getsearchproducts :" + details);
-
-            console.log('details outputBrowsers is : ' + JSON.stringify(details.outputBrowsers));
-            console.log('details is : ' + JSON.stringify(details));
-            details.regions = $scope.outputBrowsers;*/
-      //  console.log('details is : ' + JSON.stringify(details));
       if (details != undefined) {
         if (details.Category || details.Company || details.Product || details.outputBrowsers) {
           var catsArray = [];
@@ -95,13 +87,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
-    /*$scope.homePageProductDetails = {
-      title: 'SONY',
-      logoURL: '../../../../modules/core/client/img/brand/sony logo.png',
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      webAddress: 'http://www.sonos.com/shop/play5'
-    };*/
-
     $scope.loadCategories = function ($query) {
       var catsList = CategoryService.query(),
         defObj = $q.defer();
@@ -129,15 +114,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
-
-
-
-
-
-
-
     $scope.loadRegions = function () {
-
 
       var regions = [{
           name: "Africa",
@@ -168,22 +145,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       return deferred.promise;
 
     };
-
-
-    /* $scope.myInterval = 5000;
-     var slides = $scope.slides = [];
-     $scope.addSlide = function() {
-       console.log('in the home controller');
-       var newWidth = 600 + slides.length + 1;
-       slides.push({
-         image: 'http://placekitten.com/' + newWidth + '/300',
-         text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-           ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-       });
-     };
-     for (var i=0; i<4; i++) {
-       $scope.addSlide();
-     };*/
 
 
     $scope.tbClients = function () {

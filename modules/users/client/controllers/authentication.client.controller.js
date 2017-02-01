@@ -28,7 +28,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
 
     $scope.signup = function (isValid) {
-      console.log('In the controller function from signup page');
+      // console.log('In the controller function from signup page');
       $scope.buttonTextSignUp = 'Signing Up...';
 
 
@@ -42,7 +42,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       console.log($scope.credentials);
       $http.post('/api/auth/jwtSignup', $scope.credentials).success(function (response) {
         //console.log('proving the route to go to server side routes');
-        console.log("to signup:" + JSON.stringify(response));
+        //  console.log("to signup:" + JSON.stringify(response));
         if (response.type === false) {
           $scope.error = response.data;
           //$scope.isDisabled = false;
@@ -54,7 +54,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
           $scope.populateUserLocally(response);
-          console.log('Msg : ' + JSON.stringify(response));
+          //  console.log('Msg : ' + JSON.stringify(response));
         }
 
 
@@ -188,11 +188,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             };
             Users.Signup.create($scope.gUser).$promise.then(function (res) {
               if (res.type === false) {
-                console.log('@@ res.type is :' + res.type);
+                //  console.log('@@ res.type is :' + res.type);
                 $scope.errMsg = res.data;
-                console.log('@@ res.data is :' + res.data);
+                //  console.log('@@ res.data is :' + res.data);
                 $scope.populateUserLocally(res.user);
-                console.log('@@ res.user is :' + JSON.stringify(res.user));
+                //  console.log('@@ res.user is :' + JSON.stringify(res.user));
               } else {
                 $scope.errMsg = false;
                 $scope.populateUserLocally(res);

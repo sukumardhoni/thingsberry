@@ -2,8 +2,8 @@
 
 module.exports = {
   app: {
-    title: 'Welcome to Thingsberry',
-    description: 'A comprehensive listing of All Internet Of Things',
+    title: 'Thingsberry - internet of things(iot), connected devices, smart devices, smart things, smart homes, smart health devices, iot ratings and reviews...',
+    description: 'Comprehensive list of internet of things(IoT), connected devices, smart devices, smart things, smart homes, health, fitness, sport and IoT ratings and reviews...',
     keywords: 'All Internet Of Things, iot, internet, things',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID',
     facebookAppId: '239001833102223'

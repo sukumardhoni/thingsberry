@@ -37,7 +37,7 @@
       <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right">
         <tb-share state="gridview" products="details" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-share>
       </div>
-      <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right"><a ui-sref="companies.list.products.detail({ companyId: details.productId })" ng-class="{'btnDisabled':(details.status==='deactive')}"><i class="fa fa-expand icon_rotate  icons_on_prdct_footer "></i></a>
+      <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right"><a ng-class="{'btnDisabled':(details.status==='deactive')}" ng-click="scrollToProduct()"><i class="fa fa-expand icon_rotate  icons_on_prdct_footer"></i></a>
       </div>
       <!--<span class=" col-md-1 col-sm-2 col-xs-2 text-center">
         <i class="fa fa-heart-o   icons_on_prdct_footer "></i>
@@ -47,3 +47,15 @@
     </div>
   </div>
 </div>
+
+<!--<script>
+  $(document).ready(function () {
+    // scroll body to 0px on click
+    $(".icon_rotate").click(function () {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 800);
+      return false;
+    })
+  });
+</script>-->

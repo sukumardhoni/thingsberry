@@ -5,10 +5,6 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
-
-
-
-
     $scope.path = $location.absUrl();
     //console.log(path);
     $scope.contactUs = function () {
@@ -16,8 +12,6 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);
       /*ContactUsService.send($scope.contact);*/
-
-
 
       function successCallback(res) {
         //console.log('Success while sending the Contactus details : ' + res);
@@ -40,22 +34,14 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 
     $scope.getListedEmail = function () {
-
-      console.log('getlisted form details on controller : ' + JSON.stringify($scope.getListed));
-
-
-      console.log("entering into getlisted function");
-      /*   console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));*/
-
       /*if ($stateParams.isPremium == 'isPremium')
         $scope.getListed.isPremium = true;*/
 
       $scope.getListed.isPremium = false;
-
       GetListedService.send($scope.getListed, successCallback, errorCallback);
 
       function successCallback(res) {
-        console.log('Success while sending the Contactus details : ' + res);
+        //   console.log('Success while sending the Contactus details : ' + res);
         NotificationFactory.success('Thankyou for Contacting ThingsBerry', 'Hi ' + res.contactName);
         $scope.getListedForm.$setPristine();
         $scope.getListedForm.$setUntouched();

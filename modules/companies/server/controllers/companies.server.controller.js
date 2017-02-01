@@ -109,12 +109,7 @@ exports.productsStatus = function (req, res) {
  */
 exports.create = function (req, res) {
   // console.log("BEFOR : " + JSON.stringify(req.body));
-  /* if (req.body.productStatus === true) {
-     req.body.status = 'active';
-   } else {
-     req.body.status = 'deactive';
-   }*/
-  // console.log("AFTER : " + JSON.stringify(req.body));
+
   var company = new Company(req.body);
   company.user = req.user;
   var ProCatsArray = req.body.ProCat;
@@ -229,6 +224,58 @@ exports.deleteExpressRedis = function () {
     console.log("$$###FLUSH:" + cli.flushall());
   });
 };
+
+/*
+    for (var i = 0, len = keys.length; i < len; i++) {
+      // console.log(keys[i]);
+      if (keys[i].indexOf('listProducts') !== -1) {
+        // console.log("$$##@@ IS THERE");
+        cli.del("erc:listProducts", function (err, result) {
+          if (err) return console.log(err);
+          // console.log("@@@ DELTETE:" + result);
+        })
+      }
+
+      if (keys[i].indexOf('featuredProducts') !== -1) {
+        //  console.log("$$##@@ IS THERE");
+        cli.del("erc:featuredProducts", function (err, result) {
+          if (err) return console.log(err);
+          // console.log("@@@ DELTETE:" + result);
+        })
+      }
+
+    }*/
+
+
+
+/*
+exports.exmpleRedis = function () {
+  console.log("@@@#####%%: COMING TO EXPRESSREDIS FUNC ");
+  var clie = require('redis').createClient(config.redis.uri);
+
+  clie.set("productName", "http://MOBILE-MOTO.jpg");
+  clie.keys("*", function (err, keys) {
+
+    keys.forEach(function (key, pos) {
+      // console.log("REDIS $$$$ : " + key);
+      if (key.indexOf('erc:/api/') !== -1) {
+        console.log("REDIS $$$$ : " + key);
+        clie.del(key, function (err, result) {
+          if (err) return console.log(err);
+          console.log("@@@ DELTETE:" + result);
+        })
+      }
+
+    });
+  });
+  clie.keys("*", function (err, keys) {
+    keys.forEach(function (key, pos) {
+      console.log("REDIS @@@@ : " + key);
+    });
+  });
+};
+*/
+
 
 
 function getMsgForUpdateProducts(oldProduct, newProduct) {
