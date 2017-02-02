@@ -37,8 +37,8 @@
   CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts'];
 
   function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts) {
-    var vm = this;
 
+    var vm = this;
     vm.company = company;
     vm.authentication = Authentication;
     vm.error = null;
@@ -62,24 +62,16 @@
       }
     }
 
-
     $scope.getCategoriesForSide = function () {
-      // console.log('get categories function');
       CategoryServiceRightPanel.query({}, function (res) {
-        //  console.log('response from server side');
-        //  console.log('response from server side: ' + JSON.stringify(res));
         $scope.accrdnsPanelArray = res;
-
       }, function (err) {
         console.log('error while getting the list from server side');
       })
     };
 
     $scope.getFrequentlyProducts = function () {
-      //  console.log('getFrequentlyProducts function');
       FrequentlyProducts.query({}, function (res) {
-        // console.log('response from server side');
-        // console.log('response from server side:' + JSON.stringify(res));
         $scope.frequentProducts = res;
       }, function (err) {
         console.log('error while getting the list from server side');
@@ -95,7 +87,7 @@
        $state.go('companies.add');
      }*/
 
-    /*   $scope.userValidation = function () {
+       $scope.userValidation = function () {
          if (vm.authentication.user) {} else {
            var modalInstance = $uibModal.open({
              templateUrl: 'modules/companies/client/views/modals/userNotLoggedIn-modal.html',
@@ -109,12 +101,10 @@
              else $state.go('authentication.signup');
            }, function () {});
          }
-       }*/
+       }
 
-    // console.log("product id there:" + $stateParams.companyId);
-
-
-    if ($stateParams.companyId) {
+ /* ----------------  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
+      if ($stateParams.companyId) {
       //  console.log("coming to correct list");
       //  console.log("coming to correct list@@@@:" + $stateParams.companyId);
       $scope.productIdIs = $stateParams.companyId;
@@ -135,20 +125,7 @@
       }
 
     }
-
-    /* $scope.loadCategories = function ($query) {
-         var catsList = CategoryService.query(),
-           defObj = $q.defer();
-         return catsList.$promise.then(function (result) {
-           defObj.resolve(result);
-           return result.filter(function (catList) {
-             return catList.title.toLowerCase().indexOf($query.toLowerCase()) != -1;
-           });
-         });
-         return defObj.promise;
-
-       };*/
-
+/* ----------------Up to Here  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
 
     $scope.dynamicPopover = {
       templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
@@ -167,34 +144,12 @@
       return defObj.promise;
     };
 
-    /*    $scope.BackgroundImage = "https://www.sleekcover.com/covers/citizen-watch-facebook-cover.jpg";
-        $scope.headerImgMainTitle = "Withings Activite Activity tracker";
-        $scope.headerImgSubTitle = "ID 123456";
-        $scope.prodImages = ['https://www.sleekcover.com/covers/independent-girl-facebook-cover.jpg', 'http://d2rfsfyh2505gh.cloudfront.net/wp-content/uploads/2015/07/Prabhas.jpg', 'http://www.latesthdwallpapers.in/photos/Allu-Arjun-facebook-best-hd-photos-free-for-mobile.jpg'];
-        $scope.sampleDesc = "In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since. 'Whenever you feel like criticizing anyone,' he told me, 'just remember that all the people in this world haven't had the advantages that you've had.Only then, with the reader’s attention hooked,  ";*/
-
-
-    //$scope.sName = "$state.current.name==='companies.view'"
-    // console.log("sName:" + $state.current.name);
-
-
-
     $scope.changeLimit = function (pro) {
       if ($scope.limit == pro.description.length)
         $scope.limit = 100;
       else
         $scope.limit = pro.description.length;
     };
-
-    /*$scope.dynamicPopover = {
-      templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
-    };*/
-    /*$scope.hoveringOver = function (value) {
-      //  console.log('hoveringOver is called');
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
-    };*/
-
 
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({
@@ -342,7 +297,6 @@
       }
     }
 
-
     /*
         $scope.$on('data_shared', function () {
           var proDetails = dataShare.getData();
@@ -360,10 +314,6 @@
           vm.company = proDetails.data;
           console.log('datashare last: ' + JSON.stringify(vm.company));
         });*/
-
-
-
-
 
     $scope.businessSectorSelectedArray = [];
 

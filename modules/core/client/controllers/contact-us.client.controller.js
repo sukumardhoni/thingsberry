@@ -12,13 +12,9 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
     $scope.path = $location.absUrl();
     //console.log(path);
     $scope.contactUs = function () {
-
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);
       /*ContactUsService.send($scope.contact);*/
-
-
-
       function successCallback(res) {
         //console.log('Success while sending the Contactus details : ' + res);
         if (res.name === undefined) {
@@ -40,10 +36,7 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 
     $scope.getListedEmail = function () {
-
       console.log('getlisted form details on controller : ' + JSON.stringify($scope.getListed));
-
-
       console.log("entering into getlisted function");
       /*   console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));*/
 

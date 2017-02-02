@@ -46,7 +46,7 @@
           <tb-share state="listview" products="details" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-share>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
-          <a ui-sref="companies.view({ companyId: details.productId })" ng-class="{'btnDisabled':(details.status==='deactive')}"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
+          <a ng-click="scrollToProduct()" ng-class="{'btnDisabled':(details.status==='deactive')}"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
         </div>
         <!--<div class="col-md-1 col-sm-1 col-xs-4">
           <i class="fa fa-heart-o new_list_prdct_view_footer_icons"></i>

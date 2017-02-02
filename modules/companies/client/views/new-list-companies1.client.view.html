@@ -1,6 +1,8 @@
-<div class=" allPrdctsPage" ng-init="getSearchedProductsList()">
+<div class="col-md-12 col-xs-12">
+  <div ui-view></div>
+</div>
 
-
+<div class=" allPrdctsPage" ng-init="getSearchedProductsList()" ng-show="$state.current.name == 'companies.list.products'">
   <div ng-hide="vm.companys.length == 0">
     <div class="row prdcts-sorting hidden-sm">
       <div class="col-md-5 prdct_showing_item">

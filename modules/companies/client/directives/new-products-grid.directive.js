@@ -168,7 +168,17 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           NotificationFactory.error('Failed to Update Product details...', res);
         }
       }
+      scope.scrollToProduct = function () {
 
+        $state.go('companies.list.products.detail', {
+          companyId: scope.details.productId
+        })
+
+
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
+      }
 
 
 
@@ -346,6 +356,18 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
           NotificationFactory.error('Failed to Update Product details...', res);
         }
       };
+
+      scope.scrollToProduct = function () {
+
+        $state.go('companies.list.products.detail', {
+          companyId: scope.details.productId
+        })
+
+
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
+      }
 
     }
   }

@@ -35,7 +35,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     // Toggle the menu items
     $scope.isCollapsed = false;
     $scope.toggleCollapsibleMenu = function () {
-      console.log('id="tb-navbar-collapse" is called : ' + $scope.isCollapsed);
+      // console.log('id="tb-navbar-collapse" is called : ' + $scope.isCollapsed);
       $scope.isCollapsed = !$scope.isCollapsed;
     };
 
@@ -45,16 +45,12 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
     });
 
 
-    //console.log('Signout callback : ' + JSON.stringify($localStorage.user));
-
-
-
     $scope.signout = function () {
       //console.log('signout is called');
       // console.log('@@# in $http'+JSON.stringify($localStorage));
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
       $http.get('/api/auth/jwtSignout').success(function (response) {
-        console.log('Signout callback : ' + JSON.stringify(response));
+        //  console.log('Signout callback : ' + JSON.stringify(response));
         $scope.authentication.user = '';
         delete $localStorage.token;
         delete $localStorage.user;
@@ -63,53 +59,6 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       });
 
     };
-
-
-    /* $scope.content = [
-
-       {
-
-         link: 'HoMe',
-
-         route: 'home'
-
-
-
-                   },
-
-       {
-
-         link: 'ALLPRODUCTS',
-         route: 'not-found'
-
-
-                   },
-
-       {
-
-         link: 'BLOG',
-         route: 'blog'
-
-                   },
-
-       {
-
-         link: 'GETLISTED',
-         route: 'getListed'
-
-                   },
-
-       {
-
-         link: 'CONTACTUS',
-         route: 'contactus'
-
-                   }
-
-                   ];*/
-
-
-
 
   }
 ]);

@@ -9,6 +9,19 @@ angular.module('companies').directive('tbFrequentProducts', function (dataShare,
     },
     templateUrl: 'modules/companies/client/views/directive-partials/new-tb-frequent-products.display.client.view.html',
     link: function (scope, elem, attr) {
+
+      scope.scrollToProduct = function () {
+
+        $state.go('companies.list.products.detail', {
+          companyId: scope.details.productId
+        })
+
+
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
+      }
+
       // console.log("coming to tbFrequentProducts directive link function");
       // console.log("coming to tbFrequentProducts directive link function" + JSON.stringify(scope.details));
 

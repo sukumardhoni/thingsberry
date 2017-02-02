@@ -15,8 +15,6 @@
 
     $scope.editProductFunc = function (productDetails) {
       /*console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));*/
-      // console.log('Edit Product details on Direc. : ');
-      //  console.log($state.current.name);
       dataShare.setData(productDetails, $state.current.name);
       $state.go('companies.add');
     }
@@ -33,7 +31,6 @@
     };
 
     $scope.getFrequentlyProducts = function () {
-
       // console.log('getFrequentlyProducts function');
       FrequentlyProducts.query({}, function (res) {
         // console.log('response from server side');
@@ -43,14 +40,6 @@
         console.log('error while getting the list from server side');
       })
     }
-
-
-    //vm.companys = ['123', '456', '789', '012', '345', '678', '901'];
-    /*CompanyService.query(function (res) {
-  //console.log(' Clicnt side lint of products : ' + JSON.stringify(res));
-  vm.companys = res;
-});*/
-    // article.isCurrentUserOwner = req.user && article.user && article.user._id.toString() === req.user._id.toString() ? true : false;
 
     $scope.userDetails = $localStorage.user;
     // console.log("USER(OR)ADMIN:" + JSON.stringify($scope.userDetails));
@@ -67,35 +56,6 @@
     // console.log("USER(OR)ADMIN:" + JSON.stringify(loginUser));
     // console.log("USER :"+ JSON.stringify($localStorage.user));
     $scope.getSearchedProductsList = function () {
-      // getproductsforImages();
-
-      //  console.log("Entering into getsearchproductslists");
-
-      // var pageId = 0;
-
-      if ($stateParams.cat == 'Home') {
-        //console.log('HOME')
-        $scope.productsDisplayText = 'Home Products'
-      } else if ($stateParams.cat == 'Automobile') {
-        //console.log('AUTOMOBILE')
-        $scope.productsDisplayText = 'Automobile Products'
-      } else if ($stateParams.cat == 'Healthcare') {
-        //console.log('HEALTH')
-        $scope.productsDisplayText = 'Health Care Products'
-      } else if ($stateParams.cat == 'Utilities') {
-        //console.log('UTILITIES')
-        $scope.productsDisplayText = 'Utilities Products'
-      } else if ($stateParams.cat && $stateParams.isSearch) {
-        //console.log('$stateParams.cat && $stateParams.isSearch')
-        $scope.productsDisplayText = 'Search Results';
-      } else {
-        //console.log('ELSE')
-        $scope.productsDisplayText = 'All Products';
-      }
-      $scope.totalItems = $scope.getSearchedProductsList.length;
-      $scope.currentPage = 1;
-      $scope.itemsPerPage = 12;
-      $scope.maxSize = 2;
 
       $scope.gridView = true;
       $scope.grdView = function () {
@@ -104,12 +64,9 @@
       }
 
       $scope.listView = function () {
-        $scope.gridView = false;
-      }
-
-
-      //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
-
+          $scope.gridView = false;
+        }
+        //console.log('$stateParams.isSearch is : ' + $stateParams.isSearch);
       $scope.spinnerLoading = true;
       $scope.searchOrder = {};
       $scope.searchOrder.Lists = [
@@ -143,10 +100,8 @@
       } else {
 
         $scope.CatName = $stateParams.cat;
-
         //console.log('$stateParams.cat is :' + $stateParams.cat);
         //console.log('$stateParams.cat is :' + $stateParams.cat.length);
-
         SearchProducts.query({
           ProCategory: $stateParams.cat,
           ProCompany: $stateParams.com,
@@ -242,11 +197,7 @@
           console.log('Failed to fetch the product details : ' + JSON.stringify(err));
         });
       }
-
-
     };
-
-
 
   }
 })();

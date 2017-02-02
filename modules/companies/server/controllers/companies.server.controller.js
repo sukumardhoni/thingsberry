@@ -7,7 +7,6 @@ var path = require('path'),
   _ = require('lodash'),
   mongoose = require('mongoose'),
   Company = mongoose.model('Company'),
-  DeactivePrdcts = mongoose.model('DeactivePrdcts'),
   Category = mongoose.model('Category'),
   config = require('../../../../config/config'),
   agenda = require('../../../../schedules/job-schedule')(config.db),
@@ -634,23 +633,98 @@ exports.premiumProductsList = function (req, res) {
   });
 };
 
+exports.getAllRoutes = function (req, res) {
+  var routes = {
+    isAlive: '/isAlive',
+    stats: '/stats',
+    findDuplicates: '/findDuplicateProducts',
+    cleanUpInactive: '/cleanUpInactive',
+  };
 
-exports.getAllPrdcts = function (req, res) {
-  /* Company.find({
-     "status": 'active'
-   }).then(function (companies) {
-     res.json(companies);
-   }).catch(function (err) {
-     return res.status(400).send({
-       message: errorHandler.getErrorMessage(err)
-     });
-   });*/
-
-  hh.get('http://topsolute.com/wp-content/uploads/2016/03/Skybellhd-homemb.png', function (res) {
-    console.log("ERROR OF ANOTHER PRDCTS : " + JSON.stringify(res.statusCode));
-  });
-
+  res.json(_.extend({
+    'message': 'api is alive !',
+    'name': exports.name,
+    'description': exports.description,
+    'version': exports.version,
+    'routes': routes
+  }));
 };
+
+exports.getDuplicateProducts = function (req, res) {
+  Company.aggregate([
+    {
+      $group: {
+        _id: {
+          Proname: "$Proname"
+        },
+        uniqueIds: {
+          $addToSet: "$_id"
+        },
+        Desc: {
+          $addToSet: "$description"
+        },
+        count: {
+          $sum: 1
+        }
+      }
+    },
+    {
+      $match: {
+        count: {
+          $gte: 2
+        }
+      }
+    },
+    {
+      $sort: {
+        count: -1
+      }
+    }
+]).exec(function (err, dupProds) {
+    if (err) {
+      console.log("ERROR IN DUPLICATE PROD FUNCTION : " + JSON.stringify(err));
+    } else {
+      // console.log("ALL DUPLICATE PRDCTS : " + JSON.stringify(dupProds));
+      var prodArray = [];
+      var uniqueIdCount = 0;
+      for (var i = 0; i < dupProds.length; i++) {
+        console.log("PROD DETAILS FOR : ");
+        Company.find({
+          "Proname": dupProds[i]._id.Proname
+        }).then(function (prodDetails) {
+          uniqueIdCount = uniqueIdCount + 1;
+          // console.log("PROD DETAILS : " + JSON.stringify(prodDetails));
+          // console.log("PROD DETAILS COUNT : " + JSON.stringify(uniqueIdCount));
+          for (var k = 0; k < prodDetails.length; k++) {
+            var dupProdData = {
+              prodId: prodDetails[k]._id,
+              prodName: prodDetails[k].Proname,
+              prodDesc: prodDetails[k].description,
+              productId: prodDetails[k].productId
+            }
+            prodArray.push(dupProdData);
+          }
+          if (dupProds.length == uniqueIdCount) {
+            console.log("TOTAL DETAILS : " + JSON.stringify(prodArray));
+            res.json(_.extend({
+              'message': 'Duplicate Products',
+              'Total Duplicate_Products_Count': prodArray.length,
+              'Duplicate_Products': prodArray
+            }));
+            var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
+            var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+            agenda.now('Duplicate_Products', {
+              duplicateProdRunDate: presentDate,
+              presentYear: presentYear,
+              DuplicateProducts: prodArray
+            });
+          }
+        })
+      }
+    }
+  })
+};
+
 
 exports.getDeactiveProducts = function (req, res) {
   Company.find({

@@ -1,4 +1,4 @@
-<div class="container" ng-init="getSearchedProductsList()">
+<div>
 
 
   <update-title title="Thingsberry {{vm.company.Proname}} - Product"></update-title>
@@ -9,12 +9,12 @@
   <update-meta itemprop="description" content="{{vm.company.description}}"></update-meta>
   <update-meta property="og:image" content="{{vm.company.productImageURL}}"></update-meta>
   <update-meta property="og:url" content="{{path}}"></update-meta>
-    <meta name="robots" content="noindex">
+  <meta name="robots" content="noindex">
   <meta name="googlebot" content="noindex">
 
 
-  <div class="row snglPrdctPage">
-    <div class="col-md-10 col-xs-12  ">
+  <div class="">
+    <div class="col-md-12 col-xs-12  ">
       <div class="row">
         <span class="backBtn back_on_sngle_prdct_view " onclick="history.back(-1)"><span class="back_to_prdcts"></span></span>
       </div>
@@ -63,10 +63,8 @@
 
 
 
-    <!--<div class="col-md-2 col-xs-12" style="margin-top:40px;">
 
-    </div>-->
-    <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 col-xs-12  allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;margin-top:10px;">
+    <!-- <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 col-xs-12  allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;margin-top:10px;">
 
       <div class="visible-xs">
         <div class="row frequentCat">
@@ -74,7 +72,6 @@
         </div>
         <div class="row" ng-repeat="val in frequentProducts |limitTo:1">
           <tb-frequent-products details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-frequent-products>
-          <!--<tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails" state="frequentlyState"></tb-products-grid>-->
         </div>
       </div>
       <div class="visible-sm" style="margin-bottom:30px;">
@@ -84,7 +81,6 @@
         <div class="row">
           <div ng-repeat="val in frequentProducts |limitTo:2">
             <div class="col-sm-5 prdct-tile">
-              <!--<tb-frequent-products details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-frequent-products>-->
               <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
             </div>
           </div>
@@ -96,7 +92,7 @@
       <div class="row">
         <tb-accordions categories="accrdnsPanelArray"></tb-accordions>
       </div>
-    </div>
+    </div>-->
 
 
 
