@@ -11,8 +11,24 @@
     .factory('CategoryServiceRightPanel', CategoryServiceRightPanel)
     .factory('FrequentlyProducts', FrequentlyProducts)
 
-  /*  .factory('productService', productService)*/
 
+  /*  .factory('productService', productService)*/
+  .factory('FirebaseApp', function ($q) {
+    var config = {
+      apiKey: "AIzaSyDOggDlAx19ssyKUGK5okP0SNUNFNe1mXU",
+      authDomain: "thingsberry-cbc0e.firebaseapp.com",
+      databaseURL: "https://thingsberry-cbc0e.firebaseio.com",
+      storageBucket: "thingsberry-cbc0e.appspot.com",
+      messagingSenderId: "549789190896"
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    return {
+      firebaseInitialize: function () {
+        return firebase;
+      }
+    }
+  })
 
 
 
@@ -41,7 +57,6 @@
       })
     }
 }]);
-
   /*  .factory('deactiveService', ['$resource', function ($resource) {
       return {
         DeactivateProduct: $resource('api/companies/:companyId', {

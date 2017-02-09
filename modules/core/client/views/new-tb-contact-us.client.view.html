@@ -59,7 +59,8 @@
         <div class="row">
           <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
             <label class="label-styles-msg"><b>Message</b></label>
-            <input class="input-styles" class="form-control" name="message" id="message" type="text" ng-model="contact.message" required>
+            <!-- <input class="input-styles" class="form-control" cols="30" rows="10" name="message" id="message" type="text" ng-model="contact.message" required>-->
+            <textarea class="input-styles" class="form-control" name="message" id="message" rows="1" cols="30" ng-model="contact.message" required></textarea>
             <div ng-messages="contactUsForm.message.$error">
               <div ng-message="required">Message is required.</div>
             </div>

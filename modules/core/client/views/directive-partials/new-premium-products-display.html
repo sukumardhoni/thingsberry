@@ -13,7 +13,7 @@
        <a ui-sref="companies.add({ companyId: details.productId })"> <i class="fa fa-chevron-down"></i></a>
     </div>-->
     <div class="row">
-      <img src="{{details.productImageURL}}" class="premium_img img-responsive" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';">
+      <img src="{{details.firebaseImageUrl?details.firebaseImageUrl:details.productImageURL}}" class="premium_img img-responsive" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';">
     </div>
 
   </div>

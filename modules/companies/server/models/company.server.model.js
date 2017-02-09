@@ -72,6 +72,11 @@ var CompanySchema = new Schema({
     default: '',
     trim: true
   },
+  firebaseImageUrl: {
+    type: String,
+    default: '',
+    trim: true
+  },
   affliateLink: {
     type: String,
     default: '',

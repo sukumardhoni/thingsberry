@@ -6,7 +6,7 @@
   </div>-->
 
   <div class="row">
-    <a ng-href="{{details.webAddress}}" target="_blank"><img ng-src="{{details.productImageURL}}" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';" class="prdct-img"></a>
+    <a ng-href="{{details.webAddress}}" target="_blank"><img ng-src="{{details.firebaseImageUrl?details.firebaseImageUrl:details.productImageURL}}" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';" class="prdct-img"></a>
   </div>
 
   <div class="row">

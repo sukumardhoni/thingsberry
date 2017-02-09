@@ -47,18 +47,58 @@ angular.module('companies').directive('tbSingleProduct', function (dataShare, $s
           //  console.log("REMOVING PRODUCTS");
           if (product) {
             // console.log('remove func. on if condition : ');
-            CompanyServiceUpdate.DeleteProduct.remove({
-              companyId: product.productId
-            }, function (res) {
-              console.log('Res details on remove success cb : ' + JSON.stringify(res));
-              $state.go('companies.list.products', {
-                isSearch: false
-              });
-              NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
-            }, function (err) {
-              console.log('Err details on remove Error cb : ' + JSON.stringify(err));
-              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
-            })
+            if (product.firebaseImageUrl) {
+              console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
+              firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
+                console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
+                var imageName = snapshot.val().storageImgName;
+                firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
+                  console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
+                  firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
+                    CompanyServiceUpdate.DeleteProduct.remove({
+                      companyId: product.productId
+                    }, function (res) {
+                      console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                      $state.go('companies.list.products', {
+                        isSearch: false
+                      });
+                      NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+                    }, function (err) {
+                      console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+                      NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
+                    })
+                  });
+                })
+              })
+            } else {
+              console.log(" FIREBASE IMG URL NOT THERE ");
+              CompanyServiceUpdate.DeleteProduct.remove({
+                companyId: product.productId
+              }, function (res) {
+                console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                $state.go('companies.list.products', {
+                  isSearch: false
+                });
+                NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+              }, function (err) {
+                console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+                NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
+              })
+            }
+
+
+            /*  CompanyServiceUpdate.DeleteProduct.remove({
+                companyId: product.productId
+              }, function (res) {
+                console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                $state.go('companies.list.products', {
+                  isSearch: false
+                });
+                NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+              }, function (err) {
+                console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+                NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
+              })*/
           } else {
             // console.log('remove func. on else condition : ');
           }

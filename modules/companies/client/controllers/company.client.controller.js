@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts', 'FirebaseApp'];
 
-  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts, FirebaseApp) {
 
     var vm = this;
     vm.company = company;
@@ -47,11 +47,31 @@
     //vm.save = save;
     vm.addCompanyDetails = addCompanyDetails;
     $scope.path = $location.absUrl();
+    $scope.imagefile;
+
+    /*--------------------- FIRE BASE CONFIG--------------------------------------*/
+    /*   var config = {
+         apiKey: "AIzaSyDOggDlAx19ssyKUGK5okP0SNUNFNe1mXU",
+         authDomain: "thingsberry-cbc0e.firebaseapp.com",
+         databaseURL: "https://thingsberry-cbc0e.firebaseio.com",
+         storageBucket: "thingsberry-cbc0e.appspot.com",
+         messagingSenderId: "549789190896"
+       };
+       firebase.initializeApp(config);*/
+    /*--------------------- FIRE BASE CONFIG--------------------------------------*/
 
     $scope.addBtnText = 'SUBMIT';
     // console.log("USER :" + JSON.stringify($localStorage.user));
     // console.log(vm.company);
     /*$scope.user = $localStorage.user;*/
+    /*  if (vm.company.firebaseImageUrl) {
+        console.log("FIREBASE URL : " + JSON.stringify(vm.company.firebaseImageUrl));
+        $scope.imageSrc = vm.company.firebaseImageUrl;
+      } else {
+        console.log("FIREBASE URL NOT THERE : ");
+      }*/
+
+
     if ($localStorage.user) {
       if ($localStorage.user.roles.indexOf('admin') !== -1) {
         // console.log("coming to true");
@@ -87,25 +107,25 @@
        $state.go('companies.add');
      }*/
 
-       $scope.userValidation = function () {
-         if (vm.authentication.user) {} else {
-           var modalInstance = $uibModal.open({
-             templateUrl: 'modules/companies/client/views/modals/userNotLoggedIn-modal.html',
-             backdrop: "static",
-             $scope: $scope,
-             controller: 'LoginSignUpModalCtrl'
-           });
-           modalInstance.result.then(function (LogInSignUpCondition) {
-             console.log('$scope.LogInSignUpCondition value : ' + LogInSignUpCondition);
-             if (LogInSignUpCondition) $state.go('authentication.signin');
-             else $state.go('authentication.signup');
-           }, function () {});
-         }
-       }
+    $scope.userValidation = function () {
+      if (vm.authentication.user) {} else {
+        var modalInstance = $uibModal.open({
+          templateUrl: 'modules/companies/client/views/modals/userNotLoggedIn-modal.html',
+          backdrop: "static",
+          $scope: $scope,
+          controller: 'LoginSignUpModalCtrl'
+        });
+        modalInstance.result.then(function (LogInSignUpCondition) {
+          console.log('$scope.LogInSignUpCondition value : ' + LogInSignUpCondition);
+          if (LogInSignUpCondition) $state.go('authentication.signin');
+          else $state.go('authentication.signup');
+        }, function () {});
+      }
+    }
 
- /* ----------------  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
-      if ($stateParams.companyId) {
-      //  console.log("coming to correct list");
+    /* ----------------  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
+    if ($stateParams.companyId) {
+      console.log("coming to correct list");
       //  console.log("coming to correct list@@@@:" + $stateParams.companyId);
       $scope.productIdIs = $stateParams.companyId;
       //  console.log("coming to correct list@@@@:" + $scope.productIdIs);
@@ -114,8 +134,11 @@
       }, vm.company, successgetProductCallback, errorgetProductCallback);
 
       function successgetProductCallback(res) {
+        if (res.firebaseImageUrl) {
+          $scope.imageSrc = res.firebaseImageUrl;
+        } else {}
         vm.company = res;
-        // console.log("succes callback from get productdetails:" + JSON.stringify(res));
+        console.log("succes callback from get productdetails:" + JSON.stringify(res.firebaseImageUrl));
       }
 
       function errorgetProductCallback(res) {
@@ -125,7 +148,7 @@
       }
 
     }
-/* ----------------Up to Here  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
+    /* ----------------Up to Here  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
 
     $scope.dynamicPopover = {
       templateUrl: 'modules/companies/client/views/popover/rating-popover.client.view.html'
@@ -167,18 +190,46 @@
       modalInstance.result.then(function (product) {
         if (product) {
           //console.log('remove func. on if condition : ');
-          CompanyServiceUpdate.DeleteProduct.remove({
-            companyId: product.productId
-          }, function (res) {
-            //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-            $state.go('companies.list.products', {
-              isSearch: false
-            });
-            NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
-          }, function (err) {
-            //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
-            NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
-          })
+          if (product.firebaseImageUrl) {
+            console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
+            firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
+              console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
+              var imageName = snapshot.val().storageImgName;
+              firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
+                console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
+                firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
+                  CompanyServiceUpdate.DeleteProduct.remove({
+                    companyId: product.productId
+                  }, function (res) {
+                    //console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                    $state.go('companies.list.products', {
+                      isSearch: false
+                    });
+                    NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+                  }, function (err) {
+                    //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+                    NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+                  })
+                });
+              })
+            })
+          } else {
+            console.log(" FIREBASE IMG URL NOT THERE ");
+            CompanyServiceUpdate.DeleteProduct.remove({
+              companyId: product.productId
+            }, function (res) {
+              //console.log('Res details on remove success cb : ' + JSON.stringify(res));
+              $state.go('companies.list.products', {
+                isSearch: false
+              });
+              NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+            }, function (err) {
+              //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+              NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
+            })
+          }
+
+
         } else {
           //console.log('remove func. on else condition : ');
         }
@@ -220,24 +271,50 @@
         //vm.company.$update(successUpdateCallback, errorUpdateCallback);
         vm.company.businessSector = genBusinessArray($scope.businessSectorSelectedArray);
         vm.company.serviceOffered = genBusinessArray($scope.serviceOfferedSelectedArray);
-
-        if (vm.company.productImageURL) {
-
-        } else {
-          vm.company.logo = {
-            filetype: $scope.productImg.filetype,
-            base64: $scope.productImg.base64
-          };
-        }
         // console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
         vm.company.operationalRegions = $scope.operationalRegionsList;
 
+        if (vm.company.productImageURL) {
+          console.log('Created product is called : ' + JSON.stringify(vm.company));
+          CompanyServiceUpdate.UpdateProduct.update({
+            companyId: vm.company.productId
+          }, vm.company, successUpdateCallback, errorUpdateCallback);
+        } else {
+          console.log('Created product is called : ' + JSON.stringify($scope.imageSrc));
+
+          if ($scope.imagefile) {
+            console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
+            // console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
+            firebase.database().ref('Products/' + vm.company.productId + '/').once('value', function (snapshot) {
+              console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
+              var imageName = snapshot.val().storageImgName;
+              firebase.storage().ref('Products/' + vm.company.productId + '/' + imageName).delete().then(function (result) {
+                console.log("DELTE : " + JSON.stringify(result));
+                firebase.storage().ref('Products/' + vm.company.productId + '/' + $scope.imagefile.name).put($scope.imagefile).then(function (updatedImage) {
+                  var updatedImageUrl = updatedImage.a.downloadURLs[0];
+                  firebase.database().ref('Products/' + vm.company.productId + '/').update({
+                    storageImgName: $scope.imagefile.name
+                  }).then(function () {
+                    vm.company.firebaseImageUrl = updatedImageUrl;
+                    CompanyServiceUpdate.UpdateProduct.update({
+                      companyId: vm.company.productId
+                    }, vm.company, successUpdateCallback, errorUpdateCallback);
+                  })
+                })
+              });
+            })
+          } else {
+            console.log('Image file not updated ');
+            CompanyServiceUpdate.UpdateProduct.update({
+              companyId: vm.company.productId
+            }, vm.company, successUpdateCallback, errorUpdateCallback);
+          }
+
+        }
         // console.log('adproduct1');
-        CompanyServiceUpdate.UpdateProduct.update({
-          companyId: vm.company.productId
-        }, vm.company, successUpdateCallback, errorUpdateCallback);
-
-
+        /*  CompanyServiceUpdate.UpdateProduct.update({
+            companyId: vm.company.productId
+          }, vm.company, successUpdateCallback, errorUpdateCallback);*/
 
       } else {
 
@@ -251,24 +328,31 @@
         // console.log("company productId :" + productName);
 
         vm.company.productId = productName;
-
-        if (vm.company.productImageURL) {
-
-        } else {
-          vm.company.logo = {
-            filetype: $scope.productImg.filetype,
-            base64: $scope.productImg.base64
-          };
-        }
-
-        //  console.log('Created product is called : ' + JSON.stringify(vm.company));
         // console.log('Operational regions list is : ' + JSON.stringify($scope.operationalRegionsList));
-
-        //if ($scope.selectionOperational)
         vm.company.operationalRegions = $scope.operationalRegionsList;
 
-        vm.company.$save(successCallback, errorCallback);
+        if (vm.company.productImageURL) {
+          console.log('Created product is called : ' + JSON.stringify(vm.company));
+          vm.company.$save(successCallback, errorCallback);
+        } else {
+          console.log('Created product is called : ' + JSON.stringify($scope.imageSrc));
+          console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
+          var storageRef = firebase.storage().ref('Products/' + vm.company.productId + '/' + $scope.imagefile.name + '/');
+          storageRef.put($scope.imagefile).then(function (snap) {
+            var imageUrl = snap.a.downloadURLs[0];
+            console.log("IMAGE URL : " + JSON.stringify(imageUrl));
 
+            firebase.database().ref('Products/' + vm.company.productId + '/').update({
+              storageImgName: $scope.imagefile.name
+            }).then(function (resul) {
+              console.log("DATA STORE IN DATABASE : " + JSON.stringify(resul));
+              vm.company.firebaseImageUrl = imageUrl;
+              console.log('Created product is called : ' + JSON.stringify(vm.company));
+              vm.company.$save(successCallback, errorCallback);
+            })
+          })
+        }
+        //  vm.company.$save(successCallback, errorCallback);
 
       }
 
@@ -465,14 +549,43 @@
     $scope.SelectedCat = function (val) {
       //console.log('SelectedCat cal is : ' + val);
     };
-
-
-    $scope.previewImg = function (val) {
-
-      if (val)
-        $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
-      //console.log('Base 64 img details filetype is : ' + val.filetype);
+    $scope.safeApply = function (fn) {
+      var phase = this.$root.$$phase;
+      if (phase == '$apply' || phase == '$digest') {
+        if (fn && (typeof (fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
     };
+    // $scope.imageSrc = 'https';
+    $scope.uploadNewImage = function () {
+      console.log("###############");
+      console.log(JSON.stringify(event.target.files[0].size));
+      if (event.target.files[0].size > 1000000) {
+        $scope.imgSizeError = true;
+      } else {
+        var newFile = event.target.files[0];
+        $scope.imagefile = newFile;
+        $scope.imgSizeError = false;
+      }
+      $scope.safeApply(function () {
+        $scope.imgSizeError;
+        $scope.imageSrc = URL.createObjectURL(newFile);
+        console.log("SRC >>> : " + JSON.stringify($scope.imageSrc));
+      });
+
+    };
+
+
+
+    /*   $scope.previewImg = function (val) {
+
+         if (val)
+           $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
+         //console.log('Base 64 img details filetype is : ' + val.filetype);
+       };*/
 
 
   }

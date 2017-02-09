@@ -43,7 +43,9 @@ module.exports = {
         'public/lib/angular-socialshare/dist/angular-socialshare.min.js',
         'public/lib/angular-update-meta/dist/update-meta.min.js',
         'https://www.youtube.com/iframe_api',
-        'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js'
+        'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js',
+        'public/lib/firebase/firebase.js',
+        'public/lib/angularfire/dist/angularfire.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

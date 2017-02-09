@@ -63,44 +63,49 @@
             <input type="radio" ng-model="vm.company.status" value="deactive" required>deactive</span>
         </div>
       </div>
-      <div class="row text-center">
-        <br>
-        <h4 class="heading_Text">Product Image</h4>
-        <h5>&nbsp;&nbsp;<small>(jpg,png,gif)</small></h5>
-        <br ng-show="productImg">
+      <br>
+
+      <div class="col-md-6 col-md-offset-3 image-or-Url">
+        <div class="row text-center">
+          <h4 class="heading_Text">Product Image</h4>
+          <h5>&nbsp;&nbsp;<small>( jpg, png, gif )</small> </h5>
+          <div class="col-md-8 col-md-offset-2">
+            <div class="add_prdct_Border">
+              <img ng-hide="imgSizeError||imageSrc" class="add_Prdct img-responsive" onerror="this.src='../../../../modules/core/client/img/no-image.jpg'" ng-src="{{vm.company.firebaseImageUrl?vm.company.firebaseImageUrl:'https'}}">
+              <img ng-show="imageSrc" class="add_Prdct img-responsive" ng-src="{{imageSrc}}">
+
+              <h5 ng-show="imgSizeError" class="text-center add_Prdct" style="color:red;"> Image size should be less than or equal to 1MB</h5>
+              <div class=" AddMenuImage">
+                <input ng-model="imageSrc" class="hideChooseFile" accept="image/png, image/gif, image/jpeg" maxsize="1000" type="file" file-on-change="uploadNewImage" ng-required="!vm.company.productImageURL" />{{(imageSrc||vm.company.firebaseImageUrl)? 'CHANGE IMAGE':'ADD IMAGE'}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row text-center">
+          <!--      <br ng-show="productImg">
         <button class="file-upload btn-custom-style" ng-hide="productImg">
           <input type="file" name="productPic" accept="image/png, image/gif, image/jpeg" maxsize="1000" ng-model="productImg" base-sixty-four-input ng-change="previewImg(productImg)" class="file-input" ng-required="!(productImg || vm.company.productImageURL)">Choose File</button>
 
         <span ng-show="productImg"><img alt="productImg" ng-src="{{imgUrl}}" class="photo" width="15%" /><i class="fa fa-times" ng-click="productImg = ''" style="position: absolute;margin-top:-50px;font-size: 25px;"></i></span>
         <br ng-show="productImg">
         <p ng-show="vm.form.companyForm.productPic.$error.maxsize && productImg">Files must not exceed 1000 KB</p>
-        <button ng-show="productImg" class="btn btn-custom-style" ng-click="uploadProImg()" ng-disabled="vm.form.companyForm.productPic.$invalid || vm.form.companyForm.productName.$invalid">UPLOAD IMAGE</button>
-        <br>
-        <small ng-hide="productImg">No file selected</small>
-        <br>
-
-
-        <h5>Or</h5>
-        <h4 class="heading_Text">Product Image URL</h4>
-        <div class="form-group text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-          <label>Product Image URL&#42;</label>
-          <input type="url" class="form-control add_new_fields" name="Product_Image_URL" id="Product_Image_URL" placeholder="Product Image URL&#42;" ng-model="vm.company.productImageURL" ng-required="!(productImg || vm.company.productImageURL)">
-          <span ng-show="vm.form.companyForm.Product_Image_URL.$error.url" style="color:#ff6666">Not a valid URL <span style="color:#404040
-">( Valid urls are like http://www.google.com )</span></span>
+        <button ng-show="productImg" class="btn btn-custom-style" ng-click="uploadProImg()" ng-disabled="vm.form.companyForm.productPic.$invalid || vm.form.companyForm.productName.$invalid">UPLOAD IMAGE</button>-->
+          <!-- <br>
+        <small ng-hide="productImg">No file selected</small>-->
+          <h3>( or )</h3>
+          <h4 class="heading_Text">Product Image URL</h4>
+          <div class="form-group text-center col-md-offset-2 col-md-8 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
+            <label>Product Image URL&#42;</label>
+            <input type="url" class="form-control add_new_fields" name="Product_Image_URL" id="Product_Image_URL" placeholder="Product Image URL&#42;" ng-model="vm.company.productImageURL" ng-required="!(imageSrc||vm.company.firebaseImageUrl)" ng-pattern="/^https:/">
+            <span ng-show="vm.form.companyForm.Product_Image_URL.$error.pattern" style="color:#ff6666">Not a valid URL <span style="color:#404040
+">( Valid urls are like https://www.google.com )</span>
+            </span>
+          </div>
         </div>
-
-
-
       </div>
-
-      <!-- <div class="row">
-        <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
-          <label>Category</label>
-          <select class="form-control add_new_fields" ng-model="vm.company.ProCat" ng-init="vm.company.ProCat = categoriesList[0]" ng-selected="vm.company.ProCat" ng-options="cats for cats in categoriesList" ng-change="SelectedCat(vm.company.ProCat)" required>
-          </select>
-        </div>
-      </div>-->
-
 
       <div class="row">
         <div class="form-group add_form_category text-center col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10 floating-label-form-group">
@@ -110,12 +115,6 @@
           </tags-input>
         </div>
       </div>
-
-
-
-
-
-
 
       <div class="row">
         <div class="form-group text-center col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10 floating-label-form-group">
