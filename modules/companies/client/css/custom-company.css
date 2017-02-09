@@ -1467,3 +1467,16 @@ select:focus {
 .image-or-Url {
   border: 1px solid #cccccc;
 }
+
+.ImageError_style {
+  height: 16px;
+}
+
+.imageClose_Btn {
+  float: right;
+  font-size: 20px;
+  /* margin-bottom: 8px; */
+  margin: 15px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
