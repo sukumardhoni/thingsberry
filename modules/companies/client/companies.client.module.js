@@ -1,7 +1,7 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('companies');
-  app.registerModule('companies.services');
-  app.registerModule('companies.routes', ['ui.router', 'companies.services']);
+  app.registerModule('core');
+  app.registerModule('core.services');
+  app.registerModule('core.routes', ['ui.router', 'core.services']);
 })(ApplicationConfiguration);

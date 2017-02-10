@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('companies').directive('tbHeaderImage', function () {
+angular.module('core').directive('tbHeaderImage', function () {
   return {
     restrict: 'E',
     replace: true,

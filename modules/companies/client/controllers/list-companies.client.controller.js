@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('companies')
+    .module('core')
     .controller('CompanyListController', CompanyListController);
 
   CompanyListController.$inject = ['CompanyService', '$scope', 'Authentication', '$localStorage', '$stateParams', 'SearchProducts', 'ListOfProducts', '$location', 'dataShare', '$state', 'CategoryService', 'CategoryServiceRightPanel', 'FrequentlyProducts', '$timeout'];
@@ -16,7 +16,7 @@
     $scope.editProductFunc = function (productDetails) {
       /*console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));*/
       dataShare.setData(productDetails, $state.current.name);
-      $state.go('companies.add');
+      $state.go('home.companies.add');
     }
 
     $scope.carouselBg3 = [];
@@ -146,7 +146,7 @@
         $scope.listActive = Catproducts;
       }
 
-      $state.go('companies.list.products', {
+      $state.go('home.companies.list.products', {
         cat: catArr,
         com: 'Company',
         name: 'Product',

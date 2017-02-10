@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('companies')
+angular.module('core')
   .directive('premiumProductDisplay', function (dataShare, $state, $localStorage) {
     return {
       restrict: 'E',

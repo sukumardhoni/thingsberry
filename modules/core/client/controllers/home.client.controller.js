@@ -28,6 +28,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $scope.disableControlls = false;
     });
 
+    var scrollContent = function () {
+      // Your favorite scroll method here
+      $('html, body').animate({
+        scrollTop: -10000
+      }, 100);
+    }
 
 
     $scope.Advanced_Search_Fields = false;
@@ -66,11 +72,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           }
 
           if ((catsArray == '') && (regionsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
-            $state.go('companies.list.products', {
+            $state.go('home.companies.list.products', {
               isSearch: false
             });
           } else {
-            $state.go('companies.list.products', {
+            $state.go('home.companies.list.products', {
               cat: (catsArray == '') ? 'Category' : catsArray,
               com: (details.Company == undefined) ? 'Company' : details.Company,
               name: (details.Product == undefined) ? 'Product' : details.Product,
@@ -80,7 +86,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           }
         }
       } else {
-        $state.go('companies.list.products', {
+        $state.go('home.companies.list.products', {
           isSearch: false
         });
       }

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('companies').directive('tbProductsGrid', function (dataShare, $state, $localStorage, ratingService, NotificationFactory, deactiveService, $window, $uibModal, CompanyServiceUpdate, Authentication) {
+angular.module('core').directive('tbProductsGrid', function (dataShare, $state, $localStorage, ratingService, NotificationFactory, deactiveService, $window, $uibModal, CompanyServiceUpdate, Authentication) {
   return {
     restrict: 'E',
     scope: {
@@ -106,10 +106,10 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
 
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
+          if ($state.current.name == 'home.companies.list.products') {
             $window.location.reload();
           } else {
-            $state.go('companies.list.products', {
+            $state.go('home.companies.list.products', {
               isSearch: false
             });
           }
@@ -187,7 +187,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
 
       scope.scrollToProduct = function () {
 
-        $state.go('companies.list.products.detail', {
+        $state.go('home.companies.list.products.detail', {
           companyId: scope.details.productId
         })
 
@@ -317,10 +317,10 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
         }
 
         function successUpdateCallback(res) {
-          if ($state.current.name == 'companies.list.products') {
+          if ($state.current.name == 'home.companies.list.products') {
             // $window.location.reload();
           } else {
-            $state.go('companies.list.products', {
+            $state.go('home.companies.list.products', {
               isSearch: false
             });
           }
@@ -399,7 +399,7 @@ angular.module('companies').directive('tbProductsGrid', function (dataShare, $st
 
       scope.scrollToProduct = function () {
 
-        $state.go('companies.list.products.detail', {
+        $state.go('home.companies.list.products.detail', {
           companyId: scope.details.productId
         })
 

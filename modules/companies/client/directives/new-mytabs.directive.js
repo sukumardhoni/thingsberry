@@ -1,6 +1,6 @@
  'use strict';
 
- angular.module('companies').directive('myTabs', function () {
+ angular.module('core').directive('myTabs', function () {
      return {
        restrict: 'E',
        transclude: true,

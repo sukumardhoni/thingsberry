@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('companies.services')
+    .module('core.services')
     .factory('CompanyService', CompanyService)
     .factory('CategoryService', CategoryService)
     .factory('dataShare', dataShare)

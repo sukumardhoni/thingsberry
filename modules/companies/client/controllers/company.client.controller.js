@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('companies')
+    .module('core')
     .controller('CompanyController', CompanyController)
 
 
@@ -268,7 +268,7 @@
                     companyId: product.productId
                   }, function (res) {
                     //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                    $state.go('companies.list.products', {
+                    $state.go('home.companies.list.products', {
                       isSearch: false
                     });
                     NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -285,7 +285,7 @@
               companyId: product.productId
             }, function (res) {
               //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-              $state.go('companies.list.products', {
+              $state.go('home.companies.list.products', {
                 isSearch: false
               });
               NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -444,7 +444,7 @@
       }
 
       function successUpdateCallback(res) {
-        $state.go('companies.list.products', {
+        $state.go('home.companies.list.products', {
           isSearch: false
         });
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
@@ -456,7 +456,7 @@
       }
 
       function successCallback(res) {
-        $state.go('companies.list.products', {
+        $state.go('home.companies.list.products', {
           isSearch: false
         });
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);

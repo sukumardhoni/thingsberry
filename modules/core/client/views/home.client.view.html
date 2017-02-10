@@ -1,4 +1,5 @@
-<section ng-controller="HomeController">
+<div ui-view></div>
+<section ng-controller="HomeController" ng-hide="($state.current.name=='home.companies.list.products.detail')||($state.current.name=='home.companies.list.products')||($state.current.name=='home.companies.add')">
   <update-title title="Thingsberry - internet of things(iot), connected devices, smart devices, smart things, smart homes, smart health devices, iot ratings and reviews..."></update-title>
   <update-meta name="description" content="Comprehensive list of internet of things(IoT), connected devices, smart devices, smart things, smart homes, health, fitness, sport and IoT ratings and reviews..."></update-meta>
   <update-meta property="og:title" content="Thingsberry - internet of things(iot), connected devices, smart devices, smart things, smart homes, smart health devices, iot ratings and reviews..."></update-meta>

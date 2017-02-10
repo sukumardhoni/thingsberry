@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('companies.routes')
+    .module('core.routes')
     .config(routeConfig)
     .run(function ($state, $rootScope) {
       $rootScope.$state = $state;
@@ -12,15 +12,15 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('companies', {
+      .state('home.companies', {
         abstract: true,
-        url: '/products',
+        url: 'products',
         template: '<ui-view/>',
         data: {
           breadcrumbProxy: 'companies.list'
         }
       })
-      .state('companies.list', {
+      .state('home.companies.list', {
         url: '/list',
         abstract: true,
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
@@ -32,7 +32,7 @@
           displayName: 'Searched Products'
         }
       })
-      .state('companies.list.products', {
+      .state('home.companies.list.products', {
         url: '/:cat?/:com?/:name?/:regions?/:isSearch',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
@@ -44,7 +44,7 @@
         }
 
       })
-      .state('companies.create', {
+      .state('home.companies.create', {
         url: '/create',
         templateUrl: 'modules/companies/client/views/form-company.client.view.html',
         controller: 'CompanyController',
@@ -57,7 +57,7 @@
           pageTitle: 'Create Product'
         }
       })
-      .state('companies.add', {
+      .state('home.companies.add', {
         url: '/your_product/:companyId',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',
         /*   templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
@@ -73,7 +73,7 @@
       })
 
 
-    .state('companies.list.products.detail', {
+    .state('home.companies.list.products.detail', {
       url: '/productDetail/:companyId',
       templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
       controller: 'CompanyController',

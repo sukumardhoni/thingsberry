@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('companies').directive('tbLinkButton', function ($location) {
+angular.module('core').directive('tbLinkButton', function ($location) {
   return {
     restrict: 'E',
     replace: true,

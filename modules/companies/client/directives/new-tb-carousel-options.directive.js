@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('companies').directive('tbHeaderCarouselOptions', function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+angular.module('core').directive('tbHeaderCarouselOptions', function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
   return {
     restrict: 'E',
     replace: true,

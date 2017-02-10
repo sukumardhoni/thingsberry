@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('companies').directive('tbFullDesc', function () {
+angular.module('core').directive('tbFullDesc', function () {
   return {
     restrict: 'E',
     replace: true,

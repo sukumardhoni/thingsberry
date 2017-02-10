@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('companies').directive('tbFrequentProducts', function (dataShare, $state, $localStorage, ratingService, NotificationFactory, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+angular.module('core').directive('tbFrequentProducts', function (dataShare, $state, $localStorage, ratingService, NotificationFactory, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
   return {
     restrict: 'E',
     scope: {

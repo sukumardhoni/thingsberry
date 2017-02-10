@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('companies').directive('tbShare', function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
+angular.module('core').directive('tbShare', function (dataShare, $state, $localStorage, ratingService, NotificationFactory) {
   return {
     restrict: 'E',
     scope: {
