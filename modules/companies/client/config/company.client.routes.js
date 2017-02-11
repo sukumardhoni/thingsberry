@@ -6,6 +6,11 @@
     .config(routeConfig)
     .run(function ($state, $rootScope) {
       $rootScope.$state = $state;
+      $rootScope.$on('$stateChangeSuccess', function () {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 200);
+      })
     });
 
   routeConfig.$inject = ['$stateProvider'];
