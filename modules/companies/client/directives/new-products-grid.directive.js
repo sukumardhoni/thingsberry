@@ -185,18 +185,19 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         }
       }
 
-      scope.scrollToProduct = function () {
+      scope.scrollToProduct = function (prod_Id) {
+
+        /*$localStorage.ScrollPostion = prod_Id;*/
+
 
         $state.go('home.companies.list.products.detail', {
           companyId: scope.details.productId
+        }).then(function () {
+          $("html, body").animate({
+            scrollTop: 0
+          }, "slow");
         })
-
-
-        $("html, body").animate({
-          scrollTop: 0
-        }, "slow");
-      }
-
+      };
 
     }
   }

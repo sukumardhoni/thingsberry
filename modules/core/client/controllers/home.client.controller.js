@@ -14,7 +14,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.active = 0;
 
     // $scope.headersearch=false;
-
+    /* if ($state.current.name == "home") {
+       $("html, body").animate({
+         scrollTop: 0
+       }, 200);
+     }*/
 
     // This provides Authentication context.
     $scope.authentication = Authentication;
@@ -28,12 +32,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       $scope.disableControlls = false;
     });
 
-    var scrollContent = function () {
-      // Your favorite scroll method here
-      $('html, body').animate({
-        scrollTop: -10000
-      }, 100);
-    }
+    /*  var scrollContent = function () {
+        // Your favorite scroll method here
+        $('html, body').animate({
+          scrollTop: -10000
+        }, 100);
+      }*/
 
 
     $scope.Advanced_Search_Fields = false;

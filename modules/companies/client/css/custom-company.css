@@ -1479,4 +1479,35 @@ select:focus {
   margin: 15px;
   margin-top: 0px;
   margin-bottom: 5px;
+  background-color: rgba(0, 0, 0, .5);
+  padding: 5px;
+  border-bottom-left-radius: 10px;
+  color: white;
+}
+
+.addProdMore {
+  padding: 5px;
+  border-radius: 3px;
+  color: white;
+  background-color: grey;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.addProdMore:hover {
+  cursor: pointer;
+}
+
+.addMoreProdBox {
+  background-color: white;
+  padding: 15px;
+}
+
+.closeImage {
+  position: absolute;
+  visibility: hidden;
+}
+
+.add_prdct_Border:hover .closeImage {
+  visibility: visible;
 }

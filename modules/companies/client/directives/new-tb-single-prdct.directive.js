@@ -59,7 +59,7 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
                       companyId: product.productId
                     }, function (res) {
                       console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                      $state.go('companies.list.products', {
+                      $state.go('home.companies.list.products', {
                         isSearch: false
                       });
                       NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -76,7 +76,7 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
                 companyId: product.productId
               }, function (res) {
                 console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                $state.go('companies.list.products', {
+                $state.go('home.companies.list.products', {
                   isSearch: false
                 });
                 NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
@@ -85,20 +85,6 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
                 NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
               })
             }
-
-
-            /*  CompanyServiceUpdate.DeleteProduct.remove({
-                companyId: product.productId
-              }, function (res) {
-                console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                $state.go('companies.list.products', {
-                  isSearch: false
-                });
-                NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
-              }, function (err) {
-                console.log('Err details on remove Error cb : ' + JSON.stringify(err));
-                NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
-              })*/
           } else {
             // console.log('remove func. on else condition : ');
           }
@@ -129,7 +115,7 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
 
         function successUpdateCallback(res) {
           $window.location.reload();
-          $state.go('companies.list.products', {
+          $state.go('home.companies.list.products', {
             isSearch: false
           });
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);

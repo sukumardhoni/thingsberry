@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts', 'FirebaseApp'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts', 'FirebaseApp', '$anchorScroll', '$rootScope'];
 
-  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts, FirebaseApp) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts, FirebaseApp, $anchorScroll, $rootScope) {
 
     var vm = this;
     vm.company = company;
@@ -50,14 +50,6 @@
     $scope.imagefile;
 
     /*--------------------- FIRE BASE CONFIG--------------------------------------*/
-    /*   var config = {
-         apiKey: "AIzaSyDOggDlAx19ssyKUGK5okP0SNUNFNe1mXU",
-         authDomain: "thingsberry-cbc0e.firebaseapp.com",
-         databaseURL: "https://thingsberry-cbc0e.firebaseio.com",
-         storageBucket: "thingsberry-cbc0e.appspot.com",
-         messagingSenderId: "549789190896"
-       };
-       firebase.initializeApp(config);*/
 
     $scope.safeApply = function (fn) {
       var phase = this.$root.$$phase;
@@ -69,18 +61,14 @@
         this.$apply(fn);
       }
     };
+
+
     /*--------------------- FIRE BASE CONFIG--------------------------------------*/
 
     $scope.addBtnText = 'SUBMIT';
     // console.log("USER :" + JSON.stringify($localStorage.user));
     // console.log(vm.company);
     /*$scope.user = $localStorage.user;*/
-    /*  if (vm.company.firebaseImageUrl) {
-        console.log("FIREBASE URL : " + JSON.stringify(vm.company.firebaseImageUrl));
-        $scope.imageSrc = vm.company.firebaseImageUrl;
-      } else {
-        console.log("FIREBASE URL NOT THERE : ");
-      }*/
 
 
     if ($localStorage.user) {
@@ -147,7 +135,7 @@
 
     /* ----------------  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
     if ($stateParams.companyId) {
-      console.log("coming to correct list");
+      // console.log("coming to correct list");
       $scope.spinnerShow = true;
       //  console.log("coming to correct list@@@@:" + $stateParams.companyId);
       $scope.productIdIs = $stateParams.companyId;
@@ -174,14 +162,14 @@
         function callAtTimeout() {
           $scope.spinnerShow = false;
           vm.company = res;
-          console.log("succes callback from get productdetails:" + JSON.stringify(res.firebaseImageUrl));
+          //  console.log("succes callback from get productdetails:" + JSON.stringify(res.firebaseImageUrl));
         }
 
       }
 
       function errorgetProductCallback(res) {
         vm.error = res.data.message;
-        console.log("error callback from get productdetails");
+        // console.log("error callback from get productdetails");
         NotificationFactory.error('Failed to get Product details...', res.data.message);
       }
 
@@ -213,13 +201,13 @@
     };
 
     $scope.removeImage = function (imageName) {
-      console.log("REMOVE IMAGE : " + JSON.stringify(imageName));
+      // console.log("REMOVE IMAGE : " + JSON.stringify(imageName));
       firebase.database().ref('Products/' + imageName).once('value', function (snap) {
-        console.log("CHECK IMAGE IN FIREBASE DATABEASE : " + JSON.stringify(snap.val()));
+        // console.log("CHECK IMAGE IN FIREBASE DATABEASE : " + JSON.stringify(snap.val()));
         if ((snap.val() != null) || (snap.val() != undefined)) {
           var removeProdImage = snap.val().storageImgName;
           firebase.storage().ref('Products/' + imageName + '/' + removeProdImage).delete().then(function () {
-            console.log("Deleted image from firebase ");
+            // console.log("Deleted image from firebase ");
             firebase.database().ref('Products/' + imageName).remove();
             $scope.safeApply(function () {
               $scope.imageSrc = false;
@@ -230,6 +218,7 @@
         } else {
           $scope.safeApply(function () {
             $scope.imageSrc = '';
+            $scope.imgSizeError = false;
             // vm.company.firebaseImageUrl = '';
           })
 
@@ -239,7 +228,14 @@
       })
     };
 
+    $scope.goToMoreProd = function () {
+      vm.company = {};
+      $scope.addBtnText = 'SUBMIT';
+      $scope.imageSrc = '';
+      $scope.showAddMoreProds = false;
 
+
+    }
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
@@ -257,12 +253,12 @@
         if (product) {
           //console.log('remove func. on if condition : ');
           if (product.firebaseImageUrl) {
-            console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
+            // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
             firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
-              console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
+              // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
               var imageName = snapshot.val().storageImgName;
               firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
-                console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
+                // console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
                 firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
                   CompanyServiceUpdate.DeleteProduct.remove({
                     companyId: product.productId
@@ -280,7 +276,7 @@
               })
             })
           } else {
-            console.log(" FIREBASE IMG URL NOT THERE ");
+            // console.log(" FIREBASE IMG URL NOT THERE ");
             CompanyServiceUpdate.DeleteProduct.remove({
               companyId: product.productId
             }, function (res) {
@@ -342,23 +338,23 @@
 
         if (vm.company.productImageURL) {
           vm.company.firebaseImageUrl = '';
-          console.log('Created product is called : ' + JSON.stringify(vm.company));
+          // console.log('Created product is called : ' + JSON.stringify(vm.company));
           CompanyServiceUpdate.UpdateProduct.update({
             companyId: vm.company.productId
           }, vm.company, successUpdateCallback, errorUpdateCallback);
         } else {
-          console.log('Created product is called : ' + JSON.stringify($scope.imageSrc));
+          //  console.log('Created product is called : ' + JSON.stringify($scope.imageSrc));
 
           if ($scope.imagefile) {
-            console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
+            // console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
             // console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
             firebase.database().ref('Products/' + vm.company.productId + '/').once('value', function (snapshot) {
               var snapVal = snapshot.val();
               if (snapVal != undefined) {
-                console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapVal))
+                // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapVal))
                 var imageName = snapVal.storageImgName;
                 firebase.storage().ref('Products/' + vm.company.productId + '/' + imageName).delete().then(function (result) {
-                  console.log("DELTE : " + JSON.stringify(result));
+                  // console.log("DELTE : " + JSON.stringify(result));
                   firebase.storage().ref('Products/' + vm.company.productId + '/' + $scope.imagefile.name).put($scope.imagefile).then(function (updatedImage) {
                     var updatedImageUrl = updatedImage.a.downloadURLs[0];
                     firebase.database().ref('Products/' + vm.company.productId + '/').update({
@@ -373,15 +369,15 @@
                 });
 
               } else {
-                console.log("PRODUCT ID UNDEFINED ADDINING IMG TO FIREBASE ");
+                //  console.log("PRODUCT ID UNDEFINED ADDINING IMG TO FIREBASE ");
                 firebase.storage().ref('Products/' + vm.company.productId + '/' + $scope.imagefile.name + '/').put($scope.imagefile).then(function (snap) {
                   var NewImageUrl = snap.a.downloadURLs[0];
                   firebase.database().ref('Products/' + vm.company.productId + '/').update({
                     storageImgName: $scope.imagefile.name
                   }).then(function (resul) {
-                    console.log("DATA STORE IN DATABASE : " + JSON.stringify(resul));
+                    // console.log("DATA STORE IN DATABASE : " + JSON.stringify(resul));
                     vm.company.firebaseImageUrl = NewImageUrl;
-                    console.log('Created product is called : ' + JSON.stringify(vm.company));
+                    // console.log('Created product is called : ' + JSON.stringify(vm.company));
                     CompanyServiceUpdate.UpdateProduct.update({
                       companyId: vm.company.productId
                     }, vm.company, successUpdateCallback, errorUpdateCallback);
@@ -391,7 +387,7 @@
               }
             })
           } else {
-            console.log('Image file not updated ');
+            // console.log('Image file not updated ');
             CompanyServiceUpdate.UpdateProduct.update({
               companyId: vm.company.productId
             }, vm.company, successUpdateCallback, errorUpdateCallback);
@@ -419,22 +415,22 @@
         vm.company.operationalRegions = $scope.operationalRegionsList;
 
         if (vm.company.productImageURL) {
-          console.log('Created product is called : ' + JSON.stringify(vm.company));
+          // console.log('Created product is called : ' + JSON.stringify(vm.company));
           vm.company.$save(successCallback, errorCallback);
         } else {
-          console.log('Created product is called : ' + JSON.stringify($scope.imageSrc));
-          console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
+          //console.log('Created product is called : ' + JSON.stringify($scope.imageSrc));
+          // console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
           var storageRef = firebase.storage().ref('Products/' + vm.company.productId + '/' + $scope.imagefile.name + '/');
           storageRef.put($scope.imagefile).then(function (snap) {
             var imageUrl = snap.a.downloadURLs[0];
-            console.log("IMAGE URL : " + JSON.stringify(imageUrl));
+            // console.log("IMAGE URL : " + JSON.stringify(imageUrl));
 
             firebase.database().ref('Products/' + vm.company.productId + '/').update({
               storageImgName: $scope.imagefile.name
             }).then(function (resul) {
-              console.log("DATA STORE IN DATABASE : " + JSON.stringify(resul));
+              //  console.log("DATA STORE IN DATABASE : " + JSON.stringify(resul));
               vm.company.firebaseImageUrl = imageUrl;
-              console.log('Created product is called : ' + JSON.stringify(vm.company));
+              // console.log('Created product is called : ' + JSON.stringify(vm.company));
               vm.company.$save(successCallback, errorCallback);
             })
           })
@@ -456,9 +452,10 @@
       }
 
       function successCallback(res) {
-        $state.go('home.companies.list.products', {
-          isSearch: false
-        });
+        $scope.showAddMoreProds = true;
+        /*  $state.go('home.companies.list.products', {
+            isSearch: false
+          });*/
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
       }
 
@@ -639,8 +636,8 @@
 
     // $scope.imageSrc = 'https';
     $scope.uploadNewImage = function () {
-      console.log("###############");
-      console.log(JSON.stringify(event.target.files[0].size));
+      // console.log("###############");
+      // console.log(JSON.stringify(event.target.files[0].size));
       if (event.target.files[0].size > 1000000) {
         $scope.imgSizeError = true;
       } else {
@@ -652,7 +649,7 @@
         $scope.imgSizeError;
         if (newFile) {
           $scope.imageSrc = URL.createObjectURL(newFile);
-          console.log("SRC >>> : " + JSON.stringify($scope.imageSrc));
+          // console.log("SRC >>> : " + JSON.stringify($scope.imageSrc));
         }
 
       });

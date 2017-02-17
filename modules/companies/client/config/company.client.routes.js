@@ -6,10 +6,15 @@
     .config(routeConfig)
     .run(function ($state, $rootScope) {
       $rootScope.$state = $state;
-      $rootScope.$on('$stateChangeSuccess', function () {
-        $("html, body").animate({
-          scrollTop: 0
-        }, 200);
+      $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        // console.log("to state : " + JSON.stringify(toState));
+        //  console.log(" fromState : " + JSON.stringify(fromState));
+        if (toState.name != "home.companies.list.products") {
+          $("html, body").animate({
+            scrollTop: 0
+          }, 200);
+        }
+
       })
     });
 
