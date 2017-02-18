@@ -54,19 +54,19 @@
         }
 
       })
-      .state('home.companies.create', {
-        url: '/create',
-        templateUrl: 'modules/companies/client/views/form-company.client.view.html',
-        controller: 'CompanyController',
-        controllerAs: 'vm',
-        resolve: {
-          companyResolve: newCompany
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Create Product'
-        }
-      })
+      /*  .state('home.companies.create', {
+          url: '/create',
+          templateUrl: 'modules/companies/client/views/form-company.client.view.html',
+          controller: 'CompanyController',
+          controllerAs: 'vm',
+          resolve: {
+            companyResolve: newCompany
+          },
+          data: {
+            roles: ['user', 'admin'],
+            pageTitle: 'Create Product'
+          }
+        })*/
       .state('home.companies.add', {
         url: '/your_product/:companyId',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',

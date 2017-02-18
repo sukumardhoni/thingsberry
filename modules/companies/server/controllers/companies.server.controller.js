@@ -103,12 +103,11 @@ exports.productsStatus = function (req, res) {
   });
 
 };
-
 /**
  * Create an company
  */
 exports.create = function (req, res) {
-  // console.log("BEFOR : " + JSON.stringify(req.body));
+  console.log("BEFOR : " + JSON.stringify(req.body));
 
   var company = new Company(req.body);
   company.user = req.user;
@@ -142,6 +141,7 @@ function getMsgForAddedProduct(product) {
     email: product.email,
     companyWebsite: product.companyWebsite,
     productImageURL: product.productImageURL,
+    firebaseImageUrl: product.firebaseImageUrl,
     webAddress: product.webAddress,
     zipCode: product.zipCode,
     country: product.country,
@@ -294,6 +294,7 @@ function getMsgForUpdateProducts(oldProduct, newProduct) {
     email: oldProduct.email,
     companyWebsite: oldProduct.companyWebsite,
     productImageURL: oldProduct.productImageURL,
+    firebaseImageUrl: oldProduct.firebaseImageUrl,
     webAddress: oldProduct.webAddress,
     zipCode: oldProduct.zipCode,
     country: oldProduct.country,
@@ -319,6 +320,7 @@ function getMsgForUpdateProducts(oldProduct, newProduct) {
     email: newProduct.email,
     companyWebsite: newProduct.companyWebsite,
     productImageURL: newProduct.productImageURL,
+    firebaseImageUrl: newProduct.firebaseImageUrl,
     webAddress: newProduct.webAddress,
     zipCode: newProduct.zipCode,
     country: newProduct.country,
@@ -473,6 +475,7 @@ function getMsgForDeleteProduct(product) {
     email: product.email,
     companyWebsite: product.companyWebsite,
     productImageURL: product.productImageURL,
+    firebaseImageUrl: product.firebaseImageUrl,
     webAddress: product.webAddress,
     zipCode: product.zipCode,
     country: product.country,

@@ -39,12 +39,12 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
           if (product) {
             //   console.log('remove func. on if condition : ');
             if (product.firebaseImageUrl) {
-              console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
+              // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
               firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
-                console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
+                //  console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
                 var imageName = snapshot.val().storageImgName;
                 firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
-                  console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
+                  //   console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
                   firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
                     CompanyServiceUpdate.DeleteProduct.remove({
                       companyId: product.productId
@@ -61,7 +61,7 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
                 })
               })
             } else {
-              console.log(" FIREBASE IMG URL NOT THERE ");
+              // console.log(" FIREBASE IMG URL NOT THERE ");
               CompanyServiceUpdate.DeleteProduct.remove({
                 companyId: product.productId
               }, function (res) {
@@ -83,7 +83,6 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         });
 
       }
-
 
       scope.deactivateProduct = function () {
         // console.log("DEACTIVE PRDCT IS CALLED:" + scope.details.status);
@@ -255,12 +254,12 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
             // console.log('remove func. on if condition : ');
 
             if (product.firebaseImageUrl) {
-              console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
+              // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
               firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
-                console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
+                //  console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
                 var imageName = snapshot.val().storageImgName;
                 firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
-                  console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
+                  // console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
                   firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
                     CompanyServiceUpdate.DeleteProduct.remove({
                       companyId: product.productId
@@ -277,7 +276,7 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
                 })
               })
             } else {
-              console.log(" FIREBASE IMG URL NOT THERE ");
+              // console.log(" FIREBASE IMG URL NOT THERE ");
               CompanyServiceUpdate.DeleteProduct.remove({
                 companyId: product.productId
               }, function (res) {
@@ -402,13 +401,12 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
 
         $state.go('home.companies.list.products.detail', {
           companyId: scope.details.productId
+        }).then(function () {
+          $("html, body").animate({
+            scrollTop: 0
+          }, "slow");
         })
-
-
-        $("html, body").animate({
-          scrollTop: 0
-        }, "slow");
-      }
+      };
 
     }
   }

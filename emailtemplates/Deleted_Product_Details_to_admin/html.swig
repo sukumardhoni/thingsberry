@@ -713,6 +713,7 @@
                               <br><b> Phone Number :</b>{{DeletedProductDetails.mobileCode}} - {{DeletedProductDetails.phoneNo}}
                               <br><b> Product status :</b> {{DeletedProductDetails.status}}
                               <br><b> Product ImageUrl :</b> {{DeletedProductDetails.productImageURL}}
+                              <br><b> Firebase ImageUrl :</b> {{DeletedProductDetails.firebaseImageUrl}}
                               <br><b> Product Affliate Link :</b> {{DeletedProductDetails.affliateLink}}
                               <br><b> Feature Flag :</b> {{DeletedProductDetails.featuredFlag}}
                               <br><b> Premium Flag :</b> {{DeletedProductDetails.premiumFlag}}

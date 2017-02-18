@@ -713,6 +713,7 @@
                               <br><b> Phone Number :</b>{{oldProductDeatils.mobileCode}} - {{oldProductDeatils.phoneNo}}
                               <br><b> Product status :</b> {{oldProductDeatils.status}}
                               <br><b> Product ImageUrl :</b> {{oldProductDeatils.productImageURL}}
+                              <br><b> Firebase ImageUrl :</b> {{oldProductDeatils.firebaseImageUrl}}
                               <br><b> Product Affliate Link :</b> {{oldProductDeatils.affliateLink}}
                               <br><b> Feature Flag :</b> {{oldProductDeatils.featuredFlag}}
                               <br><b> Premium Flag :</b> {{oldProductDeatils.premiumFlag}}
@@ -749,6 +750,7 @@
                               <br><b> Phone Number :</b> {{newProductDeatils.mobileCode}} - {{newProductDeatils.phoneNo}}
                               <br><b> Product status :</b> {{newProductDeatils.status}}
                               <br><b> Product ImageUrl :</b> {{newProductDeatils.productImageURL}}
+                              <br><b> Firebase ImageUrl :</b> {{newProductDeatils.firebaseImageUrl}}
                               <br><b> Product Affliate Link :</b> {{newProductDeatils.affliateLink}}
                               <br><b> Feature Flag :</b> {{newProductDeatils.featuredFlag}}
                               <br><b> Premium Flag :</b> {{newProductDeatils.premiumFlag}}

@@ -1511,3 +1511,11 @@ select:focus {
 .add_prdct_Border:hover .closeImage {
   visibility: visible;
 }
+
+.removePopOver .popover {
+  visibility: hidden !important;
+}
+
+.showPopOver .popover {
+  visibility: visible !important;
+}

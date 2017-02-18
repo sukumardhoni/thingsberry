@@ -34,9 +34,9 @@
 
 
 
-  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts', 'FirebaseApp', '$anchorScroll', '$rootScope'];
+  CompanyController.$inject = ['$scope', '$state', 'companyResolve', 'Authentication', '$localStorage', 'ratingService', 'NotificationFactory', '$timeout', 'dataShare', 'CompanyServiceUpdate', '$uibModal', '$log', '$q', 'CategoryService', '$location', '$stateParams', 'CategoryServiceRightPanel', 'FrequentlyProducts', 'FirebaseApp', '$anchorScroll', '$rootScope', '$window'];
 
-  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts, FirebaseApp, $anchorScroll, $rootScope) {
+  function CompanyController($scope, $state, company, Authentication, $localStorage, ratingService, NotificationFactory, $timeout, dataShare, CompanyServiceUpdate, $uibModal, $log, $q, CategoryService, $location, $stateParams, CategoryServiceRightPanel, FrequentlyProducts, FirebaseApp, $anchorScroll, $rootScope, $window) {
 
     var vm = this;
     vm.company = company;
@@ -229,13 +229,17 @@
     };
 
     $scope.goToMoreProd = function () {
-      vm.company = {};
-      $scope.addBtnText = 'SUBMIT';
-      $scope.imageSrc = '';
-      $scope.showAddMoreProds = false;
+      // vm.company = {};
+      // $scope.addBtnText = 'SUBMIT';
+      // $scope.imageSrc = '';
+      // $scope.showAddMoreProds = false;
+      //$state.go('home.companies.add');
+      // $window.location.reload();
+      $state.go($state.current, {}, {
+        reload: true
+      });
+    };
 
-
-    }
     $scope.removeProduct = function () {
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
@@ -310,7 +314,7 @@
         return businessSecArr;
       }
     }
-
+    // console.log("PRODUCT RESOLVE : " + JSON.stringify(vm.company))
 
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
