@@ -5,10 +5,10 @@ var _ = require('lodash'),
 
 
 var testingEnv;
-if (process.env.tb_mail_env == undefined) {
+if (process.env.TB_MAIL_ENV == undefined) {
   testingEnv = '';
 } else {
-  testingEnv = process.env.tb_mail_env;
+  testingEnv = process.env.TB_MAIL_ENV;
   // console.log("EMAIL : " + JSON.stringify(testingEnv));
 }
 
