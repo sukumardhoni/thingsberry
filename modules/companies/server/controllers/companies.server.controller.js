@@ -38,7 +38,9 @@ exports.live = function (req, res) {
  * Company Products status
  */
 
-exports.productsStatus = function (req, res) {
+exports.productsStats = function (req, res) {
+  console.log("USER DETAILS : " + JSON.stringify(req.user));
+  var userDetails = JSON.parse(JSON.stringify(req.user));
   var productsStats = {};
   Company.find({
     "status": "active"
@@ -84,7 +86,9 @@ exports.productsStatus = function (req, res) {
             'Total_Products_Count': productsStats.Total_Products,
             'Active_Products_Count': productsStats.Active_Products,
             'Inactive_Products_Count': productsStats.Inactive_Products,
-            'Affliate_Products_count': productsStats.Affliate_Products_count
+            'Affliate_Products_count': productsStats.Affliate_Products_count,
+            userName: userDetails.displayName,
+            userEmail: userDetails.email
           };
 
           /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
@@ -107,7 +111,7 @@ exports.productsStatus = function (req, res) {
  * Create an company
  */
 exports.create = function (req, res) {
-  console.log("BEFOR : " + JSON.stringify(req.body));
+  console.log("@@@#####$$$$ $$ BEFOR : " + JSON.stringify(req.user.displayName));
 
   var company = new Company(req.body);
   company.user = req.user;
@@ -131,6 +135,8 @@ exports.create = function (req, res) {
 function getMsgForAddedProduct(product) {
   console.log("NEW ADDED PRODUCT : " + JSON.stringify(product));
   var AddedNewProductDetails = {
+    userName: product.user.displayName,
+    userEmail: product.user.email,
     productId: product._id,
     operationalRegions: product.operationalRegions,
     premiumFlag: product.premiumFlag,
@@ -278,10 +284,16 @@ exports.exmpleRedis = function () {
 
 
 
-function getMsgForUpdateProducts(oldProduct, newProduct) {
+function getMsgForUpdateProducts(userDetails, oldProduct, newProduct) {
 
+  console.log('User details are11@@ : ' + JSON.stringify(userDetails));
   console.log('Company details are11@@ : ' + JSON.stringify(oldProduct));
   console.log('Company details are@@ : ' + JSON.stringify(newProduct));
+
+  var userDetailsObj = {
+    userName: userDetails.displayName,
+    userEmail: userDetails.email
+  }
 
   var oldPrdctDetails = {
     productId: oldProduct._id,
@@ -340,7 +352,8 @@ function getMsgForUpdateProducts(oldProduct, newProduct) {
   agenda.now('Updated_Product_Details', {
     presentYear: presentYear1,
     oldProductDeatils: oldPrdctDetails,
-    newProductDeatils: newPrdctDetails
+    newProductDeatils: newPrdctDetails,
+    userDetailsObj: userDetailsObj
   });
 
 
@@ -352,6 +365,7 @@ exports.update = function (req, res) {
 
   var company = req.company;
   var oldProductDetials = JSON.parse(JSON.stringify(req.company));
+  var userDetails = JSON.parse(JSON.stringify(req.user));
   // console.log('Company details are11@@ : ' + JSON.stringify(oldProductDetials));
   // console.log('Company details are AFTER : ' + JSON.stringify(req.body.status));
   company = _.extend(company, req.body);
@@ -368,7 +382,7 @@ exports.update = function (req, res) {
       // console.log('Company details are : ' + JSON.stringify(req.body.status));
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForUpdateProducts(oldProductDetials, company);
+      getMsgForUpdateProducts(userDetails, oldProductDetials, company);
     }
   });
 };
@@ -447,6 +461,7 @@ exports.updateRating = function (req, res) {
 exports.delete = function (req, res) {
   console.log("@@####CALED DELTE SERVER CNTRLER");
   var company = req.company;
+  var userDetails = JSON.parse(JSON.stringify(req.user));
 
   company.remove(function (err) {
     if (err) {
@@ -457,14 +472,22 @@ exports.delete = function (req, res) {
       _this.deleteExpressRedis();
       res.json(company);
       console.log("@@####CALED DELTE SERVER CNTRLER" + JSON.stringify(company));
-      getMsgForDeleteProduct(company);
+      getMsgForDeleteProduct(company, userDetails);
     }
   });
 };
 
-function getMsgForDeleteProduct(product) {
+function getMsgForDeleteProduct(product, userDetails) {
   console.log("DeletedProductDetails : " + JSON.stringify(product));
+  console.log("USER Details : " + JSON.stringify(userDetails));
+  /* var userDetailsObj = {
+     userName: userDetails.displayName,
+     userEmail: userDetails.email
+   }*/
+
   var DeletedProductDetails = {
+    userName: userDetails.displayName,
+    userEmail: userDetails.email,
     productId: product._id,
     operationalRegions: product.operationalRegions,
     premiumFlag: product.premiumFlag,
@@ -630,6 +653,7 @@ exports.getAllRoutes = function (req, res) {
 
 
 exports.getDuplicateProducts = function (req, res) {
+  var userDetails = JSON.parse(JSON.stringify(req.user));
   Company.aggregate([
     {
       $group: {
@@ -690,12 +714,19 @@ exports.getDuplicateProducts = function (req, res) {
               'Total Duplicate_Products_Count': prodArray.length,
               'Duplicate_Products': prodArray
             }));
+
+            var userDetailsObj = {
+              userName: userDetails.displayName,
+              userEmail: userDetails.email
+            }
+
             var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
             var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
             agenda.now('Duplicate_Products', {
               duplicateProdRunDate: presentDate,
               presentYear: presentYear,
-              DuplicateProducts: prodArray
+              DuplicateProducts: prodArray,
+              userDetailsObj: userDetailsObj
             });
           }
         })
@@ -747,7 +778,8 @@ function getErrImages(prodObj) {
 
 exports.getErrImgPrdcts = function (req, res) {
   console.log("##### IN HTTP");
-
+  //console.log("##### IN HTTP ;" + JSON.strigify(req.user));
+  var userDetails = JSON.parse(JSON.stringify(req.user));
   Company.find({
     "status": 'active'
   }).then(function (companies) {
@@ -816,13 +848,18 @@ exports.getErrImgPrdcts = function (req, res) {
               })
             }
 
+            var userDetailsObj = {
+              userName: userDetails.displayName,
+              userEmail: userDetails.email
+            }
             var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
             var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
             agenda.now('Deactivate_Products', {
               ErrorImagesRunTime: presentDate,
               presentYear: presentYear,
               ErrorImagesProductsLength: errPrdctsArr.length,
-              ErrorImagesProducts: errPrdctsArr
+              ErrorImagesProducts: errPrdctsArr,
+              userDetailsObj: userDetailsObj
             });
 
             res.json(_.extend({

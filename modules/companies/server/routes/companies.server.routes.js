@@ -41,7 +41,7 @@ module.exports = function (app) {
     .get(companies.getErrImgPrdcts);
 
   app.route('/stats')
-    .get(companies.productsStatus);
+    .get(companies.productsStats);
 
   app.route('/isAlive').get(companies.live);
 

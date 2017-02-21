@@ -40,9 +40,9 @@
         console.log('error while getting the list from server side');
       })
     }
-
+    $scope.authentication = Authentication;
     $scope.userDetails = $localStorage.user;
-    // console.log("USER(OR)ADMIN:" + JSON.stringify($scope.userDetails));
+    // console.log("USER(OR)ADMIN:" + JSON.stringify($scope.authentication));
     if ($scope.userDetails !== undefined) {
 
       if ($scope.userDetails.roles.indexOf('admin') == 1) {

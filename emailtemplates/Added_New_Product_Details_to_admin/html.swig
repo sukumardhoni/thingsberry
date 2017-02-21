@@ -688,6 +688,8 @@
 
                       <h3> Hi ThingsBerry Team,</h3> This is the notification mail for thingsberry admin
                       <br>
+                       <b>User Name :</b>{{AddedNewProductDetails.userName}}
+                      <br><b>User Email :</b>{{AddedNewProductDetails.userEmail}}
                     </td>
                   </tr>
 

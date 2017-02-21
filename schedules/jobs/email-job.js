@@ -71,6 +71,7 @@ exports.sendDuplicateProductsDetails = function (agenda) {
     mailData.DuplicateProducts = job.attrs.data.DuplicateProducts;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.duplicateProdRunDate = job.attrs.data.duplicateProdRunDate;
+    mailData.userDetailsObj = job.attrs.data.userDetailsObj;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);
@@ -123,6 +124,7 @@ exports.sendUpdatedProductDetails = function (agenda) {
     mailData.subject = testingEnv + 'Updated Product Details';
     mailData.oldProductDeatils = job.attrs.data.oldProductDeatils;
     mailData.newProductDeatils = job.attrs.data.newProductDeatils;
+    mailData.userDetailsObj = job.attrs.data.userDetailsObj;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
@@ -159,6 +161,7 @@ exports.sendDeactivate_ProductsAdmin = function (agenda) {
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.ErrorImagesRunTime = job.attrs.data.ErrorImagesRunTime;
     mailData.ErrorImagesProductsLength = job.attrs.data.ErrorImagesProductsLength;
+    mailData.userDetailsObj = job.attrs.data.userDetailsObj;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);

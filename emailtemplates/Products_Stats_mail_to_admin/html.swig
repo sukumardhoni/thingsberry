@@ -678,7 +678,10 @@
                     <td valign="top" class="bodyContent" mc:edit="body_content">
 
                       <h3> Hi ThingsBerry Team,</h3> This is the notification mail for Products Status
-                      <br/>
+                      <br/><b>User Name :</b>{{stats.userName}}
+                      <br><b>User Email :</b>{{stats.userEmail}}
+                      <br>
+                      <br>
                       <br/><b>Name :</b> {{stats.name}}
                       <br/><b>Description :</b> {{stats.description}}
                       <br/><b>Version :</b> {{stats.version}}

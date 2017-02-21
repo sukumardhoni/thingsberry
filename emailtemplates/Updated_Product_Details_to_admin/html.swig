@@ -687,7 +687,9 @@
                     <td valign="top" class="bodyContent" mc:edit="body_content">
 
                       <h3> Hi ThingsBerry Team,</h3> This is the notification mail for thingsberry admin
-                      <br>
+                      <br>                      
+                      <b>User Name :</b>{{userDetailsObj.userName}}
+                      <br><b>User Email :</b>{{userDetailsObj.userEmail}}
                     </td>
                   </tr>
 
