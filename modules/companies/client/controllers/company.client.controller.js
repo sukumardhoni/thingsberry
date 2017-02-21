@@ -200,6 +200,24 @@
         $scope.limit = pro.description.length;
     };
 
+    $scope.$watch('vm.company.productImageURL', function (value) {
+      if (/^https/.test(vm.company.productImageURL)) {
+        vm.company.httpImageUrl = value;
+      } else {
+        vm.company.httpImageUrl = '';
+      }
+    });
+
+    $scope.$watch('vm.company.httpImageUrl', function (value) {
+      //  console.log("HTTP image URl : " + JSON.stringify(value));
+      if (/^https/.test(vm.company.httpImageUrl)) {
+        vm.company.productImageURL = value;
+      } else {
+        vm.company.productImageURL = '';
+      }
+    });
+
+
     $scope.removeImage = function (imageName) {
       // console.log("REMOVE IMAGE : " + JSON.stringify(imageName));
       firebase.database().ref('Products/' + imageName).once('value', function (snap) {

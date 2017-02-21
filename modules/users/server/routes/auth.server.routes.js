@@ -29,7 +29,8 @@ module.exports = function (app) {
   app.route('/api/contactUs').post(users.contactUs);
   // GetListed routes
   app.route('/api/getListed').post(users.getListed);
-
+  // Feedback routes
+  app.route('/api/feedback').post(users.feedback);
 
 
   // JWT Auth Routes

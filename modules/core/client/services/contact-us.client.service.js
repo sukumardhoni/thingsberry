@@ -22,3 +22,13 @@ angular.module('core')
     });
 	}
 ])
+
+.factory('FeedbackService', ['$resource',
+	function ($resource) {
+    return $resource('api/feedback', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+	}
+])

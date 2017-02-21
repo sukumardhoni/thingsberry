@@ -14,6 +14,13 @@ angular.module('core').directive('tbHeaderImage', function () {
       scope.ImgSubTtl = attr.subtitle;
       /*scope.state = attr.state;
       console.log(scope.state);*/
+      var feedbackImgPos;
+      if (attr.state == 'feedback') {
+        feedbackImgPos = '0 -117px';
+      } else {
+        feedbackImgPos = '0px';
+      }
+
       elem.addClass('mobileImage');
       elem.css({
         background: 'url(' + scope.backImage + ')',
@@ -21,16 +28,20 @@ angular.module('core').directive('tbHeaderImage', function () {
         height: '250px',
         opacity: ImageOpcty,
         position: 'relative',
-        backgroundPosition: '0px',
+        backgroundPosition: feedbackImgPos,
         backgroundSize: 'cover',
         backgroundColor: '#929292'
       });
 
-      if (attr.state == 'contactUs' || attr.state == 'getListed') {
+      // background-position-y: -117px;
+
+
+
+      if (attr.state == 'contactUs' || attr.state == 'getListed' || attr.state == 'feedback') {
         // console.log('coming from contactUs');
         scope.contactStyles = {
           top: '135px',
-          left: '90px'
+          left: '30px'
         }
       }
     }

@@ -1264,3 +1264,22 @@ div#services_block:hover {
 .removeActive_Mobile {
   color: #9d9d9d !important;
 }
+
+.feedBackRating {
+  text-align: center;
+  border: 1px solid #d9d9d9;
+  margin-left: 9px;
+  border-radius: 3px;
+  background-color: white;
+  padding: 0px;
+}
+
+.FBbgColor {
+  color: white;
+  background-color: #3f51b5;
+}
+
+.feedbackNum {
+  outline: none;
+  padding: 11px;
+}

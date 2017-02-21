@@ -1,0 +1,95 @@
+<div ng-controller="ContactUsController">
+  <tb-header-image image="../../../../modules/core/client/img/finalfeedback.jpg" opacity="1" state="feedback" maintitle="Leave a Feedback :::" subtitle="" class="img-responsive image_In_mobile">
+  </tb-header-image>
+
+  <div class="container">
+    <!-- <update-title title=" Contact Us Thingsberry"></update-title>
+    <update-meta name="description" content="Get in touch with thingsberry.com"></update-meta>
+    <update-meta property="og:title" content="Contact Us Thingsberry "></update-meta>
+    <update-meta itemprop="description" content="Get in touch with thingsberry.com"></update-meta>
+    <update-meta property="og:image" content="http://www.thingsberry.com/modules/core/client/img/shareFinalcont.jpg"></update-meta>
+    <update-meta property="og:url" content="{{path}}"></update-meta>-->
+
+    <!--  <update-meta property="twitter:title" content="Thingsberry ContactUs"></update-meta>
+    <update-meta property="twitter:description" content="Get in touch with thingsberry.com"></update-meta>
+    <update-meta property="twitter:url" content="{{path}}"></update-meta>-->
+
+
+    <div class="row" style="margin-top:40px;">
+      <div class="col-md-12">
+        <h2>Leave a Feedback </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <p>Please spend a few movements to give us your valuable feedback. Your feedback will be kept private and confidential and will only be used to help us improve the overall experience of the site. Thank you!!</p>
+      </div>
+    </div>
+    <div class="row " style="margin-top:40px;">
+      <div class="container">
+        <form name="feedbackForm" ng-submit="feedBack(feedbackForm.$valid)" novalidate autocomplete="off">
+          <div class="row" style="margin-bottom:10px;">
+            <label class="label-styles-msg"><b style="color: rgba(0,0,0,0.38);">Would you recommend the site to a friend or family</b></label>
+          </div>
+          <div class="row" style="margin-bottom:10px;">
+            <div class=" col-md-6 col-xs-12 col-sm-10">
+              <div class=" col-md-1 col-sm-1 col-xs-1 feedBackRating" ng-class="{'FBbgColor':(rating==feedback.rating)}" ng-repeat="rating in feedBackRating">
+                <div class="feedbackNum" ng-click="feed(rating)">
+                  {{rating}}
+                  <!-- <input type="radio" name="rating" ng-value="{{rating}}"> </div>-->
+                </div>
+              </div>
+              <div class="visible-xs row col-xs-12">
+                <p class="pull-left" style="color:#3f51b5">definately not</p>
+                <p class="pull-right" style="color:#3f51b5">definately yes</p>
+              </div>
+              <div class="row col-xs-12" ng-show="showRatingErr" style="color:red;font-size:12px;margin-top:5px;">This field is required.</div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
+              <label class="label-styles-msg"><b>What do you like about the site?</b></label>
+              <input class="input-styles" class="form-control" name="liked" id="liked" ng-model="feedback.liked" required type="text">
+              <div ng-messages="feedbackForm.liked.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="row">
+            <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
+              <label class="label-styles-msg"><b>What you don't like about the site?</b></label>
+              <input class="input-styles" class="form-control" name="didntLiked" type="text" id="didntLiked" ng-model="feedback.didntLiked" required>
+              <div ng-messages="feedbackForm.didntLiked.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="row">
+            <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
+              <label class="label-styles-msg"><b>Any suggestions to improve the user experience</b></label>
+              <input class="input-styles" class="form-control" name="suggestions" type="text" id="suggestions" ng-model="feedback.suggestions">
+            </md-input-container>
+          </div>
+
+          <div class="row">
+            <div class=" col-md-12 feedBackButtonXs" style="padding: 0px;">
+              <md-button type="submit" class="md-raised md-primary btn-styles-contact btn-styles-contact-feedback" ng-disabled="feedbackForm.$invalid">SUBMIT FEEDBACK <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+            </div>
+            <div ng-show="vm.error" class="text-danger">
+              <strong ng-bind="error"></strong>
+            </div>
+          </div>
+
+        </form>
+        <div class="row col-md-12 contactUs_footer_text">
+          <p>If you would like to list your products in thingsberry.com, please use the
+            <a ui-sref="getListed" class="get_list_link_bttn">Get Listed</a> link.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

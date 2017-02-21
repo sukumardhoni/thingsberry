@@ -59,6 +59,42 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
   })
 }
 
+exports.sendUserFeedbackToThingsBerryTeam = function (agenda) {
+  agenda.define('User_Feedback_To_ThingsBerry_Team', function (job, done) {
+    //  console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.ContactedDetails));
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/feedback_email_to_thingsberry';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = process.env.tb_mail_env + ' ' + 'Feedback Info To ThingsBerry';
+    mailData.FeedbackDetails = job.attrs.data.FeedbackDetails;
+    mailData.userDetailsObj = job.attrs.data.userDetailsObj;
+    mailData.presentYear = job.attrs.data.presentYear;
+    mailData.appEnv = config.app.title;
+    // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
+
+exports.sendHttpImageProductsDetails = function (agenda) {
+  agenda.define('HttpImage_Products', function (job, done) {
+    /*console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(
+      process.env.tb_mail_env));*/
+    var mailData = {};
+    mailData.templateName = 'emailtemplates/HttpImage_Products_to_admin';
+    mailData.to = 'support@thingsberry.com';
+    mailData.subject = testingEnv + 'HttpImage Products Report';
+    mailData.HttpImageProducts = job.attrs.data.HttpImageProducts;
+    mailData.presentYear = job.attrs.data.presentYear;
+    mailData.userDetailsObj = job.attrs.data.userDetailsObj;
+    mailData.httpImageProdRunDate = job.attrs.data.httpImageProdRunDate;
+    mailData.appEnv = config.app.title;
+    // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
+    tvlr_emailer.sendMail(mailData);
+    done();
+  })
+}
+
 
 exports.sendDuplicateProductsDetails = function (agenda) {
   agenda.define('Duplicate_Products', function (job, done) {

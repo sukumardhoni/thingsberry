@@ -77,6 +77,11 @@ var CompanySchema = new Schema({
     default: '',
     trim: true
   },
+  httpImageUrl: {
+    type: String,
+    default: '',
+    trim: true
+  },
   affliateLink: {
     type: String,
     default: '',

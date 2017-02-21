@@ -705,9 +705,9 @@ BEFORE THIS ALREDY STYLES
 
 .header_img {
   position: absolute;
-  top: 70px;
+  top: 135px;
   color: white;
-  left: 98px;
+  left: 52px;
 }
 
 .sngle_view {
@@ -1533,4 +1533,8 @@ select:focus {
 .prodSuccess:hover {
   color: black !important;
   text-decoration: underline;
+}
+
+.feedbackImg {
+  background-position: 0 -117px;
 }

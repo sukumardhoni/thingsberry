@@ -70,6 +70,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         data: {
           pageTitle: 'Deactive Products'
         }
+      }).state('feedback', {
+        url: '/feedback',
+        //        templateUrl: 'modules/core/client/views/getListed.client.view.html',
+        templateUrl: 'modules/core/client/views/feedback.view.html',
+        data: {
+          pageTitle: 'Feedback'
+        }
       })
       .state('addyourcompany', {
         url: '/addyourcompany',

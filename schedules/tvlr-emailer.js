@@ -24,6 +24,7 @@ exports.sendMail = function (mailData) {
       userData: mailData.userData,
       contactedDetails: mailData.contactedDetails,
       getListedDetails: mailData.getListedDetails,
+      FeedbackDetails: mailData.FeedbackDetails,
       ErrorImagesProducts: mailData.ErrorImagesProducts,
       ErrorImagesProductsLength: mailData.ErrorImagesProductsLength,
       ErrorImagesRunTime: mailData.ErrorImagesRunTime,
@@ -35,6 +36,8 @@ exports.sendMail = function (mailData) {
       userDetailsObj: mailData.userDetailsObj,
       DuplicateProducts: mailData.DuplicateProducts,
       duplicateProdRunDate: mailData.duplicateProdRunDate,
+      httpImageProdRunDate: mailData.httpImageProdRunDate,
+      HttpImageProducts: mailData.HttpImageProducts,
       presentYear: mailData.presentYear,
       resetUrl: mailData.url,
       appEnv: config.app.title

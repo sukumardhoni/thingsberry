@@ -29,6 +29,8 @@ module.exports = function (agendaDb) {
     emailJob.sendAddedNewProductDetails(agenda);
     emailJob.sendDeletedProductDetails(agenda);
     emailJob.sendDuplicateProductsDetails(agenda);
+    emailJob.sendUserFeedbackToThingsBerryTeam(agenda);
+    emailJob.sendHttpImageProductsDetails(agenda);
     agenda.start();
   });
 

@@ -254,7 +254,22 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
   }
 }
 
+@media (min-width: 992px) and (max-width: 1199px) {
+  .navbar_List {
+    margin-left: 10px;
+  }
+}
+
 @media (max-width: 765px) {
+  .feedBackRating {
+    margin-left: 4px;
+  }
+  .feedbackNum {
+    padding: 4px;
+  }
+  .feedBackButtonXs {
+    text-align: center;
+  }
   .allPrdctsAccrdnsPage {
     /* padding-left: 15px;*/
     padding: 35px !important;
