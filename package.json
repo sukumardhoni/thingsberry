@@ -1,7 +1,7 @@
 {
-  "name": "thingsberry.com",
+  "name": "www.thingsberry.com",
   "description": "A comprehensive listing of All Internet Of Things.",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "meanjs-version": "0.4.2",
   "private": false,
   "author": "https://github.com/meanjs/mean/graphs/contributors",
