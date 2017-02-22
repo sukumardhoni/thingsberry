@@ -40,7 +40,7 @@ exports.live = function (req, res) {
 
 exports.productsStats = function (req, res) {
   console.log("USER DETAILS : " + JSON.stringify(req.user));
-  var userDetails = JSON.parse(JSON.stringify(req.user));
+  // var userDetails = JSON.parse(JSON.stringify(req.user));
   var productsStats = {};
   Company.find({
     "status": "active"
@@ -87,8 +87,8 @@ exports.productsStats = function (req, res) {
             'Active_Products_Count': productsStats.Active_Products,
             'Inactive_Products_Count': productsStats.Inactive_Products,
             'Affliate_Products_count': productsStats.Affliate_Products_count,
-            userName: userDetails.displayName,
-            userEmail: userDetails.email
+            /*userName: userDetails.displayName,
+            userEmail: userDetails.email*/
           };
 
           /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
@@ -135,8 +135,8 @@ exports.create = function (req, res) {
 function getMsgForAddedProduct(product) {
   console.log("NEW ADDED PRODUCT : " + JSON.stringify(product));
   var AddedNewProductDetails = {
-    userName: product.user.displayName,
-    userEmail: product.user.email,
+    /* userName: product.user.displayName,
+     userEmail: product.user.email,*/
     productId: product._id,
     operationalRegions: product.operationalRegions,
     premiumFlag: product.premiumFlag,
@@ -284,7 +284,7 @@ exports.exmpleRedis = function () {
 
 
 
-function getMsgForUpdateProducts(userDetails, oldProduct, newProduct) {
+function getMsgForUpdateProducts(oldProduct, newProduct, userDetails) {
 
   console.log('User details are11@@ : ' + JSON.stringify(userDetails));
   console.log('Company details are11@@ : ' + JSON.stringify(oldProduct));
@@ -382,7 +382,7 @@ exports.update = function (req, res) {
       // console.log('Company details are : ' + JSON.stringify(req.body.status));
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForUpdateProducts(userDetails, oldProductDetials, company);
+      getMsgForUpdateProducts(oldProductDetials, company, userDetails);
     }
   });
 };
@@ -461,7 +461,7 @@ exports.updateRating = function (req, res) {
 exports.delete = function (req, res) {
   console.log("@@####CALED DELTE SERVER CNTRLER");
   var company = req.company;
-  var userDetails = JSON.parse(JSON.stringify(req.user));
+  // var userDetails = JSON.parse(JSON.stringify(req.user));
 
   company.remove(function (err) {
     if (err) {
@@ -472,22 +472,22 @@ exports.delete = function (req, res) {
       _this.deleteExpressRedis();
       res.json(company);
       console.log("@@####CALED DELTE SERVER CNTRLER" + JSON.stringify(company));
-      getMsgForDeleteProduct(company, userDetails);
+      getMsgForDeleteProduct(company);
     }
   });
 };
 
-function getMsgForDeleteProduct(product, userDetails) {
+function getMsgForDeleteProduct(product) {
   console.log("DeletedProductDetails : " + JSON.stringify(product));
-  console.log("USER Details : " + JSON.stringify(userDetails));
+  // console.log("USER Details : " + JSON.stringify(userDetails));
   /* var userDetailsObj = {
      userName: userDetails.displayName,
      userEmail: userDetails.email
    }*/
 
   var DeletedProductDetails = {
-    userName: userDetails.displayName,
-    userEmail: userDetails.email,
+    /*userName: userDetails.displayName,
+    userEmail: userDetails.email,*/
     productId: product._id,
     operationalRegions: product.operationalRegions,
     premiumFlag: product.premiumFlag,
@@ -652,7 +652,7 @@ exports.getAllRoutes = function (req, res) {
 };
 
 
-exports.getDuplicateProducts = function (req, res) {
+/*exports.getDuplicateProducts = function (req, res) {
   var userDetails = JSON.parse(JSON.stringify(req.user));
   Company.aggregate([
     {
@@ -733,7 +733,7 @@ exports.getDuplicateProducts = function (req, res) {
       }
     }
   })
-};
+};*/
 
 
 exports.getDeactiveProducts = function (req, res) {
@@ -745,7 +745,7 @@ exports.getDeactiveProducts = function (req, res) {
   });
 };
 
-exports.getHttpImagesList = function (req, res) {
+/*exports.getHttpImagesList = function (req, res) {
   var userDetails = JSON.parse(JSON.stringify(req.user));
   var httpImageArr = [];
   var httpImageCount = 0;
@@ -788,10 +788,10 @@ exports.getHttpImagesList = function (req, res) {
       });
     }
   })
-};
+};*/
 
 
-function getErrImages(prodObj) {
+/*function getErrImages(prodObj) {
 
   return new Promise((resolve, reject) => {
 
@@ -817,11 +817,11 @@ function getErrImages(prodObj) {
         })
       });
   })
-};
+};*/
 
 
 
-exports.getErrImgPrdcts = function (req, res) {
+/*exports.getErrImgPrdcts = function (req, res) {
   console.log("##### IN HTTP");
   console.log("##### update param : " + JSON.stringify(req.params.updateBool));
 
@@ -937,7 +937,7 @@ exports.getErrImgPrdcts = function (req, res) {
   });
 
 
-};
+};*/
 
 
 

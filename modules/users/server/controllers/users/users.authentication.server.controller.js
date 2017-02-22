@@ -58,7 +58,7 @@ exports.getListed = function (req, res) {
   res.json(details);
 };
 
-exports.feedback = function (req, res) {
+/*exports.feedback = function (req, res) {
   var details = req.body;
   var userDetails = JSON.parse(JSON.stringify(req.user));
   var userDetailsObj = {
@@ -72,7 +72,7 @@ exports.feedback = function (req, res) {
     userDetailsObj: userDetailsObj
   });
   res.json(details);
-};
+};*/
 
 
 
