@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService', '$location',
-  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService, $location) {
+angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService', '$location', 'FeedbackService',
+  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService, $location, FeedbackService) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -32,43 +32,43 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
       }
     }
 
-    /*    $scope.feedback = {};
-        $scope.feed = function (num) {
-          $scope.feedback.rating = num;
-        };
+    $scope.feedback = {};
+    $scope.feed = function (num) {
+      $scope.feedback.rating = num;
+    };
 
 
-        $scope.feedBackRatingArr = []
-        for (var i = 1; i <= 10; i++) {
-          $scope.feedBackRatingArr.push(i);
-          if ($scope.feedBackRatingArr.length == 10) {
-            $scope.feedBackRating = $scope.feedBackRatingArr;
-          }
-        }
-        // console.log("count ; " + $scope.feedBackRating);
+    $scope.feedBackRatingArr = []
+    for (var i = 1; i <= 10; i++) {
+      $scope.feedBackRatingArr.push(i);
+      if ($scope.feedBackRatingArr.length == 10) {
+        $scope.feedBackRating = $scope.feedBackRatingArr;
+      }
+    }
+    // console.log("count ; " + $scope.feedBackRating);
 
-        $scope.feedBack = function () {
-          // console.log('feedback form details on controller : ' + JSON.stringify($scope.feedback));
-          if ($scope.feedback.rating) {
-            FeedbackService.send($scope.feedback, successCallback, errorCallback);
-          } else {
-            $scope.showRatingErr = true;
-          }
+    $scope.feedBack = function () {
+      // console.log('feedback form details on controller : ' + JSON.stringify($scope.feedback));
+      if ($scope.feedback.rating) {
+        FeedbackService.send($scope.feedback, successCallback, errorCallback);
+      } else {
+        $scope.showRatingErr = true;
+      }
 
-          function successCallback(res) {
-            $scope.showRatingErr = false;
-            NotificationFactory.success('Thanks for Giving Feedback');
-            $scope.feedbackForm.$setPristine();
-            $scope.feedbackForm.$setUntouched();
-            $scope.feedback = {};
-          }
+      function successCallback(res) {
+        $scope.showRatingErr = false;
+        NotificationFactory.success('Thanks for Giving Feedback');
+        $scope.feedbackForm.$setPristine();
+        $scope.feedbackForm.$setUntouched();
+        $scope.feedback = {};
+      }
 
-          function errorCallback(res) {
-            console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
-            //vm.error = res.data.message;
-            //NotificationFactory.error('Failed to save Product details...', res.data.message);
-          }
-        }*/
+      function errorCallback(res) {
+        console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
+        //vm.error = res.data.message;
+        //NotificationFactory.error('Failed to save Product details...', res.data.message);
+      }
+    }
 
 
     $scope.getListedEmail = function () {

@@ -25,8 +25,8 @@ module.exports = function (app) {
   app.route('/adminAccess')
     .get(companies.getAllRoutes);
 
-  /* app.route('/findDuplicateProducts')
-     .get(companies.getDuplicateProducts);*/
+  app.route('/findDuplicateProducts')
+    .get(companies.getDuplicateProducts);
 
   app.route('/api/companies/getDeactiveProducts')
     .get(companies.getDeactiveProducts);
@@ -37,14 +37,14 @@ module.exports = function (app) {
   app.route('/api/listOfProducts/:adminStatus/:pageId')
     .get(cache.route(), companies.list);
 
-  /*app.route('/cleanUpInactive/:updateBool?')
-    .get(companies.getErrImgPrdcts);*/
+  app.route('/cleanUpInactive/:updateBool?')
+    .get(companies.getErrImgPrdcts);
 
   app.route('/stats')
     .get(companies.productsStats);
 
-  /*app.route('/getHttpImagesList')
-    .get(companies.getHttpImagesList);*/
+  app.route('/getHttpImagesList')
+    .get(companies.getHttpImagesList);
 
   app.route('/isAlive').get(companies.live);
 

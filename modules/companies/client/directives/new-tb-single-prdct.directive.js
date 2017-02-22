@@ -49,12 +49,13 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
             // console.log('remove func. on if condition : ');
             if (product.firebaseImageUrl) {
               // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
-              firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
+              var removeFirebaseSingleProdId = product.productId.replace(/\./g, "|");
+              firebase.database().ref('Products/' + removeFirebaseSingleProdId + '/').once('value', function (snapshot) {
                 //  console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
                 var imageName = snapshot.val().storageImgName;
-                firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
+                firebase.storage().ref('Products/' + removeFirebaseSingleProdId + '/' + imageName).delete().then(function (result) {
                   // console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
-                  firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
+                  firebase.database().ref('Products/' + removeFirebaseSingleProdId + '/').remove().then(function () {
                     CompanyServiceUpdate.DeleteProduct.remove({
                       companyId: product.productId
                     }, function (res) {

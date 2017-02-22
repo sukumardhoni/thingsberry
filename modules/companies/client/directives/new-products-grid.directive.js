@@ -40,13 +40,14 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
             //   console.log('remove func. on if condition : ');
             if (product.firebaseImageUrl) {
               // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
-              firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
+              var removeFirebaseGridProdId = product.productId.replace(/\./g, "|");
+              firebase.database().ref('Products/' + removeFirebaseGridProdId + '/').once('value', function (snapshot) {
                 //  console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
                 if (snapshot.val() != null) {
                   var imageName = snapshot.val().storageImgName;
-                  firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
+                  firebase.storage().ref('Products/' + removeFirebaseGridProdId + '/' + imageName).delete().then(function (result) {
                     //   console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
-                    firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
+                    firebase.database().ref('Products/' + removeFirebaseGridProdId + '/').remove().then(function () {
                       CompanyServiceUpdate.DeleteProduct.remove({
                         companyId: product.productId
                       }, function (res) {
@@ -269,13 +270,14 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
 
             if (product.firebaseImageUrl) {
               // console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(product.firebaseImageUrl));
-              firebase.database().ref('Products/' + product.productId + '/').once('value', function (snapshot) {
+              var removeFirebaseProdId = product.productId.replace(/\./g, "|");
+              firebase.database().ref('Products/' + removeFirebaseProdId + '/').once('value', function (snapshot) {
                 //  console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
                 if (snapshot.val() != null) {
                   var imageName = snapshot.val().storageImgName;
-                  firebase.storage().ref('Products/' + product.productId + '/' + imageName).delete().then(function (result) {
+                  firebase.storage().ref('Products/' + removeFirebaseProdId + '/' + imageName).delete().then(function (result) {
                     // console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
-                    firebase.database().ref('Products/' + product.productId + '/').remove().then(function () {
+                    firebase.database().ref('Products/' + removeFirebaseProdId + '/').remove().then(function () {
                       CompanyServiceUpdate.DeleteProduct.remove({
                         companyId: product.productId
                       }, function (res) {

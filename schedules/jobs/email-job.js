@@ -59,12 +59,12 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
   })
 }
 
-/*exports.sendUserFeedbackToThingsBerryTeam = function (agenda) {
+exports.sendUserFeedbackToThingsBerryTeam = function (agenda) {
   agenda.define('User_Feedback_To_ThingsBerry_Team', function (job, done) {
     //  console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.ContactedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/feedback_email_to_thingsberry';
-    mailData.to = 'support@thingsberry.com';
+    mailData.to = 'midhunsai@globaltechminds.com';
     mailData.subject = process.env.tb_mail_env + ' ' + 'Feedback Info To ThingsBerry';
     mailData.FeedbackDetails = job.attrs.data.FeedbackDetails;
     mailData.userDetailsObj = job.attrs.data.userDetailsObj;
@@ -74,12 +74,11 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     tvlr_emailer.sendMail(mailData);
     done();
   })
-}*/
+}
 
-/*exports.sendHttpImageProductsDetails = function (agenda) {
+exports.sendHttpImageProductsDetails = function (agenda) {
   agenda.define('HttpImage_Products', function (job, done) {
-    console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(
-      process.env.tb_mail_env));
+    //console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(process.env.tb_mail_env));
     var mailData = {};
     mailData.templateName = 'emailtemplates/HttpImage_Products_to_admin';
     mailData.to = 'midhunsai@globaltechminds.com';
@@ -93,16 +92,15 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     tvlr_emailer.sendMail(mailData);
     done();
   })
-}*/
+}
 
 
-/*exports.sendDuplicateProductsDetails = function (agenda) {
+exports.sendDuplicateProductsDetails = function (agenda) {
   agenda.define('Duplicate_Products', function (job, done) {
-    console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(
-      process.env.tb_mail_env));
+    // console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(process.env.tb_mail_env));
     var mailData = {};
     mailData.templateName = 'emailtemplates/Duplicate_Products_Details_to_admin';
-    mailData.to = 'support@thingsberry.com';
+    mailData.to = 'midhunsai@globaltechminds.com';
     mailData.subject = testingEnv + 'Duplicate Products Report' + '( ' + job.attrs.data.DuplicateProducts.length + ' )';
     mailData.DuplicateProducts = job.attrs.data.DuplicateProducts;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -113,12 +111,11 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     tvlr_emailer.sendMail(mailData);
     done();
   })
-}*/
+}
 
 exports.sendAddedNewProductDetails = function (agenda) {
   agenda.define('Added_New_Product_Details', function (job, done) {
-    /*console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(
-      process.env.tb_mail_env));*/
+    /*console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Added_New_Product_Details_to_admin';
     mailData.to = 'midhunsai@globaltechminds.com';
@@ -197,7 +194,8 @@ exports.sendDeactivate_ProductsAdmin = function (agenda) {
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.ErrorImagesRunTime = job.attrs.data.ErrorImagesRunTime;
     mailData.ErrorImagesProductsLength = job.attrs.data.ErrorImagesProductsLength;
-    /*  mailData.userDetailsObj = job.attrs.data.userDetailsObj;*/
+    mailData.userDetailsObj = job.attrs.data.userDetailsObj;
+    mailData.updateBoolVal = job.attrs.data.updateBoolVal;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);

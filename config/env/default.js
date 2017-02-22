@@ -2,9 +2,9 @@
 
 module.exports = {
   app: {
-    title: 'Thingsberry - internet of things(iot), connected devices, smart devices, smart things, smart homes, smart health devices, iot ratings and reviews...',
-    description: 'Comprehensive list of internet of things(IoT), connected devices, smart devices, smart things, smart homes, health, fitness, sport and IoT ratings and reviews...',
-    keywords: 'All Internet Of Things, iot, internet, things',
+    title: 'Thingsberry - List of Internet of things (Iot) Products.',
+    description: 'Find the comprehensive list of Internet of Things (IoT) products and ratings in the areas of Home Automation, Wearable, Health Care and more..',
+    keywords: 'IoT products, Internet of things, connected devices, wearables, smart devices, connected things, smart homes, home automation.',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID',
     facebookAppId: '239001833102223'
   },

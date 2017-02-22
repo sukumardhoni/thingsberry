@@ -23,7 +23,7 @@ angular.module('core')
 	}
 ])
 
-/*.factory('FeedbackService', ['$resource',
+.factory('FeedbackService', ['$resource',
 	function ($resource) {
     return $resource('api/feedback', {}, {
       send: {
@@ -31,4 +31,4 @@ angular.module('core')
       }
     });
 	}
-])*/
+])

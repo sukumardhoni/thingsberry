@@ -652,8 +652,8 @@ exports.getAllRoutes = function (req, res) {
 };
 
 
-/*exports.getDuplicateProducts = function (req, res) {
-  var userDetails = JSON.parse(JSON.stringify(req.user));
+exports.getDuplicateProducts = function (req, res) {
+  var userDetailsOb1 = JSON.parse(JSON.stringify(req.user));
   Company.aggregate([
     {
       $group: {
@@ -715,9 +715,9 @@ exports.getAllRoutes = function (req, res) {
               'Duplicate_Products': prodArray
             }));
 
-            var userDetailsObj = {
-              userName: userDetails.displayName,
-              userEmail: userDetails.email
+            var userDetailsObj1 = {
+              userName: userDetailsOb1.displayName,
+              userEmail: userDetailsOb1.email
             }
 
             var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
@@ -726,14 +726,14 @@ exports.getAllRoutes = function (req, res) {
               duplicateProdRunDate: presentDate,
               presentYear: presentYear,
               DuplicateProducts: prodArray,
-              userDetailsObj: userDetailsObj
+              userDetailsObj: userDetailsObj1
             });
           }
         })
       }
     }
   })
-};*/
+};
 
 
 exports.getDeactiveProducts = function (req, res) {
@@ -745,8 +745,8 @@ exports.getDeactiveProducts = function (req, res) {
   });
 };
 
-/*exports.getHttpImagesList = function (req, res) {
-  var userDetails = JSON.parse(JSON.stringify(req.user));
+exports.getHttpImagesList = function (req, res) {
+  var userDetailsOb2 = JSON.parse(JSON.stringify(req.user));
   var httpImageArr = [];
   var httpImageCount = 0;
   Company.find({
@@ -774,9 +774,9 @@ exports.getDeactiveProducts = function (req, res) {
         'Total HttpImage_Products_Count': httpImageArr.length,
         'HttpImage_Products': httpImageArr
       }));
-      var userDetailsObj = {
-        userName: userDetails.displayName,
-        userEmail: userDetails.email
+      var userDetailsObj2 = {
+        userName: userDetailsOb2.displayName,
+        userEmail: userDetailsOb2.email
       }
       var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
       var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
@@ -784,14 +784,14 @@ exports.getDeactiveProducts = function (req, res) {
         httpImageProdRunDate: presentDate,
         presentYear: presentYear,
         HttpImageProducts: httpImageArr,
-        userDetailsObj: userDetailsObj
+        userDetailsObj: userDetailsObj2
       });
     }
   })
-};*/
+};
 
 
-/*function getErrImages(prodObj) {
+function getErrImages(prodObj) {
 
   return new Promise((resolve, reject) => {
 
@@ -817,18 +817,18 @@ exports.getDeactiveProducts = function (req, res) {
         })
       });
   })
-};*/
+};
 
 
 
-/*exports.getErrImgPrdcts = function (req, res) {
+exports.getErrImgPrdcts = function (req, res) {
   console.log("##### IN HTTP");
   console.log("##### update param : " + JSON.stringify(req.params.updateBool));
 
 
 
   //console.log("##### IN HTTP ;" + JSON.strigify(req.user));
-  var userDetails = JSON.parse(JSON.stringify(req.user));
+  var userDetailsOb3 = JSON.parse(JSON.stringify(req.user));
   Company.find({
     "status": 'active'
   }).then(function (companies) {
@@ -881,6 +881,13 @@ exports.getDeactiveProducts = function (req, res) {
           if ((totalErrPrdctsCount === companies.length)) {
             console.log('All error products from server is : ' + errPrdctsArr.length);
 
+            var userDetailsObj3 = {
+              userName: userDetailsOb3.displayName,
+              userEmail: userDetailsOb3.email
+            }
+            var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
+            var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
+
             if (req.params.updateBool == 'true') {
               console.log("$$$#### @@@@@ UPDATE TRUE : " + JSON.stringify(req.params.updateBool));
               var forRedisDelete = 0;
@@ -899,25 +906,30 @@ exports.getDeactiveProducts = function (req, res) {
                   }
                 })
               }
+              agenda.now('Deactivate_Products', {
+                ErrorImagesRunTime: presentDate,
+                presentYear: presentYear,
+                ErrorImagesProductsLength: errPrdctsArr.length,
+                ErrorImagesProducts: errPrdctsArr,
+                userDetailsObj: userDetailsObj3,
+                updateBoolVal: true
+              });
+
             } else {
               console.log("$$$#### @@@@@ UPDATE FALSE : " + JSON.stringify(req.params.updateBool));
+              agenda.now('Deactivate_Products', {
+                ErrorImagesRunTime: presentDate,
+                presentYear: presentYear,
+                ErrorImagesProductsLength: errPrdctsArr.length,
+                ErrorImagesProducts: errPrdctsArr,
+                userDetailsObj: userDetailsObj3,
+                updateBoolVal: false
+              });
             }
 
 
 
-            var userDetailsObj = {
-              userName: userDetails.displayName,
-              userEmail: userDetails.email
-            }
-            var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
-            var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
-            agenda.now('Deactivate_Products', {
-              ErrorImagesRunTime: presentDate,
-              presentYear: presentYear,
-              ErrorImagesProductsLength: errPrdctsArr.length,
-              ErrorImagesProducts: errPrdctsArr,
-              userDetailsObj: userDetailsObj
-            });
+
 
             res.json(_.extend({
               'message': 'Inactive Products',
@@ -937,7 +949,7 @@ exports.getDeactiveProducts = function (req, res) {
   });
 
 
-};*/
+};
 
 
 

@@ -693,11 +693,23 @@
                   </tr>
 
                   <tr>
-                    <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00">
+                    <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00"> 
+                      
+                      {% if updateBoolVal == true %}
                       Rundate : <b> {{ErrorImagesRunTime}}</b>
                       <br>Total Inactivated products : <b>{{ErrorImagesProductsLength}}</b>
-                      {% if ErrorImagesProducts.length > 0 %}
-                      <br>The following products are Inactivated 
+                      <br>
+                       <br>The following products are Inactivated 
+                       {% endif %}
+                       
+                        {% if updateBoolVal == false %}
+                      Rundate : <b> {{ErrorImagesRunTime}}</b>
+                      <br>Total Errored Http Image products List : <b>{{ErrorImagesProductsLength}}</b>
+                      <br>
+                       <br>The following products are Errored Http image products
+                       {% endif %}
+                      
+                      {% if ErrorImagesProducts.length > 0 %}                     
                       <table cellpadding="5">
                         <tbody class="bodyContent">
                           <tr>
