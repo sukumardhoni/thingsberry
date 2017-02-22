@@ -431,7 +431,6 @@
           }
 
         }
-        // console.log('adproduct1');
         /*  CompanyServiceUpdate.UpdateProduct.update({
             companyId: vm.company.productId
           }, vm.company, successUpdateCallback, errorUpdateCallback);*/
@@ -494,9 +493,6 @@
           proName: res.Proname,
           proId: res.productId
         };
-        /*  $state.go('home.companies.list.products', {
-            isSearch: false
-          });*/
         NotificationFactory.success('Successfully Saved Product details...', 'Product Name : ' + res.Proname);
       }
 
