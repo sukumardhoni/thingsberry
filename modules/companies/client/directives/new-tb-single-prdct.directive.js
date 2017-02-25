@@ -52,24 +52,43 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
               var removeFirebaseSingleProdId = product.productId.replace(/\./g, "|");
               firebase.database().ref('Products/' + removeFirebaseSingleProdId + '/').once('value', function (snapshot) {
                 //  console.log("GETTING FROM FIREBASE IMG URL: " + JSON.stringify(snapshot.val()))
-                var imageName = snapshot.val().storageImgName;
-                firebase.storage().ref('Products/' + removeFirebaseSingleProdId + '/' + imageName).delete().then(function (result) {
-                  // console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
-                  firebase.database().ref('Products/' + removeFirebaseSingleProdId + '/').remove().then(function () {
-                    CompanyServiceUpdate.DeleteProduct.remove({
-                      companyId: product.productId
-                    }, function (res) {
-                      //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                      $state.go('home.companies.list.products', {
-                        isSearch: false
+                if (snapshot.val() != null) {
+                  var imageName = snapshot.val().storageImgName;
+                  firebase.storage().ref('Products/' + removeFirebaseSingleProdId + '/' + imageName).delete().then(function (result) {
+                    // console.log("DELETED PRODUCT IMAGE AND FULL DATA ");
+                    firebase.database().ref('Products/' + removeFirebaseSingleProdId + '/').remove().then(function () {
+                      CompanyServiceUpdate.DeleteProduct.remove({
+                        companyId: product.productId
+                      }, function (res) {
+                        //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                        $state.go('home.companies.products').then(function () {
+                          $state.go($state.current, {}, {
+                            reload: true
+                          });
+                        });
+                        NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+                      }, function (err) {
+                        // console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+                        NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
+                      })
+                    });
+                  })
+                } else {
+                  CompanyServiceUpdate.DeleteProduct.remove({
+                    companyId: product.productId
+                  }, function (res) {
+                    //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
+                    $state.go('home.companies.products').then(function () {
+                      $state.go($state.current, {}, {
+                        reload: true
                       });
-                      NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
-                    }, function (err) {
-                      // console.log('Err details on remove Error cb : ' + JSON.stringify(err));
-                      NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
-                    })
-                  });
-                })
+                    });
+                    NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
+                  }, function (err) {
+                    //  console.log('Err details on remove Error cb : ' + JSON.stringify(err));
+                    NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + product.Proname);
+                  })
+                }
               })
             } else {
               // console.log(" FIREBASE IMG URL NOT THERE ");
@@ -77,8 +96,10 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
                 companyId: product.productId
               }, function (res) {
                 // console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                $state.go('home.companies.list.products', {
-                  isSearch: false
+                $state.go('home.companies.products').then(function () {
+                  $state.go($state.current, {}, {
+                    reload: true
+                  });
                 });
                 NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
               }, function (err) {
@@ -115,9 +136,10 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
         }
 
         function successUpdateCallback(res) {
-          $window.location.reload();
-          $state.go('home.companies.list.products', {
-            isSearch: false
+          $state.go('home.companies.products').then(function () {
+            $state.go($state.current, {}, {
+              reload: true
+            });
           });
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
@@ -150,12 +172,12 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
                  isSearch: false
                });
              }*/
-          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+          NotificationFactory.success('Successfully added as Featured Product....', 'Product Name : ' + res.Proname);
         }
 
         function errorUpdateCallback(res) {
           vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          NotificationFactory.error('Failed to set as Featured Product...', res.data.message);
         }
 
       };
@@ -182,12 +204,12 @@ angular.module('core').directive('tbSingleProduct', function (dataShare, $state,
                 isSearch: false
               });
             }*/
-          NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
+          NotificationFactory.success('Successfully added as premium Product....', 'Product Name : ' + res.Proname);
         }
 
         function errorUpdateCallback(res) {
           vm.error = res.data.message;
-          NotificationFactory.error('Failed to Update Product details...', res.data.message);
+          NotificationFactory.error('Failed to set as premium Product...', res.data.message);
         }
       };
     }

@@ -10,7 +10,7 @@
   <h5 style="text-transform:capitalize"> {{details.status==="active"? "Deactivate":"Activate"}} </h5>
 </div>
 <div class="row popoverEditTemplate">
-  <a ui-sref="home.companies.add({ companyId: details.productId })"><h5> Edit </h5></a>
+  <a ui-sref="home.add({ companyId: details.productId })"><h5> Edit </h5></a>
 </div>
 <div class="row popoverEditTemplate" ng-click="setAsFeatured()">
   <h5>{{details.featuredFlag===false ? " Set as Featured":"Remove from Featured"}}</h5>

@@ -48,7 +48,7 @@
         <md-content>
           <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;margin:0px;">
             <li ui-sref-active="active">
-              <a ui-sref="home" class="header-title-names" ng-class="{'removeActive_Mobile':(($state.current.name=='home.companies.list.products')||($state.current.name=='home.companies.list.products.detail')||($state.current.name=='home.companies.add'))}" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">HOME<i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
+              <a ui-sref="home" class="header-title-names" ng-class="{'removeActive_Mobile':(($state.current.name!='home'))}" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">HOME<i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
             </li>
 
             <li ui-sref-active="active">
