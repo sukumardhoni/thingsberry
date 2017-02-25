@@ -10,7 +10,7 @@ angular.module('core').directive('tbFrequentProducts', function (dataShare, $sta
     templateUrl: 'modules/companies/client/views/directive-partials/new-tb-frequent-products.display.client.view.html',
     link: function (scope, elem, attr) {
       scope.scrollToProduct = function () {
-        $state.go('companies.list.products.detail', {
+        $state.go('home.companies.products.detail', {
           companyId: scope.details.productId
         })
 

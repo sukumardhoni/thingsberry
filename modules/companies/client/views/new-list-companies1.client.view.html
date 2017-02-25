@@ -2,7 +2,7 @@
   <div ui-view></div>
 </div>
 
-<div class=" allPrdctsPage" ng-init="getSearchedProductsList()" ng-show="$state.current.name == 'home.companies.list.products'">
+<div class=" allPrdctsPage" ng-init="getSearchedProductsList()" ng-show="($state.current.name == 'home.companies.products')||($state.current.name == 'home.companies.category')||($state.current.name == 'home.companies.companyName')||($state.current.name == 'home.companies.productName')||($state.current.name == 'home.companies.categoryAndCompany')||($state.current.name == 'home.companies.companyAndproduct')||($state.current.name == 'home.companies.categoryAndproduct')||($state.current.name == 'home.companies.categoryAndCompanyAndProduct')">
   <div ng-hide="vm.companys.length == 0">
     <div class="row prdcts-sorting hidden-sm">
       <div class="col-md-5 prdct_showing_item">

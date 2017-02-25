@@ -74,25 +74,58 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
               regionsArray.push(details.outputBrowsers.name);
             }
           }
-
+          console.log("catsArray : " + JSON.stringify(catsArray));
+          console.log("company : " + JSON.stringify(details.Company));
+          console.log("Product : " + JSON.stringify(details.Product));
           if ((catsArray == '') && (regionsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
-            $state.go('home.companies.list.products', {
-              isSearch: false
+            $state.go('home.companies.products');
+          } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company == undefined) || (details.Company == '')) && ((details.Product == undefined) || (details.Product == ''))) {
+            console.log("only category");
+            $state.go('home.companies.category', {
+              catId: catsArray
             });
-          } else {
-            $state.go('home.companies.list.products', {
-              cat: (catsArray == '') ? 'Category' : catsArray,
-              com: (details.Company == undefined) ? 'Company' : details.Company,
-              name: (details.Product == undefined) ? 'Product' : details.Product,
-              regions: (regionsArray == '') ? '' : regionsArray,
-              isSearch: true
+          } else if ((catsArray == '') && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product == undefined) || (details.Product == ''))) {
+            console.log("only companyName");
+            $state.go('home.companies.companyName', {
+              companyId: details.Company
+            });
+          } else if ((catsArray == '') && (regionsArray == '') && ((details.Company == undefined) || (details.Company == '')) && ((details.Product != undefined) || (details.Product != ''))) {
+            console.log("only productName");
+            $state.go('home.companies.productName', {
+              productName: details.Product
+            });
+          } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product == undefined) || (details.Product == ''))) {
+            console.log("only categoryAndCompany");
+            $state.go('home.companies.categoryAndCompany', {
+              catId: catsArray,
+              companyId: details.Company
+            });
+          } else if ((catsArray == '') && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product != undefined) || (details.Product != ''))) {
+            console.log("only companyAndproduct");
+            $state.go('home.companies.companyAndproduct', {
+              companyId: details.Company,
+              productName: details.Product
+            });
+          } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company == undefined) || (details.Company == '')) && ((details.Product != undefined) || (details.Product != ''))) {
+            console.log("only categoryAndproduct");
+            $state.go('home.companies.categoryAndproduct', {
+              catId: catsArray,
+              productName: details.Product
+            });
+          } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product != undefined) || (details.Product != ''))) {
+            console.log("only categoryAndCompanyAndProduct");
+            $state.go('home.companies.categoryAndCompanyAndProduct', {
+              catId: catsArray,
+              companyId: details.Company,
+              productName: details.Product
             });
           }
         }
+        /* $scope.searchForm.$setPristine();*/
+        // console.log("DETAILS : " + JSON.stringify($scope.homeSearchDetails))
+
       } else {
-        $state.go('home.companies.list.products', {
-          isSearch: false
-        });
+        $state.go('home.companies.products');
       }
     };
 

@@ -52,7 +52,7 @@
             </li>
 
             <li ui-sref-active="active">
-              <a ui-sref="home.companies.list.products({isSearch:false})" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">ALL PRODUCTS <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
+              <a ui-sref="home.companies.products" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">ALL PRODUCTS <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
             </li>
 
             <li ui-sref-active="active">
@@ -63,7 +63,7 @@
               <a ui-sref="getListed" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">GET LISTED <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
             </li>
             <li ui-sref-active="active" ng-show="authentication.user.roles.indexOf('admin') > -1">
-              <a ui-sref="home.companies.add" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">GET LISTED <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
+              <a ui-sref="home.add" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">GET LISTED <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
             </li>
 
             <li ui-sref-active="active">
@@ -146,11 +146,11 @@
               <ul class="nav navbar-nav navbar-right" style="padding-top: 9px;margin-right: -94px;">
 
                 <li ui-sref-active="active">
-                  <a ui-sref="home" class="header-title-names" ng-class="{'removeActive':(($state.current.name=='home.companies.list.products')||($state.current.name=='home.companies.list.products.detail')||($state.current.name=='home.companies.add'))}" style="margin-left:16px;margin-right:16px;">HOME</a>
+                  <a ui-sref="home" class="header-title-names" ng-class="{'removeActive':($state.current.name!='home')}" style="margin-left:16px;margin-right:16px;">HOME</a>
                 </li>
 
                 <li ui-sref-active="active">
-                  <a ui-sref="home.companies.list.products({isSearch:false})" class="header-title-names">ALL PRODUCTS</a>
+                  <a ui-sref="home.companies.products" class="header-title-names">ALL PRODUCTS</a>
                 </li>
 
                 <li ui-sref-active="active">
@@ -161,7 +161,7 @@
                   <a ui-sref="getListed" class="header-title-names">GET LISTED</a>
                 </li>
                 <li ui-sref-active="active" ng-show="authentication.user.roles.indexOf('admin') > -1">
-                  <a ui-sref="home.companies.add" class="header-title-names">GET LISTED</a>
+                  <a ui-sref="home.add" class="header-title-names">GET LISTED</a>
                 </li>
 
                 <li ui-sref-active="active">

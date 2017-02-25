@@ -32,7 +32,7 @@ exports.sendUserInfoToThingsBerryTeam = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/new-user-email-to-thingsberry';
     //mailData.to = 'support@thingsberry.com';
-    mailData.to = 'support@thingsberry.com';
+    mailData.to = 'midhunsai@globaltechminds.com';
     mailData.subject = testingEnv + 'New User To ThingsBerry';
     mailData.userData = job.attrs.data.userData;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -48,7 +48,7 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     //  console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.ContactedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/contact-us-email-to-thingsberry';
-    mailData.to = 'support@thingsberry.com';
+    mailData.to = 'midhunsai@globaltechminds.com';
     mailData.subject = testingEnv + 'ContactUs Info To ThingsBerry';
     mailData.contactedDetails = job.attrs.data.ContactedDetails;
     mailData.presentYear = job.attrs.data.presentYear;

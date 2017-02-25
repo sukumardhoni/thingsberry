@@ -123,9 +123,7 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
           if ($state.current.name == 'home.companies.list.products') {
             $window.location.reload();
           } else {
-            $state.go('home.companies.list.products', {
-              isSearch: false
-            });
+            $state.go('home.companies.products');
           }
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
@@ -204,7 +202,7 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         /*$localStorage.ScrollPostion = prod_Id;*/
 
 
-        $state.go('home.companies.list.products.detail', {
+        $state.go('home.companies.products.detail', {
           companyId: scope.details.productId
         }).then(function () {
           $("html, body").animate({
@@ -350,9 +348,7 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
           if ($state.current.name == 'home.companies.list.products') {
             // $window.location.reload();
           } else {
-            $state.go('home.companies.list.products', {
-              isSearch: false
-            });
+            $state.go('home.companies.products');
           }
           NotificationFactory.success('Successfully Deactivated Product....', 'Product Name : ' + res.Proname);
         }
@@ -429,7 +425,7 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
 
       scope.scrollToProduct = function () {
 
-        $state.go('home.companies.list.products.detail', {
+        $state.go('home.companies.products.detail', {
           companyId: scope.details.productId
         }).then(function () {
           $("html, body").animate({

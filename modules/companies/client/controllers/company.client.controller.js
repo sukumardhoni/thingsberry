@@ -289,9 +289,7 @@
                       companyId: product.productId
                     }, function (res) {
                       //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                      $state.go('home.companies.list.products', {
-                        isSearch: false
-                      });
+                      $state.go('home.companies.products');
                       NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
                     }, function (err) {
                       //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
@@ -304,9 +302,7 @@
                   companyId: product.productId
                 }, function (res) {
                   //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                  $state.go('home.companies.list.products', {
-                    isSearch: false
-                  });
+                  $state.go('home.companies.products');
                   NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
                 }, function (err) {
                   //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
@@ -320,9 +316,7 @@
               companyId: product.productId
             }, function (res) {
               //console.log('Res details on remove success cb : ' + JSON.stringify(res));
-              $state.go('home.companies.list.products', {
-                isSearch: false
-              });
+              $state.go('home.companies.products');
               NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
             }, function (err) {
               //console.log('Err details on remove Error cb : ' + JSON.stringify(err));
@@ -482,9 +476,7 @@
       }
 
       function successUpdateCallback(res) {
-        $state.go('home.companies.list.products', {
-          isSearch: false
-        });
+        $state.go('home.companies.products');
         NotificationFactory.success('Successfully Updated Product details...', 'Product Name : ' + res.Proname);
       }
 

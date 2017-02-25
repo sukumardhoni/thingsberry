@@ -9,7 +9,7 @@
       $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         // console.log("to state : " + JSON.stringify(toState));
         //  console.log(" fromState : " + JSON.stringify(fromState));
-        if (toState.name != "home.companies.list.products") {
+        if (toState.name != "home.companies.products") {
           $("html, body").animate({
             scrollTop: 0
           }, 200);
@@ -22,28 +22,45 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+    /* .state('home.companies', {
+       abstract: true,
+       url: 'products',
+       template: '<ui-view/>',
+       data: {
+         breadcrumbProxy: 'companies.list'
+       }
+     })*/
       .state('home.companies', {
         abstract: true,
         url: 'products',
-        template: '<ui-view/>',
-        data: {
-          breadcrumbProxy: 'companies.list'
-        }
-      })
-      .state('home.companies.list', {
-        url: '/list',
-        abstract: true,
-        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm'
+      })
+      /* .state('home.companies.list', {
+         url: '/list',
+         abstract: true,
+         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+         templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
+         controller: 'CompanyListController',
+         controllerAs: 'vm',
+         data: {
+           pageTitle: 'Products List',
+           displayName: 'Searched Products'
+         }
+       })*/
+      .state('home.companies.products', {
+        url: '/list',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
         controller: 'CompanyListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
         }
-      })
-      .state('home.companies.list.products', {
-        url: '/:cat?/:com?/:name?/:regions?/:isSearch',
+
+      }).state('home.companies.category', {
+        url: '/{catId}~category',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
         controller: 'CompanyListController',
@@ -53,22 +70,86 @@
           displayName: 'Searched Products'
         }
 
+      }).state('home.companies.companyName', {
+        /* url: '/company/:companyName',*/
+        url: '/{companyId}~company',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
+
+      }).state('home.companies.productName', {
+        url: '/:productName',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
+
+      }).state('home.companies.categoryAndCompany', {
+        url: '/{catId}~category/{companyId}~company',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
+
+      }).state('home.companies.companyAndproduct', {
+        url: '/{companyId}~company/:productName',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
+      }).state('home.companies.categoryAndproduct', {
+        url: '/{catId}~category/:productName',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
+      }).state('home.companies.categoryAndCompanyAndProduct', {
+        url: '/{catId}~category/{companyId}~company/:productName',
+        //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+        controller: 'CompanyListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Products List',
+          displayName: 'Searched Products'
+        }
       })
-      /*  .state('home.companies.create', {
-          url: '/create',
-          templateUrl: 'modules/companies/client/views/form-company.client.view.html',
-          controller: 'CompanyController',
-          controllerAs: 'vm',
-          resolve: {
-            companyResolve: newCompany
-          },
-          data: {
-            roles: ['user', 'admin'],
-            pageTitle: 'Create Product'
-          }
-        })*/
-      .state('home.companies.add', {
-        url: '/your_product/:companyId',
+      /*   .state('home.companies.create', {
+           url: '/create',
+           templateUrl: 'modules/companies/client/views/form-company.client.view.html',
+           controller: 'CompanyController',
+           controllerAs: 'vm',
+           resolve: {
+             companyResolve: newCompany
+           },
+           data: {
+             roles: ['user', 'admin'],
+             pageTitle: 'Create Product'
+           }
+         })*/
+      .state('home.add', {
+        url: 'product-info/:companyId?',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',
         /*   templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
         controller: 'CompanyController',
@@ -83,8 +164,8 @@
       })
 
 
-    .state('home.companies.list.products.detail', {
-      url: '/productDetail/:companyId',
+    .state('home.companies.products.detail', {
+      url: '/:companyId',
       templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
       controller: 'CompanyController',
       controllerAs: 'vm',
@@ -95,21 +176,6 @@
         pageTitle: 'Company {{ companyResolve.Proname }}'
       }
     });
-
-
-
-    /* .state('companies.view', {
-       url: '/:companyId',
-       templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
-       controller: 'CompanyController',
-       controllerAs: 'vm',
-       resolve: {
-         companyResolve: getCompany
-       },
-       data: {
-         pageTitle: 'Company {{ companyResolve.Proname }}'
-       }
-     });*/
   }
 
   getCompany.$inject = ['$stateParams', 'CompanyService'];
@@ -119,27 +185,7 @@
       companyId: $stateParams.companyId
     }).$promise;
   }
-  /*   .state('companies.view', {
-        url: '/:companyId',
-        templateUrl: 'modules/company/client/views/view-company.client.view.html',
-        controller: 'CompanyController',
-        controllerAs: 'vm',
-        resolve: {
-          companyResolve: getCompany
-        },
-        data: {
-          pageTitle: 'Company {{ companyResolve.Proname }}'
-        }
-      });
-  }
 
-  getCompany.$inject = ['$stateParams', 'CompanyService'];
-
-  function getCompany($stateParams, CompanyService) {
-    return CompanyService.get({
-      companyId: $stateParams.companyId
-    }).$promise;
-  }*/
 
   newCompany.$inject = ['CompanyService'];
 
