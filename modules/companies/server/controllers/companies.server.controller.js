@@ -112,7 +112,7 @@ exports.productsStats = function (req, res) {
  */
 exports.create = function (req, res) {
   console.log("@@@#####$$$$ $$ BEFOR : " + JSON.stringify(req.user.displayName));
-
+  var userDetails = JSON.parse(JSON.stringify(req.user));
   var company = new Company(req.body);
   company.user = req.user;
   var ProCatsArray = req.body.ProCat;
@@ -127,16 +127,16 @@ exports.create = function (req, res) {
     } else {
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForAddedProduct(company);
+      getMsgForAddedProduct(company, userDetails);
     }
   });
 };
 
-function getMsgForAddedProduct(product) {
+function getMsgForAddedProduct(product, userDetails) {
   console.log("NEW ADDED PRODUCT : " + JSON.stringify(product));
   var AddedNewProductDetails = {
-    /* userName: product.user.displayName,
-     userEmail: product.user.email,*/
+    userName: userDetails.displayName,
+    userEmail: userDetails.email,
     productId: product._id,
     operationalRegions: product.operationalRegions,
     premiumFlag: product.premiumFlag,
@@ -461,7 +461,7 @@ exports.updateRating = function (req, res) {
 exports.delete = function (req, res) {
   console.log("@@####CALED DELTE SERVER CNTRLER");
   var company = req.company;
-  // var userDetails = JSON.parse(JSON.stringify(req.user));
+  var userDetails = JSON.parse(JSON.stringify(req.user));
 
   company.remove(function (err) {
     if (err) {
@@ -472,12 +472,12 @@ exports.delete = function (req, res) {
       _this.deleteExpressRedis();
       res.json(company);
       console.log("@@####CALED DELTE SERVER CNTRLER" + JSON.stringify(company));
-      getMsgForDeleteProduct(company);
+      getMsgForDeleteProduct(company, userDetails);
     }
   });
 };
 
-function getMsgForDeleteProduct(product) {
+function getMsgForDeleteProduct(product, userDetails) {
   console.log("DeletedProductDetails : " + JSON.stringify(product));
   // console.log("USER Details : " + JSON.stringify(userDetails));
   /* var userDetailsObj = {
@@ -486,8 +486,8 @@ function getMsgForDeleteProduct(product) {
    }*/
 
   var DeletedProductDetails = {
-    /*userName: userDetails.displayName,
-    userEmail: userDetails.email,*/
+    userName: userDetails.displayName,
+    userEmail: userDetails.email,
     productId: product._id,
     operationalRegions: product.operationalRegions,
     premiumFlag: product.premiumFlag,
