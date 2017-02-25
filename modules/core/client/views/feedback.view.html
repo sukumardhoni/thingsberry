@@ -45,7 +45,7 @@
           <div class="row">
             <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles-msg"><b>What do you like about the site?</b></label>
-              <input class="input-styles" class="form-control" name="liked" id="liked" ng-model="feedback.liked" required type="text">
+              <input class="input-styles" class="form-control" name="liked" id="liked" ng-model="feedback.liked" type="text">
               <div ng-messages="feedbackForm.liked.$error">
                 <div ng-message="required">This field is required.</div>
               </div>
@@ -54,7 +54,7 @@
           <div class="row">
             <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles-msg"><b>What you don't like about the site?</b></label>
-              <input class="input-styles" class="form-control" name="didntLiked" type="text" id="didntLiked" ng-model="feedback.didntLiked" required>
+              <input class="input-styles" class="form-control" name="didntLiked" type="text" id="didntLiked" ng-model="feedback.didntLiked">
               <div ng-messages="feedbackForm.didntLiked.$error">
                 <div ng-message="required">This field is required.</div>
               </div>
