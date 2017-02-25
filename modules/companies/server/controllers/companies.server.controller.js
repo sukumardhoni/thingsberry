@@ -78,7 +78,7 @@ exports.productsStats = function (req, res) {
             'Inactive_Products_Count': productsStats.Inactive_Products,
             'Affliate_Link_Products_count': productsStats.Affliate_Products_count
           }));
-
+          _this.deleteExpressRedis();
           var stats = {
             'name': exports.name,
             'description': exports.description,
@@ -624,22 +624,13 @@ exports.premiumProductsList = function (req, res) {
   });
 };
 
-
-/*exports.getAllPrdcts = function (req, res) {
-
-
-  hh.get('http://topsolute.com/wp-content/uploads/2016/03/Skybellhd-homemb.png', function (res) {
-    console.log("ERROR OF ANOTHER PRDCTS : " + JSON.stringify(res.statusCode));
-  });
-
-};*/
-
 exports.getAllRoutes = function (req, res) {
   var routes = {
     isAlive: '/isAlive',
     stats: '/stats',
     findDuplicates: '/findDuplicateProducts',
-    cleanUpInactive: '/cleanUpInactive',
+    cleanUpInactive: '/cleanUpInactive/:booleanValue',
+    getHttpImageList: '/getHttpImagesList'
   };
 
   res.json(_.extend({

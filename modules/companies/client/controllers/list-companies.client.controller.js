@@ -82,14 +82,14 @@
           'value': '-created'
         }
   ];
-      console.log("state params category : " + $stateParams.catId);
-      console.log("state params companyName : " + $stateParams.companyId);
-      console.log("state params productName : " + $stateParams.productName);
-      console.log("state params regions : " + $stateParams.regions);
+      //  console.log("state params category : " + $stateParams.catId);
+      // console.log("state params companyName : " + $stateParams.companyId);
+      //  console.log("state params productName : " + $stateParams.productName);
+      //  console.log("state params regions : " + $stateParams.regions);
       $scope.searchOrder.List = $scope.searchOrder.Lists[1].value;
 
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to category");
+        //  console.log("Coming to category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: 'Company',
@@ -107,7 +107,7 @@
         });
 
       } else if (($stateParams.companyId != undefined) && ($stateParams.catId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to companyName");
+        // console.log("Coming to companyName");
         SearchProducts.query({
           ProCategory: 'Category',
           ProCompany: $stateParams.companyId,
@@ -124,7 +124,7 @@
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       } else if (($stateParams.companyId == undefined) && ($stateParams.catId == undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to productName");
+        // console.log("Coming to productName");
         SearchProducts.query({
           ProCategory: 'Category',
           ProCompany: 'Company',
@@ -141,7 +141,7 @@
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       } else if (($stateParams.companyId != undefined) && ($stateParams.catId != undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to category and company");
+        //  console.log("Coming to category and company");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: $stateParams.companyId,
@@ -158,7 +158,7 @@
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       } else if (($stateParams.companyId != undefined) && ($stateParams.catId == undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to product name and company name");
+        // console.log("Coming to product name and company name");
         SearchProducts.query({
           ProCategory: 'Category',
           ProCompany: $stateParams.companyId,
@@ -175,7 +175,7 @@
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       } else if (($stateParams.companyId == undefined) && ($stateParams.catId != undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to product name and category");
+        // console.log("Coming to product name and category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: 'Company',
@@ -192,7 +192,7 @@
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       } else if (($stateParams.companyId != undefined) && ($stateParams.catId != undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to product name and category");
+        // console.log("Coming to product name and category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: $stateParams.companyId,
@@ -209,7 +209,7 @@
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
       } else if (($stateParams.companyId == undefined) && ($stateParams.catId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to list of products");
+        // console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
           pageId: pageId
@@ -263,7 +263,7 @@
       var onScroll = {};
       $scope.spinnerLoading = true;
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to category");
+        // console.log("Coming to category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: 'Company',
@@ -285,7 +285,7 @@
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to category");
+        // console.log("Coming to category");
         SearchProducts.query({
           ProCategory: 'Category',
           ProCompany: $stateParams.companyId,
@@ -307,7 +307,7 @@
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to category");
+        // console.log("Coming to category");
         SearchProducts.query({
           ProCategory: 'Category',
           ProCompany: 'Company',
@@ -329,7 +329,7 @@
         });
 
       } else if (($stateParams.catId != undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to category");
+        // console.log("Coming to category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: $stateParams.companyId,
@@ -351,7 +351,7 @@
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to category");
+        //  console.log("Coming to category");
         SearchProducts.query({
           ProCategory: 'Category',
           ProCompany: $stateParams.companyId,
@@ -373,7 +373,7 @@
         });
 
       } else if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to category");
+        //  console.log("Coming to category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: 'Company',
@@ -395,7 +395,7 @@
         });
 
       } else if (($stateParams.catId != undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName != undefined)) {
-        console.log("Coming to category");
+        // console.log("Coming to category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: $stateParams.companyId,
@@ -417,7 +417,7 @@
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to list of products");
+        // console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
           pageId: pageId

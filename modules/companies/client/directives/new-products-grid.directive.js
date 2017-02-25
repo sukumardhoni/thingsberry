@@ -161,13 +161,10 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         }
 
         function successUpdateCallback(res) {
-          /*          if ($state.current.name == 'companies.list.products') {
-                      // $window.location.reload();
-                    } else {
-                      $state.go('companies.list.products', {
-                        isSearch: false
-                      });
-                    }*/
+
+          $state.go($state.current, {}, {
+            reload: true
+          });
           NotificationFactory.success('Successfully added as Featured Product....', 'Product Name : ' + res.Proname);
         }
 
@@ -192,13 +189,9 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         }
 
         function successUpdateCallback(res) {
-          /* if ($state.current.name == 'companies.list.products') {
-             // $window.location.reload();
-           } else {
-             $state.go('companies.list.products', {
-               isSearch: false
-             });
-           }*/
+          $state.go($state.current, {}, {
+            reload: true
+          });
           NotificationFactory.success('Successfully added as Premium Product....', 'Product Name : ' + res.Proname);
         }
 
@@ -385,13 +378,9 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         }
 
         function successUpdateCallback(res) {
-          /*   if ($state.current.name == 'companies.list.products') {
-               $window.location.reload();
-             } else {
-               $state.go('companies.list.products', {
-                 isSearch: false
-               });
-             }*/
+          $state.go($state.current, {}, {
+            reload: true
+          });
           NotificationFactory.success('Successfully added as Featured Product....', 'Product Name : ' + res.Proname);
         }
 
@@ -418,13 +407,9 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         }
 
         function successUpdateCallback(res) {
-          /*  if ($state.current.name == 'companies.list.products') {
-              $window.location.reload();
-            } else {
-              $state.go('companies.list.products', {
-                isSearch: false
-              });
-            }*/
+          $state.go($state.current, {}, {
+            reload: true
+          });
           NotificationFactory.success('Successfully added as Premium Product....', 'Product Name : ' + res.Proname);
         }
 

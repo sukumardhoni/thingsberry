@@ -56,14 +56,6 @@ module.exports = function (app) {
 
   app.route('/api/updateRating/:companyId/:previousRatingValue/:userRating').put(companies.updateRating);
 
-  /* app.route('/api/deactivateProduct/:companyId/:deactive').put(companies.deactivateProduct);*/
-
-  /* app.route('/api/companies/:productId')
-    .get(companies.read)
-      .put(companies.update)
-      .delete(companies.delete);
-     app.param('productId', companies.productByID);*/
-
   // Single company routes
   app.route('/api/companies/:companyId') /*.all(companiesPolicy.isAllowed)*/
     .get(companies.read)
