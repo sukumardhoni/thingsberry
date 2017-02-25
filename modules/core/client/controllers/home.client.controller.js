@@ -74,46 +74,46 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
               regionsArray.push(details.outputBrowsers.name);
             }
           }
-          console.log("catsArray : " + JSON.stringify(catsArray));
-          console.log("company : " + JSON.stringify(details.Company));
-          console.log("Product : " + JSON.stringify(details.Product));
+          // console.log("catsArray : " + JSON.stringify(catsArray));
+          // console.log("company : " + JSON.stringify(details.Company));
+          //  console.log("Product : " + JSON.stringify(details.Product));
           if ((catsArray == '') && (regionsArray == '') && (details.Company == undefined) && (details.Product == undefined)) {
             $state.go('home.companies.products');
           } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company == undefined) || (details.Company == '')) && ((details.Product == undefined) || (details.Product == ''))) {
-            console.log("only category");
+            //  console.log("only category");
             $state.go('home.companies.category', {
               catId: catsArray
             });
           } else if ((catsArray == '') && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product == undefined) || (details.Product == ''))) {
-            console.log("only companyName");
+            // console.log("only companyName");
             $state.go('home.companies.companyName', {
               companyId: details.Company
             });
           } else if ((catsArray == '') && (regionsArray == '') && ((details.Company == undefined) || (details.Company == '')) && ((details.Product != undefined) || (details.Product != ''))) {
-            console.log("only productName");
+            // console.log("only productName");
             $state.go('home.companies.productName', {
               productName: details.Product
             });
           } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product == undefined) || (details.Product == ''))) {
-            console.log("only categoryAndCompany");
+            // console.log("only categoryAndCompany");
             $state.go('home.companies.categoryAndCompany', {
               catId: catsArray,
               companyId: details.Company
             });
           } else if ((catsArray == '') && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product != undefined) || (details.Product != ''))) {
-            console.log("only companyAndproduct");
+            //  console.log("only companyAndproduct");
             $state.go('home.companies.companyAndproduct', {
               companyId: details.Company,
               productName: details.Product
             });
           } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company == undefined) || (details.Company == '')) && ((details.Product != undefined) || (details.Product != ''))) {
-            console.log("only categoryAndproduct");
+            //  console.log("only categoryAndproduct");
             $state.go('home.companies.categoryAndproduct', {
               catId: catsArray,
               productName: details.Product
             });
           } else if ((catsArray != undefined) && (regionsArray == '') && ((details.Company != undefined) || (details.Company != '')) && ((details.Product != undefined) || (details.Product != ''))) {
-            console.log("only categoryAndCompanyAndProduct");
+            // console.log("only categoryAndCompanyAndProduct");
             $state.go('home.companies.categoryAndCompanyAndProduct', {
               catId: catsArray,
               companyId: details.Company,

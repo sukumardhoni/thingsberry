@@ -42,11 +42,13 @@
     }
 
     $scope.authentication = Authentication;
+    //  console.log("USER : " + JSON.stringify($scope.authentication));
 
     $scope.userDetails = $scope.authentication.user;
     // console.log("USER(OR)ADMIN:" + JSON.stringify($scope.userDetails));
-    if ($scope.userDetails !== undefined) {
-
+    // console.log("USER(OR)ADMIN locastorage:" + JSON.stringify($localStorage.user));
+    if (($scope.userDetails != "")) {
+      // console.log("coming  to iff");
       if ($scope.userDetails.roles.indexOf('admin') == 1) {
         loginUser = 'admin';
       } else {
