@@ -60,11 +60,13 @@ exports.getListed = function (req, res) {
 
 exports.feedback = function (req, res) {
   var details = req.body;
-  var userDetails = JSON.parse(JSON.stringify(req.user));
-  var userDetailsObj = {
-    userName: userDetails.displayName,
-    userEmail: userDetails.email
+  var userDetailsObj = {};
+  if (req.user) {
+    var userDetails = JSON.parse(JSON.stringify(req.user));
+    userDetailsObj.userName = userDetails.displayName;
+    userDetailsObj.userEmail = userDetails.email;
   }
+
 
   agenda.now('User_Feedback_To_ThingsBerry_Team', {
     presentYear: presentYear,

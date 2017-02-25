@@ -678,10 +678,17 @@
                     <td valign="top" class="bodyContent" mc:edit="body_content">
 
                       <h3> Hi ThingsBerry Team,</h3> This is the notification mail came from thingsberry.com
+                      
 
-                      <br /><b>User Name :</b>{{userDetailsObj.userName}}
-                      <br><b>User Email :</b>{{userDetailsObj.userEmail}}
                       <br />
+                      
+                      {% if userDetailsObj.userName !== undefined %}
+                      <b>User Name :</b>{{userDetailsObj.userName}}
+                      <br><b>User Email :</b>{{userDetailsObj.userEmail}}
+                      <br />                      
+                      {% endif %}
+                      
+                      
                       <h4>Feedback details are :</h4>
 
                       <br/><b>Feedback rating : </b>{{FeedbackDetails.rating}}
