@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts', 'CleanUpInactiveService', 'ListOfProducts', 'NotificationFactory',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts, CleanUpInactiveService, ListOfProducts, NotificationFactory) {
 
     var vm = this;
 
@@ -201,12 +201,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
     $scope.tbVideos = function () {
-      $scope.carouselBg2.push('carousel_spinner_featured');
+      $scope.showSpinner = true;
       videos.query({}, function (res) {
           $scope.videos = res;
-          $timeout(function () {
-            $scope.carouselBg2.pop('carousel_spinner_featured');
-          }, 1000);
+          $scope.showSpinner = false;
         },
         function (err) {
           console.log('Failed to fetch the product details : ' + err);
@@ -216,7 +214,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.featuredProducts = function () {
       // $scope.date = new Date();
-      $scope.carouselBg1.push('carousel_spinner_featured');
+      /*$scope.carouselBg1.push('carousel_spinner_featured');*/
 
       featuredProducts.query({}, function (res) {
         // console.log(res);
@@ -234,15 +232,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         $scope.sampleInSm = $scope.listToMatrix($scope.slides3, 2);
         // console.log('the resultant matrix' + JSON.stringify($scope.sampleInSm));
 
-
         for (var k = 0; k < $scope.featuredProducts.length; k++) {
           $scope.addSlide4($scope.featuredProducts[k]);
         }
         $scope.sampleInXs = $scope.listToMatrix($scope.slides4, 1);
         // console.log('the resultant matrix' + JSON.stringify($scope.sampleInXs));
-        $timeout(function () {
-          $scope.carouselBg1.pop('carousel_spinner_featured');
-        }, 1000);
+        /*  $timeout(function () {
+            $scope.carouselBg1.pop('carousel_spinner_featured');
+          }, 1000);*/
 
 
       }, function (err) {
@@ -252,7 +249,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
     $scope.tbQuotes = function () {
-
       quotes.query({}, function (res) {
         // console.log(res);
         $scope.quotes = res;
@@ -262,29 +258,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       });
 
     }
-
-
-
-
-
-
-    /*    $scope.myInterval = 5000;
-        $scope.noWrapSlides = false;
-        $scope.active = 0;
-        var slides1 = $scope.slides1 = [];*/
-    /*var slidesarray =$scope.slidesarray = [['slide1','slide2'],['slide3','slide4'],['slide5','slide6'],['slide7','slide8'],['slide9','slide10']];*/
-
-    /*    var sample = $scope.sample = [];
-        var slides3 = $scope.slides3 = [];
-        var currIndex = 0;
-        $scope.carouselBg = [];*/
-
-
-
-    //    $scope.myInterval = 5000;
-    //    $scope.noWrapSlides = false;
-    //    $scope.active = 0;
-
 
     var slides1 = $scope.slides1 = [];
     var slides2 = $scope.slides2 = [];
@@ -297,75 +270,35 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
     $scope.premiumProducts = function () {
-      // $scope.spinnerLoading = true;
-      $scope.carouselBg.push('carousel_spinner');
+      $scope.spinnerShow = true;
+     /* $scope.carouselBg.push('carousel_spinner');*/
       PremiumProducts.query({}, function (res) {
-
         $scope.premiumProducts = res;
-
         for (var i = 0; i < ($scope.premiumProducts.length); i++) {
           $scope.addSlide1($scope.premiumProducts[i]);
         }
         $scope.premiumPrdcts = $scope.listToMatrix($scope.slides1, 1);
-        // console.log($scope.premiumPrdcts);
-        $timeout(function () {
-          $scope.carouselBg.pop('carousel_spinner');
-        }, 1000);
+        $scope.spinnerShow = false;
       }, function (err) {
         console.log('Failed to fetch the product details : ' + err);
       });
     };
 
 
-
-
-
-    //
-    //    $scope.getPremiumProducts = function () {
-    //      $scope.carouselBg.push('carousel_spinner');
-    //      PremiumProducts.query({}, function (res) {
-    //        $scope.premiumProducts = res;
-    //
-    //        //console.log('the length:'+JSON.stringify($scope.premiumProducts));
-    //        for (var i = 0; i < ($scope.premiumProducts.length); i++) {
-    //          $scope.addSlide1($scope.premiumProducts[i]);
-    //        }
-    //
-    //        $scope.sample = $scope.listToMatrix($scope.slides1, 2);
-    //        // console.log('the resultant matrix'+JSON.stringify($scope.sample));
-    //
-    //        for (var k = 0; k < $scope.premiumProducts.length; k++) {
-    //          $scope.addSlide3($scope.premiumProducts[k]);
-    //        }
-    //        $timeout(function () {
-    //          $scope.carouselBg.pop('carousel_spinner');
-    //        }, 1000);
-    //
-    //      }, function (err) {
-    //        console.log('Failed to fetch the product details : ' + err);
-    //      });
-    //    };
-
-
     $scope.listToMatrix = function (list, elementsPerSubArray) {
       //console.log('calling to listtomatrix function');
       var matrix = [],
         i, k;
-
       for (i = 0, k = -1; i < list.length; i++) {
         if (i % elementsPerSubArray === 0) {
           k++;
           matrix[k] = [];
         }
-
         matrix[k].push(list[i]);
       }
-
       return matrix;
       //console.log('the resultant matrix:'+matrix);
     }
-
-
 
     $scope.addSlide1 = function (details) {
       slides1.push(details);
@@ -452,57 +385,110 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
+    /*  $scope.getAllProductsCount = function () {
 
-    /* $scope.getErroredImagePrdcts = function () {
-       $scope.spinner = true;
-       $scope.showTxt = true;
-       console.log("CLICKED");
-       GetErrImgPrdcts.query({}, function (res) {
-         //  console.log("ERROR IMAGE PRODUCTS : " + JSON.stringify(res));
-         console.log("ERROR IMAGE PRODUCTS LENGTH : " + JSON.stringify(res.length));
-         $scope.erroredImages = res;
-         $scope.spinner = false;
+        ListOfProducts.query({
+          adminStatus: 'admin',
+          pageId: 0
+        }, function (res) {
+          // console.log('response is : ' + JSON.stringify(res));
+          // vm.companys = res.products;
+          $scope.AllProductsCount = res.count;
+        }, function (err) {
+          console.log('Failed to fetch the product details : ' + err);
+        });
+      };*/
+
+    //  console.log("Out side Cleanup  :" + JSON.stringify($scope.cleanUp));
+    /*$scope.deactivateErrorImageProds = function () {
+      console.log("inside side Cleanup  :" + JSON.stringify($scope.forDeactivateprods));
+      CleanUpInactiveService.query({
+        startFrom: $scope.forDeactivateprods.startFrom,
+        endTo: $scope.forDeactivateprods.endTo,
+        updateBool: true
+      }, function (res) {
+        console.log('successfully fetch the details :' + JSON.stringify(res));
+      }, function (err) {
+        console.log('Failed to fetch the details :' + JSON.stringify(err));
+      });
+    }*/
+
+    var skipPageId = 0;
+    $scope.errorProdArr = [];
+    $scope.cleanUpInactive = function () {
+      $scope.showSpinner = true;
+      // skipPageId++;
+      CleanUpInactiveService.query({
+        skipPageId: skipPageId
+      }, function (res) {
+        $scope.showSpinner = false;
+        if (res.fullySearched == false) {
+          res.skipPageId = skipPageId;
+          skipPageId++;
+          $scope.resultantObj = res;
+          if (res.to > $scope.AllProductsCount) {
+            var endCount = res.to - 50;
+            var resultCount = $scope.AllProductsCount - endCount;
+            $scope.resultantObj.to = endCount + resultCount;
+          }
+          $scope.errorProdArr.push(res);
+        } else {
+          $scope.completeSearched = true;
+        }
+
+
+       // console.log('successfully fetch the details :' + JSON.stringify(res));
+      }, function (err) {
+        console.log('Failed to fetch the details :' + JSON.stringify(err));
+      })
+    };
+
+    $scope.deactivateErrorImageProds = function (clickedSkipPageId, indexNum) {
+      CleanUpInactiveService.query({
+        skipPageId: clickedSkipPageId.skipPageId,
+        updateBool: true
+      }, function (res) {
+        if (indexNum == clickedSkipPageId.skipPageId) {
+          $scope.deativatedText = indexNum;
+        }
+        NotificationFactory.success('Founded ' + res.count + ' error image products are deactivated ');
+        // $scope.errorProdArr.splice(_.indexOf($scope.errorProdArr, _.findWhere($scope.errorProdArr, clickedSkipPageId)), 1);
+      })
+    };
+
+
+    /* $scope.cleanUpInactive = function () {
+       console.log("Cleanup form details :" + JSON.stringify($scope.cleanUp));
+       $scope.forDeactivateprods = {
+         startFrom: $scope.cleanUp.startFrom,
+         endTo: $scope.cleanUp.endTo
+       };
+       $scope.showSpinner = true;
+       CleanUpInactiveService.query({
+         startFrom: $scope.cleanUp.startFrom,
+         endTo: $scope.cleanUp.endTo
+       }, function (res) {
+         console.log('successfully fetch the details :' + JSON.stringify(res));
+         var afterSearchStartNum = 0;
+
+         $scope.productsLength = {
+           count: res.length,
+           startNum: $scope.cleanUp.startFrom,
+           endNum: $scope.cleanUp.endTo
+         };
+         $scope.showSpinner = false;
+         afterSearchStartNum = parseInt($scope.cleanUp.endTo) + 1;
+         console.log("### : " + afterSearchStartNum);
+         $scope.cleanUp = {
+           startFrom: afterSearchStartNum,
+           endTo: ''
+         };
+
        }, function (err) {
-         console.log("Failed to load products : " + JSON.stringify(err))
+         console.log('Failed to fetch the details :' + JSON.stringify(err));
        })
+
      };*/
-
-    /*    $scope.selected = {};
-        $scope.selectAll = function (value) {
-          console.log("ERROR IMAGE PRODUCTS : ", value);
-          console.log("ERROR IMAGE PRODUCTS : ", $scope.checkAll);
-          if (value == true) {
-            for (var i = 0; i < $scope.erroredImages.length; i++) {
-              var item = $scope.erroredImages[i];
-
-              $scope.selected[item.proName] = true;
-            }
-
-          } else {
-            for (var i = 0; i < $scope.erroredImages.length; i++) {
-              var item = $scope.erroredImages[i];
-
-              $scope.selected[item.proName] = false;
-            }
-
-          }
-          console.log("HECKED PRODUCTS : " + JSON.stringify($scope.selected));
-
-        };
-
-
-        $scope.selectedProduct = function () {
-          // console.log("SELECTED : " + JSON.stringify(productName));
-          console.log("HECKED PRODUCTS : " + JSON.stringify($scope.selected));
-
-          for (var j in $scope.selected) {
-
-            console.log("ONLY TRUE : " + JSON.stringify( $scope.selected[j];));
-
-
-          }
-
-        };*/
 
 
         }]);

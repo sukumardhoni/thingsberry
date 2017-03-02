@@ -37,8 +37,11 @@ module.exports = function (app) {
   app.route('/api/listOfProducts/:adminStatus/:pageId')
     .get(cache.route(), companies.list);
 
-  app.route('/cleanUpInactive/:updateBool?')
-    .get(companies.getErrImgPrdcts);
+  /*app.route('/cleanUpInactive/:updateBool?')
+    .get(companies.getErrImgPrdcts);*/
+
+  app.route('/api/cleanUpInactive/:skipPageId/:updateBool?')
+    .get(companies.getCleanUpProducts);
 
   app.route('/stats')
     .get(companies.productsStats);

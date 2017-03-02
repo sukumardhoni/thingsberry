@@ -1,18 +1,27 @@
 'use strict';
 
-angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService', '$location', 'FeedbackService',
-  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService, $location, FeedbackService) {
+angular.module('core').controller('ContactUsController', ['$scope', 'Authentication', 'ContactUsService', 'NotificationFactory', 'GetListedService', '$location', 'FeedbackService', '$timeout', '$state',
+  function ($scope, Authentication, ContactUsService, NotificationFactory, GetListedService, $location, FeedbackService, $timeout, $state) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
     $scope.path = $location.absUrl();
     //console.log(path);
-    $scope.contactUs = function () {
 
+    $scope.pageNotFound = function () {
+      NotificationFactory.error('Page Not Found...');
+      $timeout(function () {
+        $state.go('home');
+      }, 3000);
+
+
+    }
+
+
+    $scope.contactUs = function () {
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);
       /*ContactUsService.send($scope.contact);*/
-
       function successCallback(res) {
         //console.log('Success while sending the Contactus details : ' + res);
         if (res.name === undefined) {

@@ -29,6 +29,7 @@ exports.sendMail = function (mailData) {
       ErrorImagesProductsLength: mailData.ErrorImagesProductsLength,
       ErrorImagesRunTime: mailData.ErrorImagesRunTime,
       updateBoolVal: mailData.updateBoolVal,
+      fromToStatus: mailData.fromToStatus,
       stats: mailData.stats,
       oldProductDeatils: mailData.oldProductDeatils,
       AddedNewProductDetails: mailData.AddedNewProductDetails,

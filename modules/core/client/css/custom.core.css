@@ -1283,3 +1283,14 @@ div#services_block:hover {
   outline: none;
   padding: 11px;
 }
+
+.deactivated-text {
+  float: right;
+  text-align: center;
+  margin-top: 10px;
+  color: green;
+}
+
+.tb-premium-spinner {
+  margin-top: 165px;
+}

@@ -18,13 +18,15 @@
 
 
     <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 hidden-xs allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;">
-      <div class="row frequentCat">
-        <h4><b>CATEGORIES :::</b></h4>
+      <div ng-show="accrdnsPanelArray">
+        <div class="row frequentCat">
+          <h4><b>CATEGORIES :::</b></h4>
+        </div>
+        <div class="row accrdnsMinHeight" ng-class="carouselBg3">
+          <tb-accordions categories="accrdnsPanelArray"></tb-accordions>
+        </div>
       </div>
-      <div class="row accrdnsMinHeight" ng-class="carouselBg3">
-        <tb-accordions categories="accrdnsPanelArray"></tb-accordions>
-      </div>
-      <div class="hidden-sm">
+      <div class="hidden-sm" ng-show="frequentProducts">
         <div class="row frequentCat">
           <h4><b>You May also Like :::</b></h4>
         </div>

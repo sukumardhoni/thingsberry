@@ -1,9 +1,9 @@
 <div ui-view></div>
 <section ng-controller="HomeController" ng-hide="($state.current.name=='home.companies.products.detail')||($state.current.name=='home.companies.products')||($state.current.name=='home.add')||($state.current.name=='home.companies.category')||($state.current.name == 'home.companies.companyName')||($state.current.name == 'home.companies.productName')||($state.current.name == 'home.companies.categoryAndCompany')||($state.current.name == 'home.companies.companyAndproduct')||($state.current.name == 'home.companies.categoryAndproduct')||($state.current.name == 'home.companies.categoryAndCompanyAndProduct')">
-  <update-title title="Thingsberry - internet of things(iot), connected devices, smart devices, smart things, smart homes, smart health devices, iot ratings and reviews..."></update-title>
-  <update-meta name="description" content="Comprehensive list of internet of things(IoT), connected devices, smart devices, smart things, smart homes, health, fitness, sport and IoT ratings and reviews..."></update-meta>
-  <update-meta property="og:title" content="Thingsberry - internet of things(iot), connected devices, smart devices, smart things, smart homes, smart health devices, iot ratings and reviews..."></update-meta>
-  <update-meta itemprop="description" content="Comprehensive list of internet of things(IoT), connected devices, smart devices, smart things, smart homes, health, fitness, sport and IoT ratings and reviews..."></update-meta>
+  <update-title title="Thingsberry - List of Internet of things (Iot) Products."></update-title>
+  <update-meta name="description" content="Find the comprehensive list of Internet of Things (IoT) products and ratings in the areas of Home Automation, Wearable, Health Care and more.."></update-meta>
+  <update-meta property="og:title" content="Thingsberry - List of Internet of things (Iot) Products."></update-meta>
+  <update-meta itemprop="description" content="Find the comprehensive list of Internet of Things (IoT) products and ratings in the areas of Home Automation, Wearable, Health Care and more.."></update-meta>
   <div>
     <div class="row" style="background-color:#a3a3a3;min-height:570px;">
       <div class="container advSearch_and_premium_box">
@@ -12,7 +12,13 @@
             <tb-search></tb-search>
           </div>
           <div class="col-md-6" ng-init="premiumProducts()">
-            <div class="row premium_box featured-listing" ng-hide="premiumPrdcts.length == 0" ng-class="carouselBg">
+            <div class="row premium_box featured-listing" ng-hide="premiumPrdcts.length == 0">
+              <div ng-show="spinnerShow" class="tb-premium-spinner">
+                <div layout="row" layout-align="space-around">
+                  <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+                </div>
+                <h5 class="text-center" style="color:white;">Loading please wait...</h5>
+              </div>
               <div class=" featured_prdct_carousel ">
                 <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
                   <uib-slide ng-repeat="slide in premiumPrdcts" index="$index">
@@ -23,8 +29,6 @@
                 </uib-carousel>
               </div>
             </div>
-            <!-- <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
-            </div>-->
           </div>
         </div>
       </div>
@@ -41,7 +45,13 @@
 
     <div class="row hidden-sm hidden-xs ">
       <div class="col-md-12 featured_prdct_carousel featured-listing">
-        <uib-carousel interval="" active=0 no-wrap="noWrapSlides" ng-class="carouselBg1">
+        <div ng-hide="sample" class="tb-premium-spinner">
+          <div layout="row" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+          </div>
+          <h5 class="text-center">Loading please wait...</h5>
+        </div>
+        <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sample" index="$index">
             <div ng-repeat="sarray in slide" emit-last-repeater-element class="col-md-3 feature_prdcts " data-wrap="false">
               <tb-featured-products details=sarray></tb-featured-products>
@@ -51,7 +61,13 @@
       </div>
     </div>
     <div class="row hidden-md hidden-xs visible-sm-block">
-      <div class="col-sm-12 featured_prdct_carousel product-listing" ng-class="carouselBg1">
+      <div class="col-sm-12 featured_prdct_carousel product-listing">
+        <div ng-hide="sampleInSm" class="tb-premium-spinner">
+          <div layout="row" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+          </div>
+          <h5 class="text-center">Loading please wait...</h5>
+        </div>
         <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInSm" index="$index">
             <div ng-repeat="sarray in slide" class="col-sm-5 col-sm-offset-1 feature_prdcts" data-wrap="false">
@@ -62,7 +78,13 @@
       </div>
     </div>
     <div class="row hidden-md hidden-sm visible-xs-block ">
-      <div class="col-xs-12  featured_prdct_carousel featured_prdct_carousel_In_Xs product-listing" ng-class="carouselBg1">
+      <div class="col-xs-12  featured_prdct_carousel featured_prdct_carousel_In_Xs product-listing">
+        <div ng-hide="sampleInXs" class="tb-premium-spinner">
+          <div layout="row" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+          </div>
+          <h5 class="text-center">Loading please wait...</h5>
+        </div>
         <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
           <uib-slide ng-repeat="slide in sampleInXs" index="$index">
             <div ng-repeat="sarray in slide" class="col-xs-11 feature_prdcts" data-wrap="false">
@@ -92,6 +114,12 @@
               </uib-slide>
             </uib-carousel>
           </div>-->
+        <div ng-hide="showSpinner" class="tb-premium-spinner">
+          <div layout="row" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+          </div>
+          <h5 class="text-center" style="color:white;">Loading please wait...</h5>
+        </div>
         <div class=" quotes_carousel  col-md-12 col-xs-12" ng-class="{'disableControlls':disableControlls}">
           <uib-carousel interval="0" active=0 no-wrap="noWrapSlides">
             <uib-slide ng-repeat="slide in videos " index="$index">

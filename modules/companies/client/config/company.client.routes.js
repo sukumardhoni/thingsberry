@@ -4,11 +4,12 @@
   angular
     .module('core.routes')
     .config(routeConfig)
-    .run(function ($state, $rootScope) {
+    .run(function ($state, $rootScope, $localStorage) {
       $rootScope.$state = $state;
       $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         // console.log("to state : " + JSON.stringify(toState));
-        //  console.log(" fromState : " + JSON.stringify(fromState));
+        // console.log(" fromState : " + JSON.stringify(fromState));
+        $localStorage.fromState = fromState;
         if (toState.name != "home.companies.products") {
           $("html, body").animate({
             scrollTop: 0
@@ -22,14 +23,6 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-    /* .state('home.companies', {
-       abstract: true,
-       url: 'products',
-       template: '<ui-view/>',
-       data: {
-         breadcrumbProxy: 'companies.list'
-       }
-     })*/
       .state('home.companies', {
         abstract: true,
         url: 'products',
@@ -37,18 +30,6 @@
         controller: 'CompanyListController',
         controllerAs: 'vm'
       })
-      /* .state('home.companies.list', {
-         url: '/list',
-         abstract: true,
-         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-         templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
-         controller: 'CompanyListController',
-         controllerAs: 'vm',
-         data: {
-           pageTitle: 'Products List',
-           displayName: 'Searched Products'
-         }
-       })*/
       .state('home.companies.products', {
         url: '/list',
         templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
@@ -71,7 +52,6 @@
         }
 
       }).state('home.companies.companyName', {
-        /* url: '/company/:companyName',*/
         url: '/{companyId}~company',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
         templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
@@ -135,19 +115,6 @@
           displayName: 'Searched Products'
         }
       })
-      /*   .state('home.companies.create', {
-           url: '/create',
-           templateUrl: 'modules/companies/client/views/form-company.client.view.html',
-           controller: 'CompanyController',
-           controllerAs: 'vm',
-           resolve: {
-             companyResolve: newCompany
-           },
-           data: {
-             roles: ['user', 'admin'],
-             pageTitle: 'Create Product'
-           }
-         })*/
       .state('home.add', {
         url: 'product-info/:companyId?',
         templateUrl: 'modules/companies/client/views/add-company.client.view.html',

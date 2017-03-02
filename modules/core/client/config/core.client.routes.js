@@ -70,6 +70,12 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         data: {
           pageTitle: 'Deactive Products'
         }
+      }).state('cleanUpInactive', {
+        url: '/cleanUpInactive',
+        templateUrl: 'modules/core/client/views/cleanUpInactive.view.html',
+        data: {
+          pageTitle: 'CleanUp Inactive Products'
+        }
       })
       .state('feedback', {
         url: '/feedback',

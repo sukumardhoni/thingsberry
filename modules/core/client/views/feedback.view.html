@@ -45,7 +45,8 @@
           <div class="row">
             <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles-msg"><b>What do you like about the site?</b></label>
-              <input class="input-styles" class="form-control" name="liked" id="liked" ng-model="feedback.liked" required type="text">
+              <!--<input class="input-styles" class="form-control" name="liked" id="liked" ng-model="feedback.liked" required type="text">-->
+              <textarea class="input-styles" class="form-control" name="liked" id="liked" rows="1" cols="30" ng-model="feedback.liked"></textarea>
               <div ng-messages="feedbackForm.liked.$error">
                 <div ng-message="required">This field is required.</div>
               </div>
@@ -54,7 +55,8 @@
           <div class="row">
             <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles-msg"><b>What you don't like about the site?</b></label>
-              <input class="input-styles" class="form-control" name="didntLiked" type="text" id="didntLiked" ng-model="feedback.didntLiked" required>
+              <!--<input class="input-styles" class="form-control" name="didntLiked" type="text" id="didntLiked" ng-model="feedback.didntLiked" required>-->
+              <textarea class="input-styles" class="form-control" name="didntLiked" id="didntLiked" rows="1" cols="30" ng-model="feedback.didntLiked"></textarea>
               <div ng-messages="feedbackForm.didntLiked.$error">
                 <div ng-message="required">This field is required.</div>
               </div>
@@ -63,13 +65,14 @@
           <div class="row">
             <md-input-container class=" col-md-12 col-sm-12 col-xs-12">
               <label class="label-styles-msg"><b>Any suggestions to improve the user experience</b></label>
-              <input class="input-styles" class="form-control" name="suggestions" type="text" id="suggestions" ng-model="feedback.suggestions">
+              <!--<input class="input-styles" class="form-control" name="suggestions" type="text" id="suggestions" ng-model="feedback.suggestions">-->
+              <textarea class="input-styles" class="form-control" name="suggestions" id="suggestions" rows="1" cols="30" ng-model="feedback.suggestions"></textarea>
             </md-input-container>
           </div>
 
           <div class="row">
-            <div class=" col-md-12 feedBackButtonXs" style="padding: 0px;">
-              <md-button type="submit" class="md-raised md-primary btn-styles-contact btn-styles-contact-feedback" ng-disabled="feedbackForm.$invalid">SUBMIT FEEDBACK <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
+            <div class=" col-md-12 feedBackButtonXs">
+              <md-button type="submit" class="md-raised md-primary btn-styles-contact btn-styles-contact-feedback" ng-disabled="(rating==feedback.rating)">SUBMIT FEEDBACK <i class="fa fa-paper-plane" aria-hidden="true" style="transform:rotate(55deg);"></i></md-button>
             </div>
             <div ng-show="vm.error" class="text-danger">
               <strong ng-bind="error"></strong>
@@ -87,3 +90,12 @@
     </div>
   </div>
 </div>
+
+<!--
+<script type="application/javascript">
+  function getip(json) {
+    alert(json.ip); // alerts the ip address
+  }
+</script>
+
+<script type="application/javascript" src="http://www.telize.com/jsonip?callback=getip"></script>-->

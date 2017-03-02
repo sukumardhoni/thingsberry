@@ -19,12 +19,12 @@
       $state.go('home.add');
     };
 
-    $scope.carouselBg3 = [];
+    // $scope.carouselBg3 = [];
     $scope.getCategoriesForSide = function () {
-      $scope.carouselBg3.push('carousel_spinner_featured');
+      //  $scope.carouselBg3.push('carousel_spinner_featured');
       CategoryServiceRightPanel.query({}, function (res) {
         $scope.accrdnsPanelArray = res;
-        $scope.carouselBg3.pop('carousel_spinner_featured');
+        // $scope.carouselBg3.pop('carousel_spinner_featured');
       }, function (err) {
         console.log('error while getting the list from server side');
       })
@@ -220,9 +220,7 @@
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-
           pageId++;
-
         }, function (err) {
           console.log('Failed to fetch the product details : ' + err);
         });

@@ -14,7 +14,7 @@
   <div>
     <div class="col-md-12 col-xs-12  ">
       <div class="row">
-        <span class="backBtn back_on_sngle_prdct_view " onclick="history.back(-1)"><span class="back_to_prdcts"></span></span>
+        <span class="backBtn back_on_sngle_prdct_view " ng-click="goToPreviousState()"><span class="back_to_prdcts"></span></span>
       </div>
       <div>
         <tb-single-product details="vm.company" date-on-product="{{date | date: 'yyyy-MM-dd'}}"></tb-single-product>

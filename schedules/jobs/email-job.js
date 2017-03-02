@@ -195,6 +195,7 @@ exports.sendDeactivate_ProductsAdmin = function (agenda) {
     mailData.ErrorImagesRunTime = job.attrs.data.ErrorImagesRunTime;
     mailData.ErrorImagesProductsLength = job.attrs.data.ErrorImagesProductsLength;
     mailData.userDetailsObj = job.attrs.data.userDetailsObj;
+    mailData.fromToStatus = job.attrs.data.fromToStatus;
     mailData.updateBoolVal = job.attrs.data.updateBoolVal;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));

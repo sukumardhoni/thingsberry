@@ -695,19 +695,27 @@
                   <tr>
                     <td valign="top" class="bodyContent item-recipe" mc:edit="body_content00"> 
                       
-                      {% if updateBoolVal == true %}
+                      {% if updateBoolVal == "true" %}
                       Rundate : <b> {{ErrorImagesRunTime}}</b>
                       <br>Total Inactivated products : <b>{{ErrorImagesProductsLength}}</b>
                       <br>
-                       <br>The following products are Inactivated 
+                       <br>The following products are Inactivated from: {{fromToStatus.from}} - to: {{fromToStatus.to}} products
                        {% endif %}
                        
-                        {% if updateBoolVal == false %}
+                        {% if updateBoolVal == "false" %}
                       Rundate : <b> {{ErrorImagesRunTime}}</b>
                       <br>Total Errored Http Image products List : <b>{{ErrorImagesProductsLength}}</b>
                       <br>
-                       <br>The following products are Errored Http image products
+                       {% if ErrorImagesProducts.length > 0 %}
+                       <br>The following products are Errored Http image products from: {{fromToStatus.from}} - to: {{fromToStatus.to}} products
                        {% endif %}
+                         {% if ErrorImagesProducts.length == 0 %}
+                         <br> There are no error productImages Found from: {{fromToStatus.from}} - to: {{fromToStatus.to}} products.
+                         {% endif %}
+                       
+                       {% endif %}
+                     
+                     
                       
                       {% if ErrorImagesProducts.length > 0 %}                     
                       <table cellpadding="5">
@@ -718,9 +726,9 @@
                           </tr>
                           {% for product in ErrorImagesProducts %}
                           <tr>
-                           <td align="left" valign="top"> Product ID : {{product.proID |json}},
-                           <br> Product Name : {{product.proName}},
-                           <br> Product ImageUrl : {{product.imageUrl}}</td>                           
+                           <td align="left" valign="top"> Product ID : {{product.id |json}},
+                           <br> Product Name : {{product.name}},
+                           <br> Product ImageUrl : {{product.imgUrl}}</td>                           
                           </tr>
                           {% endfor %}
                         </tbody>

@@ -284,7 +284,10 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
                         companyId: product.productId
                       }, function (res) {
                         //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                        $window.location.reload();
+                        //$window.location.reload();
+                        $state.go($state.current, {}, {
+                          reload: true
+                        });
 
                         NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
                       }, function (err) {
@@ -298,7 +301,10 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
                     companyId: product.productId
                   }, function (res) {
                     //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                    $window.location.reload();
+                    //$window.location.reload();
+                    $state.go($state.current, {}, {
+                      reload: true
+                    });
 
                     NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
                   }, function (err) {
@@ -313,7 +319,10 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
                 companyId: product.productId
               }, function (res) {
                 //  console.log('Res details on remove success cb : ' + JSON.stringify(res));
-                $window.location.reload();
+                //$window.location.reload();
+                $state.go($state.current, {}, {
+                  reload: true
+                });
 
                 NotificationFactory.success('Successfully Removed Product details...', 'Product Name : ' + res.Proname);
               }, function (err) {
@@ -351,6 +360,9 @@ angular.module('core').directive('tbProductsGrid', function (dataShare, $state, 
         function successUpdateCallback(res) {
           if ($state.current.name == 'home.companies.products') {
             // $window.location.reload();
+            $state.go($state.current, {}, {
+              reload: true
+            });
           } else {
             $state.go('home.companies.products');
           }

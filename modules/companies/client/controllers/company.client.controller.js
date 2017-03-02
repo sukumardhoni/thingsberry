@@ -64,11 +64,18 @@
 
 
     /*--------------------- FIRE BASE CONFIG--------------------------------------*/
+    $scope.goToPreviousState = function () {
+      if ($localStorage.fromState.name == "") {
+        // console.log(" previous state is null: ");
+        $state.go('home.companies.products');
+      } else {
+        // console.log(" previous state : "+ JSON.stringify($localStorage.fromState));
+        window.history.back();
+      }
+    };
+
 
     $scope.addBtnText = 'SUBMIT';
-    // console.log("USER :" + JSON.stringify($localStorage.user));
-    // console.log(vm.company);
-    /*$scope.user = $localStorage.user;*/
 
 
     if ($localStorage.user) {
@@ -97,14 +104,6 @@
       })
     }
 
-
-
-    /* $scope.editProductFunc = function (productDetails) {
-       // console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));
-
-       dataShare.setData(productDetails);
-       $state.go('companies.add');
-     }*/
 
     $scope.userValidation = function () {
       if (vm.authentication.user) {} else {
@@ -164,7 +163,6 @@
           vm.company = res;
           //  console.log("succes callback from get productdetails:" + JSON.stringify(res.firebaseImageUrl));
         }
-
       }
 
       function errorgetProductCallback(res) {
@@ -247,12 +245,6 @@
     };
 
     $scope.goToMoreProd = function () {
-      // vm.company = {};
-      // $scope.addBtnText = 'SUBMIT';
-      // $scope.imageSrc = '';
-      // $scope.showAddMoreProds = false;
-      //$state.go('home.companies.add');
-      // $window.location.reload();
       $state.go($state.current, {}, {
         reload: true
       });
@@ -323,8 +315,6 @@
               NotificationFactory.error('Failed to Remove Product details...', 'Product Name : ' + vm.company.Proname);
             })
           }
-
-
         } else {
           //console.log('remove func. on else condition : ');
         }
@@ -347,18 +337,13 @@
 
     // addCompanyDetails company
     function addCompanyDetails(isValid) {
-
-
       //console.log('vm.company.categories value is : ' + vm.company.ProCat);
       //console.log('vm.company.categories value is : ' + JSON.stringify(vm.company.ProCat));
-
       $scope.addBtnText = 'Submiting...';
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.companyForm');
         return false;
       }
-
       // TODO: move create/update logic to service
       if (vm.company.productId) {
         //  console.log('Update product is called : ' + JSON.stringify(vm.company));
@@ -380,10 +365,7 @@
 
           if ($scope.imagefile) {
             // console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
-            // console.log('Image file : ' + JSON.stringify($scope.imagefile.name));
-            // var uEmail = userDetails.email.replace(/\./g, "|");
             var firebaseProdId = vm.company.productId.replace(/\./g, "|");
-
             firebase.database().ref('Products/' + firebaseProdId + '/').once('value', function (snapshot) {
               var snapVal = snapshot.val();
               if (snapVal != undefined) {
@@ -428,12 +410,10 @@
               companyId: vm.company.productId
             }, vm.company, successUpdateCallback, errorUpdateCallback);
           }
-
         }
         /*  CompanyServiceUpdate.UpdateProduct.update({
             companyId: vm.company.productId
           }, vm.company, successUpdateCallback, errorUpdateCallback);*/
-
       } else {
 
         // vm.company.ProCat = $scope.selectedCategory;
@@ -472,7 +452,6 @@
           })
         }
         //  vm.company.$save(successCallback, errorCallback);
-
       }
 
       function successUpdateCallback(res) {
@@ -635,7 +614,6 @@
 
     $scope.removeserviceOfferedSelectedVal = function (indexVal) {
       $scope.serviceOfferedSelectedArray.splice(indexVal, 1);
-      //console.log('serviceOfferedSelectedArray sector vals : ' + JSON.stringify($scope.serviceOfferedSelectedArray));
     };
 
 
@@ -686,20 +664,7 @@
           $scope.imageSrc = URL.createObjectURL(newFile);
           // console.log("SRC >>> : " + JSON.stringify($scope.imageSrc));
         }
-
       });
-
     };
-
-
-
-    /*   $scope.previewImg = function (val) {
-
-         if (val)
-           $scope.imgUrl = 'data:' + val.filetype + ';base64,' + val.base64;
-         //console.log('Base 64 img details filetype is : ' + val.filetype);
-       };*/
-
-
   }
 })();

@@ -41,7 +41,11 @@
         <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
       </div>
     </div>
-    <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
+    <div ng-show="spinnerLoading">
+      <h5 class="text-center">Loading please wait...</h5>
+      <div layout="row" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+      </div>
     </div>
   </div>
 
@@ -49,13 +53,14 @@
     <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
       <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-list>
     </div>
-    <div style="margin:5%;text-align:center;" ng-show="spinnerLoading"><img ng-src="modules/core/client/img/loaders/spinner.gif">
+    <div ng-show="spinnerLoading">
+      <div layout="row" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+      </div>
+      <h5 class="text-center">Loading please wait...</h5>
     </div>
   </div>
 
-  <!-- <div class="row tb_paginate text-center col-md-12 col-sm-12 hidden-xs">
-          <div class="my-pagination" uib-pagination total-items="vm.count" ng-model="currentPage" max-size="maxSize" boundary-link-numbers="false" items-per-page="itemsPerPage" previous-text="&#xf060;" next-text="&#xf061;"></div>
-        </div>-->
   <div class="row col-xs-12  text-center" style="margin:20px;margin-left:0px;">
     <button type="button" class="btn btn-default view_all_prdcts_bttn" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">VIEW MORE PRODUCTS</button>
   </div>
