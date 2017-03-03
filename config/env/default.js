@@ -4,7 +4,7 @@ module.exports = {
   app: {
     title: 'Thingsberry - List of Internet of things (Iot) Products.',
     description: 'Find the comprehensive list of Internet of Things (IoT) products and ratings in the areas of Home Automation, Wearable, Health Care and more..',
-    keywords: 'IoT products, Internet of things, connected devices, wearables, smart devices, connected things, smart homes, home automation.',
+    keywords: 'IoT products, Internet of things, connected devices, wearables, smart devices, connected things, smart homes, home automation',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID',
     facebookAppId: '239001833102223'
   },
