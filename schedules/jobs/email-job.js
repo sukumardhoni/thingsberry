@@ -153,7 +153,7 @@ exports.sendUpdatedProductDetails = function (agenda) {
       process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Updated_Product_Details_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Updated Product Details';
     mailData.oldProductDeatils = job.attrs.data.oldProductDeatils;
     mailData.newProductDeatils = job.attrs.data.newProductDeatils;
