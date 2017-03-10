@@ -48,7 +48,12 @@
     vm.addCompanyDetails = addCompanyDetails;
     $scope.path = $location.absUrl();
     $scope.imagefile;
-
+    //  console.log("vm.company : " + JSON.stringify(vm.company));
+    if (vm.company.firebaseImageUrl) {
+      $scope.shareImageUrl = vm.company.firebaseImageUrl;
+    } else {
+      $scope.shareImageUrl = vm.company.productImageURL;
+    }
     /*--------------------- FIRE BASE CONFIG--------------------------------------*/
 
     $scope.safeApply = function (fn) {

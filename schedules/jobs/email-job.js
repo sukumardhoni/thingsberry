@@ -122,6 +122,7 @@ exports.sendAddedNewProductDetails = function (agenda) {
     mailData.subject = testingEnv + 'Added New Product Details';
     mailData.AddedNewProductDetails = job.attrs.data.AddedNewProductDetails;
     mailData.presentYear = job.attrs.data.presentYear;
+    mailData.clientIp = job.attrs.data.clientIp;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);
@@ -139,6 +140,7 @@ exports.sendDeletedProductDetails = function (agenda) {
     mailData.subject = testingEnv + 'Deleted Product Details';
     mailData.DeletedProductDetails = job.attrs.data.DeletedProductDetails;
     mailData.presentYear = job.attrs.data.presentYear;
+    mailData.clientIp = job.attrs.data.clientIp;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);
@@ -159,6 +161,7 @@ exports.sendUpdatedProductDetails = function (agenda) {
     mailData.newProductDeatils = job.attrs.data.newProductDeatils;
     mailData.userDetailsObj = job.attrs.data.userDetailsObj;
     mailData.presentYear = job.attrs.data.presentYear;
+    mailData.clientIp = job.attrs.data.clientIp;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);

@@ -1,6 +1,7 @@
 <div ui-view="add-product"></div>
+<div ui-view="allproducts-side"></div>
 
-<div ui-view="allproducts-side" ng-hide="($state.current.name == 'home.add')">
+<div ng-if="($state.current.name == 'home')">
   <section ng-controller="HomeController">
     <update-title title="Thingsberry - List of Internet of things (Iot) Products."></update-title>
     <update-meta name="description" content="Find the comprehensive list of Internet of Things (IoT) products and ratings in the areas of Home Automation, Wearable, Health Care and more.."></update-meta>
@@ -168,9 +169,6 @@
       </div>
     </div>
     <!----------------  ::: Our Clients close :::-------------->
-
-
-
   </section>
 
 
@@ -196,216 +194,8 @@
     });
 
 
-    $.getJSON("http://jsonip.com?callback=?", function (response) {
-      $("#ip").text(response.ip);
-    });
+    /* $.getJSON("http://jsonip.com?callback=?", function (response) {
+       $("#ip").text(response.ip);
+     });*/
   </script>
-  <!--
-<script>
-  function onYouTubePlayerAPIReady() {
-    angular.element(document).ready(function () {
-      var rootScope = angular.element(document).injector().get('$rootScope');
-      rootScope.$broadcast('onYouTubePlayerAPIReady');
-    });
-  }
-</script>
-<script src="http://www.youtube.com/player_api"></script>
--->
-
-
-
-
-
-
-
-
-
-
-  <!--
-
-<section ng-controller="HomeController">
-  <div class="content-on-img">
-    <div class="left triangle"></div>
-    <div class="right triangle"></div>
-    <div class="row  text-center">
-      <div class="col-sm-10 col-sm-offset-1 col-xs-12">
-        <p class="lead text_over_bg" style="padding:10px">
-          Find the comprehensive list of Internet of Things (IoT) products and ratings in the areas of Home Automation, Wearable, Health Care, Utilities and more...
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-offset-1 col-xs-10 home-search">
-        <div class="well">
-          <form class="form-horizontal" role="form" ng-submit="getSearchedProducts(homeSearchDetails)">
-
-            <div class="row">
-              <div class="col-lg-8 col-md-8 col-sm-6">
-           
-                <div class="form-group">
-                  <div class="col-xs-12 home_input_tags" style="opacity: 1;">
-                    <tags-input ng-model="homeSearchDetails.Category" class="form-control-tags-input" display-property="title" placeholder="Enter a category. Eg. Home, Accesories, Electronics, Healthcare or Baby-Products">
-                      <auto-complete source="loadCategories()" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
-                    </tags-input>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-4 col-sm-6 hidden-xs">
-                <div class="form-group">
-                  <div class="col-xs-12">
-                    <input type="submit" class="form-control btn-search-products" id="searchBtn" value="Search" style="color:white">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-offset-1 col-xs-10 ">
-                <p class="Advanced_Search" ng-click="Advanced_Search_Fields = !Advanced_Search_Fields">Advanced Search <i class="fa fa-angle-up" ng-show="Advanced_Search_Fields"></i><i class="fa fa-angle-down" ng-hide="Advanced_Search_Fields"></i> </p>
-              </div>
-            </div>
-            <div class="row cssSlideUp" ng-hide="!Advanced_Search_Fields">
-              <div class="col-md-4 col-sm-6">
-                <div class="form-group">
-                  <div class="col-xs-12" style="opacity: 1;">
-                  
-                    <input type="text" class="form-control" id="inputEmail" placeholder="Company" ng-model="homeSearchDetails.Company">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6">
-                <div class="form-group">
-                  <div class="col-xs-12" style="opacity: 1;">
-
-                    <input type="text" class="form-control" id="inputEmail" placeholder="Product" ng-model="homeSearchDetails.Product">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 hidden-xs hidden-sm">
-                <div class="form-group">
-                  <div class="col-xs-12 home_input_tags">
-                 
-                    <div isteven-multi-select input-model="modernBrowsers" output-model="homeSearchDetails.outputBrowsers" button-label="name" item-label="name" tick-property="ticked" on-open="fOpen()" on-close="fClose()" on-item-click="fClick( data )" on-select-all="fSelectAll()" on-select-none="fSelectNone()" on-reset="fReset()" on-clear="fClear()" on-search-change="fSearchChange( data )">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-              <div class="form-group row visible-xs">
-                <div class="col-xs-12">
-                  <input type="submit" class="form-control btn-search-products mobile-search-btn" id="searchBtn" value="Search" style="color:white">
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <br>
-  </div>
-  <br>
-  <br>
-
-  <div class="row text-center" ng-init="getPremiumProducts()">
-    <div class="col-lg-10 col-lg-offset-1">
-      <h2>Featured Products</h2>
-      <hr class="small">
-      <br>
-      <br>
-    </div>
-
-
-     <div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm " ng-class="carouselBg">
-      <uib-carousel  interval="myInterval" active=0 no-wrap="noWrapSlides">
-
-      <uib-slide ng-repeat="slide in sample" index="$index" >
-
-        <div ng-repeat="sarray in slide" class="col-md-6 " data-wrap="false">
-          <premium-product-display details=sarray></premium-product-display>
-         </div>
-          </uib-slide>
-      </uib-carousel>
-    </div>
-
-
-    <div class="col-xs-10 col-xs-offset-1 visible-xs visible-sm">
-      <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-        <uib-slide ng-repeat="slide in slides3" index="$index">
-          <premium-product-display details=slide></premium-product-display>
-        </uib-slide>
-      </uib-carousel>
-    </div>
-  </div>
-  <br>
-  <br>
-
-
-
-  <div class="container">
-    <div class="row text-center">
-      <div class="col-lg-10 col-lg-offset-1">
-        <h2>Popular Categories</h2>
-        <hr class="small">
-        <br>
-        <br>
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Home'})">
-                                <i class="fa fa-home fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Home'})">HOME</span>
-                                </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Automobile'})">
-                                <i class="fa fa-car fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Automobile'})">AUTOMOBILE</span>
-                                </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Healthcare'})">
-                                <i class="fa fa-heart-o fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Healthcare'})">HEALTH CARE</span>
-                                </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="service-item text-center">
-              <span class="circle-styles fa-stack fa-4x PopCats" ui-sref="companies.list({cat: 'Utilities'})">
-                                <i class="fa fa-file-text-o fa-stack-1x favIcons"></i>
-                            </span>
-              <h4>                                    <span class="Cat-name" ui-sref="companies.list({cat: 'Utilities'})">UTILITIES</span>
-                                </h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <br>
-  <br>
-
-
-
-  <div class="row text-center form-group">
-    <button type="submit" class="btn-add-company btn-search-products" ng-click="getSearchedProducts(homeSearchDetails)">Show All Products</button>
-  </div>
-
-
-</section>
-
--->
 </div>

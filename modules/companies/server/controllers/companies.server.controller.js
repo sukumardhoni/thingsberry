@@ -7,7 +7,6 @@ var path = require('path'),
   _ = require('lodash'),
   mongoose = require('mongoose'),
   Company = mongoose.model('Company'),
-  DeactivePrdcts = mongoose.model('DeactivePrdcts'),
   Category = mongoose.model('Category'),
   config = require('../../../../config/config'),
   agenda = require('../../../../schedules/job-schedule')(config.db),
@@ -22,6 +21,7 @@ var path = require('path'),
   moment = require('moment'),
   momentTimezone = require('moment-timezone');
 require('pkginfo')(module, 'name', 'description', 'version');
+var requestIp = require('request-ip');
 
 
 
@@ -113,6 +113,9 @@ exports.productsStats = function (req, res) {
  */
 exports.create = function (req, res) {
   console.log("@@@#####$$$$ $$ BEFOR : " + JSON.stringify(req.user.displayName));
+  var clientIpInfo = requestIp.getClientIp(req);
+  var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
+  console.log("ip address : " + JSON.stringify(clientIp));
 
   var company = new Company(req.body);
   company.user = req.user;
@@ -128,12 +131,13 @@ exports.create = function (req, res) {
     } else {
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForAddedProduct(company);
+      getMsgForAddedProduct(company, clientIp);
     }
   });
 };
 
-function getMsgForAddedProduct(product) {
+function getMsgForAddedProduct(product, clientIp) {
+
   console.log("NEW ADDED PRODUCT : " + JSON.stringify(product));
   var AddedNewProductDetails = {
     userName: product.user.displayName,
@@ -167,7 +171,8 @@ function getMsgForAddedProduct(product) {
   var presentYear2 = momentTimezone().tz("America/New_York").format('YYYY');
   agenda.now('Added_New_Product_Details', {
     presentYear: presentYear2,
-    AddedNewProductDetails: AddedNewProductDetails
+    AddedNewProductDetails: AddedNewProductDetails,
+    clientIp: clientIp
   });
 }
 
@@ -285,11 +290,13 @@ exports.exmpleRedis = function () {
 
 
 
-function getMsgForUpdateProducts(oldProduct, newProduct, userDetails) {
+function getMsgForUpdateProducts(oldProduct, newProduct, userDetails, clientIp) {
 
   console.log('User details are11@@ : ' + JSON.stringify(userDetails));
   console.log('Company details are11@@ : ' + JSON.stringify(oldProduct));
   console.log('Company details are@@ : ' + JSON.stringify(newProduct));
+  /* var clientIp = requestIp.getClientIp(req);
+   console.log("ip address : " + JSON.stringify(clientIp));*/
 
   var userDetailsObj = {
     userName: userDetails.displayName,
@@ -354,7 +361,8 @@ function getMsgForUpdateProducts(oldProduct, newProduct, userDetails) {
     presentYear: presentYear1,
     oldProductDeatils: oldPrdctDetails,
     newProductDeatils: newPrdctDetails,
-    userDetailsObj: userDetailsObj
+    userDetailsObj: userDetailsObj,
+    clientIp: clientIp
   });
 
 
@@ -367,6 +375,9 @@ exports.update = function (req, res) {
   var company = req.company;
   var oldProductDetials = JSON.parse(JSON.stringify(req.company));
   var userDetails = JSON.parse(JSON.stringify(req.user));
+  var clientIpInfo = requestIp.getClientIp(req);
+  var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
+  console.log("ip address : " + JSON.stringify(clientIp));
   // console.log('Company details are11@@ : ' + JSON.stringify(oldProductDetials));
   // console.log('Company details are AFTER : ' + JSON.stringify(req.body.status));
   company = _.extend(company, req.body);
@@ -383,7 +394,7 @@ exports.update = function (req, res) {
       // console.log('Company details are : ' + JSON.stringify(req.body.status));
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForUpdateProducts(oldProductDetials, company, userDetails);
+      getMsgForUpdateProducts(oldProductDetials, company, userDetails, clientIp);
     }
   });
 };
@@ -463,6 +474,9 @@ exports.delete = function (req, res) {
   console.log("@@####CALED DELTE SERVER CNTRLER");
   var company = req.company;
   var userDetails = JSON.parse(JSON.stringify(req.user));
+  var clientIpInfo = requestIp.getClientIp(req);
+  var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
+  console.log("ip address : " + JSON.stringify(clientIp));
 
   company.remove(function (err) {
     if (err) {
@@ -473,18 +487,21 @@ exports.delete = function (req, res) {
       _this.deleteExpressRedis();
       res.json(company);
       console.log("@@####CALED DELTE SERVER CNTRLER" + JSON.stringify(company));
-      getMsgForDeleteProduct(company, userDetails);
+      getMsgForDeleteProduct(company, userDetails, clientIp);
     }
   });
 };
 
-function getMsgForDeleteProduct(product, userDetails) {
+function getMsgForDeleteProduct(product, userDetails, clientIp) {
   console.log("DeletedProductDetails : " + JSON.stringify(product));
   // console.log("USER Details : " + JSON.stringify(userDetails));
   /* var userDetailsObj = {
      userName: userDetails.displayName,
      userEmail: userDetails.email
    }*/
+
+  /*  var clientIp = requestIp.getClientIp(req);*/
+  console.log("ip address : " + JSON.stringify(clientIp));
 
   var DeletedProductDetails = {
     userName: userDetails.displayName,
@@ -518,7 +535,8 @@ function getMsgForDeleteProduct(product, userDetails) {
   var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
   agenda.now('Deleted_Product_Details', {
     presentYear: presentYear,
-    DeletedProductDetails: DeletedProductDetails
+    DeletedProductDetails: DeletedProductDetails,
+    clientIp: clientIp
   });
 }
 
@@ -738,6 +756,7 @@ exports.getDeactiveProducts = function (req, res) {
 };
 
 exports.getHttpImagesList = function (req, res) {
+
   if (req.user) {
     var userDetailsOb2 = JSON.parse(JSON.stringify(req.user));
   } else {}

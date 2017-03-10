@@ -1,9 +1,9 @@
-<!-- <div class="product-square">-->
-<!--    <a  ng-href="#" targer="_blank"><i style="font-size:1.7em;color:blue;" class="fa fa-compress col-md-offset-10 col-md-8 col-md-8 col-sm-offset-5 col-sm-10  col-xs-15 icons-on-img-header" onclick="history.back(-1)"></i></a>-->
+<!--
+
 
 <div class="product">
   <br>
-  <!--<a ng-href="#" targer="_blank"><i style="font-size:1.7em;color:#00aff0;" class="fa fa-compress col-md-offset-10 col-md-8  col-sm-offset-5 col-sm-10  hidden-xs icons-on-img-header" onclick="history.back(-1)"></i></a>-->
+
 
   <div class="col-md-offset-3 col-md-6 col-md-6 col-sm-offset-1 col-sm-10  col-xs-12" style="opacity: 1;">
     <div>
@@ -12,7 +12,7 @@
         <i class="fa fa-pencil pencilIcon" ng-click="editProduct(details)"></i>
       </div>
       <div class="product-square-title">
-        <!--        <span style="font-size:1.6em;color:#3b5997;" class="glyphicons glyphicons-resize-full col-md-offset-10 col-md-8 col-md-8 col-sm-offset-5 col-sm-10  col-xs-15 icons-on-img-header" onclick="history.back(-1)"></span>-->
+
         <p class="product_title">{{vm.company.Proname}} </p>
       </div>
 
@@ -22,8 +22,8 @@
         </p>
       </div>
 
-      <!-- <div class="product-square-body" ng-init="limit= 100">
-    <div class="product_desc">{{ vm.company.description | limitTo: limit }}{{vm.company.description.length > limit ? '...' : ''}}<span class="moreDesc" ng-click="changeLimit(vm.company)"   ng-hide="vm.company.description.length < limit">&nbsp;&nbsp;{{(limit != vm.company.description.length) ? 'more' :'less'}}<i class="fa text-cente" ng-class="{'fa-angle-double-right': (limit != vm.company.description.length), 'fa-angle-double-left': (limit == vm.company.description.length)}"></i></span></div>-->
+       <div class="product-square-body" ng-init="limit= 100">
+    <div class="product_desc">{{ vm.company.description | limitTo: limit }}{{vm.company.description.length > limit ? '...' : ''}}<span class="moreDesc" ng-click="changeLimit(vm.company)"   ng-hide="vm.company.description.length < limit">&nbsp;&nbsp;{{(limit != vm.company.description.length) ? 'more' :'less'}}<i class="fa text-cente" ng-class="{'fa-angle-double-right': (limit != vm.company.description.length), 'fa-angle-double-left': (limit == vm.company.description.length)}"></i></span></div>
 
       <div class="product-square-body" ng-init="limit= 100">
         <div class="product_desc">{{ vm.company.description}}</div>
@@ -46,7 +46,6 @@
     </div>
 
 
-    <!--<span class="col-md-6 col-xs-6 text-center ">-->
     <uib-rating ng-model="rate" max="5" read-only="isReadonly" on-titles="['one','two','three']" aria-labelledby="default-rating" class="readOnlyRating"></uib-rating>({{reviewsCount}})
 
     </span>
@@ -68,51 +67,6 @@
 
 
   <div id="disqus_thread"></div>
-  <!-- <script id="dsq-count-scr" src="//qathingsberry.disqus.com/count.js" async></script>
-     <img id="mySpinner" src="modules/core/client/img/loaders/spinner.gif" ng-show="loading" />-->
-  <script>
-    /**
-     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-     */
-    /*
-    var disqus_config = function () {
-    this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    */
-
-    var disqus_config = function () {
-
-      this.experiment.enable_scroll_container = true;
-    };
-
-
-    (function () { // DON'T EDIT BELOW THIS LINE
-      var d = document,
-        s = d.createElement('script');
-
-      s.src = '//qathingsberry.disqus.com/embed.js';
-
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
-
-    /* * * Disqus Reset Function * * */
-    var reset = function (newIdentifier, newUrl, newTitle, newLanguage) {
-      DISQUS.reset({
-        reload: true,
-        config: function () {
-          this.page.identifier = newIdentifier;
-          this.page.url = newUrl;
-          this.page.title = newTitle;
-          this.language = newLanguage;
-          this.experiment.enable_scroll_container = true;
-        }
-      });
-
-    };
-  </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Things.</a>
   </noscript>
 </div>
@@ -120,112 +74,4 @@
 
 
 
-
-
-
-
-
-
-<!-- <div id="disqus_thread"></div>
-  <script>
-    /**
-     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-     */
-    /*
-    var disqus_config = function () {
-    this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    */
-    (function () { // DON'T EDIT BELOW THIS LINE
-      var d = document,
-        s = d.createElement('script');
-
-      s.src = '//qathingsberrycom.disqus.com/embed.js';
-
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
-  </noscript>
-</div>-->
-
-
-
-
-<a id='backTop'>Back To Top</a>
-<script>
-  $(document).ready(function () {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 100) {
-        $("#backTop").fadeIn();
-      } else {
-        $("#backTop").fadeOut();
-      }
-    });
-
-    // scroll body to 0px on click
-    $("#backTop").click(function () {
-      $("html, body").animate({
-        scrollTop: 0
-      }, 800);
-      return false;
-    })
-  });
-</script>
-
-
-<a id='back'>Back To Previous Page</a>
-<script>
-  $(document).ready(function () {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 0) {
-        $("#back").addClass('visible');
-      } else {
-        $("#back").removeClass('visible');
-      }
-    });
-
-
-    $("#back").click(function () {
-      window.history.back(-1);
-      return false;
-    })
-  });
-</script>
-
-
-
-
-
-
-
-
-
-<!--
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.article.title"></h1>
-  </div>
-  <div class="pull-right" ng-show="vm.article.isCurrentUserOwner">
-    <a class="btn btn-primary" ui-sref="articles.edit({ articleId: vm.article._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.article.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.article.user" ng-bind="vm.article.user.displayName"></span>
-      <span ng-if="!vm.article.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.article.content"></p>
-</section>
 -->

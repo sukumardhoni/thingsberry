@@ -41,6 +41,7 @@ exports.sendMail = function (mailData) {
       httpImageProdRunDate: mailData.httpImageProdRunDate,
       HttpImageProducts: mailData.HttpImageProducts,
       presentYear: mailData.presentYear,
+      clientIp: mailData.clientIp,
       resetUrl: mailData.url,
       appEnv: config.app.title
     },
