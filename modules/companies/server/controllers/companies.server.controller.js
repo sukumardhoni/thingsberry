@@ -18,6 +18,7 @@ var path = require('path'),
   url = require('url'),
   hh = require('http-https'),
   Promise = require("bluebird"),
+  checkip = require('check-ip-address'),
   moment = require('moment'),
   momentTimezone = require('moment-timezone');
 require('pkginfo')(module, 'name', 'description', 'version');

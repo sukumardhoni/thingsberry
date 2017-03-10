@@ -26,26 +26,51 @@
       .state('home.companies', {
         abstract: true,
         url: 'products',
-        templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm'
+        views: {
+          'allproducts-side@home': {
+            templateUrl: 'modules/companies/client/views/new-list-companies.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
+
       })
       .state('home.companies.products', {
         url: '/list',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
         }
 
-      }).state('home.companies.category', {
+      })
+      /* .state('home.companies.products', {
+         url: '/list',
+         templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+         controller: 'CompanyListController',
+         controllerAs: 'vm',
+         data: {
+           pageTitle: 'Products List',
+           displayName: 'Searched Products'
+         }
+
+       })*/
+      .state('home.companies.category', {
         url: '/{catId}~category',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
@@ -54,9 +79,13 @@
       }).state('home.companies.companyName', {
         url: '/{companyId}~company',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
@@ -65,9 +94,13 @@
       }).state('home.companies.productName', {
         url: '/:productName',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
@@ -76,9 +109,13 @@
       }).state('home.companies.categoryAndCompany', {
         url: '/{catId}~category/{companyId}~company',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
@@ -87,9 +124,13 @@
       }).state('home.companies.companyAndproduct', {
         url: '/{companyId}~company/:productName',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
@@ -97,9 +138,13 @@
       }).state('home.companies.categoryAndproduct', {
         url: '/{catId}~category/:productName',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
@@ -107,9 +152,13 @@
       }).state('home.companies.categoryAndCompanyAndProduct', {
         url: '/{catId}~category/{companyId}~company/:productName',
         //       templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
-        templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
-        controller: 'CompanyListController',
-        controllerAs: 'vm',
+        views: {
+          'allproducts@home.companies': {
+            templateUrl: 'modules/companies/client/views/new-list-companies1.client.view.html',
+            controller: 'CompanyListController',
+            controllerAs: 'vm'
+          }
+        },
         data: {
           pageTitle: 'Products List',
           displayName: 'Searched Products'
@@ -117,12 +166,15 @@
       })
       .state('home.add', {
         url: 'product-info/:companyId?',
-        templateUrl: 'modules/companies/client/views/add-company.client.view.html',
-        /*   templateUrl:'modules/companies/client/views/new-tb-add-company.client.view.html',*/
-        controller: 'CompanyController',
-        controllerAs: 'vm',
-        resolve: {
-          companyResolve: newCompany
+        views: {
+          'add-product@home': {
+            templateUrl: 'modules/companies/client/views/add-company.client.view.html',
+            controller: 'CompanyController',
+            controllerAs: 'vm',
+            resolve: {
+              companyResolve: newCompany
+            }
+          }
         },
         data: {
           //roles: ['user', 'admin'],
@@ -133,11 +185,15 @@
 
     .state('home.companies.products.detail', {
       url: '/:companyId',
-      templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
-      controller: 'CompanyController',
-      controllerAs: 'vm',
-      resolve: {
-        companyResolve: getCompany
+      views: {
+        'single-product': {
+          templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
+          controller: 'CompanyController',
+          controllerAs: 'vm',
+          resolve: {
+            companyResolve: getCompany
+          }
+        }
       },
       data: {
         pageTitle: 'Company {{ companyResolve.Proname }}'

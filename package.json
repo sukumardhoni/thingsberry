@@ -1,7 +1,7 @@
 {
   "name": "www.thingsberry.com",
   "description": "A comprehensive listing of All Internet Of Things.",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "meanjs-version": "0.4.2",
   "private": false,
   "author": "https://github.com/meanjs/mean/graphs/contributors",
@@ -28,6 +28,7 @@
     "bower": "~1.7.7",
     "cfenv": "~1.0.3",
     "chalk": "~1.1.1",
+    "check-ip-address": "^1.1.2",
     "compression": "~1.6.1",
     "connect-flash": "~0.1.1",
     "connect-mongo": "~0.8.2",

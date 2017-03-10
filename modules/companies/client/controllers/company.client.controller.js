@@ -133,44 +133,46 @@
     }
 
     /* ----------------  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
-    if ($stateParams.companyId) {
-      // console.log("coming to correct list");
-      $scope.spinnerShow = true;
-      //  console.log("coming to correct list@@@@:" + $stateParams.companyId);
-      $scope.productIdIs = $stateParams.companyId;
-      //  console.log("coming to correct list@@@@:" + $scope.productIdIs);
-      CompanyServiceUpdate.getProduct.query({
-        companyId: $scope.productIdIs
-      }, vm.company, successgetProductCallback, errorgetProductCallback);
+    if ($state.current.name == 'home.add') {
+      if ($stateParams.companyId) {
+        // console.log("coming to correct list");
+        $scope.spinnerShow = true;
+        //  console.log("coming to correct list@@@@:" + $stateParams.companyId);
+        $scope.productIdIs = $stateParams.companyId;
+        //  console.log("coming to correct list@@@@:" + $scope.productIdIs);
+        CompanyServiceUpdate.getProduct.query({
+          companyId: $scope.productIdIs
+        }, vm.company, successgetProductCallback, errorgetProductCallback);
 
-      function successgetProductCallback(res) {
-        if (res.firebaseImageUrl) {
-          // $scope.imageSrc = res.firebaseImageUrl;
-          imageExists(res.firebaseImageUrl, function (exists) {
-            // console.log('RESULT: url=' + res.firebaseImageUrl + ', exists=' + exists);
-            if (exists == true) {
-              $scope.imageSrc = res.firebaseImageUrl;
-            } else {
-              $scope.imageSrc = '';
-            }
-          });
+        function successgetProductCallback(res) {
+          if (res.firebaseImageUrl) {
+            // $scope.imageSrc = res.firebaseImageUrl;
+            imageExists(res.firebaseImageUrl, function (exists) {
+              // console.log('RESULT: url=' + res.firebaseImageUrl + ', exists=' + exists);
+              if (exists == true) {
+                $scope.imageSrc = res.firebaseImageUrl;
+              } else {
+                $scope.imageSrc = '';
+              }
+            });
 
-        } else {}
-        $timeout(callAtTimeout, 3000);
+          } else {}
+          $timeout(callAtTimeout, 3000);
 
-        function callAtTimeout() {
-          $scope.spinnerShow = false;
-          vm.company = res;
-          //  console.log("succes callback from get productdetails:" + JSON.stringify(res.firebaseImageUrl));
+          function callAtTimeout() {
+            $scope.spinnerShow = false;
+            vm.company = res;
+            //  console.log("succes callback from get productdetails:" + JSON.stringify(res.firebaseImageUrl));
+          }
         }
-      }
 
-      function errorgetProductCallback(res) {
-        vm.error = res.data.message;
-        // console.log("error callback from get productdetails");
-        NotificationFactory.error('Failed to get Product details...', res.data.message);
-      }
+        function errorgetProductCallback(res) {
+          vm.error = res.data.message;
+          // console.log("error callback from get productdetails");
+          NotificationFactory.error('Failed to get Product details...', res.data.message);
+        }
 
+      }
     }
     /* ----------------Up to Here  TO GET THE PRODUCT DETAILS IN EDIT PRODUCT PAGE----------------------*/
 

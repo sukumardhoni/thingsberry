@@ -1,4 +1,4 @@
- 'use strict';
+/* 'use strict';
 
  angular.module('core').directive('myTabs', function () {
      return {
@@ -38,4 +38,4 @@
        },
        templateUrl: 'modules/companies/client/views/directive-partials/new-panes.client.view.html'
      };
-   });
+   });*/

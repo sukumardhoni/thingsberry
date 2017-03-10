@@ -9,7 +9,7 @@
 
   function CompanyListController(CompanyService, $scope, Authentication, $localStorage, $stateParams, SearchProducts, ListOfProducts, $location, dataShare, $state, CategoryService, CategoryServiceRightPanel, FrequentlyProducts, $timeout) {
     var vm = this;
-    var pageId = 0;
+    /* var pageId = 0;*/
     var loginUser;
     $scope.path = $location.absUrl();
 
@@ -60,7 +60,7 @@
     // console.log("USER(OR)ADMIN:" + JSON.stringify(loginUser));
     // console.log("USER :"+ JSON.stringify($localStorage.user));
     $scope.getSearchedProductsList = function () {
-
+      $scope.pageId = 0;
       $scope.gridView = true;
       $scope.grdView = function () {
         $scope.gridView = true;
@@ -97,13 +97,13 @@
           ProCompany: 'Company',
           ProName: 'Product',
           ProRegions: null,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
@@ -115,13 +115,13 @@
           ProCompany: $stateParams.companyId,
           ProName: 'Product',
           ProRegions: null,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
@@ -132,13 +132,13 @@
           ProCompany: 'Company',
           ProName: $stateParams.productName,
           ProRegions: null,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
@@ -149,13 +149,13 @@
           ProCompany: $stateParams.companyId,
           ProName: 'Product',
           ProRegions: null,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
@@ -166,13 +166,13 @@
           ProCompany: $stateParams.companyId,
           ProName: $stateParams.productName,
           ProRegions: null,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
@@ -183,13 +183,13 @@
           ProCompany: 'Company',
           ProName: $stateParams.productName,
           ProRegions: null,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
@@ -200,13 +200,13 @@
           ProCompany: $stateParams.companyId,
           ProName: $stateParams.productName,
           ProRegions: null,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product detailsss : ' + JSON.stringify(err));
         });
@@ -214,13 +214,13 @@
         // console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
-          pageId: pageId
+          pageId: $scope.pageId
         }, function (res) {
           // console.log('response is : ' + JSON.stringify(res));
           vm.companys = res.products;
           vm.count = res.count;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
         }, function (err) {
           console.log('Failed to fetch the product details : ' + err);
         });
@@ -268,12 +268,12 @@
           ProCategory: $stateParams.catId,
           ProCompany: 'Company',
           ProName: 'Product',
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
@@ -290,12 +290,12 @@
           ProCategory: 'Category',
           ProCompany: $stateParams.companyId,
           ProName: 'Product',
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
@@ -312,12 +312,12 @@
           ProCategory: 'Category',
           ProCompany: 'Company',
           ProName: $stateParams.productName,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
@@ -334,12 +334,12 @@
           ProCategory: $stateParams.catId,
           ProCompany: $stateParams.companyId,
           ProName: 'Product',
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
@@ -356,12 +356,12 @@
           ProCategory: 'Category',
           ProCompany: $stateParams.companyId,
           ProName: $stateParams.productName,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
@@ -378,12 +378,12 @@
           ProCategory: $stateParams.catId,
           ProCompany: 'Company',
           ProName: $stateParams.productName,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
@@ -400,12 +400,12 @@
           ProCategory: $stateParams.catId,
           ProCompany: $stateParams.companyId,
           ProName: $stateParams.productName,
-          pageId: pageId,
+          pageId: $scope.pageId,
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
@@ -420,10 +420,10 @@
         // console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
-          pageId: pageId
+          pageId: $scope.pageId
         }, function (res) {
           $scope.spinnerLoading = false;
-          pageId++;
+          $scope.pageId++;
           onScroll = res.products;
           if (res.length == 0) {
             $scope.noMoreProductsAvailable = true;
