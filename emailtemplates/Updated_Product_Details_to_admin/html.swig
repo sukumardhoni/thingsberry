@@ -691,7 +691,7 @@
                       <b>User Name :</b>{{userDetailsObj.userName}}
                       <br><b>User Email :</b>{{userDetailsObj.userEmail}}
                       <br>
-                      client details : {{userLocationDetails }}
+                      client details : {{userLocationDetails |json}}
                     </td>
                   </tr>
 
