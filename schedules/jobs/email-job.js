@@ -32,7 +32,7 @@ exports.sendUserInfoToThingsBerryTeam = function (agenda) {
     var mailData = {};
     mailData.templateName = 'emailtemplates/new-user-email-to-thingsberry';
     //mailData.to = 'support@thingsberry.com';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'New User To ThingsBerry';
     mailData.userData = job.attrs.data.userData;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -50,7 +50,7 @@ exports.sendUserContactUSInfoToThingsBerryTeam = function (agenda) {
     //  console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.ContactedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/contact-us-email-to-thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'ContactUs Info To ThingsBerry';
     mailData.contactedDetails = job.attrs.data.ContactedDetails;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -68,7 +68,7 @@ exports.sendUserFeedbackToThingsBerryTeam = function (agenda) {
     //  console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.ContactedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/feedback_email_to_thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Feedback Info To ThingsBerry';
     mailData.FeedbackDetails = job.attrs.data.FeedbackDetails;
     mailData.userDetailsObj = job.attrs.data.userDetailsObj;
@@ -87,7 +87,7 @@ exports.sendHttpImageProductsDetails = function (agenda) {
     //console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(process.env.tb_mail_env));
     var mailData = {};
     mailData.templateName = 'emailtemplates/HttpImage_Products_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'HttpImage Products Report';
     mailData.HttpImageProducts = job.attrs.data.HttpImageProducts;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -108,7 +108,7 @@ exports.sendDuplicateProductsDetails = function (agenda) {
     // console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(process.env.tb_mail_env));
     var mailData = {};
     mailData.templateName = 'emailtemplates/Duplicate_Products_Details_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Duplicate Products Report' + '( ' + job.attrs.data.DuplicateProducts.length + ' )';
     mailData.DuplicateProducts = job.attrs.data.DuplicateProducts;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -128,7 +128,7 @@ exports.sendAddedNewProductDetails = function (agenda) {
     /*console.log('@@@@@@@@ TO ADMIN Updated Product Details: ' + JSON.stringify(process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Added_New_Product_Details_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Added New Product Details';
     mailData.AddedNewProductDetails = job.attrs.data.AddedNewProductDetails;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -147,11 +147,12 @@ exports.sendDeletedProductDetails = function (agenda) {
       process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Deleted_Product_Details_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Deleted Product Details';
     mailData.DeletedProductDetails = job.attrs.data.DeletedProductDetails;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.clientIp = job.attrs.data.clientIp;
+    mailData.userLocationDetails = job.attrs.data.userLocationDetails;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);
@@ -166,7 +167,7 @@ exports.sendUpdatedProductDetails = function (agenda) {
       process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Updated_Product_Details_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Updated Product Details';
     mailData.oldProductDeatils = job.attrs.data.oldProductDeatils;
     mailData.newProductDeatils = job.attrs.data.newProductDeatils;
@@ -205,7 +206,7 @@ exports.sendDeactivate_ProductsAdmin = function (agenda) {
 
     var mailData = {};
     mailData.templateName = 'emailtemplates/deactive_products_mail_to_admin';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Deactivated Products';
     mailData.ErrorImagesProducts = job.attrs.data.ErrorImagesProducts;
     mailData.presentYear = job.attrs.data.presentYear;
@@ -229,7 +230,7 @@ exports.sendUserGetListedInfoToThingsBerryAdmin = function (agenda) {
     // console.log('###user User_Info_To_ThingsBerry_Team to the app, email: ' + JSON.stringify(job.attrs.data.GetListedDetails));
     var mailData = {};
     mailData.templateName = 'emailtemplates/get-listed-email-to-thingsberry';
-    mailData.to = 'midhunsai@globaltechminds.com';
+    mailData.to = 'support@thingsberry.com';
     mailData.subject = testingEnv + 'Get Listed Product Info To ThingsBerry';
     mailData.getListedDetails = job.attrs.data.GetListedDetails;
     mailData.presentYear = job.attrs.data.presentYear;

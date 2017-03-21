@@ -22,13 +22,34 @@ var path = require('path'),
   momentTimezone = require('moment-timezone');
 require('pkginfo')(module, 'name', 'description', 'version');
 var requestIp = require('request-ip');
-var geoip = require('geoip-lite');
+var iplocation = require('iplocation');
 
 
 
 /**
  * Company Live status
  */
+
+exports.getLocation = function (req, res) {
+  /* var userLoc;
+   where.is("2001:420:c0e0:1005::68", function (err, result) {
+     userLoc = result;
+     res.send(userLoc);
+   });*/
+  iplocation('2001:420:c0e0:1005::68', function (error, result) {
+    res.send(result);
+  })
+
+}
+
+/*function getLocation(ipaddrss) {
+
+  return iplocation(ipaddrss, function (error, result) {
+    return result;
+  });
+
+}*/
+
 
 exports.live = function (req, res) {
   res.json(_.extend({
@@ -45,8 +66,8 @@ exports.productsStats = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /*var geo = geoip.lookup(clientIp);
+  var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
   // var userDetails = JSON.parse(JSON.stringify(req.user));
   var productsStats = {};
   Company.find({
@@ -100,12 +121,14 @@ exports.productsStats = function (req, res) {
 
           /*   var presentDate = moment().format('MMMM Do YYYY, h:mm:ss a');*/
           var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
-          agenda.now('Products_Stats', {
-            presentYear: presentYear,
-            stats: stats,
-            clientIp: clientIp,
-            userLocationDetails: userLocationDetails
-          });
+          iplocation(clientIp, function (error, result) {
+            agenda.now('Products_Stats', {
+              presentYear: presentYear,
+              stats: stats,
+              clientIp: clientIp,
+              userLocationDetails: result
+            });
+          })
           console.log("### : " + JSON.stringify(stats));
         })
 
@@ -124,8 +147,8 @@ exports.create = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /* var geo = geoip.lookup(clientIp);
+   var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
 
   var company = new Company(req.body);
   company.user = req.user;
@@ -141,12 +164,12 @@ exports.create = function (req, res) {
     } else {
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForAddedProduct(company, clientIp, userLocationDetails);
+      getMsgForAddedProduct(company, clientIp);
     }
   });
 };
 
-function getMsgForAddedProduct(product, clientIp, userLocationDetails) {
+function getMsgForAddedProduct(product, clientIp) {
 
   console.log("NEW ADDED PRODUCT : " + JSON.stringify(product));
   var AddedNewProductDetails = {
@@ -179,11 +202,13 @@ function getMsgForAddedProduct(product, clientIp, userLocationDetails) {
   console.log("NEW ADDED PRODUCT OBJ : " + JSON.stringify(AddedNewProductDetails));
 
   var presentYear2 = momentTimezone().tz("America/New_York").format('YYYY');
-  agenda.now('Added_New_Product_Details', {
-    presentYear: presentYear2,
-    AddedNewProductDetails: AddedNewProductDetails,
-    clientIp: clientIp,
-    userLocationDetails: userLocationDetails,
+  iplocation(clientIp, function (error, result) {
+    agenda.now('Added_New_Product_Details', {
+      presentYear: presentYear2,
+      AddedNewProductDetails: AddedNewProductDetails,
+      clientIp: clientIp,
+      userLocationDetails: result,
+    });
   });
 }
 
@@ -301,7 +326,7 @@ exports.exmpleRedis = function () {
 
 
 
-function getMsgForUpdateProducts(oldProduct, newProduct, userDetails, clientIp, userLocationDetails) {
+function getMsgForUpdateProducts(oldProduct, newProduct, userDetails, clientIp) {
 
   console.log('User details are11@@ : ' + JSON.stringify(userDetails));
   console.log('Company details are11@@ : ' + JSON.stringify(oldProduct));
@@ -368,18 +393,16 @@ function getMsgForUpdateProducts(oldProduct, newProduct, userDetails, clientIp, 
   console.log('Company  : ' + JSON.stringify(oldPrdctDetails));
 
   var presentYear1 = momentTimezone().tz("America/New_York").format('YYYY');
-  agenda.now('Updated_Product_Details', {
-    presentYear: presentYear1,
-    oldProductDeatils: oldPrdctDetails,
-    newProductDeatils: newPrdctDetails,
-    userDetailsObj: userDetailsObj,
-    clientIp: clientIp,
-    userLocationDetails: userLocationDetails
+  iplocation(clientIp, function (error, result) {
+    agenda.now('Updated_Product_Details', {
+      presentYear: presentYear1,
+      oldProductDeatils: oldPrdctDetails,
+      newProductDeatils: newPrdctDetails,
+      userDetailsObj: userDetailsObj,
+      clientIp: clientIp,
+      userLocationDetails: result
+    });
   });
-
-
-
-
 }
 
 exports.update = function (req, res) {
@@ -390,9 +413,13 @@ exports.update = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
-  //console.log("geo address address : " + JSON.stringify(userLocationDetails));
+  /*  var geo = getLocation('2001:420:c0e0:1005::68');
+    var userLocationDetails = geo;
+    console.log('geo location : ' + JSON.stringify(geo));
+    console.log('geo location : ' + JSON.stringify(userLocationDetails));*/
+  /* var geo = geoip.lookup("2001:420:c0e0:1005::68");
+   var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
+  //console.log(userLocationDetails);
   // console.log('Company details are11@@ : ' + JSON.stringify(oldProductDetials));
   // console.log('Company details are AFTER : ' + JSON.stringify(req.body.status));
   company = _.extend(company, req.body);
@@ -409,7 +436,7 @@ exports.update = function (req, res) {
       // console.log('Company details are : ' + JSON.stringify(req.body.status));
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForUpdateProducts(oldProductDetials, company, userDetails, clientIp, userLocationDetails);
+      getMsgForUpdateProducts(oldProductDetials, company, userDetails, clientIp);
     }
   });
 };
@@ -492,8 +519,8 @@ exports.delete = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /*  var geo = geoip.lookup(clientIp);
+    var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
 
   company.remove(function (err) {
     if (err) {
@@ -504,12 +531,12 @@ exports.delete = function (req, res) {
       _this.deleteExpressRedis();
       res.json(company);
       console.log("@@####CALED DELTE SERVER CNTRLER" + JSON.stringify(company));
-      getMsgForDeleteProduct(company, userDetails, clientIp, userLocationDetails);
+      getMsgForDeleteProduct(company, userDetails, clientIp);
     }
   });
 };
 
-function getMsgForDeleteProduct(product, userDetails, clientIp, userLocationDetails) {
+function getMsgForDeleteProduct(product, userDetails, clientIp) {
   console.log("DeletedProductDetails : " + JSON.stringify(product));
   // console.log("USER Details : " + JSON.stringify(userDetails));
   /* var userDetailsObj = {
@@ -550,11 +577,13 @@ function getMsgForDeleteProduct(product, userDetails, clientIp, userLocationDeta
   console.log("NEW DELETED PRODUCT OBJ : " + JSON.stringify(DeletedProductDetails));
 
   var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
-  agenda.now('Deleted_Product_Details', {
-    presentYear: presentYear,
-    DeletedProductDetails: DeletedProductDetails,
-    clientIp: clientIp,
-    userLocationDetails: userLocationDetails
+  iplocation(clientIp, function (error, result) {
+    agenda.now('Deleted_Product_Details', {
+      presentYear: presentYear,
+      DeletedProductDetails: DeletedProductDetails,
+      clientIp: clientIp,
+      userLocationDetails: result
+    });
   });
 }
 
@@ -685,8 +714,8 @@ exports.getDuplicateProducts = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /*var geo = geoip.lookup(clientIp);
+  var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
   Company.aggregate([
     {
       $group: {
@@ -755,13 +784,15 @@ exports.getDuplicateProducts = function (req, res) {
 
             var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
             var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
-            agenda.now('Duplicate_Products', {
-              duplicateProdRunDate: presentDate,
-              presentYear: presentYear,
-              DuplicateProducts: prodArray,
-              userDetailsObj: userDetailsObj1,
-              clientIp: clientIp,
-              userLocationDetails: userLocationDetails
+            iplocation(clientIp, function (error, result) {
+              agenda.now('Duplicate_Products', {
+                duplicateProdRunDate: presentDate,
+                presentYear: presentYear,
+                DuplicateProducts: prodArray,
+                userDetailsObj: userDetailsObj1,
+                clientIp: clientIp,
+                userLocationDetails: result
+              });
             });
           }
         })
@@ -784,8 +815,8 @@ exports.getHttpImagesList = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /*var geo = geoip.lookup(clientIp);
+  var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
 
   if (req.user) {
     var userDetailsOb2 = JSON.parse(JSON.stringify(req.user));
@@ -824,14 +855,16 @@ exports.getHttpImagesList = function (req, res) {
       }
       var presentDate = momentTimezone().tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
       var presentYear = momentTimezone().tz("America/New_York").format('YYYY');
-      agenda.now('HttpImage_Products', {
-        httpImageProdRunDate: presentDate,
-        presentYear: presentYear,
-        HttpImageProducts: httpImageArr,
-        userDetailsObj: userDetailsObj2,
-        clientIp: clientIp,
-        userLocationDetails: userLocationDetails
-      });
+      iplocation(clientIp, function (error, result) {
+        agenda.now('HttpImage_Products', {
+          httpImageProdRunDate: presentDate,
+          presentYear: presentYear,
+          HttpImageProducts: httpImageArr,
+          userDetailsObj: userDetailsObj2,
+          clientIp: clientIp,
+          userLocationDetails: result
+        });
+      })
     }
   })
 };
@@ -841,8 +874,8 @@ exports.getCleanUpProducts = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /* var geo = geoip.lookup(clientIp);
+   var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
   Company.find({
     status: "active",
     productImageURL: {
@@ -900,7 +933,7 @@ exports.getCleanUpProducts = function (req, res) {
                       count: errProdArr.length
                     };
                     res.json(resultant);
-                    sendMsgToAdminFunc(errProdArr, presentDate, presentYear, userDetailsObj3, resultantOb, "true", clientIp, userLocationDetails);
+                    sendMsgToAdminFunc(errProdArr, presentDate, presentYear, userDetailsObj3, resultantOb, "true", clientIp);
                   }
                 })
               }
@@ -917,7 +950,7 @@ exports.getCleanUpProducts = function (req, res) {
                 errorCount: errProdArr.length
               }
               res.json(resultantOb);
-              sendMsgToAdminFunc(errProdArr, presentDate, presentYear, userDetailsObj3, resultantOb, "false", clientIp, userLocationDetails);
+              sendMsgToAdminFunc(errProdArr, presentDate, presentYear, userDetailsObj3, resultantOb, "false", clientIp);
             }
           }
 
@@ -933,17 +966,19 @@ exports.getCleanUpProducts = function (req, res) {
 };
 
 function sendMsgToAdminFunc(errProdArr, presentDate, presentYear, userDetailsObj3, resultantOb, boolvalue, clientIp, userLocationDetails) {
-  agenda.now('Deactivate_Products', {
-    ErrorImagesRunTime: presentDate,
-    presentYear: presentYear,
-    ErrorImagesProductsLength: errProdArr.length,
-    ErrorImagesProducts: errProdArr,
-    userDetailsObj: userDetailsObj3,
-    fromToStatus: resultantOb,
-    updateBoolVal: boolvalue,
-    clientIp: clientIp,
-    userLocationDetails: userLocationDetails,
-  });
+  iplocation(clientIp, function (error, result) {
+    agenda.now('Deactivate_Products', {
+      ErrorImagesRunTime: presentDate,
+      presentYear: presentYear,
+      ErrorImagesProductsLength: errProdArr.length,
+      ErrorImagesProducts: errProdArr,
+      userDetailsObj: userDetailsObj3,
+      fromToStatus: resultantOb,
+      updateBoolVal: boolvalue,
+      clientIp: clientIp,
+      userLocationDetails: result,
+    });
+  })
 }
 
 

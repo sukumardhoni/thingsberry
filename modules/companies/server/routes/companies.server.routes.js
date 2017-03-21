@@ -48,6 +48,8 @@ module.exports = function (app) {
 
   app.route('/getHttpImagesList')
     .get(companies.getHttpImagesList);
+  app.route('/getLocation')
+    .get(companies.getLocation);
 
   app.route('/isAlive').get(companies.live);
 

@@ -14,7 +14,7 @@ var path = require('path'),
   moment = require('moment'),
   momentTimezone = require('moment-timezone');
 var requestIp = require('request-ip');
-var geoip = require('geoip-lite');
+var iplocation = require('iplocation');
 /*nodemailer = require('nodemailer'),
 smtpTransport = require('nodemailer-smtp-transport'),
 transporter = nodemailer.createTransport(smtpTransport(config.mailer.options))*/
@@ -36,17 +36,18 @@ exports.contactUs = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /* var geo = geoip.lookup(clientIp);
+   var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
-
-  agenda.now('User_ContactUS_Info_To_ThingsBerry_Team', {
-    /*  ContactedDetails: '\n Name : ' + details.name + '\n , Email : ' + details.email + '\n , Phone : ' + details.phone + '\n , Message: ' + details.message + '.'*/
-    presentYear: presentYear,
-    ContactedDetails: details,
-    clientIp: clientIp,
-    userLocationDetails: userLocationDetails,
-  });
+  iplocation(clientIp, function (error, result) {
+    agenda.now('User_ContactUS_Info_To_ThingsBerry_Team', {
+      /*  ContactedDetails: '\n Name : ' + details.name + '\n , Email : ' + details.email + '\n , Phone : ' + details.phone + '\n , Message: ' + details.message + '.'*/
+      presentYear: presentYear,
+      ContactedDetails: details,
+      clientIp: clientIp,
+      userLocationDetails: result,
+    });
+  })
   res.json(details);
 };
 
@@ -58,19 +59,21 @@ exports.getListed = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /*var geo = geoip.lookup(clientIp);
+  var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
   //console.log(details);
 
   //send a User_ContactUS_Info_To_ThingsBerry_Team mail notification using agenda
-  agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
+  iplocation(clientIp, function (error, result) {
+    agenda.now('User_GetListed_Info_To_ThingsBerry_Admin', {
 
-    /* GetListedDetails: '\n Product Name : ' + details.productName + '\n Is Product Premium ? : ' + details.isPremium + '\n , Product URL : ' + details.productURL + '\n , Description : ' + details.description + '\n , Message :' + details.message + '\n , Email : ' + details.email + '\n , Contact Name : ' + details.contactName + '\n , Contact Phone: ' + details.contactPhone + '.'*/
-    presentYear: presentYear,
-    GetListedDetails: details,
-    clientIp: clientIp,
-    userLocationDetails: userLocationDetails,
-  });
+      /* GetListedDetails: '\n Product Name : ' + details.productName + '\n Is Product Premium ? : ' + details.isPremium + '\n , Product URL : ' + details.productURL + '\n , Description : ' + details.description + '\n , Message :' + details.message + '\n , Email : ' + details.email + '\n , Contact Name : ' + details.contactName + '\n , Contact Phone: ' + details.contactPhone + '.'*/
+      presentYear: presentYear,
+      GetListedDetails: details,
+      clientIp: clientIp,
+      userLocationDetails: result,
+    });
+  })
   res.json(details);
 };
 
@@ -86,17 +89,18 @@ exports.feedback = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /* var geo = geoip.lookup(clientIp);
+   var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
 
-
-  agenda.now('User_Feedback_To_ThingsBerry_Team', {
-    presentYear: presentYear,
-    FeedbackDetails: details,
-    userDetailsObj: userDetailsObj,
-    clientIp: clientIp,
-    userLocationDetails: userLocationDetails,
-  });
+  iplocation(clientIp, function (error, result) {
+    agenda.now('User_Feedback_To_ThingsBerry_Team', {
+      presentYear: presentYear,
+      FeedbackDetails: details,
+      userDetailsObj: userDetailsObj,
+      clientIp: clientIp,
+      userLocationDetails: result,
+    });
+  })
   res.json(details);
 };
 
@@ -109,8 +113,8 @@ exports.jwtSignup = function (req, res, next) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
-  var geo = geoip.lookup(clientIp);
-  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  /* var geo = geoip.lookup(clientIp);
+   var userLocationDetails = JSON.parse(JSON.stringify(geo));*/
   // console.log(' in the Authentication server controller(jwtsignup)');
   var secret = 'www';
   var payload = {
@@ -224,13 +228,15 @@ exports.jwtSignup = function (req, res, next) {
                   }
                   //  console.log("##@@@ userSIGNUP DETAILS:" + JSON.stringify(userSignupMailDetails));
                   //send a User_Info_To_ThingsBerry_Team mail notification using agenda
-                agenda.now('User_Info_To_ThingsBerry_Team', {
-                  /*  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider*/
-                  userData: userSignupMailDetails,
-                  presentYear: presentYear,
-                  clientIp: clientIp,
-                  userLocationDetails: userLocationDetails
-                });
+                iplocation(clientIp, function (error, result) {
+                  agenda.now('User_Info_To_ThingsBerry_Team', {
+                    /*  userData: '\n Email: ' + userModel.email + '\n displayName: ' + userModel.displayName + '\n Provider :' + userModel.provider*/
+                    userData: userSignupMailDetails,
+                    presentYear: presentYear,
+                    clientIp: clientIp,
+                    userLocationDetails: result
+                  });
+                })
                 res.jsonp(userModel);
               }
             });

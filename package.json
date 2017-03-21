@@ -1,7 +1,7 @@
 {
   "name": "www.thingsberry.com",
   "description": "A comprehensive listing of All Internet Of Things.",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "meanjs-version": "0.4.2",
   "private": false,
   "author": "https://github.com/meanjs/mean/graphs/contributors",
@@ -43,7 +43,6 @@
     "file-stream-rotator": "~0.0.6",
     "forever": "~0.15.1",
     "generate-password": "~1.1.1",
-    "geoip-lite": "^1.2.0",
     "glob": "~7.0.0",
     "grunt": "0.4.5",
     "grunt-cli": "~0.1.13",

@@ -717,10 +717,9 @@
                       <strong>reach us at:</strong>
                       <br /> support@thingsberry.com
                       <br />
-                         <strong>Client Ip address :</strong> {{clientIp}} <br>                    
-                      <strong> Client Country :</strong> {{userLocationDetails.country |json}}<br>
-                     <strong> Client City :</strong> {{userLocationDetails.city |json}}<br>
-                      <strong> Client Latitude & Longitude :</strong> {{userLocationDetails.ll |json}} 
+                          {% if clientIp  %}
+                      <p>Client accessed from Ip address : {{clientIp}} from <span>{% if userLocationDetails.city  %}{{userLocationDetails.city |json}}, {% endif %}</span> <span>{% if userLocationDetails.region_name  %}{{userLocationDetails.region_name |json}}, {% endif %}</span> <span>{% if userLocationDetails.country_name  %}{{userLocationDetails.country_name |json}}. {% endif %}</span></p>
+                           {% endif %} 
                     </td>
                   </tr>
                   <!--<tr>
