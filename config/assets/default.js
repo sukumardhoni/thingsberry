@@ -45,7 +45,8 @@ module.exports = {
         'https://www.youtube.com/iframe_api',
         'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js',
         'public/lib/firebase/firebase.js',
-        'public/lib/angularfire/dist/angularfire.js'
+        'public/lib/angularfire/dist/angularfire.js',
+        'public/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

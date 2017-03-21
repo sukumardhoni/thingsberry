@@ -22,6 +22,7 @@ var path = require('path'),
   momentTimezone = require('moment-timezone');
 require('pkginfo')(module, 'name', 'description', 'version');
 var requestIp = require('request-ip');
+var geoip = require('geoip-lite');
 
 
 
@@ -290,7 +291,7 @@ exports.exmpleRedis = function () {
 
 
 
-function getMsgForUpdateProducts(oldProduct, newProduct, userDetails, clientIp) {
+function getMsgForUpdateProducts(oldProduct, newProduct, userDetails, clientIp, userLocationDetails) {
 
   console.log('User details are11@@ : ' + JSON.stringify(userDetails));
   console.log('Company details are11@@ : ' + JSON.stringify(oldProduct));
@@ -362,7 +363,8 @@ function getMsgForUpdateProducts(oldProduct, newProduct, userDetails, clientIp) 
     oldProductDeatils: oldPrdctDetails,
     newProductDeatils: newPrdctDetails,
     userDetailsObj: userDetailsObj,
-    clientIp: clientIp
+    clientIp: clientIp,
+    userLocationDetails: userLocationDetails
   });
 
 
@@ -378,6 +380,9 @@ exports.update = function (req, res) {
   var clientIpInfo = requestIp.getClientIp(req);
   var clientIp = JSON.parse(JSON.stringify(clientIpInfo));
   console.log("ip address : " + JSON.stringify(clientIp));
+  var geo = geoip.lookup(clientIp);
+  var userLocationDetails = JSON.parse(JSON.stringify(geo));
+  //console.log("geo address address : " + JSON.stringify(userLocationDetails));
   // console.log('Company details are11@@ : ' + JSON.stringify(oldProductDetials));
   // console.log('Company details are AFTER : ' + JSON.stringify(req.body.status));
   company = _.extend(company, req.body);
@@ -394,7 +399,7 @@ exports.update = function (req, res) {
       // console.log('Company details are : ' + JSON.stringify(req.body.status));
       _this.deleteExpressRedis();
       res.json(company);
-      getMsgForUpdateProducts(oldProductDetials, company, userDetails, clientIp);
+      getMsgForUpdateProducts(oldProductDetials, company, userDetails, clientIp, userLocationDetails);
     }
   });
 };

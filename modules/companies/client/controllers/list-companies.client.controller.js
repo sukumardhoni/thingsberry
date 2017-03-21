@@ -262,6 +262,7 @@
       // console.log('LoadMoreProducts function is called');
       var onScroll = {};
       $scope.spinnerLoading = true;
+      $scope.scrollDownToProducts = true;
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
         // console.log("Coming to category");
         SearchProducts.query({
@@ -435,6 +436,7 @@
           console.log('Failed to fetch the product details : ' + JSON.stringify(err));
         });
       }
+      $scope.scrollDownToProducts = false;
     };
 
     /*   $scope.scrollPos = {}; // scroll position of each view

@@ -759,6 +759,10 @@
 
                       <strong>reach us at:</strong>
                       <br /> support@thingsberry.com
+                       <br />
+                      <br />
+                      
+                      <strong>Client Ip address :</strong> {{clientIp}} 
                     </td>
                   </tr>
                   <!--<tr>
@@ -778,16 +782,8 @@
                         </td>
                       </tr>
                     </table>
-                  </tr>
+                  </tr>                 
                   
-                    <tr style="background-color:#959595">
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader" style="background-color:#959595">
-                    <tr>
-                    <td valign="top" style="color:white;padding-left:20px;width:20%;" mc:edit="preheader_content00">
-                          Client Ip address : {{clientIp}}</td>
-                    </tr>
-                   </table>                  
-                  </tr>
 
                   <!-- <tr>
                     <td valign="top" class="footerContent" style="padding-top:0; padding-bottom:40px;" mc:edit="footer_content02">

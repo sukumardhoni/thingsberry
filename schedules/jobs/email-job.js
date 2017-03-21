@@ -155,13 +155,14 @@ exports.sendUpdatedProductDetails = function (agenda) {
       process.env.tb_mail_env));*/
     var mailData = {};
     mailData.templateName = 'emailtemplates/Updated_Product_Details_to_admin';
-    mailData.to = 'support@thingsberry.com';
+    mailData.to = 'midhunsai@globaltechminds.com';
     mailData.subject = testingEnv + 'Updated Product Details';
     mailData.oldProductDeatils = job.attrs.data.oldProductDeatils;
     mailData.newProductDeatils = job.attrs.data.newProductDeatils;
     mailData.userDetailsObj = job.attrs.data.userDetailsObj;
     mailData.presentYear = job.attrs.data.presentYear;
     mailData.clientIp = job.attrs.data.clientIp;
+    mailData.userLocationDetails = job.attrs.data.userLocationDetails;
     mailData.appEnv = config.app.title;
     // console.log('Before sending to reciemail User_Info_To_ThingsBerry_Team mailData: ' + JSON.stringify(mailData));
     tvlr_emailer.sendMail(mailData);
