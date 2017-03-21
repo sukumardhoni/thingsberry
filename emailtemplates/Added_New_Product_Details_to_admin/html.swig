@@ -763,7 +763,10 @@
                       <br />
                       <br />
                       
-                      <strong>Client Ip address :</strong> {{clientIp}}                      
+                       <strong>Client Ip address :</strong> {{clientIp}} <br>                    
+                      <strong> Client Country :</strong> {{userLocationDetails.country |json}}<br>
+                     <strong> Client City :</strong> {{userLocationDetails.city |json}}<br>
+                      <strong> Client Latitude & Longitude :</strong> {{userLocationDetails.ll |json}}                      
                     </td>
                   </tr>
                   <!--<tr>

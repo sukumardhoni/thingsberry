@@ -689,9 +689,7 @@
                       <h3> Hi ThingsBerry Team,</h3> This is the notification mail for thingsberry admin
                       <br>                      
                       <b>User Name :</b>{{userDetailsObj.userName}}
-                      <br><b>User Email :</b>{{userDetailsObj.userEmail}}
-                      <br>
-                      client details : {{userLocationDetails |json}}
+                      <br><b>User Email :</b>{{userDetailsObj.userEmail}}                     
                     </td>
                   </tr>
 
@@ -803,7 +801,10 @@
                        <br />
                       <br />
                       
-                      <strong>Client Ip address :</strong> {{clientIp}} 
+                      <strong>Client Ip address :</strong> {{clientIp}} <br>                    
+                      <strong> Client Country :</strong> {{userLocationDetails.country |json}}<br>
+                     <strong> Client City :</strong> {{userLocationDetails.city |json}}<br>
+                      <strong> Client Latitude & Longitude :</strong> {{userLocationDetails.ll |json}}
                     </td>
                   </tr>
                   <!--<tr>
