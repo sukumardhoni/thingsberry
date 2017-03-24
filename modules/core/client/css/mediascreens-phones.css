@@ -395,9 +395,9 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
   .feature_prdcts {
     margin-left: 16px;
   }
-  .featured_footer {
+  /*.featured_footer {
     padding-left: 50px;
-  }
+  }*/
   .featured_prdct_carousel {
     min-height: 345px;
   }
@@ -479,6 +479,12 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
   }*/
 }
 
+@media (max-width:325px) {
+  .link-btn-in-mobile {
+    margin-left: -20px;
+  }
+}
+
 @media (max-width:380px) {
   .terms_privacy_footer {
     margin-right: 0px !important;
@@ -541,7 +547,7 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
     min-height: 529px;
   }
   .featured_footer {
-    padding-left: 24px;
+    /*padding-left: 24px;*/
     padding-right: 0px;
   }
   .featured_in_mobile {

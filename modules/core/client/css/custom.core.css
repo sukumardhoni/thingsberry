@@ -337,7 +337,8 @@ a:hover#backTop {
 
 .featured_footer {
   float: right;
-  padding-left: 33px;
+  /*padding-left: 33px;*/
+  padding: 0px;
 }
 
 .featured_prdct_footer_icons {
