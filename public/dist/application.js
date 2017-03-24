@@ -351,7 +351,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
             scrollTop: 0
           }, 200);
         }
-
       })
     }]);
 
@@ -621,7 +620,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         this.$apply(fn);
       }
     };
-
 
     /*--------------------- FIRE BASE CONFIG--------------------------------------*/
     $scope.goToPreviousState = function () {
@@ -1246,6 +1244,17 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
     var loginUser;
     $scope.path = $location.absUrl();
 
+    $scope.safeApply = function (fn) {
+      var phase = this.$root.$$phase;
+      if (phase == '$apply' || phase == '$digest') {
+        if (fn && (typeof (fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
+
     $scope.editProductFunc = function (productDetails) {
       /*console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));*/
       dataShare.setData(productDetails, $state.current.name);
@@ -1491,11 +1500,40 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       });
     };
 
+    $scope.controlScroll = false;
+    /*$scope.scrollfunc = function () {
+      $scope.safeApply(function () {
+        $scope.controlScroll = true;
+        console.log("Calling scroll");
+        $scope.controlScroll = false;
+      });
+    }*/
+
+    /* window.onbeforeunload = function (event) {
+       var message = 'Sure you want to leave?';
+        if (typeof event == 'undefined') {
+          event = window.onclose;
+        }
+        if (event) {
+          event.returnValue = message;
+        }
+       return message;
+     }*/
+    /*$(window).scroll(function () {
+      if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
+        alert("bottom!");
+      }
+    });*/
+
+
     $scope.LoadMoreProducts = function () {
-      // console.log('LoadMoreProducts function is called');
+      console.log('LoadMoreProducts function is called');
+      $scope.controlScroll = true;
       var onScroll = {};
       $scope.spinnerLoading = true;
-      $scope.scrollDownToProducts = true;
+      /*$scope.safeApply(function () {
+  $scope.controlScroll = true;
+});*/
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
         // console.log("Coming to category");
         SearchProducts.query({
@@ -1506,6 +1544,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1528,6 +1567,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1550,6 +1590,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1572,6 +1613,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1594,6 +1636,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1616,6 +1659,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1638,6 +1682,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1651,11 +1696,14 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        // console.log("Coming to list of products");
+        console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
           pageId: $scope.pageId
         }, function (res) {
+          $scope.safeApply(function () {
+            $scope.controlScroll = false;
+          })
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1669,7 +1717,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           console.log('Failed to fetch the product details : ' + JSON.stringify(err));
         });
       }
-      $scope.scrollDownToProducts = false;
+
     };
 
     /*   $scope.scrollPos = {}; // scroll position of each view
@@ -3424,7 +3472,6 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 
     }
-
 
     $scope.contactUs = function () {
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
