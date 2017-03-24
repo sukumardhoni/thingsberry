@@ -13,6 +13,17 @@
     var loginUser;
     $scope.path = $location.absUrl();
 
+    $scope.safeApply = function (fn) {
+      var phase = this.$root.$$phase;
+      if (phase == '$apply' || phase == '$digest') {
+        if (fn && (typeof (fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
+
     $scope.editProductFunc = function (productDetails) {
       /*console.log('Edit Product details on Direc. : ' + JSON.stringify(productDetails));*/
       dataShare.setData(productDetails, $state.current.name);
@@ -258,11 +269,40 @@
       });
     };
 
+    $scope.controlScroll = false;
+    /*$scope.scrollfunc = function () {
+      $scope.safeApply(function () {
+        $scope.controlScroll = true;
+        console.log("Calling scroll");
+        $scope.controlScroll = false;
+      });
+    }*/
+
+    /* window.onbeforeunload = function (event) {
+       var message = 'Sure you want to leave?';
+        if (typeof event == 'undefined') {
+          event = window.onclose;
+        }
+        if (event) {
+          event.returnValue = message;
+        }
+       return message;
+     }*/
+    /*$(window).scroll(function () {
+      if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
+        alert("bottom!");
+      }
+    });*/
+
+
     $scope.LoadMoreProducts = function () {
-      // console.log('LoadMoreProducts function is called');
+      console.log('LoadMoreProducts function is called');
+      $scope.controlScroll = true;
       var onScroll = {};
       $scope.spinnerLoading = true;
-      $scope.scrollDownToProducts = true;
+      /*$scope.safeApply(function () {
+  $scope.controlScroll = true;
+});*/
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
         // console.log("Coming to category");
         SearchProducts.query({
@@ -273,6 +313,7 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -295,6 +336,7 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -317,6 +359,7 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -339,6 +382,7 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -361,6 +405,7 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -383,6 +428,7 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -405,6 +451,7 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
+          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -418,11 +465,14 @@
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        // console.log("Coming to list of products");
+        console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
           pageId: $scope.pageId
         }, function (res) {
+          $scope.safeApply(function () {
+            $scope.controlScroll = false;
+          })
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -436,7 +486,7 @@
           console.log('Failed to fetch the product details : ' + JSON.stringify(err));
         });
       }
-      $scope.scrollDownToProducts = false;
+
     };
 
     /*   $scope.scrollPos = {}; // scroll position of each view

@@ -37,15 +37,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4" style="bottom:6px;">
+        <div class="col-md-3" style="bottom:6px;">
           <a ng-href="{{details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
             <md-button class="md-raised md-primary col-md-4 col-sm-3 col-xs-3" style="margin:0px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
           </a>
         </div>
-        <div class="col-md-1 col-sm-2 col-xs-4 pull-right">
+        <div class="" ng-show="details.affliateLink!=''">
+          <a ng-href="{{details.affliateLink}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
+            <md-button class="md-raised md-primary col-md-1 col-sm-1 col-xs-2 list-buy-btn" style="bottom:7px;margin:0px;margin-left: 10px;"><b>Buy</b></md-button>
+          </a>
+        </div>
+        <div class="col-md-1 col-sm-2 col-xs-2 pull-right">
           <tb-share state="listview" products="details" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-share>
         </div>
-        <div class="col-md-1 col-sm-1 col-xs-4 pull-right">
+        <div class="col-md-1 col-sm-1 col-xs-1 pull-right">
           <a ng-click="scrollToProduct()" ng-class="{'btnDisabled':(details.status==='deactive')}"><i class="fa fa-expand new_list_prdct_view_footer_icons"></i></a>
         </div>
         <!--<div class="col-md-1 col-sm-1 col-xs-4">

@@ -34,16 +34,19 @@
           <md-button class="md-raised md-primary col-md-3 col-sm-3 col-xs-4" style="bottom:10px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
         </a>
       </div>
-      <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right">
+      <div class="" ng-show="details.affliateLink!=''">
+        <a ng-href="{{details.affliateLink}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
+          <md-button class="md-raised md-primary col-md-1 col-sm-1 col-xs-2" style="bottom:4px;margin:0px;"><b>Buy</b></md-button>
+        </a>
+      </div>
+      <div class="col-md-1 col-sm-2 col-xs-1 text-right pull-right">
         <tb-share state="gridview" products="details" ng-class="{'btnDisabled':(details.status==='deactive')}"></tb-share>
       </div>
-      <div class="col-md-1 col-sm-2 col-xs-2 text-right pull-right"><a ng-class="{'btnDisabled':(details.status==='deactive')}" ng-click="scrollToProduct()"><i class="fa fa-expand icon_rotate  icons_on_prdct_footer"></i></a>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-right pull-right"><a ng-class="{'btnDisabled':(details.status==='deactive')}" ng-click="scrollToProduct()"><i class="fa fa-expand icon_rotate  icons_on_prdct_footer"></i></a>
       </div>
       <!--<span class=" col-md-1 col-sm-2 col-xs-2 text-center">
         <i class="fa fa-heart-o   icons_on_prdct_footer "></i>
       </span>-->
-
-
     </div>
   </div>
 </div>

@@ -34,38 +34,43 @@
       </div>
     </div>
 
+
+
+
     <div ng-show="gridView">
-      <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-        <div class="visible-md clearfix" ng-if="$index % 3 == 0"></div>
+      <!--<div infinite-scroll="LoadMoreProducts()" infinite-scroll-disabled="controlScroll" infinite-scroll-distance="2" infinite-scroll-immediate-check='controlScroll'>-->
+      <div ng-repeat="val in vm.companys | orderBy: searchOrder.List " ng-show="vm.companys.length !==0 " class="product-listing ">
+        <div class="visible-md clearfix " ng-if="$index % 3==0 "></div>
         <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
-          <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-grid>
+          <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}} " edit-icon="userDetails "></tb-products-grid>
         </div>
       </div>
-      <div ng-show="spinnerLoading">
-        <h5 class="text-center">Loading please wait...</h5>
-        <div layout="row" layout-align="space-around">
-          <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+      <!--</div>-->
+      <div ng-show="spinnerLoading ">
+        <h5 class="text-center ">Loading please wait...</h5>
+        <div layout="row " layout-align="space-around ">
+          <md-progress-circular md-mode="indeterminate " md-diameter="70 "></md-progress-circular>
         </div>
       </div>
     </div>
 
-    <div ng-hide="gridView">
-      <div ng-repeat="val in vm.companys | orderBy: searchOrder.List" ng-show="vm.companys.length !== 0" class="product-listing">
-        <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}}" edit-icon="userDetails"></tb-products-list>
+    <div ng-hide="gridView ">
+      <div ng-repeat="val in vm.companys | orderBy: searchOrder.List " ng-show="vm.companys.length !==0 " class="product-listing ">
+        <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}} " edit-icon="userDetails "></tb-products-list>
       </div>
-      <div ng-show="spinnerLoading">
-        <div layout="row" layout-align="space-around">
-          <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+      <div ng-show="spinnerLoading ">
+        <div layout="row " layout-align="space-around ">
+          <md-progress-circular md-mode="indeterminate " md-diameter="70 "></md-progress-circular>
         </div>
-        <h5 class="text-center">Loading please wait...</h5>
+        <h5 class="text-center ">Loading please wait...</h5>
       </div>
     </div>
 
-    <div class="row col-xs-12  text-center" style="margin:20px;margin-left:0px;">
-      <button type="button" class="btn btn-default view_all_prdcts_bttn" ng-click="LoadMoreProducts()" ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length == vm.count)">VIEW MORE PRODUCTS</button>
+    <div class="row col-xs-12 text-center " style="margin:20px;margin-left:0px; ">
+      <button type="button " class="btn btn-default view_all_prdcts_bttn " ng-click="LoadMoreProducts() " ng-hide="noMoreProductsAvailable || spinnerLoading || (vm.companys.length==vm.count) ">VIEW MORE PRODUCTS</button>
     </div>
 
-    <div class="alert alert-warning text-center col-md-11" ng-show="vm.companys.length == 0">
+    <div class="alert alert-warning text-center col-md-11 " ng-show="vm.companys.length==0 ">
       No Products found for this search query.
     </div>
   </div>

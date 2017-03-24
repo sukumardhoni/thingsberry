@@ -17,7 +17,6 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
     }
 
-
     $scope.contactUs = function () {
       //console.log('contactUs form details on controller : ' + JSON.stringify($scope.contact));
       ContactUsService.send($scope.contact, successCallback, errorCallback);

@@ -67,7 +67,6 @@
       }
     };
 
-
     /*--------------------- FIRE BASE CONFIG--------------------------------------*/
     $scope.goToPreviousState = function () {
       if ($localStorage.fromState.name == "") {
