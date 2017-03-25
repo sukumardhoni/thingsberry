@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
-  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select', 'ngMaterial', '720kb.socialshare', 'updateMeta', 'youtube-embed', 'firebase', 'infinite-scroll'];
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select', 'ngMaterial', '720kb.socialshare', 'updateMeta', 'youtube-embed', 'firebase'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -1500,15 +1500,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       });
     };
 
-    $scope.controlScroll = false;
-    /*$scope.scrollfunc = function () {
-      $scope.safeApply(function () {
-        $scope.controlScroll = true;
-        console.log("Calling scroll");
-        $scope.controlScroll = false;
-      });
-    }*/
-
     /* window.onbeforeunload = function (event) {
        var message = 'Sure you want to leave?';
         if (typeof event == 'undefined') {
@@ -1527,13 +1518,9 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
 
 
     $scope.LoadMoreProducts = function () {
-      console.log('LoadMoreProducts function is called');
-      $scope.controlScroll = true;
+      // console.log('LoadMoreProducts function is called');
       var onScroll = {};
       $scope.spinnerLoading = true;
-      /*$scope.safeApply(function () {
-  $scope.controlScroll = true;
-});*/
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
         // console.log("Coming to category");
         SearchProducts.query({
@@ -1544,7 +1531,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1567,7 +1553,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1590,7 +1575,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1613,7 +1597,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1636,7 +1619,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1659,7 +1641,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1682,7 +1663,6 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -1696,14 +1676,11 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to list of products");
+        // console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
           pageId: $scope.pageId
         }, function (res) {
-          $scope.safeApply(function () {
-            $scope.controlScroll = false;
-          })
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -3026,28 +3003,19 @@ angular.module('core').directive('fileOnChange', ["$state", "Authentication", fu
   };
 }]);
 
-angular.module('core').directive('whenScrolled', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", "Authentication", "deactiveService", "$window", "$uibModal", "CompanyServiceUpdate", function (dataShare, $state, $localStorage, ratingService, NotificationFactory, Authentication, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+angular.module('core').directive('whenScrolled', ["$document", function ($document) {
   return {
-
-
     restrict: 'A',
-    link: function (scope, elem, attrs) {
-      console.log("coming to scroll directive");
-      // we get a list of elements of size 1 and need the first element
-      raw = elem[0];
-
-      // we load more elements when scrolled past a limit
-      elem.bind("scroll", function () {
-        console.log("coming to scroll directive scroll");
-        if (raw.scrollTop + raw.offsetHeight + 5 >= raw.scrollHeight) {
-          //scope.loading = true;
-
-          // we can give any function which loads more elements into the list
+    link: function (scope, element, attrs) {
+      var doc = angular.element($document)[0].body;
+      $document.bind("scroll", function () {
+        if (doc.scrollTop + doc.offsetHeight >= doc.scrollHeight) {
+          //run the event that was passed through
           scope.$apply(attrs.whenScrolled);
         }
       });
     }
-  }
+  };
 }]);
 
 (function () {
