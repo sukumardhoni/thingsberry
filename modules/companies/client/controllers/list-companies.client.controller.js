@@ -269,15 +269,6 @@
       });
     };
 
-    $scope.controlScroll = false;
-    /*$scope.scrollfunc = function () {
-      $scope.safeApply(function () {
-        $scope.controlScroll = true;
-        console.log("Calling scroll");
-        $scope.controlScroll = false;
-      });
-    }*/
-
     /* window.onbeforeunload = function (event) {
        var message = 'Sure you want to leave?';
         if (typeof event == 'undefined') {
@@ -296,13 +287,9 @@
 
 
     $scope.LoadMoreProducts = function () {
-      console.log('LoadMoreProducts function is called');
-      $scope.controlScroll = true;
+      // console.log('LoadMoreProducts function is called');
       var onScroll = {};
       $scope.spinnerLoading = true;
-      /*$scope.safeApply(function () {
-  $scope.controlScroll = true;
-});*/
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
         // console.log("Coming to category");
         SearchProducts.query({
@@ -313,7 +300,6 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -336,7 +322,6 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -359,7 +344,6 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -382,7 +366,6 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -405,7 +388,6 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -428,7 +410,6 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -451,7 +432,6 @@
           adminStatus: loginUser
         }, function (res) {
           //vm.companys = res;
-          $scope.controlScroll = false;
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;
@@ -465,14 +445,11 @@
         });
 
       } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to list of products");
+        // console.log("Coming to list of products");
         ListOfProducts.query({
           adminStatus: loginUser,
           pageId: $scope.pageId
         }, function (res) {
-          $scope.safeApply(function () {
-            $scope.controlScroll = false;
-          })
           $scope.spinnerLoading = false;
           $scope.pageId++;
           onScroll = res.products;

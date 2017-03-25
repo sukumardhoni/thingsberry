@@ -1,23 +1,14 @@
-angular.module('core').directive('whenScrolled', function (dataShare, $state, $localStorage, ratingService, NotificationFactory, Authentication, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+angular.module('core').directive('whenScrolled', function ($document) {
   return {
-
-
     restrict: 'A',
-    link: function (scope, elem, attrs) {
-      console.log("coming to scroll directive");
-      // we get a list of elements of size 1 and need the first element
-      raw = elem[0];
-
-      // we load more elements when scrolled past a limit
-      elem.bind("scroll", function () {
-        console.log("coming to scroll directive scroll");
-        if (raw.scrollTop + raw.offsetHeight + 5 >= raw.scrollHeight) {
-          //scope.loading = true;
-
-          // we can give any function which loads more elements into the list
+    link: function (scope, element, attrs) {
+      var doc = angular.element($document)[0].body;
+      $document.bind("scroll", function () {
+        if (doc.scrollTop + doc.offsetHeight >= doc.scrollHeight) {
+          //run the event that was passed through
           scope.$apply(attrs.whenScrolled);
         }
       });
     }
-  }
+  };
 });
