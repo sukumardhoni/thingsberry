@@ -121,9 +121,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             });
           }
         }
-        /* $scope.searchForm.$setPristine();*/
-        // console.log("DETAILS : " + JSON.stringify($scope.homeSearchDetails))
-
       } else {
         $state.go('home.companies.products');
       }
@@ -271,7 +268,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.premiumProducts = function () {
       $scope.spinnerShow = true;
-     /* $scope.carouselBg.push('carousel_spinner');*/
+      /* $scope.carouselBg.push('carousel_spinner');*/
       PremiumProducts.query({}, function (res) {
         $scope.premiumProducts = res;
         for (var i = 0; i < ($scope.premiumProducts.length); i++) {
@@ -437,7 +434,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         }
 
 
-       // console.log('successfully fetch the details :' + JSON.stringify(res));
+        // console.log('successfully fetch the details :' + JSON.stringify(res));
       }, function (err) {
         console.log('Failed to fetch the details :' + JSON.stringify(err));
       })
