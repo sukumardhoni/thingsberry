@@ -11,12 +11,24 @@
 
 
   <div class="row  prdcts-list-box">
+    <div class="visible-xs visible-sm col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1" ng-init="getCategoriesForSide();">
+      <div ng-show="accrdnsPanelArray">
+        <div class="row frequentCat">
+          <h4><b>CATEGORIES :::</b></h4>
+        </div>
+        <div class="row accrdnsMinHeight" ng-class="carouselBg3">
+          <tb-accordions categories="accrdnsPanelArray"></tb-accordions>
+        </div>
+      </div>
+    </div>
+
+
     <div class="col-md-10 col-xs-12">
       <div ui-view="allproducts"></div>
     </div>
 
 
-    <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 hidden-xs allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;">
+    <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 hidden-xs hidden-sm allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;">
       <div ng-show="accrdnsPanelArray">
         <div class="row frequentCat">
           <h4><b>CATEGORIES :::</b></h4>

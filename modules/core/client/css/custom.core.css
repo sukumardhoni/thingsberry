@@ -1295,3 +1295,8 @@ div#services_block:hover {
 .tb-premium-spinner {
   margin-top: 165px;
 }
+
+.featured-prod-title {
+  font-size: 18px;
+  margin-top: 10px;
+}
