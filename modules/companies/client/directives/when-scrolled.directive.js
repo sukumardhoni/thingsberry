@@ -6,10 +6,13 @@ angular.module('core').directive('whenScrolled', function ($document, $state) {
       $document.bind("scroll", function () {
         if ($state.current.name != 'home') {
           // console.log('in scroll');
-          //  console.log("scrollTop + offsetHeight:" + (doc.scrollTop + doc.offsetHeight));
-          // console.log("scrollHeight: " + doc.scrollHeight);
+          // console.log("scrollTop + offsetHeight:" + (doc.scrollTop + doc.offsetHeight));
+          // console.log("doc scrollHeight: " + JSON.stringify(doc.scrollHeight - parseInt(300)));
+          // console.log("scrollTop: " + doc.scrollTop);
+          //  console.log("scrolloffsetHeight: " + doc.offsetHeight);
           //console.log("spinner: " + attrs.whenScrolled);
-          if (doc.scrollTop + doc.offsetHeight == doc.scrollHeight) {
+          if (doc.scrollTop + doc.offsetHeight > doc.scrollHeight - parseInt(300)) {
+            // console.log("@@@### scroll triggered: ");
             // if (attrs.whenScrolled == 'LoadMoreProducts()') {
             scope.$apply(attrs.whenScrolled);
             // }

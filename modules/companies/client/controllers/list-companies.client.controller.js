@@ -285,7 +285,7 @@
       }
     });*/
 
-
+    $scope.noMoreProductsAvailable = false;
     $scope.LoadMoreProducts = function (val) {
       // console.log('LoadMoreProducts function is called' + JSON.stringify($scope.pageId));
       // console.log('LoadMoreProducts function is called' + JSON.stringify(val));
@@ -307,7 +307,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
@@ -329,7 +329,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
@@ -351,7 +351,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
@@ -373,7 +373,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
@@ -395,7 +395,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
@@ -417,7 +417,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
@@ -439,7 +439,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
@@ -457,7 +457,7 @@
               $scope.spinnerLoading = false;
               $scope.pageId++;
               onScroll = res.products;
-              if (res.length == 0) {
+              if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
               }
               var oldProducts = vm.companys;
