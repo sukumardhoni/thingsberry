@@ -262,28 +262,55 @@
       if (Catproducts) {
         $scope.listActive1 = CatHeading;
         $scope.listActive = Catproducts;
+        $scope.catsFullName = CatHeading + ' - ' + Catproducts;
       }
 
       $state.go('home.companies.category', {
         catId: catArr
+      }).then(function () {
+        $scope.showCategoryFilterBox = false;
       });
     };
 
-    /* window.onbeforeunload = function (event) {
-       var message = 'Sure you want to leave?';
-        if (typeof event == 'undefined') {
-          event = window.onclose;
-        }
-        if (event) {
-          event.returnValue = message;
-        }
-       return message;
-     }*/
-    /*$(window).scroll(function () {
-      if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
-        alert("bottom!");
+    $scope.showCategoryFilterBox = false;
+    $scope.showCatsFilter = function (filterBoxVal) {
+      console.log("Clicking on category");
+      if (filterBoxVal == true) {
+        $scope.showCategoryFilterBox = false;
+      } else {
+        $scope.showCategoryFilterBox = true;
       }
-    });*/
+
+
+    }
+
+    $scope.showCatsSub = false;
+    $scope.getCatForMob = function (val, indexVal) {
+        // console.log("Bool val : " + val);
+        console.log("indexVal val : " + indexVal);
+        $scope.indexVal = indexVal;
+        if (val == true) {
+          $scope.showCatsSub = false;
+        } else {
+          $scope.showCatsSub = true;
+        }
+
+      }
+      /* window.onbeforeunload = function (event) {
+         var message = 'Sure you want to leave?';
+          if (typeof event == 'undefined') {
+            event = window.onclose;
+          }
+          if (event) {
+            event.returnValue = message;
+          }
+         return message;
+       }*/
+      /*$(window).scroll(function () {
+        if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
+          alert("bottom!");
+        }
+      });*/
 
     $scope.noMoreProductsAvailable = false;
     $scope.LoadMoreProducts = function (val) {

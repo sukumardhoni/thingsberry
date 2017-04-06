@@ -270,6 +270,9 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
 }
 
 @media (max-width: 765px) {
+  .catsBox-in-xs {
+    margin-left: 22px;
+  }
   .feedBackRating {
     margin-left: 4px;
   }

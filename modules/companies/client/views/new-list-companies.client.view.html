@@ -11,16 +11,25 @@
 
 
   <div class="row  prdcts-list-box">
-    <!--   <div class="visible-xs visible-sm col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1" ng-init="getCategoriesForSide();">
+    <div class="visible-xs visible-sm col-xs-11 col-sm-10 col-sm-offset-1 catsBox-in-xs" ng-init="getCategoriesForSide();" style="margin-bottom:10px;">
       <div ng-show="accrdnsPanelArray">
-        <div class="row frequentCat">
-          <h4><b>CATEGORIES :::</b></h4>
-        </div>
-        <div class="row accrdnsMinHeight" ng-class="carouselBg3">
-          <tb-accordions categories="accrdnsPanelArray"></tb-accordions>
+        <div class="row cat-filters" ng-class="{'col-xs-8 col-xs-offset-2 cat-filters-roundBoreder':showCategoryFilterBox==false}">
+          <div class="text-center "><b ng-click="showCatsFilter(showCategoryFilterBox)" style="outline:none;color:#808080;"><i class="fa fa-sliders" aria-hidden="true" style="transform: rotate(90deg);color:#3f51b5"></i> &nbsp;CATEGORIES</b>
+            <p style="color:#a6a6a6;margin:0px;text-transform:capitalize;">{{listActive1?catsFullName:'No'}} category selected</p>
+          </div>
+          <div ng-show="showCategoryFilterBox" class="sub-category-trans">
+            <div class="col-xs-5 catsForMobile" ng-repeat="cats in accrdnsPanelArray track by $index" ng-class="{'singleCatShow':$index==indexVal,'singleCatBorder':showCatsSub==false}">
+              <div class="defaultHeadStyle" ng-class="{'cats-head-style':($index==indexVal),'cats-head-removeStyle':(showCatsSub==false)}" ng-click="getCatForMob(showCatsSub,$index)">{{cats.heading}} &nbsp;( {{cats.count}}+ )</div>
+              <div ng-show=" $index==indexVal">
+                <div class="cats-sub" ng-class="{'mobileListActive':(listActive===list.name) &&(listActive1===$parent.cats.heading) }" ng-show="showCatsSub " ng-repeat="list in cats.contents">
+                  <div class="defaultSubStyle" ng-click="getCategoryProduct(list.name,$parent.cats.heading,list.contents)" ng-class="{'mobileListActiveClr':(listActive===list.name) &&(listActive1===$parent.cats.heading) }">{{list.name==="More"?"More..." : list.name}} <span ng-hide="list.name==='More'">({{list.count}})</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>-->
+    </div>
 
 
     <div class="col-md-10 col-xs-12">
@@ -28,7 +37,7 @@
     </div>
 
 
-    <div class="col-md-2 col-sm-10 col-sm-offset-1 col-md-offset-0 hidden-xs allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;">
+    <div class="col-md-2 col-md-offset-0 hidden-xs hidden-sm allPrdctsAccrdnsPage" ng-init="getCategoriesForSide();getFrequentlyProducts()" style="padding-right:0px;">
       <div ng-show="accrdnsPanelArray">
         <div class="row frequentCat">
           <h4><b>CATEGORIES :::</b></h4>
