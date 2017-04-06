@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
   // Init module configuration options
   var applicationModuleName = 'thingsberry.com';
-  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select', 'ngMaterial', '720kb.socialshare', 'updateMeta', 'youtube-embed', 'firebase', 'infinite-scroll'];
+  var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload', 'ngStorage', 'angularjs-dropdown-multiselect', 'angular.filter', 'naif.base64', 'ngTagsInput', 'isteven-multi-select', 'ngMaterial', '720kb.socialshare', 'updateMeta', 'youtube-embed', 'firebase'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
@@ -1333,7 +1333,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       $scope.searchOrder.List = $scope.searchOrder.Lists[1].value;
 
       if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        //  console.log("Coming to category");
+        //console.log("Coming to category");
         SearchProducts.query({
           ProCategory: $stateParams.catId,
           ProCompany: 'Company',
@@ -1493,229 +1493,239 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       if (Catproducts) {
         $scope.listActive1 = CatHeading;
         $scope.listActive = Catproducts;
+        $scope.catsFullName = CatHeading + ' - ' + Catproducts;
       }
 
       $state.go('home.companies.category', {
         catId: catArr
+      }).then(function () {
+        $scope.showCategoryFilterBox = false;
       });
     };
 
-    $scope.controlScroll = false;
-    /*$scope.scrollfunc = function () {
-      $scope.safeApply(function () {
-        $scope.controlScroll = true;
-        console.log("Calling scroll");
-        $scope.controlScroll = false;
-      });
-    }*/
-
-    /* window.onbeforeunload = function (event) {
-       var message = 'Sure you want to leave?';
-        if (typeof event == 'undefined') {
-          event = window.onclose;
-        }
-        if (event) {
-          event.returnValue = message;
-        }
-       return message;
-     }*/
-    /*$(window).scroll(function () {
-      if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
-        alert("bottom!");
+    $scope.showCategoryFilterBox = false;
+    $scope.showCatsFilter = function (filterBoxVal) {
+      console.log("Clicking on category");
+      if (filterBoxVal == true) {
+        $scope.showCategoryFilterBox = false;
+      } else {
+        $scope.showCategoryFilterBox = true;
       }
-    });*/
 
 
-    $scope.LoadMoreProducts = function () {
-      console.log('LoadMoreProducts function is called');
-      $scope.controlScroll = true;
-      var onScroll = {};
-      $scope.spinnerLoading = true;
-      /*$scope.safeApply(function () {
-  $scope.controlScroll = true;
-});*/
-      if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        // console.log("Coming to category");
-        SearchProducts.query({
-          ProCategory: $stateParams.catId,
-          ProCompany: 'Company',
-          ProName: 'Product',
-          pageId: $scope.pageId,
-          adminStatus: loginUser
-        }, function (res) {
-          //vm.companys = res;
-          $scope.controlScroll = false;
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
+    }
+
+    $scope.showCatsSub = false;
+    $scope.getCatForMob = function (val, indexVal) {
+        // console.log("Bool val : " + val);
+        console.log("indexVal val : " + indexVal);
+        $scope.indexVal = indexVal;
+        if (val == true) {
+          $scope.showCatsSub = false;
+        } else {
+          $scope.showCatsSub = true;
+        }
+
+      }
+      /* window.onbeforeunload = function (event) {
+         var message = 'Sure you want to leave?';
+          if (typeof event == 'undefined') {
+            event = window.onclose;
           }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
-
-      } else if (($stateParams.catId == undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName == undefined)) {
-        // console.log("Coming to category");
-        SearchProducts.query({
-          ProCategory: 'Category',
-          ProCompany: $stateParams.companyId,
-          ProName: 'Product',
-          pageId: $scope.pageId,
-          adminStatus: loginUser
-        }, function (res) {
-          //vm.companys = res;
-          $scope.controlScroll = false;
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
+          if (event) {
+            event.returnValue = message;
           }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
+         return message;
+       }*/
+      /*$(window).scroll(function () {
+        if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
+          alert("bottom!");
+        }
+      });*/
 
-      } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName != undefined)) {
-        // console.log("Coming to category");
-        SearchProducts.query({
-          ProCategory: 'Category',
-          ProCompany: 'Company',
-          ProName: $stateParams.productName,
-          pageId: $scope.pageId,
-          adminStatus: loginUser
-        }, function (res) {
-          //vm.companys = res;
-          $scope.controlScroll = false;
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
+    $scope.noMoreProductsAvailable = false;
+    $scope.LoadMoreProducts = function (val) {
+      // console.log('LoadMoreProducts function is called' + JSON.stringify($scope.pageId));
+      // console.log('LoadMoreProducts function is called' + JSON.stringify(val));
+      if (val == false) {
+        if ($scope.pageId != 0) {
+          // console.log('LoadMoreProducts function pageId' + JSON.stringify($scope.pageId));
+          var onScroll = {};
+          $scope.spinnerLoading = true;
+          if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
+            // console.log("Coming to category");
+            SearchProducts.query({
+              ProCategory: $stateParams.catId,
+              ProCompany: 'Company',
+              ProName: 'Product',
+              pageId: $scope.pageId,
+              adminStatus: loginUser
+            }, function (res) {
+              //vm.companys = res;
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
+
+          } else if (($stateParams.catId == undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName == undefined)) {
+            // console.log("Coming to category");
+            SearchProducts.query({
+              ProCategory: 'Category',
+              ProCompany: $stateParams.companyId,
+              ProName: 'Product',
+              pageId: $scope.pageId,
+              adminStatus: loginUser
+            }, function (res) {
+              //vm.companys = res;
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
+
+          } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName != undefined)) {
+            // console.log("Coming to category");
+            SearchProducts.query({
+              ProCategory: 'Category',
+              ProCompany: 'Company',
+              ProName: $stateParams.productName,
+              pageId: $scope.pageId,
+              adminStatus: loginUser
+            }, function (res) {
+              //vm.companys = res;
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
+
+          } else if (($stateParams.catId != undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName == undefined)) {
+            // console.log("Coming to category");
+            SearchProducts.query({
+              ProCategory: $stateParams.catId,
+              ProCompany: $stateParams.companyId,
+              ProName: 'Product',
+              pageId: $scope.pageId,
+              adminStatus: loginUser
+            }, function (res) {
+              //vm.companys = res;
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
+
+          } else if (($stateParams.catId == undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName != undefined)) {
+            //  console.log("Coming to category");
+            SearchProducts.query({
+              ProCategory: 'Category',
+              ProCompany: $stateParams.companyId,
+              ProName: $stateParams.productName,
+              pageId: $scope.pageId,
+              adminStatus: loginUser
+            }, function (res) {
+              //vm.companys = res;
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
+
+          } else if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName != undefined)) {
+            //  console.log("Coming to category");
+            SearchProducts.query({
+              ProCategory: $stateParams.catId,
+              ProCompany: 'Company',
+              ProName: $stateParams.productName,
+              pageId: $scope.pageId,
+              adminStatus: loginUser
+            }, function (res) {
+              //vm.companys = res;
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
+
+          } else if (($stateParams.catId != undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName != undefined)) {
+            // console.log("Coming to category");
+            SearchProducts.query({
+              ProCategory: $stateParams.catId,
+              ProCompany: $stateParams.companyId,
+              ProName: $stateParams.productName,
+              pageId: $scope.pageId,
+              adminStatus: loginUser
+            }, function (res) {
+              //vm.companys = res;
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
+
+          } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
+            // console.log("Coming to list of products in load more");
+            ListOfProducts.query({
+              adminStatus: loginUser,
+              pageId: $scope.pageId
+            }, function (res) {
+              $scope.spinnerLoading = false;
+              $scope.pageId++;
+              onScroll = res.products;
+              if (res.products.length == 0) {
+                $scope.noMoreProductsAvailable = true;
+              }
+              var oldProducts = vm.companys;
+              vm.companys = oldProducts.concat(onScroll);
+
+            }, function (err) {
+              console.log('Failed to fetch the product details : ' + JSON.stringify(err));
+            });
           }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
-
-      } else if (($stateParams.catId != undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName == undefined)) {
-        // console.log("Coming to category");
-        SearchProducts.query({
-          ProCategory: $stateParams.catId,
-          ProCompany: $stateParams.companyId,
-          ProName: 'Product',
-          pageId: $scope.pageId,
-          adminStatus: loginUser
-        }, function (res) {
-          //vm.companys = res;
-          $scope.controlScroll = false;
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
-          }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
-
-      } else if (($stateParams.catId == undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName != undefined)) {
-        //  console.log("Coming to category");
-        SearchProducts.query({
-          ProCategory: 'Category',
-          ProCompany: $stateParams.companyId,
-          ProName: $stateParams.productName,
-          pageId: $scope.pageId,
-          adminStatus: loginUser
-        }, function (res) {
-          //vm.companys = res;
-          $scope.controlScroll = false;
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
-          }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
-
-      } else if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName != undefined)) {
-        //  console.log("Coming to category");
-        SearchProducts.query({
-          ProCategory: $stateParams.catId,
-          ProCompany: 'Company',
-          ProName: $stateParams.productName,
-          pageId: $scope.pageId,
-          adminStatus: loginUser
-        }, function (res) {
-          //vm.companys = res;
-          $scope.controlScroll = false;
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
-          }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
-
-      } else if (($stateParams.catId != undefined) && ($stateParams.companyId != undefined) && ($stateParams.productName != undefined)) {
-        // console.log("Coming to category");
-        SearchProducts.query({
-          ProCategory: $stateParams.catId,
-          ProCompany: $stateParams.companyId,
-          ProName: $stateParams.productName,
-          pageId: $scope.pageId,
-          adminStatus: loginUser
-        }, function (res) {
-          //vm.companys = res;
-          $scope.controlScroll = false;
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
-          }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
-
-      } else if (($stateParams.catId == undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
-        console.log("Coming to list of products");
-        ListOfProducts.query({
-          adminStatus: loginUser,
-          pageId: $scope.pageId
-        }, function (res) {
-          $scope.safeApply(function () {
-            $scope.controlScroll = false;
-          })
-          $scope.spinnerLoading = false;
-          $scope.pageId++;
-          onScroll = res.products;
-          if (res.length == 0) {
-            $scope.noMoreProductsAvailable = true;
-          }
-          var oldProducts = vm.companys;
-          vm.companys = oldProducts.concat(onScroll);
-
-        }, function (err) {
-          console.log('Failed to fetch the product details : ' + JSON.stringify(err));
-        });
+        }
       }
 
     };
@@ -3026,28 +3036,31 @@ angular.module('core').directive('fileOnChange', ["$state", "Authentication", fu
   };
 }]);
 
-angular.module('core').directive('whenScrolled', ["dataShare", "$state", "$localStorage", "ratingService", "NotificationFactory", "Authentication", "deactiveService", "$window", "$uibModal", "CompanyServiceUpdate", function (dataShare, $state, $localStorage, ratingService, NotificationFactory, Authentication, deactiveService, $window, $uibModal, CompanyServiceUpdate) {
+angular.module('core').directive('whenScrolled', ["$document", "$state", function ($document, $state) {
   return {
-
-
     restrict: 'A',
-    link: function (scope, elem, attrs) {
-      console.log("coming to scroll directive");
-      // we get a list of elements of size 1 and need the first element
-      raw = elem[0];
-
-      // we load more elements when scrolled past a limit
-      elem.bind("scroll", function () {
-        console.log("coming to scroll directive scroll");
-        if (raw.scrollTop + raw.offsetHeight + 5 >= raw.scrollHeight) {
-          //scope.loading = true;
-
-          // we can give any function which loads more elements into the list
-          scope.$apply(attrs.whenScrolled);
+    link: function (scope, element, attrs) {
+      var doc = angular.element($document)[0].body;
+      $document.bind("scroll", function () {
+        if ($state.current.name != 'home') {
+          // console.log('in scroll');
+          // console.log("scrollTop + offsetHeight:" + (doc.scrollTop + doc.offsetHeight));
+          // console.log("doc scrollHeight: " + JSON.stringify(doc.scrollHeight - parseInt(300)));
+          // console.log("scrollTop: " + doc.scrollTop);
+          //  console.log("scrolloffsetHeight: " + doc.offsetHeight);
+          //console.log("spinner: " + attrs.whenScrolled);
+          if (doc.scrollTop + doc.offsetHeight > doc.scrollHeight - parseInt(300)) {
+            // console.log("@@@### scroll triggered: ");
+            // if (attrs.whenScrolled == 'LoadMoreProducts()') {
+            scope.$apply(attrs.whenScrolled);
+            // }
+            //run the event that was passed through
+            // scope.$apply(attrs.whenScrolled);
+          }
         }
       });
     }
-  }
+  };
 }]);
 
 (function () {
@@ -3747,9 +3760,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             });
           }
         }
-        /* $scope.searchForm.$setPristine();*/
-        // console.log("DETAILS : " + JSON.stringify($scope.homeSearchDetails))
-
       } else {
         $state.go('home.companies.products');
       }
@@ -3897,7 +3907,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     $scope.premiumProducts = function () {
       $scope.spinnerShow = true;
-     /* $scope.carouselBg.push('carousel_spinner');*/
+      /* $scope.carouselBg.push('carousel_spinner');*/
       PremiumProducts.query({}, function (res) {
         $scope.premiumProducts = res;
         for (var i = 0; i < ($scope.premiumProducts.length); i++) {
@@ -4063,7 +4073,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         }
 
 
-       // console.log('successfully fetch the details :' + JSON.stringify(res));
+        // console.log('successfully fetch the details :' + JSON.stringify(res));
       }, function (err) {
         console.log('Failed to fetch the details :' + JSON.stringify(err));
       })
