@@ -1572,7 +1572,7 @@ body::-webkit-scrollbar-thumb {
   margin: 10px;
   border-radius: 30px;
   text-align: center;
-  padding: 0px;
+  padding: 5px;
 }
 
 .singleCatShow {
@@ -1583,6 +1583,7 @@ body::-webkit-scrollbar-thumb {
 
 .singleCatBorder {
   border-radius: 30px !important;
+  padding: 5px !important;
 }
 
 .cats-sub {
@@ -1634,7 +1635,8 @@ body::-webkit-scrollbar-thumb {
   border-radius: 30px !important;
 }
 
-.sub-category-trans {
+
+/*.sub-category-trans {
   height: 160px;
   overflow: hidden;
 }
@@ -1649,4 +1651,4 @@ body::-webkit-scrollbar-thumb {
 
 .sub-category-trans.ng-hide {
   height: 0px;
-}
+}*/

@@ -271,7 +271,7 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
 
 @media (max-width: 765px) {
   .catsBox-in-xs {
-    margin-left: 22px;
+    margin-left: 18px !important;
   }
   .feedBackRating {
     margin-left: 4px;
@@ -485,6 +485,10 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
 @media (max-width:325px) {
   .link-btn-in-mobile {
     margin-left: -20px;
+  }
+  .catsBox-in-xs {
+    padding: 0px !important;
+    margin-left: 22px !important;
   }
 }
 
