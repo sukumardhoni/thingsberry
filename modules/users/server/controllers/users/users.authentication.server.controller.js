@@ -268,7 +268,7 @@ exports.jwtSignup = function (req, res, next) {
 /* JWT Signin */
 
 exports.jwtSignin = function (req, res, next) {
-  //console.log('jwtSignin func. is called : ' + JSON.stringify(req.body));
+  console.log('jwtSignin func. is called : ' + JSON.stringify(req.body));
   User.findOne({
     email: req.body.email
   }, function (err, user) {
@@ -283,7 +283,7 @@ exports.jwtSignin = function (req, res, next) {
         var password = req.body.password;
         // Make sure the password is correct
         user.verifyPassword(password, function (err, isMatch) {
-          //console.log('Password is matched or not : ' + isMatch);
+          console.log('Password is matched or not : ' + isMatch);
           if (isMatch) {
             // Success
             var secret = 'www';
@@ -295,7 +295,7 @@ exports.jwtSignin = function (req, res, next) {
             user.password = req.body.password;
             user.save(function (err) {
               if (err) {
-                //console.log('Error occured on singin function is : ' + err);
+                console.log('Error occured on singin function is : ' + err);
                 return res.status(400).send({
                   message: errorHandler.getErrorMessage(err)
                 });
@@ -303,10 +303,10 @@ exports.jwtSignin = function (req, res, next) {
                 console.log('User saved');
                 req.login(user, function (err) {
                   if (err) {
-                    //console.log('Error while login in signin func : ' + err);
+                    console.log('Error while login in signin func : ' + err);
                     res.status(400).send(err);
                   } else {
-                    //console.log('@@@@@@ Found user in signin  func.  @@@@@@@' + JSON.stringify(user));
+                    console.log('@@@@@@ Found user in signin  func.  @@@@@@@' + JSON.stringify(user));
                     res.jsonp(user);
                   }
                 });

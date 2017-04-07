@@ -39,29 +39,30 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-      console.log($scope.credentials);
-      $http.post('/api/auth/jwtSignup', $scope.credentials).success(function (response) {
+      // console.log($scope.credentials);
+      $http.post('/api/auth/jwtSignup', $scope.credentials).then(function (response) {
         //console.log('proving the route to go to server side routes');
-        //  console.log("to signup:" + JSON.stringify(response));
-        if (response.type === false) {
-          $scope.error = response.data;
+        // console.log("to signup:" + JSON.stringify(response));
+        if (response.data.type === false) {
+          $scope.error = response.data.data;
           //$scope.isDisabled = false;
           $scope.buttonTextSignUp = 'Sign Up';
-          console.log('Error Msg : ' + JSON.stringify(response.data));
+          // console.log('Error Msg : ' + JSON.stringify(response.data));
 
         } else {
           $scope.error = null;
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
-          $scope.populateUserLocally(response);
+          $scope.populateUserLocally(response.data);
           //  console.log('Msg : ' + JSON.stringify(response));
         }
 
 
 
 
-      }).error(function (response) {
-        $scope.error = response.message;
+      }, function (err) {
+        console.log('Error Msg : ' + JSON.stringify(err.message));
+        $scope.error = err.data.message;
       });
     };
 
@@ -74,25 +75,28 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/jwtSignin', $scope.credentials).success(function (response) {
+      $http.post('/api/auth/jwtSignin', $scope.credentials).then(function (response) {
         // If successful we assign the response to the global user model
+        // console.log('Error Msg : ' + JSON.stringify(response));
 
-
-        if (response.type === false) {
-          $scope.error = response.data;
+        if (response.data.type === false) {
+          // console.log('coming to response type is false :' + JSON.stringify(response.data));
+          $scope.error = response.data.data;
           //$scope.isDisabled = false;
           //$scope.buttonTextSignUp = 'Sign Up';
           // console.log('Error Msg : ' + JSON.stringify(response.data));
 
         } else {
+          // console.log('coming to response type is true ');
           $scope.error = null;
           //$scope.populateUserLocally(res);
           // If successful we assign the response to the global user model
-          $scope.populateUserLocally(response);
+          $scope.populateUserLocally(response.data);
           //console.log('#####->user login detailsss : ' + JSON.stringify(response));
         }
-      }).error(function (response) {
-        $scope.error = response.message;
+      }, function (err) {
+        console.log('Error Msg : ' + JSON.stringify(err.message));
+        $scope.error = err.data.message;
       });
     };
 
@@ -100,7 +104,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.populateUserLocally = function (respUser) {
 
-      //console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
+      console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
 
       $scope.authentication.user = respUser;
       $localStorage.user = respUser;
@@ -131,7 +135,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             data: null,
             dataType: 'json',
           })
-          .success(function (data) {
+          .then(function (data) {
             //console.log('User Profile Details is : ' + JSON.stringify(data));
             $scope.fUser = {
               firstName: data.first_name,
@@ -156,8 +160,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             }).catch(function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
             });
-          })
-          .error(function (data, status) {
+          }, function (data, status) {
             $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
           });
       }, function (e) {
@@ -178,7 +181,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             data: null,
             dataType: 'json',
           })
-          .success(function (data) {
+          .then(function (data) {
             //console.log('User Profile is : ' + JSON.stringify(data));
             $scope.gUser = {
               firstName: data.given_name,
@@ -200,8 +203,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             }).catch(function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
             });
-          })
-          .error(function (data, status) {
+          }, function (data, status) {
             $scope.errMsg = 'This seems to be Google login error. We willl look into it and let you know';
           });
       }, function (e) {

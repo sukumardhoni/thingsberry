@@ -15,16 +15,18 @@ angular.module('users').controller('ChangePasswordController', ['$scope', '$http
         return false;
       }
 
-      $http.post('/api/auth/jwtChangePassword', $scope.passwordDetails).success(function (response) {
+      $http.post('/api/auth/jwtChangePassword', $scope.passwordDetails).then(function (response) {
         // If successful show success message and clear form
+        console.log("USER : " + JSON.stringify(response));
         $scope.$broadcast('show-errors-reset', 'passwordForm');
         $scope.success = true;
-         $scope.passwordForm.$setPristine();
+        $scope.passwordForm.$setPristine();
         $scope.passwordForm.$setUntouched();
 
         $scope.passwordDetails = null;
-      }).error(function (response) {
-        $scope.error = response.message;
+      }, function (err) {
+        //console.log("USER : " + JSON.stringify(err));
+        $scope.error = err.data.message;
       });
     };
   }

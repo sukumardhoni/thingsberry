@@ -16,16 +16,17 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
         return false;
       }
-      // console.log("USER : " + JSON.stringify($scope.user));
+      console.log("USER : " + JSON.stringify($scope.user));
       // var user = new Users($scope.user);
 
-      $http.post('/api/users', $scope.user).success(function (response) {
+      $http.post('/api/users', $scope.user).then(function (response) {
         // console.log("ERR : ");
+        // console.log("USER : " + JSON.stringify(response));
         $scope.$broadcast('show-errors-reset', 'userForm');
         $scope.success = true;
-        $scope.authentication.user = response;
-      }, function (response) {
-        $scope.error = response.data.message;
+        $scope.authentication.user = response.data;
+      }, function (err) {
+        $scope.error = err.data.message;
         console.log("ERROR : " + JSON.stringify($scope.error));
       })
 
