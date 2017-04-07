@@ -44,14 +44,14 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       $scope.isCollapsed = false;
     });
 
-    console.log('@@#outside' + JSON.stringify($localStorage.token));
-    console.log('@@# outside' + JSON.stringify($localStorage.user));
-    console.log('@@# outside' + JSON.stringify($scope.authentication.user));
+    /*    console.log('@@#outside' + JSON.stringify($localStorage.token));
+        console.log('@@# outside' + JSON.stringify($localStorage.user));
+        console.log('@@# outside' + JSON.stringify($scope.authentication.user));*/
     $scope.signout = function () {
       //console.log('signout is called');
-      console.log('@@# in $http' + JSON.stringify($localStorage.token));
-      console.log('@@# in $http' + JSON.stringify($localStorage.user));
-      console.log('@@# in $http' + JSON.stringify($scope.authentication.user));
+      /*      console.log('@@# in $http' + JSON.stringify($localStorage.token));
+            console.log('@@# in $http' + JSON.stringify($localStorage.user));
+            console.log('@@# in $http' + JSON.stringify($scope.authentication.user));*/
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.token;
       $http.get('/api/auth/jwtSignout').then(function (response) {
         // console.log('Signout callback : ' + JSON.stringify(response));
@@ -61,7 +61,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
         //$state.go($state.previous.state.name || 'home', $state.previous.params);
         $state.go('home');
       }, function (err) {
-        console.log("SIGnout : " + JSON.stringify(err));
+        //  console.log("SIGnout : " + JSON.stringify(err));
       });
 
     };
