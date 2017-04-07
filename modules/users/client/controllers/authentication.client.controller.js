@@ -104,7 +104,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.populateUserLocally = function (respUser) {
 
-      console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
+      // console.log('After successfully created or login user details : ' + JSON.stringify(respUser));
 
       $scope.authentication.user = respUser;
       $localStorage.user = respUser;
@@ -136,16 +136,16 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             dataType: 'json',
           })
           .then(function (data) {
-            //console.log('User Profile Details is : ' + JSON.stringify(data));
+            // console.log('User Profile Details is : ' + JSON.stringify(data.data));
             $scope.fUser = {
-              firstName: data.first_name,
-              lastName: data.last_name,
-              email: data.email,
+              firstName: data.data.first_name,
+              lastName: data.data.last_name,
+              email: data.data.email,
               provider: 'fb'
             };
-            // console.log('$scope fuser details :'+JSON.stringify($scope.fUser));
+            // console.log('$scope fuser details :' + JSON.stringify($scope.fUser));
             Users.Signup.create($scope.fUser).$promise.then(function (res) {
-              // console.log('##users.signup.create response :'+JSON.stringify(res));
+              // console.log('##users.signup.create response :' + JSON.stringify(res));
               if (res.type === false) {
                 //  console.log('@@ res.type is :'+res.type);
                 $scope.errMsg = res.data;
@@ -165,6 +165,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           });
       }, function (e) {
         console.log('Signin error: ' + e.error.message);
+        console.log('Signin error: ' + e.error);
       })
     };
 
@@ -182,11 +183,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             dataType: 'json',
           })
           .then(function (data) {
-            //console.log('User Profile is : ' + JSON.stringify(data));
+            console.log('User Profile is : ' + JSON.stringify(data.data));
             $scope.gUser = {
-              firstName: data.given_name,
-              lastName: data.family_name,
-              email: data.email,
+              firstName: data.data.given_name,
+              lastName: data.data.family_name,
+              email: data.data.email,
               provider: 'gmail'
             };
             Users.Signup.create($scope.gUser).$promise.then(function (res) {
@@ -208,6 +209,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           });
       }, function (e) {
         console.log('Signin error: ' + e.error.message);
+        console.log('Signin error: ' + e.error);
       })
     };
 
