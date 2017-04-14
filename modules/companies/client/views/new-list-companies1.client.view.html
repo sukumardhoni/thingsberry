@@ -35,46 +35,46 @@
     </div>
 
     <div ng-if="gridView==true">
-      <div when-scrolled="LoadMoreProducts(spinnerLoading)">
+      <div when-scrolled="LoadMoreProducts(spinnerLoading||noMoreProductsAvailable)">
         <div ng-repeat="val in vm.companys | orderBy: searchOrder.List " ng-show="vm.companys.length !==0 " class="product-listing ">
           <div class="visible-md clearfix " ng-if="$index % 3==0 "></div>
           <div class="col-md-3 col-sm-5 col-xs-12 prdct-tile ">
             <tb-products-grid details=val date-on-product="{{date | date: 'yyyy-MM-dd'}} " edit-icon="userDetails "></tb-products-grid>
           </div>
         </div>
-        <!-- <div ng-show="spinnerLoading ">
+        <div ng-show="spinnerLoading">
           <h5 class="text-center ">Loading please wait...</h5>
           <div layout="row " layout-align="space-around ">
             <md-progress-circular md-mode="indeterminate " md-diameter="70 "></md-progress-circular>
           </div>
-        </div>-->
+        </div>
       </div>
     </div>
 
     <div ng-if="gridView==false">
       <!--<when-scrolled scrolled-to-bottom="LoadMoreProducts()"></when-scrolled>-->
-      <div when-scrolled="LoadMoreProducts(spinnerLoading)">
+      <div when-scrolled="LoadMoreProducts(spinnerLoading||noMoreProductsAvailable)">
         <div ng-repeat="val in vm.companys | orderBy: searchOrder.List " ng-show="vm.companys.length !==0 " class="product-listing ">
           <tb-products-list details=val date-on-product="{{date | date: 'yyyy-MM-dd'}} " edit-icon="userDetails "></tb-products-list>
         </div>
-        <!--  <div ng-show="spinnerLoading ">
+        <div ng-show="spinnerLoading ">
           <div layout="row " layout-align="space-around ">
             <md-progress-circular md-mode="indeterminate " md-diameter="70 "></md-progress-circular>
           </div>
           <h5 class="text-center ">Loading please wait...</h5>
-        </div>-->
+        </div>
       </div>
     </div>
 
-    <div ng-hide="noMoreProductsAvailable">
+    <!--    <div ng-hide="spinnerLoading">
       <h5 class="text-center ">Loading please wait...</h5>
       <div layout="row " layout-align="space-around ">
         <md-progress-circular md-mode="indeterminate " md-diameter="70 "></md-progress-circular>
       </div>
-    </div>
-    <div ng-show="noMoreProductsAvailable" class="row col-xs-12 text-center " style="margin:20px;margin-left:0px; ">
+    </div>-->
+    <!-- <div ng-show="noMoreProductsAvailable" class="row col-xs-12 text-center " style="margin:20px;margin-left:0px; ">
       <p class="no-prod-found">No More Products Found</p>
-    </div>
+    </div>-->
 
     <!--<div class="row col-xs-12 text-center " style="margin:20px;margin-left:0px; ">
 

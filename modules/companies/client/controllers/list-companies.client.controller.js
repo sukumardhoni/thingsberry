@@ -316,10 +316,12 @@
     $scope.LoadMoreProducts = function (val) {
       // console.log('LoadMoreProducts function is called' + JSON.stringify($scope.pageId));
       // console.log('LoadMoreProducts function is called' + JSON.stringify(val));
+      // console.log('NO MORE PROD' + JSON.stringify(noProd));
       if (val == false) {
         if ($scope.pageId != 0) {
           // console.log('LoadMoreProducts function pageId' + JSON.stringify($scope.pageId));
           var onScroll = {};
+          //$scope.noMoreProductsAvailable = false;
           $scope.spinnerLoading = true;
           if (($stateParams.catId != undefined) && ($stateParams.companyId == undefined) && ($stateParams.productName == undefined)) {
             // console.log("Coming to category");
@@ -331,14 +333,18 @@
               adminStatus: loginUser
             }, function (res) {
               //vm.companys = res;
-              $scope.spinnerLoading = false;
-              $scope.pageId++;
-              onScroll = res.products;
+
               if (res.products.length == 0) {
                 $scope.noMoreProductsAvailable = true;
+                $scope.spinnerLoading = false;
+              } else {
+                $scope.spinnerLoading = false;
+                $scope.pageId++;
+                onScroll = res.products;
+                var oldProducts = vm.companys;
+                vm.companys = oldProducts.concat(onScroll);
               }
-              var oldProducts = vm.companys;
-              vm.companys = oldProducts.concat(onScroll);
+
             }, function (err) {
               console.log('Failed to fetch the product details : ' + JSON.stringify(err));
             });
