@@ -24,8 +24,8 @@
           <md-button class="md-raised md-primary" style="margin:0px;top:10px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
         </a>
 
-        <a ng-show="details.affliateLink!=''" ng-href="{{details.affliateLink}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
-          <md-button class="md-raised md-primary " style="top:10px;margin:0px;"><b>Buy</b></md-button>
+        <a ng-href="{{details.affliateLink?details.affliateLink:details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
+          <md-button class="md-raised md-primary" style="top:10px;margin:0px;"><b>Buy</b></md-button>
         </a>
 
         <div class="col-md-1" style="float:right;margin-top:20px;">

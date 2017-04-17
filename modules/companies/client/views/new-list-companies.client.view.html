@@ -14,9 +14,18 @@
     <div class="visible-xs visible-sm col-xs-11 col-sm-10 col-sm-offset-1 catsBox-in-xs" ng-init="getCategoriesForSide();" style="margin-bottom:10px;">
       <div ng-show="accrdnsPanelArray">
         <div class="row cat-filters" ng-class="{'col-xs-8 col-xs-offset-2 cat-filters-roundBoreder':showCategoryFilterBox==false}">
-          <div class="text-center "><b ng-click="showCatsFilter(showCategoryFilterBox)" style="outline:none;color:#808080;"><i class="fa fa-sliders" aria-hidden="true" style="transform: rotate(90deg);color:#3f51b5"></i> &nbsp;CATEGORIES</b>
-            <p style="color:#a6a6a6;margin:0px;text-transform:capitalize;">{{listActive1?catsFullName:'No'}} category selected</p>
+          <div class="row" ng-click="showCatsFilter(showCategoryFilterBox)" style="outline:none;">
+            <div class="col-sm-6 col-xs-6 text-right" style="font-size:30px;margin-left:-32px;"> <i class="fa fa-sliders " aria-hidden="true" style="transform: rotate(90deg);color:#3f51b5"></i></div>
+            <div class="col-sm-6 col-xs-6 text-left" style="padding:0px;">
+              <div style="font-size:16px;color:#808080;"><strong>CATEGORIES</strong></div>
+              <div style="color:#a6a6a6;margin:0px;text-transform:capitalize;font-size:12px;margin-right: -15px;">{{listActive1?catsFullName:'No'}} category selected</div>
+            </div>
           </div>
+
+
+          <!--   <div class="text-center "><b ng-click="showCatsFilter(showCategoryFilterBox)" style="outline:none;color:#808080;"><i class="fa fa-sliders" aria-hidden="true" style="transform: rotate(90deg);color:#3f51b5"></i> &nbsp;CATEGORIES</b>
+            <p style="color:#a6a6a6;margin:0px;text-transform:capitalize;">{{listActive1?catsFullName:'No'}} category selected</p>
+          </div>-->
           <div ng-show="showCategoryFilterBox" class="sub-category-trans">
             <div class="col-xs-5 catsForMobile" ng-repeat="cats in accrdnsPanelArray track by $index" ng-class="{'singleCatShow':$index==indexVal,'singleCatBorder':showCatsSub==false}">
               <div class="defaultHeadStyle" ng-class="{'cats-head-style':($index==indexVal),'cats-head-removeStyle':(showCatsSub==false)}" ng-click="getCatForMob(showCatsSub,$index)">{{cats.heading}} &nbsp;( {{cats.count}}+ )</div>

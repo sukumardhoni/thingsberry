@@ -272,7 +272,7 @@
       });
     };
 
-    $scope.showCategoryFilterBox = false;
+    $scope.showCategoryFilterBox = true;
     $scope.showCatsFilter = function (filterBoxVal) {
       console.log("Clicking on category");
       if (filterBoxVal == true) {
