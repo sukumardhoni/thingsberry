@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts', 'CleanUpInactiveService', 'ListOfProducts', 'NotificationFactory',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts, CleanUpInactiveService, ListOfProducts, NotificationFactory) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts', 'CleanUpInactiveService', 'ListOfProducts', 'NotificationFactory','ComingSoonProducts',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts, CleanUpInactiveService, ListOfProducts, NotificationFactory,ComingSoonProducts) {
 
     var vm = this;
 
@@ -187,25 +187,75 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
 
 
-    $scope.tbClients = function () {
-      ourClients.query({}, function (res) {
-          // console.log(res);
-          $scope.clients = res;
+
+   $scope.tbClients = function () {
+      $scope.clients = [{
+          "description": "",
+          "clientUrl": "https://www.fitbit.com",
+          "clientName": "FITBIT"
+      },
+        {
+          "description": "",
+          "clientUrl": "http://www2.meethue.com/en-in/productdetail/philips-hue-bridge",
+          "clientName": "PHILIPS"
         },
-        function (err) {
-          console.log('Failed to fetch the product details : ' + err);
-        });
+        {
+          "description": "",
+          "clientUrl": "http://www.wink.com/",
+          "clientName": "WINK"
+        },
+        {
+          "description": "",
+          "clientUrl": "http://www.withings.com/uk/en/products/withings-go",
+          "clientName": "WITHINGS"
+        },
+        {
+          "description": "",
+          "clientUrl": "http://www.belkin.com",
+          "clientName": "BELKIN"
+        },
+        {
+          "description": "",
+          "clientUrl": "http://www.chamberlain.com/",
+          "clientName": "CHAMBERLAIN"
+        }];
+
+      /*  ourClients.query({}, function (res) {
+            // console.log(res);
+            $scope.clients = res;
+          },
+          function (err) {
+            console.log('Failed to fetch the product details : ' + err);
+          });*/
     };
 
     $scope.tbVideos = function () {
-      $scope.showSpinner = true;
-      videos.query({}, function (res) {
-          $scope.videos = res;
-          $scope.showSpinner = false;
+      //$scope.showSpinner = true;
+      $scope.videos = [
+        {
+          "description": "",
+          "videoId": "qqjTu3UKe64",
+          "title": "Simple smart home upgrades"
+      },
+        {
+          "description": "",
+          "videoId": "Zm0HTAwSSi0",
+          "title": "3 Smart Personal Health Care Management Devices | Gadgets | New | Technology"
         },
-        function (err) {
-          console.log('Failed to fetch the product details : ' + err);
-        });
+        {
+          "description": "",
+          "videoId": "N5pzEgFAadU",
+          "title": "The Next-gen Home Automation"
+        }
+      ];
+
+      /*  videos.query({}, function (res) {
+            $scope.videos = res;
+            $scope.showSpinner = false;
+          },
+          function (err) {
+            console.log('Failed to fetch the product details : ' + err);
+          });*/
     };
 
 
@@ -245,6 +295,33 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     };
 
+     $scope.comingSoonPrdcts=function(){
+      ComingSoonProducts.query({}, function (res) {
+            $scope.comingSoonProductsRes = res;
+        // console.log('the length:' + JSON.stringify($scope.featuredProducts.length));
+        for (var l = 0; l < ($scope.comingSoonProductsRes.length); l++) {
+          $scope.comingSoonProdsAddSlide2($scope.comingSoonProductsRes[l]);
+        }
+        $scope.comingSoonPrdctsInMd = $scope.listToMatrix($scope.cmngSoonSlide2, 3);
+        // console.log('the resultant matrix' + JSON.stringify($scope.sample));
+
+        for (var m = 0; m < ($scope.comingSoonProductsRes.length); m++) {
+          $scope.comingSoonProdsAddSlide3($scope.comingSoonProductsRes[m]);
+        }
+        $scope.comingSoonPrdctsInSM = $scope.listToMatrix($scope.cmngSoonSlide3, 2);
+         // console.log('the resultant matrix' + JSON.stringify($scope.sampleInSm));
+
+        for (var n = 0; n < $scope.comingSoonProductsRes.length; n++) {
+          $scope.comingSoonProdsAddSlide4($scope.comingSoonProductsRes[n]);
+        }
+        $scope.comingSoonPrdctsInXs = $scope.listToMatrix($scope.cmngSoonSlide4, 1);
+        // console.log('the resultant matrix' + JSON.stringify($scope.sampleInXs));
+        /*  $timeout(function () {
+            $scope.carouselBg1.pop('carousel_spinner_featured');
+          }, 1000);*/
+      })
+    }
+
     $scope.tbQuotes = function () {
       quotes.query({}, function (res) {
         // console.log(res);
@@ -260,6 +337,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var slides2 = $scope.slides2 = [];
     var slides3 = $scope.slides3 = [];
     var slides4 = $scope.slides4 = [];
+     var cmngSoonSlide2 = $scope.cmngSoonSlide2 = [];
+    var cmngSoonSlide3 = $scope.cmngSoonSlide3 = [];
+    var cmngSoonSlide4 = $scope.cmngSoonSlide4 = [];
     var currIndex = 0;
     $scope.carouselBg = [];
     $scope.carouselBg1 = [];
@@ -310,6 +390,17 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
     $scope.addSlide4 = function (details) {
       slides4.push(details);
+    };
+    $scope.comingSoonProdsAddSlide2 = function (details) {
+      cmngSoonSlide2.push(details);
+    };
+
+    $scope.comingSoonProdsAddSlide3 = function (details) {
+      cmngSoonSlide3.push(details);
+    };
+
+    $scope.comingSoonProdsAddSlide4 = function (details) {
+      cmngSoonSlide4.push(details);
     };
 
 

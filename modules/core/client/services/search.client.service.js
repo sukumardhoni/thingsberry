@@ -72,6 +72,16 @@ angular.module('core')
   });
 })
 
+.factory('ComingSoonProducts', function ($resource) {
+  return $resource('api/comingSoonPrdcts', {}, {
+    'query': {
+      method: 'GET',
+      timeout: 20000,
+      isArray: true
+    }
+  });
+})
+
 
 .factory('ourClients', function ($resource) {
   return $resource('api/clients', {}, {

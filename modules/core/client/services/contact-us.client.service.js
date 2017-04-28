@@ -23,6 +23,16 @@ angular.module('core')
 	}
 ])
 
+.factory('SubscribeService', ['$resource',
+	function ($resource) {
+    return $resource('api/subscribe', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+	}
+])
+
 .factory('FeedbackService', ['$resource',
 	function ($resource) {
     return $resource('api/feedback', {}, {

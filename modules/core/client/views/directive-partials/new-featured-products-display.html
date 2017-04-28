@@ -4,6 +4,7 @@
       <i class="fa fa-chevron-down" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom"></i>
     </div>
   </div>-->
+   <div ng-show="details.isComingSoon==true" class="ribbon"><span>COMING SOON</span></div>
 
   <div class="row">
     <a ng-href="{{details.webAddress}}" target="_blank"><img ng-src="{{details.firebaseImageUrl?details.firebaseImageUrl:details.productImageURL}}" onerror="this.onerror=null;this.src='../../../../modules/core/client/img/brand/tb2.png';" class="prdct-img"></a>

@@ -34,6 +34,9 @@ module.exports = function (app) {
   app.route('/api/companies/frequentProducts')
     .get(companies.frequentProducts);
 
+    app.route('/api/comingSoonPrdcts')
+    .get(cache.route(), companies.comingSoonPrdctsList);
+
   app.route('/api/listOfProducts/:adminStatus/:pageId')
     .get(cache.route(), companies.list);
 

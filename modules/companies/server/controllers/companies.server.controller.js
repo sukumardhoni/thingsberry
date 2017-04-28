@@ -1195,6 +1195,26 @@ exports.featuredProductsList = function (req, res) {
 
 
 /**
+ * List of ComingSoon Products
+ */
+exports.comingSoonPrdctsList = function (req, res) {
+
+  Company.find({
+    status: "active",
+    isComingSoon: true
+  }).limit(12).exec(function (err, companies) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      //console.log('Server side List of products : ' + JSON.stringify(companies));
+      res.json(companies);
+    }
+  });
+};
+
+/**
  * Searched Products List
  */
 exports.searchedProductsList = function (req, res) {

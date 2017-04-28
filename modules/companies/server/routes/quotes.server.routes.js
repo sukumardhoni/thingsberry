@@ -11,6 +11,9 @@ module.exports = function (app) {
     .get(quotes.list)
     .post(quotes.create);
 
+  app.route('/api/subscribe')
+    .post(quotes.subscribeUpdates);
+
   /*
 
     app.route('/api/search/products/:ProCategory?/:ProCompany?/:ProName?/:ProRegions?/:pageId')

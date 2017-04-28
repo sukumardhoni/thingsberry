@@ -38,6 +38,75 @@
       </div>
     </div>
 
+
+    <!--  ::: Coming Soon Products ::: -->
+
+    <div class="container" ng-init="comingSoonPrdcts()">
+      <div ng-show="comingSoonPrdctsInMd.length!=0||comingSoonPrdctsInSM.length!=0||comingSoonPrdctsInXs.length!=0">
+        <div class="row text-center featured_text">
+          <h1 class="featured_in_mobile">::: Coming Soon Products :::</h1>
+          <!-- <p>Lorem ipsum dolor sit amet,consectetur adipiscing aelit,sed do eiusmod tempor incididunt</p>-->
+        </div>
+
+        <div class="row hidden-sm hidden-xs ">
+          <div class="col-md-12 featured_prdct_carousel featured-listing">
+            <div ng-hide="sample" class="tb-premium-spinner">
+              <div layout="row" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+              </div>
+              <h5 class="text-center">Loading please wait...</h5>
+            </div>
+            <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slide in comingSoonPrdctsInMd" index="$index">
+                <div ng-repeat="sarray in slide" emit-last-repeater-element class="col-md-3 feature_prdcts " data-wrap="false">
+                  <tb-featured-products details=sarray></tb-featured-products>
+                </div>
+              </uib-slide>
+            </uib-carousel>
+          </div>
+        </div>
+        <div class="row hidden-md hidden-xs visible-sm-block">
+          <div class="col-sm-12 featured_prdct_carousel product-listing">
+            <div ng-hide="sampleInSm" class="tb-premium-spinner">
+              <div layout="row" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+              </div>
+              <h5 class="text-center">Loading please wait...</h5>
+            </div>
+            <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slide in comingSoonPrdctsInSM" index="$index">
+                <div ng-repeat="sarray in slide" class="col-sm-5 col-sm-offset-1 feature_prdcts" data-wrap="false">
+                  <tb-featured-products details=sarray></tb-featured-products>
+                </div>
+              </uib-slide>
+            </uib-carousel>
+          </div>
+        </div>
+        <div class="row hidden-md hidden-sm visible-xs-block ">
+          <div class="col-xs-12  featured_prdct_carousel featured_prdct_carousel_In_Xs product-listing">
+            <div ng-hide="sampleInXs" class="tb-premium-spinner">
+              <div layout="row" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+              </div>
+              <h5 class="text-center">Loading please wait...</h5>
+            </div>
+            <uib-carousel interval="" active=0 no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slide in comingSoonPrdctsInXs" index="$index">
+                <div ng-repeat="sarray in slide" class="col-xs-11 feature_prdcts" data-wrap="false">
+                  <tb-featured-products details=sarray></tb-featured-products>
+                </div>
+              </uib-slide>
+            </uib-carousel>
+          </div>
+        </div>
+        <!-- <div class="row text-center" style="padding:35px;">
+        <button class="btn btn-default view_all_prdcts_bttn" ui-sref="home.companies.products">VIEW MORE PRODUCTS</button>
+      </div>-->
+      </div>
+    </div>
+
+    <!--  ::: Coming Soon  Products closed ::: -->
+
     <!--  ::: Our Feautured Products ::: -->
 
     <div class="container" ng-init="featuredProducts()">

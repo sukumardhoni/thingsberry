@@ -137,6 +137,10 @@ var CompanySchema = new Schema({
     type: Boolean,
     default: false
   },
+  isComingSoon: {
+    type: Boolean,
+    default: false
+  },
   /*productStatus: {
     type: Boolean,
     default: true

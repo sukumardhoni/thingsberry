@@ -1,11 +1,39 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav',
-  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav', 'SubscribeService', 'NotificationFactory', '$rootScope',
+  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav, SubscribeService, NotificationFactory, $rootScope) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
 
+    if ($localStorage.thingsberySubscribe) {
+      if (($localStorage.thingsberySubscribe.thingsberry_subscriber == "y") && ($localStorage.thingsberySubscribe.closeSubscribeForm = "y")) {
+        $scope.showTopFooBar = false;
+      } else {
+        $scope.showTopFooBar = true;
+        $scope.alreadySubScribedTxt = false;
+      }
+    } else {
+      $scope.showTopFooBar = true;
+      $scope.alreadySubScribedTxt = false;
+    }
+
+    $scope.foobarStatus = function () {
+      if ($localStorage.thingsberySubscribe) {
+        if ($localStorage.thingsberySubscribe.thingsberry_subscriber == "y") {
+          $localStorage.thingsberySubscribe.closeSubscribeForm = "y";
+          $scope.alreadySubScribedTxt = true;
+          $scope.showTopFooBar = true;
+        } else {
+          $scope.showTopFooBar = true;
+        }
+      } else {
+        $scope.showTopFooBar = true;
+      }
+      $("html, body").animate({
+        scrollTop: 0
+      }, "slow");
+    }
 
     $scope.toggleLeft = function () {
       $mdSidenav('left').toggle();
@@ -23,6 +51,67 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
       // console.log($state.current.name)
     }
+
+
+
+    $scope.subscribe = {};
+    $scope.subscribeEmail = function () {
+      // console.log("SUBSCRIBER MAIL : "+JSON.stringify(subscriberMail));
+      // console.log("SUBSCRIBER MAIL : " + $scope.subscribe.email);
+      // console.log("SUBSCRIBER MAIL : " + JSON.stringify($scope.authentication.user));
+      if ($scope.subscribe.email != undefined) {
+        SubscribeService.send($scope.subscribe, successCalback, errorCalback);
+
+        function successCalback(res) {
+          // console.log('Success while sending the Contactus details : ' + JSON.stringify(res.length));
+          if (res.length != 0) {
+            // console.log("length is there");
+            NotificationFactory.success('Thank you for subscribing for product updates with ' + res.email);
+
+            $localStorage.thingsberySubscribe = {
+                thingsberry_subscriber: "y",
+                closeSubscribeForm: "N"
+              }
+              // $localStorage.thingsberry_subscriber = "y";
+            $scope.showSubscribeForm = false;
+
+            $scope.subscribeForm.$setPristine();
+            $scope.subscribeForm.$setUntouched();
+          } else {
+            //  console.log("length is 0");
+            $scope.alreadySubScribedTxt = true;
+          }
+
+
+        }
+
+        function errorCalback(res) {
+          // console.log("length is 0");
+          // console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
+          $scope.alreadySubScribedTxt = true;
+          //vm.error = res.data.message;
+          //NotificationFactory.error('Failed to save Product details...', res.data.message);
+        }
+
+      }
+    }
+
+    $scope.subscribeInIt = function () {
+      if ($localStorage.thingsberySubscribe) {
+        if ($localStorage.thingsberySubscribe.thingsberry_subscriber == "y") {
+          //show Thanks for subscribe
+          $scope.showSubscribeForm = false;
+        } else {
+          //show subscribe form
+          $scope.showSubscribeForm = true;
+        }
+      } else {
+        //show subscribe form
+        $scope.showSubscribeForm = true;
+      }
+    }
+
+
 
 
 

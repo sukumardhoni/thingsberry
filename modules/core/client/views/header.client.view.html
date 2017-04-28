@@ -1,7 +1,62 @@
-<div ng-controller="HeaderController" class="navbar navbar-inverse" ng-class="{'navbar-static-top': showBoxOne , 'navbar-fixed-top': !showBoxOne } ">
+<div ng-controller="HeaderController" class="navbar navbar-inverse" ng-class="{'navbar-static-top': showBoxOne , 'navbar-fixed-top': !showBoxOne,'navbar-fixed-top': showTopFooBar==false,'navbar-static-top':  showTopFooBar==true } ">
+
+  <div class="foobar-bg foobar-trans hidden-xs" ng-show="showTopFooBar">
+    <div class="container">
+      <!-- Place this tag in your head or just before your close body tag. -->
+      <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+      <!-- Place this tag where you want the share button to render. -->
+      <!--    <div class="g-plus" data-action="share" data-annotation="bubble" data-height="24" data-href="https://www.thingsberry.com/"></div>-->
+      <div class="row text-center" style="color:white;">
+        <h1 style="margin-top:15px;margin-bottom:15px;font-size:27px;">Welcome to Thingsberry, Subscribe for Updates</h1>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6" style="margin-top: 7px;">
+          <!-- <span class="foobar-twitter"><i style="color:#0084b4" class="fa fa-twitter" aria-hidden="true"></i> Follow @thingsberry</span>-->
+          <!-- <span class="foobar-twitter" style="color:#3b5998" socialshare socialshare-provider="facebook" socialshare-text="Thingsberry products" socialshare-url="http://qa.thingsberry.com/"><i style="color:#3b5998" class="fa fa-thumbs-up" aria-hidden="true"></i> Like </span>-->
+          <span class="foobar-twitter"><a href="https://twitter.com/thingsberry" class="twitter-follow-button" data-show-count="false">Follow @thingsberry</a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </span>
+
+          <script src="https://apis.google.com/js/platform.js" async defer></script>
+          <!--<div class="g-plus tb-gp-share " data-action="share" data-annotation="bubble" data-height="24" data-href="http://qa.thingsberry.com/"></div>-->
+          <div class="g-plus tb-gp-share" data-action="share" data-annotation="none" data-height="24" data-href="https://www.thingsberry.com/"></div>
+          <!-- <div class="fb-like " data-send="true" data-href="https://www.facebook.com/thingsberry/" data-width="225px" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>-->
+
+          <div class="fb-like" data-send="true" data-href="https://www.facebook.com/thingsberry/" data-width="225" data-layout="button" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>
+
+          <!--  <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="225px" data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>-->
+          <!-- <span class="foobar-twitter"  socialshare socialshare-provider="google" socialshare-text="Thingsberry Products" socialshare-url="http://qa.thingsberry.com"><i style="color:#d34836" class="fa fa-google-plus" aria-hidden="true"><b>1</b></i></span>-->
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="row" ng-show="showSubscribeForm" ng-hide="alreadySubScribedTxt">
+            <div class="col-md-6 col-sm-4" ng-init="subscribeInIt()">
+              <form name="subscribeForm">
+                <div class="form-group">
+                  <input type="email" class="form-control" ng-model="subscribe.email" placeholder="Email" id="email">
+                </div>
+              </form>
+            </div>
+            <!--<div class="col-md-4 col-sm-4">-->
+            <md-button ng-click="subscribeEmail()" class="md-raised md-primary " class="col-md-4 col-sm-4" style="margin-top:-1px;"><b>Subscribe for Updates</b></md-button>
+            <!--</div>-->
+          </div>
+          <div class="row" ng-hide="showSubscribeForm||alreadySubScribedTxt">
+            <h5 style="color:white;font-size:16px;font-family: Comic Sans MS;">Thank you for subscribing for product updates.</h5>
+          </div>
+          <div class="row" ng-show="alreadySubScribedTxt">
+            <h5 style="color:white;font-size:16px;font-family: Comic Sans MS;">Already you are subscribed for product updates.</h5>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <span ng-click="showTopFooBar=false" class="foobar-close" ng-class="{'close-btn-for-subscribe':showSubscribeForm==false}"><i style="color:white" class="fa fa-times" aria-hidden="true"></i></span>
+  </div>
+  <span ng-hide="showTopFooBar" class="foobar-open  hidden-xs" ng-click="foobarStatus()"><i class="fa fa-plus" aria-hidden="true"></i></span>
+
+
   <div style="background:#3f51b5" class="hidden-xs">
     <div class="container">
-
       <div class="row " style="height:38px;">
         <div class="col-md-6 col-lg-6  col-xs-8 ">
           <div class="customDiv">
