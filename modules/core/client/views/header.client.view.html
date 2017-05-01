@@ -1,4 +1,4 @@
-<div ng-controller="HeaderController" class="navbar navbar-inverse" ng-class="{'navbar-static-top': showBoxOne , 'navbar-fixed-top': !showBoxOne,'navbar-fixed-top': showTopFooBar==false,'navbar-static-top':  showTopFooBar==true } ">
+<div ng-controller="HeaderController" class="navbar navbar-inverse" ng-class="{'navbar-static-top': showBoxOne , 'navbar-fixed-top': !showBoxOne && showTopFooBar==false} ">
 
   <div class="foobar-bg foobar-trans " ng-show="showTopFooBar">
     <div class="container">
