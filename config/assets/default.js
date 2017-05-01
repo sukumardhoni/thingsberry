@@ -10,8 +10,6 @@ module.exports = {
         'public/lib/toastr/toastr.min.css',
         'public/assets/css/isteven-multi-select.css',
         'public/lib/ng-tags-input/ng-tags-input.min.css',
-        'public/lib/owl.carousel/dist/assets/owl.carousel.min.css',
-        'public/lib/owl.carousel/dist/assets/owl.theme.default.min.css',
         'public/lib/angular-material/angular-material.css'
 
 
@@ -42,10 +40,11 @@ module.exports = {
         'public/lib/angular-aria/angular-aria.js',
         'public/lib/angular-socialshare/dist/angular-socialshare.min.js',
         'public/lib/angular-update-meta/dist/update-meta.min.js',
-        'https://www.youtube.com/iframe_api',
+      /*  'https://www.youtube.com/iframe_api',*/
         'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js',
         'public/lib/firebase/firebase.js',
-        'public/lib/angularfire/dist/angularfire.js'
+        'public/lib/angularfire/dist/angularfire.js',
+        'public/youtubeapi/youtbeApi.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

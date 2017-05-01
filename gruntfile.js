@@ -117,7 +117,8 @@ module.exports = function (grunt) {
     ngAnnotate: {
       production: {
         files: {
-          'public/dist/application.js': defaultAssets.client.js
+          'public/dist/application.js': defaultAssets.client.js,
+          'public/dist/alljs.js': defaultAssets.client.lib.js
         }
       }
     },
@@ -127,14 +128,16 @@ module.exports = function (grunt) {
           mangle: false
         },
         files: {
-          'public/dist/application.min.js': 'public/dist/application.js'
+          'public/dist/application.min.js': 'public/dist/application.js',
+          'public/dist/alljs.min.js': 'public/dist/alljs.js',
         }
       }
     },
     cssmin: {
       combine: {
         files: {
-          'public/dist/application.min.css': defaultAssets.client.css
+          'public/dist/application.min.css': defaultAssets.client.css,
+          'public/dist/allcss.min.css': defaultAssets.client.lib.css
         }
       }
     },

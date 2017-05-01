@@ -1,13 +1,13 @@
 <div ng-controller="HeaderController" class="navbar navbar-inverse" ng-class="{'navbar-static-top': showBoxOne , 'navbar-fixed-top': !showBoxOne,'navbar-fixed-top': showTopFooBar==false,'navbar-static-top':  showTopFooBar==true } ">
 
-  <div class="foobar-bg foobar-trans hidden-xs" ng-show="showTopFooBar">
+  <div class="foobar-bg foobar-trans " ng-show="showTopFooBar">
     <div class="container">
       <!-- Place this tag in your head or just before your close body tag. -->
       <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
       <!-- Place this tag where you want the share button to render. -->
       <!--    <div class="g-plus" data-action="share" data-annotation="bubble" data-height="24" data-href="https://www.thingsberry.com/"></div>-->
       <div class="row text-center" style="color:white;">
-        <h1 style="margin-top:15px;margin-bottom:15px;font-size:27px;">Welcome to Thingsberry, Subscribe for Updates</h1>
+        <h1 class="foobar-title">Welcome to Thingsberry, Subscribe for Updates</h1>
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-6" style="margin-top: 7px;">
@@ -36,15 +36,15 @@
                 </div>
               </form>
             </div>
-            <!--<div class="col-md-4 col-sm-4">-->
-            <md-button ng-click="subscribeEmail()" class="md-raised md-primary " class="col-md-4 col-sm-4" style="margin-top:-1px;"><b>Subscribe for Updates</b></md-button>
-            <!--</div>-->
+            <div class="col-xs-offset-2">
+              <md-button ng-click="subscribeEmail()" class="md-raised md-primary " class="col-md-4 col-sm-4 " style="margin-top:-1px;"><b>Subscribe for Updates</b></md-button>
+            </div>
           </div>
           <div class="row" ng-hide="showSubscribeForm||alreadySubScribedTxt">
-            <h5 style="color:white;font-size:16px;font-family: Comic Sans MS;">Thank you for subscribing for product updates.</h5>
+            <h5 class="foobar-subscribe-txt">Thank you for subscribing for product updates.</h5>
           </div>
           <div class="row" ng-show="alreadySubScribedTxt">
-            <h5 style="color:white;font-size:16px;font-family: Comic Sans MS;">Already you are subscribed for product updates.</h5>
+            <h5 class="foobar-subscribe-txt">Already you are subscribed for product updates.</h5>
           </div>
 
         </div>
@@ -52,7 +52,7 @@
     </div>
     <span ng-click="showTopFooBar=false" class="foobar-close" ng-class="{'close-btn-for-subscribe':showSubscribeForm==false}"><i style="color:white" class="fa fa-times" aria-hidden="true"></i></span>
   </div>
-  <span ng-hide="showTopFooBar" class="foobar-open  hidden-xs" ng-click="foobarStatus()"><i class="fa fa-plus" aria-hidden="true"></i></span>
+  <span ng-hide="showTopFooBar" class="foobar-open  " ng-click="foobarStatus()"><i class="fa fa-plus" aria-hidden="true"></i></span>
 
 
   <div style="background:#3f51b5" class="hidden-xs">

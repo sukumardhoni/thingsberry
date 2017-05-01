@@ -270,6 +270,38 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
 }
 
 @media (max-width: 765px) {
+  .foobar-trans {
+    height: 180px !important;
+    overflow: hidden;
+  }
+  .foobar-trans.ng-hide-add,
+  .foobar-trans.ng-hide-remove {
+    -webkit-transition: height 0.3s;
+    -moz-transition: height 0.3s;
+    transition: height 0.3s;
+    transition-delay: 0s;
+  }
+  .foobar-trans.ng-hide {
+    height: 0px !important;
+  }
+  .foobar-close {
+    margin-top: -145px !important;
+    left: 91% !important;
+  }
+  .close-btn-for-subscribe {
+    margin-top: -81px !important;
+  }
+  .foobar-open {
+    right: 13% !important;
+  }
+  .foobar-title {
+    font-size: 15px !important;
+  }
+  .foobar-subscribe-txt {
+    margin-top: 30px;
+    text-align: center !important;
+    font-size: 13px !important;
+  }
   .catsBox-in-xs {
     margin-left: 18px !important;
   }
@@ -483,6 +515,13 @@ endColorstr='#ff02a8f3', GradientType=0) !important;
 }
 
 @media (max-width:325px) {
+  .foobar-close {
+    margin-top: -53px !important;
+    left: 89% !important;
+  }
+  .close-btn-for-subscribe {
+    margin-top: -12px !important;
+  }
   .link-btn-in-mobile {
     margin-left: -20px;
   }

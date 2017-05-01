@@ -35,7 +35,7 @@
       <md-button class="md-raised md-primary col-md-4 col-sm-4 col-xs-3 link-btn-in-mobile" style="margin:0px;"><b>Link <i class="fa fa-link" aria-hidden="true" style="transform: rotate(-45deg);"></i></b></md-button>
     </a>
 
-    <a ng-href="{{details.affliateLink?details.affliateLink:details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
+    <a ng-hide="details.isComingSoon==true" ng-href="{{details.affliateLink?details.affliateLink:details.webAddress}}" target="_blank" ng-class="{'btnDisabled':(details.status==='deactive')}">
       <md-button class="md-raised md-primary col-md-1 col-sm-1 col-xs-2" style="margin:0px;margin-left: 5px;"><b>Buy</b></md-button>
     </a>
 
