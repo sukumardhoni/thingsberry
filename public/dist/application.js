@@ -3590,12 +3590,29 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       if (($localStorage.thingsberySubscribe.thingsberry_subscriber == "y") && ($localStorage.thingsberySubscribe.closeSubscribeForm = "y")) {
         $scope.showTopFooBar = false;
       } else {
-        $scope.showTopFooBar = true;
+        $scope.showTopFooBar = false;
         $scope.alreadySubScribedTxt = false;
       }
     } else {
       $scope.showTopFooBar = true;
       $scope.alreadySubScribedTxt = false;
+    }
+
+    $scope.closeSubScribe = function () {
+      // console.log("CLICKING");
+      if ($localStorage.thingsberySubscribe) {
+        if ($localStorage.thingsberySubscribe.thingsberry_subscriber == "y") {
+          $localStorage.thingsberySubscribe.closeSubscribeForm = "y";
+        } else {
+          $localStorage.thingsberySubscribe.thingsberry_subscriber == "N"
+          $localStorage.thingsberySubscribe.closeSubscribeForm = "y";
+        }
+      } else {
+        $localStorage.thingsberySubscribe = {
+          thingsberry_subscriber: "N",
+          closeSubscribeForm: "y"
+        }
+      }
     }
 
     $scope.foobarStatus = function () {
@@ -3650,7 +3667,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
             $localStorage.thingsberySubscribe = {
                 thingsberry_subscriber: "y",
-                closeSubscribeForm: "N"
+                closeSubscribeForm: "y"
               }
               // $localStorage.thingsberry_subscriber = "y";
             $scope.showSubscribeForm = false;
