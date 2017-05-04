@@ -36,53 +36,53 @@
                 </div>
               </form>
             </div>
-            <div class="col-xs-offset-2">
-              <md-button ng-click="subscribeEmail()" class="md-raised md-primary " class="col-md-4 col-sm-4 " style="margin-top:-1px;"><b>Subscribe for Updates</b></md-button>
+            <div class="col-xs-offset-3">
+              <md-button ng-click="subscribeEmail()" class="md-raised md-primary " style="margin-top:-1px;" ng-disabled="!subscribe.email" ng-class="{'subscribe-btn':!subscribe.email}"><b>Subscribe for Updates</b></md-button>
             </div>
           </div>
-          <div class="row" ng-hide="showSubscribeForm||alreadySubScribedTxt">
-            <h5 class="foobar-subscribe-txt">Thank you for subscribing for product updates.</h5>
+          <div class="row " ng-hide="showSubscribeForm||alreadySubScribedTxt ">
+            <h5 class="foobar-subscribe-txt ">Thank you for subscribing for product updates.</h5>
           </div>
-          <div class="row" ng-show="alreadySubScribedTxt">
-            <h5 class="foobar-subscribe-txt">Already you are subscribed for product updates.</h5>
+          <div class="row " ng-show="alreadySubScribedTxt ">
+            <h5 class="foobar-subscribe-txt ">Already you are subscribed for product updates.</h5>
           </div>
 
         </div>
       </div>
     </div>
-    <span ng-click="showTopFooBar=false;closeSubScribe()" class="foobar-close" ng-class="{'close-btn-for-subscribe':showSubscribeForm==false}"><i style="color:white" class="fa fa-times" aria-hidden="true"></i></span>
+    <span ng-click="showTopFooBar=false;closeSubScribe() " class="foobar-close " ng-class="{ 'close-btn-for-subscribe':showSubscribeForm==false} "><i style="color:white " class="fa fa-times " aria-hidden="true "></i></span>
   </div>
-  <span ng-hide="showTopFooBar" class="foobar-open  " ng-click="foobarStatus()"><i class="fa fa-plus" aria-hidden="true"></i></span>
+  <span ng-hide="showTopFooBar " class="foobar-open " ng-click="foobarStatus() "><i class="fa fa-plus " aria-hidden="true "></i></span>
 
 
-  <div style="background:#3f51b5" class="hidden-xs">
-    <div class="container">
-      <div class="row " style="height:38px;">
-        <div class="col-md-6 col-lg-6  col-xs-8 ">
-          <div class="customDiv">
-            <span class="fa fa-phone" aria-hidden="true" style="color:#b2b9e1;margin-top: 10px;">&nbsp;&nbsp;&nbsp; (908)&nbsp;-&nbsp;336&nbsp;-&nbsp;1141  &nbsp; |  &nbsp;&nbsp; <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;&nbsp; info@thingsberry.com</span>
+  <div style="background:#3f51b5 " class="hidden-xs ">
+    <div class="container ">
+      <div class="row " style="height:38px; ">
+        <div class="col-md-6 col-lg-6 col-xs-8 ">
+          <div class="customDiv ">
+            <span class="fa fa-phone " aria-hidden="true " style="color:#b2b9e1;margin-top: 10px; ">&nbsp;&nbsp;&nbsp; (908)&nbsp;-&nbsp;336&nbsp;-&nbsp;1141  &nbsp; |  &nbsp;&nbsp; <i class="fa fa-envelope-o " aria-hidden="true "></i> &nbsp;&nbsp; info@thingsberry.com</span>
           </div>
         </div>
-        <div class="col-md-6  col-lg-4 col-lg-offset-2 col-xs-4">
-          <a ui-sref="authentication.signin" style="color:#b2b9e1;text-decoration: none;float:right;margin-top: 10px; " ng-hide="authentication.user">Login &nbsp;/&nbsp;Signup&nbsp;</a>
-          <div class="dropdown header_Login" uib-dropdown ng-show="authentication.user" style="float:right;">
-            <a class="dropdown-toggle user-header-dropdown-toggle header_title" uib-dropdown-toggle role="button">
-              <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
-              <span ng-bind="authentication.user.firstName"></span> <b class="caret"></b>
+        <div class="col-md-6 col-lg-4 col-lg-offset-2 col-xs-4 ">
+          <a ui-sref="authentication.signin " style="color:#b2b9e1;text-decoration: none;float:right;margin-top: 10px; " ng-hide="authentication.user ">Login &nbsp;/&nbsp;Signup&nbsp;</a>
+          <div class="dropdown header_Login " uib-dropdown ng-show="authentication.user " style="float:right; ">
+            <a class="dropdown-toggle user-header-dropdown-toggle header_title " uib-dropdown-toggle role="button ">
+              <img ng-src="{{authentication.user.profileImageURL}} " alt="{{authentication.user.displayName}} " class="header-profile-image " />
+              <span ng-bind="authentication.user.firstName "></span> <b class="caret "></b>
             </a>
-            <ul class="dropdown-menu" role="menu">
-              <li ui-sref-active="active" ng-repeat="item in accountMenu.items">
-                <a ui-sref="{{item.state}}" ng-bind="item.title" ng-hide="(authentication.user.provider == 'fb'|| authentication.user.provider == 'gmail') && (item.title == 'Change Password')"></a>
+            <ul class="dropdown-menu " role="menu ">
+              <li ui-sref-active="active " ng-repeat="item in accountMenu.items ">
+                <a ui-sref="{{item.state}} " ng-bind="item.title " ng-hide="(authentication.user.provider=='fb' || authentication.user.provider=='gmail' ) && (item.title=='Change Password' ) "></a>
               </li>
-              <li ui-sref-active="active" ng-show="authentication.user.roles.indexOf('admin')==1">
-                <a ui-sref="deactiveProducts">Deactive Products</a>
+              <li ui-sref-active="active " ng-show="authentication.user.roles.indexOf( 'admin')==1 ">
+                <a ui-sref="deactiveProducts ">Deactive Products</a>
               </li>
-              <li ui-sref-active="active" ng-show="authentication.user.roles.indexOf('admin')==1">
-                <a ui-sref="cleanUpInactive">CleanUp Inactive Products</a>
+              <li ui-sref-active="active " ng-show="authentication.user.roles.indexOf( 'admin')==1 ">
+                <a ui-sref="cleanUpInactive ">CleanUp Inactive Products</a>
               </li>
-              <li class="divider hidden-xs"></li>
+              <li class="divider hidden-xs "></li>
               <li>
-                <a ng-click="signout()" style="cursor:pointer;">Signout</a>
+                <a ng-click="signout() " style="cursor:pointer; ">Signout</a>
               </li>
             </ul>
           </div>
@@ -92,32 +92,32 @@
   </div>
 
 
-  <div style="background-color:#ffffff;">
+  <div style="background-color:#ffffff; ">
     <!--   Angular material     -->
-    <div class="hidden-md hidden-lg">
+    <div class="hidden-md hidden-lg ">
 
-      <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" style="height:550px;">
-        <md-toolbar class="md-theme-indigo row" style="background:white;padding-left: 41px;">
-          <span class="col-xs-offset-10 glyphicon glyphicon-chevron-left side_nav_header_arrow" ng-click="toggleLeft()"></span>
-          <a ui-sref="home" class=" navbar-brand"><img src="modules/core/client/img/brand/logo.png" class="logo col-xs-6" ng-click="toggleLeft()"></a>
+      <md-sidenav class="md-sidenav-left md-whiteframe-4dp " md-component-id="left " style="height:550px; ">
+        <md-toolbar class="md-theme-indigo row " style="background:white;padding-left: 41px; ">
+          <span class="col-xs-offset-10 glyphicon glyphicon-chevron-left side_nav_header_arrow " ng-click="toggleLeft() "></span>
+          <a ui-sref="home " class=" navbar-brand "><img src="modules/core/client/img/brand/logo.png " class="logo col-xs-6 " ng-click="toggleLeft() "></a>
 
         </md-toolbar>
         <hr>
         <md-content>
-          <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;margin:0px;">
-            <li ui-sref-active="active">
-              <a ui-sref="home" class="header-title-names" ng-class="{'removeActive_Mobile':(($state.current.name!='home'))}" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">HOME<i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
+          <ul class="nav navbar-nav navbar-right " style="margin-top: 10px;margin:0px; ">
+            <li ui-sref-active="active ">
+              <a ui-sref="home " class="header-title-names " ng-class="{ 'removeActive_Mobile':(($state.current.name!='home' ))} " style="text-align:left;border-bottom:none; " ng-click="toggleLeft() ">HOME<i class="fa fa-angle-up sideNave_icons " aria-hidden="true "></i></a>
             </li>
 
-            <li ui-sref-active="active">
-              <a ui-sref="home.companies.products" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">ALL PRODUCTS <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
+            <li ui-sref-active="active ">
+              <a ui-sref="home.companies.products " class="header-title-names " style="text-align:left;border-bottom:none; " ng-click="toggleLeft() ">ALL PRODUCTS <i class="fa fa-angle-up sideNave_icons " aria-hidden="true "></i></a>
             </li>
 
-            <li ui-sref-active="active">
-              <a href="http://blog.thingsberry.com" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">BLOG <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
+            <li ui-sref-active="active ">
+              <a href="http://blog.thingsberry.com " class="header-title-names " style="text-align:left;border-bottom:none; " ng-click="toggleLeft() ">BLOG <i class="fa fa-angle-up sideNave_icons " aria-hidden="true "></i></a>
             </li>
 
-            <li ui-sref-active="active" ng-hide="authentication.user.roles.indexOf('admin') > -1">
+            <li ui-sref-active="active " ng-hide="authentication.user.roles.indexOf( 'admin')> -1">
               <a ui-sref="getListed" class="header-title-names" style="text-align:left;border-bottom:none;" ng-click="toggleLeft()">GET LISTED <i class="fa fa-angle-up sideNave_icons" aria-hidden="true"></i></a>
             </li>
             <li ui-sref-active="active" ng-show="authentication.user.roles.indexOf('admin') > -1">

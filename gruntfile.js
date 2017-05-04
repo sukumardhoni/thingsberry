@@ -118,7 +118,7 @@ module.exports = function (grunt) {
       production: {
         files: {
           'public/dist/application.js': defaultAssets.client.js,
-          'public/dist/alljs.js': defaultAssets.client.lib.js
+          'public/dist/externaljs.js': defaultAssets.client.lib.js
         }
       }
     },
@@ -129,7 +129,7 @@ module.exports = function (grunt) {
         },
         files: {
           'public/dist/application.min.js': 'public/dist/application.js',
-          'public/dist/alljs.min.js': 'public/dist/alljs.js',
+          'public/dist/externaljs.min.js': 'public/dist/externaljs.js',
         }
       }
     },
@@ -137,7 +137,7 @@ module.exports = function (grunt) {
       combine: {
         files: {
           'public/dist/application.min.css': defaultAssets.client.css,
-          'public/dist/allcss.min.css': defaultAssets.client.lib.css
+          'public/dist/externalcss.min.css': defaultAssets.client.lib.css
         }
       }
     },

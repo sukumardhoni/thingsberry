@@ -32,8 +32,8 @@ module.exports = {
           'public/lib/toastr/toastr.min.js',
           'public/lib/ng-tags-input/ng-tags-input.min.js'
         ],*/
-      css: 'public/dist/allcss.min.css',
-      js: 'public/dist/alljs.min.js'
+      css: 'public/dist/externalcss.min.css',
+      js: 'public/dist/externaljs.min.js'
     },
     css: 'public/dist/application.min.css',
     js: 'public/dist/application.min.js'

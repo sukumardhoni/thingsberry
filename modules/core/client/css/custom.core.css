@@ -1372,6 +1372,11 @@ div#services_block:hover {
   /*width: 225px !important;*/
 }
 
+.subscribe-btn {
+  background-color: darkgrey !important;
+  color: white !important;
+}
+
 .ribbon {
   position: absolute;
   /* right: -5px; */
