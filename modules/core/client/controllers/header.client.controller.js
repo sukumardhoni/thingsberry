@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav', 'SubscribeService', 'NotificationFactory', '$rootScope',
-  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav, SubscribeService, NotificationFactory, $rootScope) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav', 'SubscribeService', 'NotificationFactory', '$rootScope', '$mdDialog',
+  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav, SubscribeService, NotificationFactory, $rootScope, $mdDialog) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
@@ -52,9 +52,18 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       }, "slow");
     }
 
-    $scope.toggleLeft = function () {
-      $mdSidenav('left').toggle();
-    };
+    /*  $scope.toggleLeft = function () {
+        $mdSidenav('left').isOpen();
+      };*/
+
+    $scope.toggleLeft = buildToggler('left');
+
+    function buildToggler(navID) {
+      return function () {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav(navID).toggle()
+      };
+    }
 
     $scope.date1 = new Date();
     $scope.showBoxOne = false;
@@ -65,11 +74,8 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       } else {
         $scope.showBoxOne = !$scope.showBoxOne;
       }
-
       // console.log($state.current.name)
     }
-
-
 
     $scope.subscribe = {};
     $scope.subscribeEmail = function () {
