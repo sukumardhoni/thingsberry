@@ -3580,8 +3580,8 @@ angular.module('core').controller('ContactUsController', ['$scope', 'Authenticat
 
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav', 'SubscribeService', 'NotificationFactory', '$rootScope',
-  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav, SubscribeService, NotificationFactory, $rootScope) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', '$http', '$localStorage', '$mdSidenav', 'SubscribeService', 'NotificationFactory', '$rootScope', '$mdDialog',
+  function ($scope, $state, Authentication, Menus, $http, $localStorage, $mdSidenav, SubscribeService, NotificationFactory, $rootScope, $mdDialog) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
@@ -3590,12 +3590,29 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       if (($localStorage.thingsberySubscribe.thingsberry_subscriber == "y") && ($localStorage.thingsberySubscribe.closeSubscribeForm = "y")) {
         $scope.showTopFooBar = false;
       } else {
-        $scope.showTopFooBar = true;
+        $scope.showTopFooBar = false;
         $scope.alreadySubScribedTxt = false;
       }
     } else {
       $scope.showTopFooBar = true;
       $scope.alreadySubScribedTxt = false;
+    }
+
+    $scope.closeSubScribe = function () {
+      // console.log("CLICKING");
+      if ($localStorage.thingsberySubscribe) {
+        if ($localStorage.thingsberySubscribe.thingsberry_subscriber == "y") {
+          $localStorage.thingsberySubscribe.closeSubscribeForm = "y";
+        } else {
+          $localStorage.thingsberySubscribe.thingsberry_subscriber == "N"
+          $localStorage.thingsberySubscribe.closeSubscribeForm = "y";
+        }
+      } else {
+        $localStorage.thingsberySubscribe = {
+          thingsberry_subscriber: "N",
+          closeSubscribeForm: "y"
+        }
+      }
     }
 
     $scope.foobarStatus = function () {
@@ -3615,9 +3632,18 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       }, "slow");
     }
 
-    $scope.toggleLeft = function () {
-      $mdSidenav('left').toggle();
-    };
+    /*  $scope.toggleLeft = function () {
+        $mdSidenav('left').isOpen();
+      };*/
+
+    $scope.toggleLeft = buildToggler('left');
+
+    function buildToggler(navID) {
+      return function () {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav(navID).toggle()
+      };
+    }
 
     $scope.date1 = new Date();
     $scope.showBoxOne = false;
@@ -3628,51 +3654,45 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       } else {
         $scope.showBoxOne = !$scope.showBoxOne;
       }
-
       // console.log($state.current.name)
     }
-
-
 
     $scope.subscribe = {};
     $scope.subscribeEmail = function () {
       // console.log("SUBSCRIBER MAIL : "+JSON.stringify(subscriberMail));
       // console.log("SUBSCRIBER MAIL : " + $scope.subscribe.email);
       // console.log("SUBSCRIBER MAIL : " + JSON.stringify($scope.authentication.user));
-      if ($scope.subscribe.email != undefined) {
-        SubscribeService.send($scope.subscribe, successCalback, errorCalback);
+      SubscribeService.send($scope.subscribe, successCalback, errorCalback);
 
-        function successCalback(res) {
-          // console.log('Success while sending the Contactus details : ' + JSON.stringify(res.length));
-          if (res.length != 0) {
-            // console.log("length is there");
-            NotificationFactory.success('Thank you for subscribing for product updates with ' + res.email);
+      function successCalback(res) {
+        // console.log('Success while sending the Contactus details : ' + JSON.stringify(res.length));
+        if (res.length != 0) {
+          // console.log("length is there");
+          NotificationFactory.success('Thank you for subscribing for product updates with ' + res.email);
 
-            $localStorage.thingsberySubscribe = {
-                thingsberry_subscriber: "y",
-                closeSubscribeForm: "N"
-              }
-              // $localStorage.thingsberry_subscriber = "y";
-            $scope.showSubscribeForm = false;
+          $localStorage.thingsberySubscribe = {
+              thingsberry_subscriber: "y",
+              closeSubscribeForm: "y"
+            }
+            // $localStorage.thingsberry_subscriber = "y";
+          $scope.showSubscribeForm = false;
 
-            $scope.subscribeForm.$setPristine();
-            $scope.subscribeForm.$setUntouched();
-          } else {
-            //  console.log("length is 0");
-            $scope.alreadySubScribedTxt = true;
-          }
-
-
-        }
-
-        function errorCalback(res) {
-          // console.log("length is 0");
-          // console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
+          $scope.subscribeForm.$setPristine();
+          $scope.subscribeForm.$setUntouched();
+        } else {
+          //  console.log("length is 0");
           $scope.alreadySubScribedTxt = true;
-          //vm.error = res.data.message;
-          //NotificationFactory.error('Failed to save Product details...', res.data.message);
         }
 
+
+      }
+
+      function errorCalback(res) {
+        // console.log("length is 0");
+        // console.log('Error while sending the Contactus details : ' + JSON.stringify(res));
+        $scope.alreadySubScribedTxt = true;
+        //vm.error = res.data.message;
+        //NotificationFactory.error('Failed to save Product details...', res.data.message);
       }
     }
 
