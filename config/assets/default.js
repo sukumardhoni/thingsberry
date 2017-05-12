@@ -35,7 +35,6 @@ module.exports = {
         'public/lib/toastr/toastr.js',
         'public/lib/ng-tags-input/ng-tags-input.min.js',
         'public/lib/hello/dist/hello.all.js',
-        'public/lib/owl.carousel/dist/owl.carousel.min.js',
         'public/lib/angular-material/angular-material.js',
         'public/lib/angular-aria/angular-aria.js',
         'public/lib/angular-socialshare/dist/angular-socialshare.min.js',
