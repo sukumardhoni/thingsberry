@@ -3068,6 +3068,7 @@ angular.module('core').directive('whenScrolled', ["$document", "$state", functio
     }
   };
 }]);
+
 (function () {
   'use strict';
 
