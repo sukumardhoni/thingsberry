@@ -11,7 +11,7 @@ angular.module('core').directive('whenScrolled', function ($document, $state) {
           // console.log("scrollTop: " + doc.scrollTop);
           //  console.log("scrolloffsetHeight: " + doc.offsetHeight);
           //console.log("spinner: " + attrs.whenScrolled);
-          if (doc.scrollTop + doc.offsetHeight > doc.scrollHeight - parseInt(300)) {
+          if ((doc.scrollTop + doc.offsetHeight > doc.scrollHeight - parseInt(300)) || (window.scrollY + doc.offsetHeight > doc.scrollHeight - parseInt(300))) {
             // console.log("@@@### scroll triggered: ");
             // if (attrs.whenScrolled == 'LoadMoreProducts()') {
             scope.$apply(attrs.whenScrolled);
