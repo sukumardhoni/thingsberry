@@ -145,7 +145,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             };
             // console.log('$scope fuser details :' + JSON.stringify($scope.fUser));
             Users.Signup.create($scope.fUser).$promise.then(function (res) {
-              console.log('##users.signup.create response :' + JSON.stringify(res));
+              // console.log('##users.signup.create response :' + JSON.stringify(res));
               if (res.type === false) {
                 //  console.log('@@ res.type is :'+res.type);
                 $scope.errMsg = res.data;
