@@ -3068,6 +3068,7 @@ angular.module('core').directive('whenScrolled', ["$document", "$state", functio
     }
   };
 }]);
+
 (function () {
   'use strict';
 
@@ -5567,7 +5568,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             };
             // console.log('$scope fuser details :' + JSON.stringify($scope.fUser));
             Users.Signup.create($scope.fUser).$promise.then(function (res) {
-              // console.log('##users.signup.create response :' + JSON.stringify(res));
+              console.log('##users.signup.create response :' + JSON.stringify(res));
               if (res.type === false) {
                 //  console.log('@@ res.type is :'+res.type);
                 $scope.errMsg = res.data;
@@ -5579,7 +5580,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
                 $scope.populateUserLocally(res);
                 //  console.log('@@ response in fb')
               }
-            }).catch(function (err) {
+            }, function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
             });
           }, function (data, status) {
@@ -5623,7 +5624,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
                 $scope.errMsg = false;
                 $scope.populateUserLocally(res);
               }
-            }).catch(function (err) {
+            }, function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
             });
           }, function (data, status) {
