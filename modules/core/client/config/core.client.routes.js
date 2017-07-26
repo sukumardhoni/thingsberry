@@ -16,7 +16,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       .state('home', {
         url: '/',
         templateUrl: 'modules/core/client/views/home.client.view.html'
-          /*templateUrl: 'modules/core/client/views/new-home.client.view.html'*/
+        /*templateUrl: 'modules/core/client/views/new-home.client.view.html'*/
       })
       .state('aboutus', {
         url: '/aboutus',
@@ -24,6 +24,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         data: {
           pageTitle: 'About ThingsBerry'
         }
+      })
+      .state('sendWebNotifications', {
+        url: '/send-notifications',
+        templateUrl: 'modules/core/client/views/sendNotifications.html',
+        controller: 'HomeController'
       })
       .state('blog', {
         url: '/blog',

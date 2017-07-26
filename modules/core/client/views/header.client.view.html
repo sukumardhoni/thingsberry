@@ -109,6 +109,9 @@
               <li ui-sref-active="active " ng-show="authentication.user.roles.indexOf( 'admin')==1 ">
                 <a ui-sref="cleanUpInactive ">CleanUp Inactive Products</a>
               </li>
+              <li ui-sref-active="active " ng-show="authentication.user.roles.indexOf( 'admin')==1 ">
+                <a ui-sref="sendWebNotifications ">Send Notifications</a>
+              </li>
               <li class="divider hidden-xs "></li>
               <li>
                 <a ng-click="signout() " style="cursor:pointer; ">Signout</a>
@@ -290,13 +293,14 @@
 </div>
 
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     // scroll body to 0px on click
-    $(".header_search_icon").click(function () {
+    $(".header_search_icon").click(function() {
       $("html, body").animate({
         scrollTop: 0
       }, 800);
       return false;
     })
   });
+
 </script>

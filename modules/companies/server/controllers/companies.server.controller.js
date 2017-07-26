@@ -18,6 +18,8 @@ var path = require('path'),
   hh = require('http-https'),
   Promise = require("bluebird"),
   checkip = require('check-ip-address'),
+  Subscription = mongoose.model('NotificationSubscriptions'),
+  webpush = require('web-push'),
   moment = require('moment'),
   momentTimezone = require('moment-timezone');
 require('pkginfo')(module, 'name', 'description', 'version');
@@ -56,6 +58,85 @@ exports.live = function (req, res) {
     'message': 'api is alive !'
   }, module.exports));
 };
+
+
+
+exports.addDataToSubscriptionDb = function (req, res) {
+  console.log("@@@ COMING TO ADD DATA TO SUB DB : " + JSON.stringify(req.body))
+  var subscription = new Subscription(req.body);
+  subscription.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log("@@@ COMING TO ADD DATA TO SUB DB : " + JSON.stringify(subscription))
+      res.json(subscription);
+    }
+  });
+};
+
+exports.sendWebNotifications = function (req, res) {
+  console.log("@@@ COMING TO sendWebNotifications : " + JSON.stringify(req.body))
+  var dataToSend = req.body;
+  Subscription.find().exec(function (err, subscribers) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log("subscribers data : " + JSON.stringify(subscribers))
+      for (var k = 0; k < subscribers.length; k++) {
+        console.log("FOR LOOP : " + JSON.stringify(subscribers[k]))
+        var subscriberEndPointObj = {
+          "endpoint": subscribers[k].endpoint,
+          "keys": {
+            "p256dh": subscribers[k].keys.p256dh,
+            "auth": subscribers[k].keys.auth
+          }
+        }
+        // var promiseChain = Promise.resolve();
+        console.log("FULL OBJ : " + JSON.stringify(subscriberEndPointObj))
+        /*var vapidKeys = {
+        	publicKey: 'BIA7gT2hX51RX7-ZWGBHsfd0egwvGTQP2Etd_s_a4GXdxRughLZcNcqoa3Q5j_cR73GrI1gDznk0cOqh6JjDUZU',
+        	privateKey: '_H4HeU927IDdXPdg7xSy8-Nmwv2DRLfTCBjw7pcqZq8'
+        };*/
+
+        var vapidKeys = {
+          publicKey: 'BOPtwxsHsba4hBA3_yOQ2zrHT9U3haDNDwvxOrFCjqcbeZxeHYzgJicrydDBx1iJRjSd-Zls0AYtLLZkX_Uhe18',
+          privateKey: 'QSDZLpwTuClPCX2nFW9glLPyeEQMEkx5PUqkcLi2Fv8'
+        };
+        console.log("@@@#########", vapidKeys.publicKey, vapidKeys.privateKey);
+        webpush.setVapidDetails(
+          'mailto:midhunsai@globaltechminds.com',
+          vapidKeys.publicKey,
+          vapidKeys.privateKey
+        );
+        var data = JSON.stringify(dataToSend);
+        console.log("$$$$$$$$ : " + data)
+        webpush.sendNotification(subscriberEndPointObj, data, {
+            TTL: 600
+          }).then(function (res) {
+            console.log("$$$$$$$ : ", res)
+          })
+          .catch(function (err) {
+            if (err.statusCode === 410) {
+              // return deleteSubscriptionFromDatabase(subscription._id);
+
+              console.log('Subscription is  valid: ');
+            } else {
+              console.log('Subscription is no longer valid: ', err);
+            }
+          });
+      }
+      res.json({
+        message: "succesfully got subscribers data"
+      });
+      // return promiseChain
+    }
+  });
+}
+
 
 /**
  * Company Products status
@@ -253,7 +334,8 @@ exports.read = function (req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Company model.
   company.isCurrentUserOwner = req.user && company.user && company.user._id.toString() === req.user._id.toString()
 
-  ? true: false;
+    ?
+    true : false;
 
   res.json(company);
 };

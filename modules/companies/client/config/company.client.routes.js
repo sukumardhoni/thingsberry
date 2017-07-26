@@ -4,7 +4,7 @@
   angular
     .module('core.routes')
     .config(routeConfig)
-    .run(function ($state, $rootScope, $localStorage) {
+    .run(function ($state, $rootScope, $localStorage, WebNotificationSubscription) {
       $rootScope.$state = $state;
       $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         // console.log("to state : " + JSON.stringify(toState));
@@ -16,6 +16,74 @@
           }, 200);
         }
       })
+
+
+      if ('serviceWorker' in navigator && 'PushManager' in window) {
+        console.log('Service Worker and Push is supported');
+
+        Notification.requestPermission(function (permission) {
+          console.log("request premission : " + JSON.stringify(permission))
+
+          if (Notification.permission === 'granted') {
+
+            var applicationServerPublicKey = 'BOPtwxsHsba4hBA3_yOQ2zrHT9U3haDNDwvxOrFCjqcbeZxeHYzgJicrydDBx1iJRjSd-Zls0AYtLLZkX_Uhe18';
+
+            navigator.serviceWorker.register('sw.js').then(function (reg) {
+                console.log('Service Worker is registered', reg);
+
+                navigator.serviceWorker.ready.then(function (register) {
+                  register.pushManager.getSubscription().then(function (userSubscription) {
+
+                    function urlB64ToUint8Array(base64String) {
+                      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+                      const base64 = (base64String + padding)
+                        .replace(/\-/g, '+')
+                        .replace(/_/g, '/');
+
+                      const rawData = window.atob(base64);
+                      const outputArray = new Uint8Array(rawData.length);
+
+                      for (var f = 0; f < rawData.length; ++f) {
+                        outputArray[f] = rawData.charCodeAt(f);
+                      }
+                      return outputArray;
+                    }
+                    console.log("subscription obj : " + userSubscription)
+                    if ((userSubscription == undefined) || (userSubscription == null)) {
+                      console.log("@@user not subscribed")
+                      var applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+                      register.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: applicationServerKey
+                      }).then(function (subscription) {
+                        console.log("user now subscribed to push messages : " + JSON.stringify(subscription))
+
+                        WebNotificationSubscription.send(subscription, function sucessCalBck(res) {
+                          console.log("@##$$$%% Coming to successfull calback : " + JSON.stringify(res))
+                        }, function errCalBck(err) {
+                          console.log("@##$$$%% Coming to error calback : " + JSON.stringify(err))
+                        })
+
+                      }).catch(function (error) {
+                        console.error('error while subscribing', error);
+                      });
+
+                    } else {
+                      console.log("@@user subscribed")
+                    }
+                  })
+                })
+              })
+              .catch(function (error) {
+                console.error('Service Worker Error', error);
+              });
+          }
+        })
+      } else {
+        console.warn('Push messaging is not supported');
+      }
+
+
     });
 
   routeConfig.$inject = ['$stateProvider'];
@@ -182,22 +250,22 @@
       })
 
 
-    .state('home.companies.products.detail', {
-      url: '/:companyId',
-      views: {
-        'single-product': {
-          templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
-          controller: 'CompanyController',
-          controllerAs: 'vm',
-          resolve: {
-            companyResolve: getCompany
+      .state('home.companies.products.detail', {
+        url: '/:companyId',
+        views: {
+          'single-product': {
+            templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
+            controller: 'CompanyController',
+            controllerAs: 'vm',
+            resolve: {
+              companyResolve: getCompany
+            }
           }
+        },
+        data: {
+          pageTitle: 'Company {{ companyResolve.Proname }}'
         }
-      },
-      data: {
-        pageTitle: 'Company {{ companyResolve.Proname }}'
-      }
-    });
+      });
   }
 
   getCompany.$inject = ['$stateParams', 'CompanyService'];

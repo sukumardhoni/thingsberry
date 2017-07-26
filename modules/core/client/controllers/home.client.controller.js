@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts', 'CleanUpInactiveService', 'ListOfProducts', 'NotificationFactory','ComingSoonProducts',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts, CleanUpInactiveService, ListOfProducts, NotificationFactory,ComingSoonProducts) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts', 'CleanUpInactiveService', 'ListOfProducts', 'NotificationFactory', 'ComingSoonProducts', 'sendNotificationsService',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts, CleanUpInactiveService, ListOfProducts, NotificationFactory, ComingSoonProducts, sendNotificationsService) {
 
     var vm = this;
 
@@ -188,7 +188,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-   $scope.tbClients = function () {
+    $scope.tbClients = function () {
       $scope.clients = [{
           "description": "",
           "clientUrl": "https://www.fitbit.com",
@@ -295,9 +295,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     };
 
-     $scope.comingSoonPrdcts=function(){
+    $scope.comingSoonPrdcts = function () {
       ComingSoonProducts.query({}, function (res) {
-            $scope.comingSoonProductsRes = res;
+        $scope.comingSoonProductsRes = res;
         // console.log('the length:' + JSON.stringify($scope.featuredProducts.length));
         for (var l = 0; l < ($scope.comingSoonProductsRes.length); l++) {
           $scope.comingSoonProdsAddSlide2($scope.comingSoonProductsRes[l]);
@@ -309,7 +309,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           $scope.comingSoonProdsAddSlide3($scope.comingSoonProductsRes[m]);
         }
         $scope.comingSoonPrdctsInSM = $scope.listToMatrix($scope.cmngSoonSlide3, 2);
-         // console.log('the resultant matrix' + JSON.stringify($scope.sampleInSm));
+        // console.log('the resultant matrix' + JSON.stringify($scope.sampleInSm));
 
         for (var n = 0; n < $scope.comingSoonProductsRes.length; n++) {
           $scope.comingSoonProdsAddSlide4($scope.comingSoonProductsRes[n]);
@@ -337,7 +337,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var slides2 = $scope.slides2 = [];
     var slides3 = $scope.slides3 = [];
     var slides4 = $scope.slides4 = [];
-     var cmngSoonSlide2 = $scope.cmngSoonSlide2 = [];
+    var cmngSoonSlide2 = $scope.cmngSoonSlide2 = [];
     var cmngSoonSlide3 = $scope.cmngSoonSlide3 = [];
     var cmngSoonSlide4 = $scope.cmngSoonSlide4 = [];
     var currIndex = 0;
@@ -577,6 +577,24 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
        })
 
      };*/
+
+    $scope.sendNotifications = function () {
+      console.log("Send notifications : " + JSON.stringify($scope.webNotification))
+
+      var notificationObj = {
+        title: $scope.webNotification.title,
+        message: $scope.webNotification.msg,
+        icon: 'https://lh3.googleusercontent.com/BCOE0vqCfr8aqpIKEF7QEt-qa7p8I7KDg58Juz6M6_YGb4l7phrO2vMvi_SDy10ucQ=w300',
+        url: $scope.webNotification.url
+      }
+
+      sendNotificationsService.send(notificationObj, function sucsCalBck(res) {
+        console.log("successfull calback : " + JSON.stringify(res))
+        $scope.webNotification = {};
+      }, function errCalBck(err) {
+        console.log("error of sending notification : " + JSON.stringify(err))
+      })
+    }
 
 
         }]);

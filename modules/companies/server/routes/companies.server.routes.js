@@ -34,7 +34,7 @@ module.exports = function (app) {
   app.route('/api/companies/frequentProducts')
     .get(companies.frequentProducts);
 
-    app.route('/api/comingSoonPrdcts')
+  app.route('/api/comingSoonPrdcts')
     .get(cache.route(), companies.comingSoonPrdctsList);
 
   app.route('/api/listOfProducts/:adminStatus/:pageId')
@@ -58,6 +58,13 @@ module.exports = function (app) {
 
   app.route('/api/premiumProducts')
     .get(cache.route(), companies.premiumProductsList);
+
+  app.route('/api/add-dataTo-subscriptionDb')
+    .post(companies.addDataToSubscriptionDb);
+
+  app.route('/api/send-notificationTo-users')
+    .post(companies.sendWebNotifications);
+
 
   app.route('/api/featuredProducts')
     .get(cache.route(), companies.featuredProductsList);

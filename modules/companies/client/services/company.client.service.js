@@ -11,9 +11,11 @@
     .factory('CategoryServiceRightPanel', CategoryServiceRightPanel)
     .factory('FrequentlyProducts', FrequentlyProducts)
     .factory('CleanUpInactiveService', CleanUpInactiveService)
+    .factory('WebNotificationSubscription', WebNotificationSubscription)
+    .factory('sendNotificationsService', sendNotificationsService)
 
 
-  .factory('FirebaseApp', function ($q) {
+    .factory('FirebaseApp', function ($q) {
       var config = {
         apiKey: "AIzaSyDOggDlAx19ssyKUGK5okP0SNUNFNe1mXU",
         authDomain: "thingsberry-cbc0e.firebaseapp.com",
@@ -48,30 +50,30 @@
 
 
 
-  .factory('CompanyServiceUpdate', ['$resource', function ($resource) {
-    return {
-      UpdateProduct: $resource('api/companies/:companyId', {
-        companyId: '@companyId'
-      }, {
-        update: {
-          method: 'PUT'
-        }
-      }),
-      DeleteProduct: $resource('api/companies/:companyId', {
-        companyId: '@companyId'
-      }, {
-        remove: {
-          method: 'DELETE'
-        }
-      }),
-      getProduct: $resource('api/companies/:companyId', {
-        companyId: '@companyId'
-      }, {
-        query: {
-          method: 'GET'
-        }
-      })
-    }
+    .factory('CompanyServiceUpdate', ['$resource', function ($resource) {
+      return {
+        UpdateProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          update: {
+            method: 'PUT'
+          }
+        }),
+        DeleteProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          remove: {
+            method: 'DELETE'
+          }
+        }),
+        getProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          query: {
+            method: 'GET'
+          }
+        })
+      }
 }]);
 
 
@@ -100,6 +102,28 @@
       }
     });
   };
+
+  WebNotificationSubscription.$inject = ['$resource'];
+
+  function WebNotificationSubscription($resource) {
+    return $resource('api/add-dataTo-subscriptionDb', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+  };
+
+  sendNotificationsService.$inject = ['$resource'];
+
+  function sendNotificationsService($resource) {
+    return $resource('api/send-notificationTo-users', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+  }
+
+
 
   CategoryServiceRightPanel.$inject = ['$resource'];
 
