@@ -584,7 +584,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       var notificationObj = {
         title: $scope.webNotification.title,
         message: $scope.webNotification.msg,
-        icon: 'https://lh3.googleusercontent.com/BCOE0vqCfr8aqpIKEF7QEt-qa7p8I7KDg58Juz6M6_YGb4l7phrO2vMvi_SDy10ucQ=w300',
+        icon: 'https://www.thingsberry.com/modules/core/client/img/brand/Thingsberry_fav.png',
         url: $scope.webNotification.url
       }
 
