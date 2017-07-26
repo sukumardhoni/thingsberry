@@ -19,17 +19,17 @@
 
 
       if ('serviceWorker' in navigator && 'PushManager' in window) {
-        console.log('Service Worker and Push is supported');
+        // console.log('Service Worker and Push is supported');
 
         Notification.requestPermission(function (permission) {
-          console.log("request premission : " + JSON.stringify(permission))
+          // console.log("request premission : " + JSON.stringify(permission))
 
           if (Notification.permission === 'granted') {
 
             var applicationServerPublicKey = 'BOPtwxsHsba4hBA3_yOQ2zrHT9U3haDNDwvxOrFCjqcbeZxeHYzgJicrydDBx1iJRjSd-Zls0AYtLLZkX_Uhe18';
 
             navigator.serviceWorker.register('sw.js').then(function (reg) {
-                console.log('Service Worker is registered', reg);
+                //  console.log('Service Worker is registered', reg);
 
                 navigator.serviceWorker.ready.then(function (register) {
                   register.pushManager.getSubscription().then(function (userSubscription) {
@@ -48,20 +48,20 @@
                       }
                       return outputArray;
                     }
-                    console.log("subscription obj : " + userSubscription)
+                    //  console.log("subscription obj : " + userSubscription)
                     if ((userSubscription == undefined) || (userSubscription == null)) {
-                      console.log("@@user not subscribed")
+                      //  console.log("@@user not subscribed")
                       var applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
                       register.pushManager.subscribe({
                         userVisibleOnly: true,
                         applicationServerKey: applicationServerKey
                       }).then(function (subscription) {
-                        console.log("user now subscribed to push messages : " + JSON.stringify(subscription))
+                        //  console.log("user now subscribed to push messages : " + JSON.stringify(subscription))
 
                         WebNotificationSubscription.send(subscription, function sucessCalBck(res) {
-                          console.log("@##$$$%% Coming to successfull calback : " + JSON.stringify(res))
+                          //  console.log("@##$$$%% Coming to successfull calback : " + JSON.stringify(res))
                         }, function errCalBck(err) {
-                          console.log("@##$$$%% Coming to error calback : " + JSON.stringify(err))
+                          console.log(" error calback : " + JSON.stringify(err))
                         })
 
                       }).catch(function (error) {
@@ -69,7 +69,7 @@
                       });
 
                     } else {
-                      console.log("@@user subscribed")
+                      // console.log("@@user subscribed")
                     }
                   })
                 })

@@ -1,15 +1,15 @@
 'use strict';
-console.log("IN SW.js");
+//console.log("IN SW.js");
 
 /*Notification.onclick = function (event) {
   console.log("NOTIFICATION : ", event)
 }*/
 
 self.addEventListener('push', function (event) {
-  console.log('[Service Worker] Push Received.');
+  // console.log('[Service Worker] Push Received.');
   var data = event.data.json();
-  console.log(data);
-  console.log(event.data.text());
+  // console.log(data);
+  // console.log(event.data.text());
   var d = event.data.text();
 
   var title = data.title;
@@ -26,7 +26,7 @@ self.addEventListener('push', function (event) {
 
 self.addEventListener('notificationclick', function (event) {
   // Close notification.
-  console.log("$$$$$$$$$$$ : ", event)
+  // console.log("$$$$$$$$$$$ : ", event)
   event.notification.close();
   event.waitUntil(
     clients.openWindow(event.notification.data.url)

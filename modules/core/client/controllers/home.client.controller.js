@@ -579,7 +579,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
      };*/
 
     $scope.sendNotifications = function () {
-      console.log("Send notifications : " + JSON.stringify($scope.webNotification))
+      // console.log("Send notifications : " + JSON.stringify($scope.webNotification))
 
       var notificationObj = {
         title: $scope.webNotification.title,
@@ -589,7 +589,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       }
 
       sendNotificationsService.send(notificationObj, function sucsCalBck(res) {
-        console.log("successfull calback : " + JSON.stringify(res))
+        //  console.log("successfull calback : " + JSON.stringify(res))
         $scope.webNotification = {};
       }, function errCalBck(err) {
         console.log("error of sending notification : " + JSON.stringify(err))
