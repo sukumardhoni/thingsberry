@@ -340,7 +340,7 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
   angular
     .module('core.routes')
     .config(routeConfig)
-    .run(["$state", "$rootScope", "$localStorage", function ($state, $rootScope, $localStorage) {
+    .run(["$state", "$rootScope", "$localStorage", "WebNotificationSubscription", function ($state, $rootScope, $localStorage, WebNotificationSubscription) {
       $rootScope.$state = $state;
       $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         // console.log("to state : " + JSON.stringify(toState));
@@ -352,6 +352,74 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
           }, 200);
         }
       })
+
+
+      if ('serviceWorker' in navigator && 'PushManager' in window) {
+        console.log('Service Worker and Push is supported');
+
+        Notification.requestPermission(function (permission) {
+          console.log("request premission : " + JSON.stringify(permission))
+
+          if (Notification.permission === 'granted') {
+
+            var applicationServerPublicKey = 'BOPtwxsHsba4hBA3_yOQ2zrHT9U3haDNDwvxOrFCjqcbeZxeHYzgJicrydDBx1iJRjSd-Zls0AYtLLZkX_Uhe18';
+
+            navigator.serviceWorker.register('sw.js').then(function (reg) {
+                console.log('Service Worker is registered', reg);
+
+                navigator.serviceWorker.ready.then(function (register) {
+                  register.pushManager.getSubscription().then(function (userSubscription) {
+
+                    function urlB64ToUint8Array(base64String) {
+                      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+                      const base64 = (base64String + padding)
+                        .replace(/\-/g, '+')
+                        .replace(/_/g, '/');
+
+                      const rawData = window.atob(base64);
+                      const outputArray = new Uint8Array(rawData.length);
+
+                      for (var f = 0; f < rawData.length; ++f) {
+                        outputArray[f] = rawData.charCodeAt(f);
+                      }
+                      return outputArray;
+                    }
+                    console.log("subscription obj : " + userSubscription)
+                    if ((userSubscription == undefined) || (userSubscription == null)) {
+                      console.log("@@user not subscribed")
+                      var applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+                      register.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: applicationServerKey
+                      }).then(function (subscription) {
+                        console.log("user now subscribed to push messages : " + JSON.stringify(subscription))
+
+                        WebNotificationSubscription.send(subscription, function sucessCalBck(res) {
+                          console.log("@##$$$%% Coming to successfull calback : " + JSON.stringify(res))
+                        }, function errCalBck(err) {
+                          console.log("@##$$$%% Coming to error calback : " + JSON.stringify(err))
+                        })
+
+                      }).catch(function (error) {
+                        console.error('error while subscribing', error);
+                      });
+
+                    } else {
+                      console.log("@@user subscribed")
+                    }
+                  })
+                })
+              })
+              .catch(function (error) {
+                console.error('Service Worker Error', error);
+              });
+          }
+        })
+      } else {
+        console.warn('Push messaging is not supported');
+      }
+
+
     }]);
 
   routeConfig.$inject = ['$stateProvider'];
@@ -518,22 +586,22 @@ ApplicationConfiguration.registerModule('users.admin.routes', ['core.admin.route
       })
 
 
-    .state('home.companies.products.detail', {
-      url: '/:companyId',
-      views: {
-        'single-product': {
-          templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
-          controller: 'CompanyController',
-          controllerAs: 'vm',
-          resolve: {
-            companyResolve: getCompany
+      .state('home.companies.products.detail', {
+        url: '/:companyId',
+        views: {
+          'single-product': {
+            templateUrl: 'modules/companies/client/views/new-tb-single-product.client.view.html',
+            controller: 'CompanyController',
+            controllerAs: 'vm',
+            resolve: {
+              companyResolve: getCompany
+            }
           }
+        },
+        data: {
+          pageTitle: 'Company {{ companyResolve.Proname }}'
         }
-      },
-      data: {
-        pageTitle: 'Company {{ companyResolve.Proname }}'
-      }
-    });
+      });
   }
 
   getCompany.$inject = ['$stateParams', 'CompanyService'];
@@ -3068,6 +3136,7 @@ angular.module('core').directive('whenScrolled', ["$document", "$state", functio
     }
   };
 }]);
+
 (function () {
   'use strict';
 
@@ -3082,9 +3151,11 @@ angular.module('core').directive('whenScrolled', ["$document", "$state", functio
     .factory('CategoryServiceRightPanel', CategoryServiceRightPanel)
     .factory('FrequentlyProducts', FrequentlyProducts)
     .factory('CleanUpInactiveService', CleanUpInactiveService)
+    .factory('WebNotificationSubscription', WebNotificationSubscription)
+    .factory('sendNotificationsService', sendNotificationsService)
 
 
-  .factory('FirebaseApp', ["$q", function ($q) {
+    .factory('FirebaseApp', ["$q", function ($q) {
       var config = {
         apiKey: "AIzaSyDOggDlAx19ssyKUGK5okP0SNUNFNe1mXU",
         authDomain: "thingsberry-cbc0e.firebaseapp.com",
@@ -3119,30 +3190,30 @@ angular.module('core').directive('whenScrolled', ["$document", "$state", functio
 
 
 
-  .factory('CompanyServiceUpdate', ['$resource', function ($resource) {
-    return {
-      UpdateProduct: $resource('api/companies/:companyId', {
-        companyId: '@companyId'
-      }, {
-        update: {
-          method: 'PUT'
-        }
-      }),
-      DeleteProduct: $resource('api/companies/:companyId', {
-        companyId: '@companyId'
-      }, {
-        remove: {
-          method: 'DELETE'
-        }
-      }),
-      getProduct: $resource('api/companies/:companyId', {
-        companyId: '@companyId'
-      }, {
-        query: {
-          method: 'GET'
-        }
-      })
-    }
+    .factory('CompanyServiceUpdate', ['$resource', function ($resource) {
+      return {
+        UpdateProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          update: {
+            method: 'PUT'
+          }
+        }),
+        DeleteProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          remove: {
+            method: 'DELETE'
+          }
+        }),
+        getProduct: $resource('api/companies/:companyId', {
+          companyId: '@companyId'
+        }, {
+          query: {
+            method: 'GET'
+          }
+        })
+      }
 }]);
 
 
@@ -3171,6 +3242,28 @@ angular.module('core').directive('whenScrolled', ["$document", "$state", functio
       }
     });
   };
+
+  WebNotificationSubscription.$inject = ['$resource'];
+
+  function WebNotificationSubscription($resource) {
+    return $resource('api/add-dataTo-subscriptionDb', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+  };
+
+  sendNotificationsService.$inject = ['$resource'];
+
+  function sendNotificationsService($resource) {
+    return $resource('api/send-notificationTo-users', {}, {
+      send: {
+        method: 'POST'
+      }
+    });
+  }
+
+
 
   CategoryServiceRightPanel.$inject = ['$resource'];
 
@@ -3372,7 +3465,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       .state('home', {
         url: '/',
         templateUrl: 'modules/core/client/views/home.client.view.html'
-          /*templateUrl: 'modules/core/client/views/new-home.client.view.html'*/
+        /*templateUrl: 'modules/core/client/views/new-home.client.view.html'*/
       })
       .state('aboutus', {
         url: '/aboutus',
@@ -3380,6 +3473,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         data: {
           pageTitle: 'About ThingsBerry'
         }
+      })
+      .state('sendWebNotifications', {
+        url: '/send-notifications',
+        templateUrl: 'modules/core/client/views/sendNotifications.html',
+        controller: 'HomeController'
       })
       .state('blog', {
         url: '/blog',
@@ -3759,8 +3857,8 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts', 'CleanUpInactiveService', 'ListOfProducts', 'NotificationFactory','ComingSoonProducts',
-  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts, CleanUpInactiveService, ListOfProducts, NotificationFactory,ComingSoonProducts) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SearchProducts', '$state', 'CategoryService', '$q', 'PremiumProducts', '$timeout', 'ourClients', 'featuredProducts', 'quotes', 'videos', '$sce', 'getDeactiveProducts', 'CleanUpInactiveService', 'ListOfProducts', 'NotificationFactory', 'ComingSoonProducts', 'sendNotificationsService',
+  function ($scope, Authentication, SearchProducts, $state, CategoryService, $q, PremiumProducts, $timeout, ourClients, featuredProducts, quotes, videos, $sce, getDeactiveProducts, CleanUpInactiveService, ListOfProducts, NotificationFactory, ComingSoonProducts, sendNotificationsService) {
 
     var vm = this;
 
@@ -3947,7 +4045,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 
-   $scope.tbClients = function () {
+    $scope.tbClients = function () {
       $scope.clients = [{
           "description": "",
           "clientUrl": "https://www.fitbit.com",
@@ -4054,9 +4152,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     };
 
-     $scope.comingSoonPrdcts=function(){
+    $scope.comingSoonPrdcts = function () {
       ComingSoonProducts.query({}, function (res) {
-            $scope.comingSoonProductsRes = res;
+        $scope.comingSoonProductsRes = res;
         // console.log('the length:' + JSON.stringify($scope.featuredProducts.length));
         for (var l = 0; l < ($scope.comingSoonProductsRes.length); l++) {
           $scope.comingSoonProdsAddSlide2($scope.comingSoonProductsRes[l]);
@@ -4068,7 +4166,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
           $scope.comingSoonProdsAddSlide3($scope.comingSoonProductsRes[m]);
         }
         $scope.comingSoonPrdctsInSM = $scope.listToMatrix($scope.cmngSoonSlide3, 2);
-         // console.log('the resultant matrix' + JSON.stringify($scope.sampleInSm));
+        // console.log('the resultant matrix' + JSON.stringify($scope.sampleInSm));
 
         for (var n = 0; n < $scope.comingSoonProductsRes.length; n++) {
           $scope.comingSoonProdsAddSlide4($scope.comingSoonProductsRes[n]);
@@ -4096,7 +4194,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var slides2 = $scope.slides2 = [];
     var slides3 = $scope.slides3 = [];
     var slides4 = $scope.slides4 = [];
-     var cmngSoonSlide2 = $scope.cmngSoonSlide2 = [];
+    var cmngSoonSlide2 = $scope.cmngSoonSlide2 = [];
     var cmngSoonSlide3 = $scope.cmngSoonSlide3 = [];
     var cmngSoonSlide4 = $scope.cmngSoonSlide4 = [];
     var currIndex = 0;
@@ -4336,6 +4434,24 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
        })
 
      };*/
+
+    $scope.sendNotifications = function () {
+      console.log("Send notifications : " + JSON.stringify($scope.webNotification))
+
+      var notificationObj = {
+        title: $scope.webNotification.title,
+        message: $scope.webNotification.msg,
+        icon: 'https://lh3.googleusercontent.com/BCOE0vqCfr8aqpIKEF7QEt-qa7p8I7KDg58Juz6M6_YGb4l7phrO2vMvi_SDy10ucQ=w300',
+        url: $scope.webNotification.url
+      }
+
+      sendNotificationsService.send(notificationObj, function sucsCalBck(res) {
+        console.log("successfull calback : " + JSON.stringify(res))
+        $scope.webNotification = {};
+      }, function errCalBck(err) {
+        console.log("error of sending notification : " + JSON.stringify(err))
+      })
+    }
 
 
         }]);
@@ -5579,7 +5695,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
                 $scope.populateUserLocally(res);
                 //  console.log('@@ response in fb')
               }
-            }).catch(function (err) {
+            }, function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
             });
           }, function (data, status) {
@@ -5623,7 +5739,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
                 $scope.errMsg = false;
                 $scope.populateUserLocally(res);
               }
-            }).catch(function (err) {
+            }, function (err) {
               alert('Looks like there is an issue with your connectivity, Please try after sometime!');
             });
           }, function (data, status) {
