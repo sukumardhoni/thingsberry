@@ -11,8 +11,7 @@
     "url": "https://github.com/meanjs/mean.git"
   },
   "engines": {
-    "node": ">=v6.10.3",
-    "npm": ">=2.0.0"
+    "node": ">=v6.10.3"
   },
   "scripts": {
     "start": "grunt",
@@ -99,7 +98,7 @@
     "grunt-mocha-istanbul": "~2.4.0",
     "grunt-mocha-test": "~0.12.7",
     "grunt-ng-annotate": "~1.0.1",
-    "grunt-node-inspector": "~0.3.0",
+    "grunt-node-inspector": "~1.0.0",
     "grunt-nodemon": "~0.4.0",
     "grunt-protractor-coverage": "~0.2.15",
     "grunt-protractor-runner": "~2.1.0",
