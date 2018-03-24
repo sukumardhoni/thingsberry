@@ -16,7 +16,6 @@ app/tests/coverage/
 .idea/
 coverage/
 
-package-lock.json
 
 # MEAN.js app and assets
 # ======================
