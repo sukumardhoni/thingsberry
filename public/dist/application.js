@@ -4489,7 +4489,7 @@ angular.module('core')
       },
       templateUrl: 'modules/core/client/views/directive-partials/new-tb-clients-display.html',
       link: function (scope, elem, attrs) {
-        console.log('tbClients directive loaded');
+        console.log('tbClients directive loaded 1');
         // console.log("entering into the clients link furnctions");
         // console.log(scope.clients);
 
